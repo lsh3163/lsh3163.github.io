@@ -19,17 +19,13 @@
 			text-shadow : black 0.2em 0.2em 0.2em;
 			color:white;
 		}
-		.card {
-		  /* Add shadows to create the "card" effect */
-		  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-		  transition: 0.3s;
+		.center {
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 50%;
 		}
-
-		/* On mouse-over, add a deeper shadow */
-		.card:hover {
-		  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-		}
-
+		
 		/* Add some padding inside the card container */
 		.container {
 		  padding: 2px 16px;
@@ -65,7 +61,6 @@
 	  </div>
 	</nav>
 
-
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="text-center">Who am I?</h1>
@@ -74,46 +69,27 @@
 		</div>
 	</div>
 
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Project</h5>
-	        <p class="card-text">컴퓨터 비전, 오디오, 강화학습 등에 대하여 프로젝트를 진행했습니다. </p>
-	        <a href="project.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Study</h5>
-	        <p class="card-text">그래프 뉴럴 네트워크, 양자 컴퓨팅 등에 대하여 공부중입니다. </p>
-	        <a href="study.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
+
+	<div class="container">
+		<div class="project1">
+			<h2 class="text-center">
+				딥러닝을 이용한 유튜브 욕설 자동 필터링 시스템 제작
+			</h2>
+			<a href="http://www.datamarket.kr/xe/board_pdzw77/63632"><p class="text-center"> 유튜브에서 음성 데이터를 추출하고 라벨링한 한국어 욕설 데이터로 욕설을 분류하는 GRU 모델을 설계하였습니다. </p></a>
+			<img src="image/project1.jpg" alt="Smiley face" class="center">
+			<br>
+			<br>
+		</div>
+		<div class="project2">
+			<h2 class="text-center">
+				CycleGAN을 이용한 Makeup Style Transfer
+			</h2>
+			<p class="text-center"> Makeup Dataset 과 CycleGAN을 이용해서 화장을 입히는 모델을 만들어 보았습니다.  </p>
+			<img src="image/project2.jpg" alt="Smiley face" class="center">
+
+		</div>
 	</div>
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Paper</h5>
-	        <p class="card-text">정보과학회 1건, ISMRM 1건이 있습니다. </p>
-	        <a href="paper.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Group</h5>
-	        <p class="card-text">투빅스, 교내 알고리즘 동아리 활동을 했습니다.</p>
-	        <a href="http://www.datamarket.kr/xe/" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	
 
 
 	<footer style="background-color:#000000; color:#ffffff">
@@ -135,7 +111,6 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<!-- Import the main script file -->
-  	<script src="script.js"></script>
+	
 </body>
 </html>

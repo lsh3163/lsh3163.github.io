@@ -19,17 +19,13 @@
 			text-shadow : black 0.2em 0.2em 0.2em;
 			color:white;
 		}
-		.card {
-		  /* Add shadows to create the "card" effect */
-		  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-		  transition: 0.3s;
+		.center {
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 50%;
 		}
-
-		/* On mouse-over, add a deeper shadow */
-		.card:hover {
-		  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-		}
-
+		
 		/* Add some padding inside the card container */
 		.container {
 		  padding: 2px 16px;
@@ -65,7 +61,6 @@
 	  </div>
 	</nav>
 
-
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="text-center">Who am I?</h1>
@@ -74,46 +69,28 @@
 		</div>
 	</div>
 
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Project</h5>
-	        <p class="card-text">컴퓨터 비전, 오디오, 강화학습 등에 대하여 프로젝트를 진행했습니다. </p>
-	        <a href="project.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Study</h5>
-	        <p class="card-text">그래프 뉴럴 네트워크, 양자 컴퓨팅 등에 대하여 공부중입니다. </p>
-	        <a href="study.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
+
+	<div class="container">
+		<div class="paper1">
+			<h2 class="text-center">
+				이미지넷 기반의 적대적 생성 신경망을 이용한 제로 샷 화질 개선
+			</h2>
+			<a href="https://www.dbpia.co.kr/journal/articleDetail?nodeId=NODE09301675"><p class="text-center"> 제로샷 화질개선 모델인 ZSSR에 이미지넷 가중치를 추가하여 성능을 개선하였습니다. </p></a>
+			<img src="image/paper1.jpg" alt="Smiley face" class="center" >
+			<br>
+			<br>
+		</div>
+		<div class="paper2">
+			<h2 class="text-center">
+				ISMRM - ***************
+			</h2>
+			<p class="text-center"> 세브란스에서 진행한 연구로 ISMRM에 1저자로 등재하였습니다.</p></a>
+			<br>
+			<br>
+		</div>
+		
 	</div>
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Paper</h5>
-	        <p class="card-text">정보과학회 1건, ISMRM 1건이 있습니다. </p>
-	        <a href="paper.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Group</h5>
-	        <p class="card-text">투빅스, 교내 알고리즘 동아리 활동을 했습니다.</p>
-	        <a href="http://www.datamarket.kr/xe/" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	
 
 
 	<footer style="background-color:#000000; color:#ffffff">
@@ -135,7 +112,6 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<!-- Import the main script file -->
-  	<script src="script.js"></script>
+	
 </body>
 </html>

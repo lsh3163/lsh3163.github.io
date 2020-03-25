@@ -19,17 +19,13 @@
 			text-shadow : black 0.2em 0.2em 0.2em;
 			color:white;
 		}
-		.card {
-		  /* Add shadows to create the "card" effect */
-		  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-		  transition: 0.3s;
+		.center {
+		  display: block;
+		  margin-left: auto;
+		  margin-right: auto;
+		  width: 50%;
 		}
-
-		/* On mouse-over, add a deeper shadow */
-		.card:hover {
-		  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-		}
-
+		
 		/* Add some padding inside the card container */
 		.container {
 		  padding: 2px 16px;
@@ -65,7 +61,6 @@
 	  </div>
 	</nav>
 
-
 	<div class="container">
 		<div class="jumbotron">
 			<h1 class="text-center">Who am I?</h1>
@@ -74,46 +69,37 @@
 		</div>
 	</div>
 
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Project</h5>
-	        <p class="card-text">컴퓨터 비전, 오디오, 강화학습 등에 대하여 프로젝트를 진행했습니다. </p>
-	        <a href="project.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Study</h5>
-	        <p class="card-text">그래프 뉴럴 네트워크, 양자 컴퓨팅 등에 대하여 공부중입니다. </p>
-	        <a href="study.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
+
+	<div class="container">
+		<div class="study1">
+			<h2 class="text-center">
+				Machine learning, Deep Learning Tutorial
+			</h2>
+			<a href="https://tobigs.gitbook.io/tobigs/"><p class="text-center"> 투빅스 동아리에서 10주간 머신러닝, 딥러닝을 하면서 기초 지식을 스터디하였습니다.  </p></a>
+			<img src="image/study1.jpg" alt="Smiley face" class="center">
+			<br>
+			<br>
+		</div>
+		<div class="study2">
+			<h2 class="text-center">
+				강화학습을 이용한 슬라이딩 퍼즐 만들기
+			</h2>
+			<a href="https://hci-project.gitbook.io/reinforcement-learning-of-n-puzzle/"><p class="text-center"> 학교 과제로 강화학습을 이용해서 슬라이등 퍼즐을 제작하였습니다. Q-learning을 사용해서 3x3퍼즐을 해결하였습니다.  </p></a>
+			<img src="image/study2.jpg" alt="Smiley face" class="center">
+			<br>
+			<br>
+		</div>
+		<div class="study3">
+			<h2 class="text-center">
+				Graph Deep Learning
+			</h2>
+			<a href="https://tobigs.gitbook.io/deep-learning-on-graphs/"><p class="text-center"> 그래프 딥러닝 스터디를 만들어서 매주 1회 스터디하고 있습니다.  </p></a>
+			<img src="image/study3.jpg" alt="Smiley face" class="center">
+			<br>
+			<br>
+		</div>
 	</div>
-	<div class="row">
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Paper</h5>
-	        <p class="card-text">정보과학회 1건, ISMRM 1건이 있습니다. </p>
-	        <a href="paper.html" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	  <div class="col-sm-6">
-	    <div class="card">
-	      <div class="card-body">
-	        <h5 class="card-title">Group</h5>
-	        <p class="card-text">투빅스, 교내 알고리즘 동아리 활동을 했습니다.</p>
-	        <a href="http://www.datamarket.kr/xe/" class="btn btn-primary">Go</a>
-	      </div>
-	    </div>
-	  </div>
-	</div>
+	
 
 
 	<footer style="background-color:#000000; color:#ffffff">
@@ -135,7 +121,6 @@
 	</footer>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<!-- Import the main script file -->
-  	<script src="script.js"></script>
+	
 </body>
 </html>
