@@ -11,7 +11,7 @@ tags: Spring-ML1
 
 ### Mid-Term
 
-1. Find the dimensions of the box with largest volume if the total surface area is $64\text{cm}^2$.
+- Find the dimensions of the box with largest volume if the total surface area is $64\text{cm}^2$.
 
 $$\mathcal{L}=f(x,y,z)+\lambda(32-xy-yz-xz)$$
 
@@ -39,41 +39,59 @@ $$x^2={32\over3}$$
 
 $$f(x,y,z)=x^3={128\sqrt{2}\over3\sqrt{3}}$$
 
-2. Find the maximum and minimum of $f(x,y)=5x-3y$ subject to the constraint $x^2+y^2=136$
+- Find the maximum and minimum of $f(x,y)=5x-3y$ subject to the constraint $x^2+y^2=136$
 
-3. Find the maximum and minimum values of $f(x,y,z)=xyz$ subject to the constraint $x+y+z=1$. Assume that $x,y,z\geq0$.
+$$\mathcal{L}=5x-3y+\lambda\cdot(136-x^2-y^2)$$
 
-4. Find the maximum and minimum values of $f(x,y)=4x^2+10y^2$ on the disk $x^2+y^2 \leq 4$.
+$$\mathcal{L}_x=5-2 \lambda\cdot x=0$$
 
-5. Find the maximum and minimum of $f(x,y,z)=4y-2z$ subject to the constraints $2x-y-z=2$ and $x^2+y^2=1$
+$$x={5\over2\lambda}, \because 
+\lambda \neq 0$$
 
-6. Write pros and cons of Ridge and LASSO Regression.
+$$\mathcal{L}_y=-3-2\lambda\cdot y=0$$
 
-7. Write three regularization techniques you know and explain it. (ex. Weight Decay)
+$$y=-{3\over2\lambda} \because \lambda \neq 0$$
 
-8. What is Dropout?
+$$\mathcal{L}_\lambda=136-x^2-y^2=136-{34 \over 4\lambda^2}=0$$
 
-9. What is Batch Normalization?
+$$\lambda=\pm{1\over4}$$
 
-10. Differences of Linear regression and Kernel method.
+$$\lambda={1\over4}, f(x,y)=68$$
 
-11. In RBF Kernel, What happens when RBF kernel has Large $\sigma$ or small $\sigma$?
+$$\lambda=-{1\over4}, f(x,y)=-68$$
 
-12. Why SVM uses signed distance instead of unsigned distance?
 
-13. Explain about two tricks in SVM!
+- Find the maximum and minimum values of $f(x,y,z)=xyz$ subject to the constraint $x+y+z=1$. Assume that $x,y,z\geq0$.
 
-14. Find hyperplane function $h(x)$ and margin. There are four points and labels.
+- Find the maximum and minimum values of $f(x,y)=4x^2+10y^2$ on the disk $x^2+y^2 \leq 4$.
 
-$x_1=\begin{bmatrix}0 \\ 0\end{bmatrix} x_2=\begin{bmatrix}2 \\ 2\end{bmatrix}
-x_3=\begin{bmatrix}2 \\ 0\end{bmatrix}
-x_4=\begin{bmatrix}3 \\ 0\end{bmatrix}$
+- Find the maximum and minimum of $f(x,y,z)=4y-2z$ subject to the constraints $2x-y-z=2$ and $x^2+y^2=1$
+
+- Write pros and cons of Ridge and LASSO Regression.
+
+- Write three regularization techniques you know and explain it. (ex. Weight Decay)
+
+- What is Dropout?
+
+- What is Batch Normalization?
+
+- Differences of Linear regression and Kernel method.
+
+- In RBF Kernel, What happens when RBF kernel has Large $\sigma$ or small $\sigma$?
+
+- Why SVM uses signed distance instead of unsigned distance?
+
+- Explain about two tricks in SVM!
+
+- Find hyperplane function $h(x)$ and margin. There are four points and labels.
+
+$x_1=\begin{bmatrix}0 \\ 0\end{bmatrix}, x_2=\begin{bmatrix}2 \\ 2\end{bmatrix}, x_3=\begin{bmatrix}2 \\ 0\end{bmatrix}, x_4=\begin{bmatrix}3 \\ 0\end{bmatrix}$
 
 $y_1=-1,y_2=-1,y_3=+1, y_4=+1$ 
 
-15. Explain about Karush-Kahn-Tucker Conditions
+- Explain about Karush-Kahn-Tucker Conditions
 
-16. SVM Problem : $\text{minimize}_{u_1, u_2} u^2_1+u^2_2$, subject to $\begin{bmatrix} 1 & 2 \\ 1 & 0 \\ 0 & 1 \\ \end{bmatrix}
+- SVM Problem : $\text{minimize}_{u_1, u_2} u^2_1+u^2_2$, subject to $\begin{bmatrix} 1 & 2 \\ 1 & 0 \\ 0 & 1 \\ \end{bmatrix}
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \geq \begin{bmatrix} 2 \\ 0 \\ 0 \\ \end{bmatrix}$
 
 17. If $C$ is big, then enforce $\xi$ to be small or big?
