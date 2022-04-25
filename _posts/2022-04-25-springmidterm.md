@@ -126,7 +126,12 @@ Dropout: disable a random set of neurons
 
 - What is Dropout?
 
+Using half the network, consider it as two models in one.
+
 - What is Batch Normalization?
+
+
+
 
 - Differences of Linear regression and Kernel method.
 
