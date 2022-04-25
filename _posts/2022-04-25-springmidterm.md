@@ -63,7 +63,45 @@ $$\lambda=-{1\over4}, f(x,y)=-68$$
 
 - Find the maximum and minimum values of $f(x,y,z)=xyz$ subject to the constraint $x+y+z=1$. Assume that $x,y,z\geq0$.
 
+$$\mathcal{L}=xyz+\lambda\cdot(1-x-y-z)$$
+
+$$\mathcal{L}_x=yz-\lambda=0$$
+
+$$\mathcal{L}_y=xz-\lambda=0$$
+
+$$\mathcal{L}_z=xy-\lambda=0$$
+
+$$\mathcal{L}_\lambda=1-x-y-z=0$$
+
+if $x>0, y>0, z>0$
+
+$$x=y=z={1\over3},f(x,y,z)={1\over27}$$
+
+$$x=1,y=0,z=0,f(x,y,z)=0$$
+
 - Find the maximum and minimum values of $f(x,y)=4x^2+10y^2$ on the disk $x^2+y^2 \leq 4$.
+
+$$\mathcal{L}=4x^2+10y^2+\lambda\cdot(4-x^2-y^2)$$
+
+$$\mathcal{L}_x=8x-2\lambda x=0$$
+
+$$2x(4-\lambda)=0,x=0 \text{ or } \lambda=4$$
+
+$$\mathcal{L}_y=20y-2\lambda y=0$$
+
+$$2y(10-\lambda)=0,y=0 \text{ or } \lambda=10$$
+
+
+$$\mathcal{L}_\lambda=4-x^2-y^2=0$$
+
+if $x=0 \text{ and } y=0$, $f(0,0)=0$.
+
+else if $x=0 \text{ and } \lambda=4$, $y=0$
+
+else if $x=0 \text{ and } \lambda=10, -2\leq y \leq 2$, $f(x,y)=40$
+
+else if $y=0 \text{ and } \lambda=4, -2\leq x \leq 2$, $f(x,y)=16$
+
 
 - Find the maximum and minimum of $f(x,y,z)=4y-2z$ subject to the constraints $2x-y-z=2$ and $x^2+y^2=1$
 
