@@ -136,6 +136,9 @@ $$y^{(k)}=\gamma^{(k)} x^{(k)} + \beta^{(k)}$$
 
 - Differences of Linear regression and Kernel method.
 
+Linear regression - Pick a global model.
+
+Kernel method - Pick a local model.
 
 
 - In RBF Kernel, What happens when RBF kernel has Large $\sigma$ or small $\sigma$?
