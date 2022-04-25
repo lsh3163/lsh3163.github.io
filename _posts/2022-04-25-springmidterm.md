@@ -130,7 +130,7 @@ Using half the network, consider it as two models in one.
 
 - What is Batch Normalization?
 
-
+BN normalizes the mean and variance of the inputs to your activation functions.
 
 
 - Differences of Linear regression and Kernel method.
