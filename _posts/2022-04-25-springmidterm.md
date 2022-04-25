@@ -159,12 +159,45 @@ $x_1=\begin{bmatrix}0 \\ 0\end{bmatrix}, x_2=\begin{bmatrix}2 \\ 2\end{bmatrix},
 
 $y_1=-1,y_2=-1,y_3=+1, y_4=+1$ 
 
+
+Solve :
+
+$$y_j(w^\top x_j + w_0) \geq 1$$
+
+(1) $-w_0 \geq 1$
+
+(2) $-(2w_1 + 2w_2 + w_0) \geq 1$
+
+(3) $(2w_1+w_0) \geq 1$
+
+(4) $(3w_1 + w_0) \geq 1$
+
+$$w_0 \leq -1$$
+
+$$w_1 \geq 1$$
+
+$$w_2 \leq -1$$
+
+$${1\over2}\|w\|^2={1\over2}(w^2_1+w^2_2) \geq 1$$
+
+$$w_1=1,w_2=-1,w_0=-1$$
+
+$$h(x)=\text{sign}(x_1-x_2-1)$$
+
+Margin:
+
+$${1 \over \|w\|_2} = {1 \over \sqrt2}$$
+
 - Explain about Karush-Kahn-Tucker Conditions
 
 Stationarity, Primal Feasibility, Dual Feasibility, Complementary Slackness
 
 - SVM Problem : $\text{minimize}_{u_1, u_2} u^2_1+u^2_2$, subject to $\begin{bmatrix} 1 & 2 \\ 1 & 0 \\ 0 & 1 \\ \end{bmatrix}
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \geq \begin{bmatrix} 2 \\ 0 \\ 0 \\ \end{bmatrix}$
+
+
+
+
 
 - If $C$ is big, then enforce $\xi$ to be small or big?
 
