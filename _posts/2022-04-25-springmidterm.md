@@ -96,7 +96,7 @@ $$\mathcal{L}_\lambda=4-x^2-y^2=0$$
 
 if $x=0 \text{ and } y=0$, $f(0,0)=0$.
 
-else if $x=0 \text{ and } \lambda=4$, $y=0$
+else if $x=0 \text{ and } \lambda=4$, $y=0$, $f(x,y)=0$
 
 else if $x=0 \text{ and } \lambda=10, -2\leq y \leq 2$, $f(x,y)=40$
 
@@ -132,8 +132,11 @@ Using half the network, consider it as two models in one.
 
 BN normalizes the mean and variance of the inputs to your activation functions.
 
+$$y^{(k)}=\gamma^{(k)} x^{(k)} + \beta^{(k)}$$
 
 - Differences of Linear regression and Kernel method.
+
+
 
 - In RBF Kernel, What happens when RBF kernel has Large $\sigma$ or small $\sigma$?
 
