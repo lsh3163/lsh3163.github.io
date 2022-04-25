@@ -105,9 +105,24 @@ else if $y=0 \text{ and } \lambda=4, -2\leq x \leq 2$, $f(x,y)=16$
 
 - Find the maximum and minimum of $f(x,y,z)=4y-2z$ subject to the constraints $2x-y-z=2$ and $x^2+y^2=1$
 
+$$\mathcal{L}=4y-2x+\lambda(2-2x+y+z)+\mu(1-x^2-y^2)$$
+
+
 - Write pros and cons of Ridge and LASSO Regression.
 
+Ridge - Analytic, theoretical gurantees, simple / limited interpretability, not reflect the nature of certain problems.
+
+LASSO - Proven, Echoes particularly well / No closed-form solution.
+
 - Write three regularization techniques you know and explain it. (ex. Weight Decay)
+
+Weight Decay: Penalizes large weights, improves generalization.
+
+Early Stopping.
+
+Bagging: uses k different datasets.
+
+Dropout: disable a random set of neurons
 
 - What is Dropout?
 
@@ -132,46 +147,46 @@ $y_1=-1,y_2=-1,y_3=+1, y_4=+1$
 - SVM Problem : $\text{minimize}_{u_1, u_2} u^2_1+u^2_2$, subject to $\begin{bmatrix} 1 & 2 \\ 1 & 0 \\ 0 & 1 \\ \end{bmatrix}
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \geq \begin{bmatrix} 2 \\ 0 \\ 0 \\ \end{bmatrix}$
 
-17. If $C$ is big, then enforce $\xi$ to be small or big?
+- If $C$ is big, then enforce $\xi$ to be small or big?
 
 $\text{minimize}{1\over2}\|w\|^2_2+C\|\xi\|^2$
 
-18. Radial Basis Function takes the form of
+- Radial Basis Function takes the form of
 
 $K(u,v)=\exp\{-\gamma \|u-v\|^2_2\}$,
 
 What happens if $\gamma$ is too big?
 
-19. Write down the cross-entropy loss and explain why not use L2 loss.
+- Write down the cross-entropy loss and explain why not use L2 loss.
 
-20. Average Pooling vs Max Pooling
+- Average Pooling vs Max Pooling
 
-21. Explain SGD.
+- Explain SGD.
 
-22. Write down the delta rule term.
+- Write down the delta rule term.
 
-23. Explain RNN and LSTM and Conv LSTM and GRU.
+- Explain RNN and LSTM and Conv LSTM and GRU.
 
-24. AlexNet
+- AlexNet
 
-25. ZFNet
+- ZFNet
 
-26. VGGNet
+- VGGNet
 
-27. GoogleNet
+- GoogleNet
 
-28. ResNet
+- ResNet
 
-29. DenseNet
+- DenseNet
 
-30. Depth-wise Seperable Convolution
+- Depth-wise Seperable Convolution
 
-31. EfficientNet v1
+- EfficientNet v1
 
-32. Compound Scaling
+- Compound Scaling
 
-33. EfficientNet-v2
+- EfficientNet-v2
 
-34. Overfitting and Underfitting
+- Overfitting and Underfitting
 
-35. Random Initialization
+- Random Initialization
