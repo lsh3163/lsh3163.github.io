@@ -143,9 +143,15 @@ Kernel method - Pick a local model.
 
 - In RBF Kernel, What happens when RBF kernel has Large $\sigma$ or small $\sigma$?
 
+Large $\sigma \rightarrow$ over smoothing
+
 - Why SVM uses signed distance instead of unsigned distance?
 
+For misclassification.
+
 - Explain about two tricks in SVM!
+
+Scaling and Max-to-min optimization
 
 - Find hyperplane function $h(x)$ and margin. There are four points and labels.
 
@@ -154,6 +160,8 @@ $x_1=\begin{bmatrix}0 \\ 0\end{bmatrix}, x_2=\begin{bmatrix}2 \\ 2\end{bmatrix},
 $y_1=-1,y_2=-1,y_3=+1, y_4=+1$ 
 
 - Explain about Karush-Kahn-Tucker Conditions
+
+Stationarity, Primal Feasibility, Dual Feasibility, Complementary Slackness
 
 - SVM Problem : $\text{minimize}_{u_1, u_2} u^2_1+u^2_2$, subject to $\begin{bmatrix} 1 & 2 \\ 1 & 0 \\ 0 & 1 \\ \end{bmatrix}
 \begin{bmatrix} u_1 \\ u_2 \end{bmatrix} \geq \begin{bmatrix} 2 \\ 0 \\ 0 \\ \end{bmatrix}$
