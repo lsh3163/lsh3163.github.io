@@ -550,9 +550,9 @@
 
     <header class="hero fade-in">
       <div class="eyebrow">Polynomial proprioceptive conditioning for stronger robot policy backbones</div>
-      <h1><span>PRISM</span>: Learnable Quadratic Context for Generalist Robot Policies</h1>
+      <h1><span>PRISM</span>: Learnable Proprioceptive Context for Generalist Robot Policies</h1>
       <p class="subtitle">
-        A lightweight proprioceptive conditioner that injects learnable first- and second-order state interactions into modern locomotion and vision-language-action policies.
+        A lightweight proprioceptive conditioner that learns polynomial proprioceptive feature mixtures for modern locomotion and vision-language-action policies.
       </p>
       <p class="authors">Anonymous Authors</p>
       <div class="actions">
@@ -569,8 +569,8 @@
           </p>
         </div>
         <div class="formula">
-          state + state<sup>2</sup> -> gated conditioner
-          <small>Learned gates decide when each proprioceptive dimension should contribute linearly or quadratically.</small>
+          learned polynomial proprioceptive mixer
+          <small>Polynomial structure provides an initialization bias; the conditioner learns useful feature mixtures end-to-end.</small>
         </div>
       </div>
     </header>
@@ -651,10 +651,10 @@
       </div>
       <div class="abstract">
         <p>
-          Physical robot behavior depends on multiplicative interactions between joint state, velocity, contact, load, and task context. Standard proprioceptive encoders often compress these signals with shallow linear or MLP projections, which can under-represent useful second-order structure unless the policy learns it indirectly.
+          Physical robot behavior depends on multiplicative interactions between joint state, velocity, contact, load, and task context. Standard proprioceptive encoders often compress these signals with shallow linear or MLP projections, which can make useful higher-order structure harder to discover.
         </p>
         <p>
-          PRISM adds a lightweight polynomial conditioning module over proprioception. Instead of replacing the base policy, it augments the conditioner with learnable gated quadratic features, allowing the downstream policy to use first-order or second-order state evidence dimension by dimension.
+          PRISM adds a lightweight polynomial conditioning module over proprioception. Instead of replacing the base policy or hand-coding a fixed feature set, it uses a polynomially structured initialization and learns the resulting feature mixture end-to-end.
         </p>
         <p>
           We validate this idea on two stronger backbones: BFM-Zero for humanoid locomotion and SmolVLA for LIBERO manipulation. Across both domains, PRISM improves over the standard backbone and a larger-capacity conditioner, suggesting the gain is not merely a parameter-count effect.
@@ -843,29 +843,29 @@
     <section>
       <div class="section-head">
         <div>
-          <h2>Why Polynomial Features?</h2>
+          <h2>Learned Polynomial Conditioning</h2>
           <p class="section-kicker">
-            The module makes a targeted architectural bet: proprioception benefits from explicit learnable multiplicative structure.
+            The module makes a targeted architectural bet: proprioception benefits from a learnable polynomial inductive bias, not a fixed hand-engineered feature map.
           </p>
         </div>
       </div>
 
       <div class="split">
         <article class="mini-card">
-          <h3>First-order context</h3>
+          <h3>Initialization bias</h3>
           <p>
-            Linear terms preserve the original proprioceptive signal, allowing the base policy to use ordinary state cues when quadratic interactions are unnecessary.
+            PRISM starts from a polynomially structured conditioner, making low-order proprioceptive interactions easy for the policy to access early in training.
           </p>
         </article>
         <article class="mini-card">
-          <h3>Second-order context</h3>
+          <h3>Automatic feature mixing</h3>
           <p>
-            Quadratic terms expose interaction-like evidence that can correspond to physical effects such as load, velocity-dependent behavior, and contact-sensitive dynamics.
+            During training, the conditioner learns how much each dimension should behave linearly, quadratically, or as a mixed feature for the task.
           </p>
         </article>
       </div>
       <p class="note">
-        The gated design keeps the feature choice learnable instead of hard-coding every dimension to be purely linear or purely quadratic.
+        The design avoids hard-coding a fixed state-plus-square representation; polynomial structure is used as a learnable inductive bias.
       </p>
     </section>
 
