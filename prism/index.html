@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>PRISM | Polynomial Proprioceptive Conditioning</title>
-  <meta name="description" content="PRISM project page with stronger-backbone validation on BFM-Zero locomotion and SmolVLA LIBERO manipulation.">
+  <title>Polynomial Representations for Interaction-Structured Motor Control</title>
+  <meta name="description" content="PRISM project page for polynomial representations in interaction-structured motor control, with BFM-Zero locomotion and SmolVLA LIBERO manipulation results.">
   <style>
     :root {
       --paper: #f6efe2;
@@ -324,6 +324,15 @@
       aspect-ratio: 3 / 1;
     }
 
+    .representation-preview {
+      display: block;
+      width: 100%;
+      border: 1px solid rgba(215, 202, 180, 0.82);
+      border-radius: 22px;
+      background: rgba(255, 250, 240, 0.74);
+      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
+    }
+
     .video-caption {
       padding: 13px 14px 15px;
     }
@@ -546,6 +555,7 @@
         <a href="#abstract">Abstract</a>
         <a href="#results">Results</a>
         <a href="#bfm">BFM-Zero</a>
+        <a href="#representations">t-SNE</a>
         <a href="#smolvla">SmolVLA</a>
         <a href="#videos">Videos</a>
         <a href="#bibtex">BibTeX</a>
@@ -553,10 +563,10 @@
     </nav>
 
     <header class="hero fade-in">
-      <div class="eyebrow">Polynomial proprioceptive conditioning for stronger robot policy backbones</div>
-      <h1><span>PRISM</span>: Learnable Proprioceptive Context for Generalist Robot Policies</h1>
+      <div class="eyebrow">PRISM: polynomial representations for proprioceptive robot control</div>
+      <h1><span>Polynomial Representations</span> for Interaction-Structured Motor Control</h1>
       <p class="subtitle">
-        A lightweight proprioceptive conditioner that learns polynomial proprioceptive feature mixtures for modern locomotion and vision-language-action policies.
+        PRISM learns compact polynomial representations over proprioception, helping modern locomotion and vision-language-action policies model interaction-structured motor behavior.
       </p>
       <p class="authors">Anonymous Authors</p>
       <div class="actions">
@@ -569,12 +579,12 @@
         <div>
           <strong>TL;DR</strong>
           <p>
-            PRISM adds a small learnable proprioceptive conditioner to strong robot-policy backbones, improving BFM-Zero tracking and SmolVLA LIBERO success over both the original models and larger-conditioner baselines.
+            PRISM adds a small learnable polynomial representation module to strong robot-policy backbones, improving BFM-Zero tracking and SmolVLA LIBERO success over both the original models and larger-conditioner baselines.
           </p>
         </div>
         <div class="formula">
-          proprioception-conditioned policy
-          <small>A polynomial inductive bias initializes the conditioner; training learns which proprioceptive feature mixtures matter end-to-end.</small>
+          interaction-structured motor control
+          <small>A polynomial inductive bias initializes the representation; training learns which proprioceptive feature mixtures matter end-to-end.</small>
         </div>
       </div>
     </header>
@@ -783,6 +793,26 @@
       </p>
     </section>
 
+    <section id="representations">
+      <div class="section-head">
+        <div>
+          <h2>Representation t-SNE</h2>
+          <p class="section-kicker">
+            We compute a separate t-SNE for each method and color points by nominal, low-friction, and payload/mass conditions.
+          </p>
+        </div>
+        <span class="pill">hover-linked frames</span>
+      </div>
+
+      <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260706-method-scenario" target="_blank" rel="noopener">
+        <img class="representation-preview" src="assets/prism/bfm-method-scenario-tsne.png?v=20260706-method-scenario" alt="Method-wise t-SNE plots of BFM-Zero, Larger BFM-Zero, and PRISM actor representations colored by robustness scenario.">
+      </a>
+
+      <p class="note">
+        Each point is one sampled rollout step from motion 30. The interactive version links every point to the corresponding rendered frame, making it easier to inspect scenario-dependent representation structure within each method.
+      </p>
+    </section>
+
     <section id="smolvla">
       <div class="section-head">
         <div>
@@ -881,7 +911,7 @@
         </div>
       </div>
       <pre><code>@article{anonymous2026prism,
-  title   = {PRISM: Polynomial Proprioceptive Conditioning for Generalist Robot Policies},
+  title   = {Polynomial Representations for Interaction-Structured Motor Control},
   author  = {Anonymous Authors},
   journal = {},
   year    = {2026}
