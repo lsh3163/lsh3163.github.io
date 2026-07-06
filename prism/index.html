@@ -313,11 +313,15 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #182016;
-      object-fit: cover;
+      object-fit: contain;
     }
 
     .video-card .wide-video {
       aspect-ratio: 4 / 1;
+    }
+
+    .video-card .comparison-video {
+      aspect-ratio: 3 / 1;
     }
 
     .video-caption {
@@ -565,12 +569,12 @@
         <div>
           <strong>TL;DR</strong>
           <p>
-            PRISM improves stronger backbones without simply scaling capacity: at matched checkpoints, it lowers BFM-Zero motion tracking error and raises SmolVLA LIBERO multi-task success over both standard and larger-conditioner baselines.
+            PRISM adds a small learnable proprioceptive conditioner to strong robot-policy backbones, improving BFM-Zero tracking and SmolVLA LIBERO success over both the original models and larger-conditioner baselines.
           </p>
         </div>
         <div class="formula">
-          learned polynomial proprioceptive mixer
-          <small>Polynomial structure provides an initialization bias; the conditioner learns useful feature mixtures end-to-end.</small>
+          proprioception-conditioned policy
+          <small>A polynomial inductive bias initializes the conditioner; training learns which proprioceptive feature mixtures matter end-to-end.</small>
         </div>
       </div>
     </header>
@@ -612,7 +616,7 @@
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260706-libero-compare"></video>
+          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
             <strong>LIBERO Long-horizon comparison</strong>
             <span>Same 80K eval50 episode: SmolVLA and Larger fail, while PRISM succeeds on a task where PRISM reaches 66% vs. 42% / 20% task success.</span>
@@ -620,7 +624,7 @@
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260706-libero-compare"></video>
+          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
             <strong>LIBERO Goal comparison</strong>
             <span>Same 80K eval50 episode: PRISM succeeds on a goal-conditioned task with 84% task success vs. 42% / 64% for SmolVLA / Larger.</span>
@@ -628,7 +632,7 @@
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260706-libero-compare"></video>
+          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
             <strong>LIBERO Long-horizon cup comparison</strong>
             <span>Same 80K eval50 episode: SmolVLA and Larger fail, while PRISM completes the cup manipulation.</span>
