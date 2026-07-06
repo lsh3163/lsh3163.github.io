@@ -583,7 +583,7 @@
             Following the VIGOR-style layout, qualitative rollouts are visible before the detailed tables.
           </p>
         </div>
-        <span class="pill">BFM comparisons + LIBERO samples</span>
+        <span class="pill">BFM comparisons + LIBERO comparisons</span>
       </div>
 
       <div class="video-wall">
@@ -612,31 +612,31 @@
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long-task1-success.mp4?v=20260706-prism-success"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
-            <strong>LIBERO Long-horizon success</strong>
-            <span>80K eval50 PRISM success from a task where PRISM reaches 66% vs. 42% / 20% for SmolVLA / Larger.</span>
+            <strong>LIBERO Long-horizon comparison</strong>
+            <span>Same 80K eval50 episode: SmolVLA and Larger fail, while PRISM succeeds on a task where PRISM reaches 66% vs. 42% / 20% task success.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/goal-task6-success.mp4?v=20260706-prism-success"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
-            <strong>LIBERO Goal success</strong>
-            <span>Goal-conditioned manipulation from a task where PRISM improves success to 84% vs. 42% / 64%.</span>
+            <strong>LIBERO Goal comparison</strong>
+            <span>Same 80K eval50 episode: PRISM succeeds on a goal-conditioned task with 84% task success vs. 42% / 64% for SmolVLA / Larger.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long-task6-success.mp4?v=20260706-prism-success"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260706-libero-compare"></video>
           <div class="video-caption">
-            <strong>LIBERO Long-horizon cup task</strong>
-            <span>PRISM-only successful episode from official eval50 video logs.</span>
+            <strong>LIBERO Long-horizon cup comparison</strong>
+            <span>Same 80K eval50 episode: SmolVLA and Larger fail, while PRISM completes the cup manipulation.</span>
           </div>
         </article>
       </div>
       <p class="note">
-        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO clips are successful PRISM rollouts selected from the official 80K eval50 video logs; the full aggregate metrics are reported below.
+        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO videos are same-episode comparisons selected from the official 80K eval50 logs, with aggregate metrics reported below.
       </p>
     </section>
 
