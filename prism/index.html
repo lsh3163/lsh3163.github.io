@@ -4,196 +4,889 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>PRISM | Polynomial Proprioceptive Conditioning</title>
-  <meta name="description" content="PRISM project page: polynomial proprioceptive conditioning for locomotion and vision-language-action robot policies.">
+  <meta name="description" content="PRISM project page with stronger-backbone validation on BFM-Zero locomotion and SmolVLA LIBERO manipulation.">
   <style>
     :root {
-      --paper: #f7f0e2;
-      --paper2: #fffaf0;
-      --ink: #172015;
-      --muted: #5c6657;
-      --line: #d8ccb6;
-      --moss: #47683d;
-      --moss2: #274423;
-      --gold: #d7a33a;
-      --clay: #b96b3f;
-      --card: rgba(255, 250, 240, 0.82);
-      --shadow: 0 22px 70px rgba(36, 30, 18, 0.14);
+      --paper: #f6efe2;
+      --paper-soft: #fffaf0;
+      --ink: #151b14;
+      --muted: #5a6257;
+      --line: #d7cab4;
+      --moss: #486b3e;
+      --moss-dark: #263f24;
+      --amber: #d9a642;
+      --clay: #b86842;
+      --cream-glass: rgba(255, 250, 240, 0.78);
+      --deep-glass: rgba(21, 27, 20, 0.92);
+      --shadow: 0 24px 70px rgba(38, 31, 20, 0.16);
+      --radius: 28px;
     }
-    * { box-sizing: border-box; }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       color: var(--ink);
       background:
-        radial-gradient(circle at 8% 10%, rgba(215, 163, 58, 0.34), transparent 26rem),
-        radial-gradient(circle at 88% 5%, rgba(71, 104, 61, 0.28), transparent 30rem),
-        linear-gradient(135deg, #f5e8d1, #f7f0e2 45%, #edf2e0);
-      font-family: Trebuchet MS, Gill Sans, Verdana, sans-serif;
-      line-height: 1.55;
+        radial-gradient(circle at 8% 10%, rgba(217, 166, 66, 0.34), transparent 27rem),
+        radial-gradient(circle at 88% 6%, rgba(72, 107, 62, 0.30), transparent 30rem),
+        linear-gradient(135deg, #f4e5cc 0%, #f6efe2 45%, #edf2df 100%);
+      font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", Verdana, sans-serif;
+      line-height: 1.56;
+      min-height: 100vh;
     }
-    body:before {
+
+    body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      background-image: linear-gradient(rgba(23, 32, 21, 0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(23, 32, 21, 0.035) 1px, transparent 1px);
+      background-image:
+        linear-gradient(rgba(21, 27, 20, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(21, 27, 20, 0.04) 1px, transparent 1px);
       background-size: 46px 46px;
-      mask-image: linear-gradient(to bottom, rgba(0,0,0,.42), transparent 72%);
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.46), transparent 72%);
     }
-    a { color: var(--moss2); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; position: relative; z-index: 1; }
+
+    a {
+      color: var(--moss-dark);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
     nav {
-      margin-top: 30px;
       display: flex;
-      justify-content: space-between;
-      gap: 20px;
       align-items: center;
+      justify-content: space-between;
+      gap: 22px;
+      margin-top: 28px;
       padding: 14px 18px;
-      border: 1px solid rgba(216, 204, 182, .78);
+      border: 1px solid rgba(215, 202, 180, 0.76);
       border-radius: 999px;
-      background: rgba(255, 250, 240, .66);
-      backdrop-filter: blur(16px);
-      box-shadow: 0 10px 36px rgba(36, 30, 18, .08);
+      background: rgba(255, 250, 240, 0.68);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 38px rgba(38, 31, 20, 0.08);
     }
-    .brand { display: flex; align-items: center; gap: 10px; font-weight: 900; letter-spacing: .08em; color: var(--moss2); }
-    .mark { width: 30px; height: 30px; border-radius: 10px; background: linear-gradient(135deg, var(--moss), var(--gold)); }
-    .links { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 15px; color: var(--muted); font-size: .94rem; }
-    .hero { display: grid; grid-template-columns: minmax(0,1.12fr) minmax(320px,.88fr); gap: 34px; align-items: center; padding: 58px 0 46px; }
-    .eyebrow { display: inline-flex; margin-bottom: 17px; padding: 8px 12px; border-radius: 999px; border: 1px solid rgba(71,104,61,.24); background: rgba(237,242,224,.78); color: var(--moss2); font-weight: 800; font-size: .88rem; }
-    h1, h2, h3 { margin: 0; font-family: Georgia, Times New Roman, serif; line-height: 1.05; color: #121c12; }
-    h1 { font-size: clamp(3rem, 7.5vw, 7rem); letter-spacing: -.07em; max-width: 900px; }
-    h1 span { color: var(--moss); }
-    .subtitle { max-width: 760px; margin: 22px 0 0; color: #3d4839; font-size: clamp(1.06rem, 2vw, 1.32rem); }
-    .authors { margin: 16px 0 0; color: var(--muted); }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
-    .button { display: inline-flex; align-items: center; min-height: 44px; padding: 11px 18px; border-radius: 999px; border: 1px solid rgba(39,68,35,.2); background: var(--ink); color: var(--paper2); font-weight: 900; box-shadow: 0 14px 28px rgba(23,32,21,.14); }
-    .button.secondary { background: rgba(255,250,240,.75); color: var(--moss2); box-shadow: none; }
-    .panel, .section { border: 1px solid rgba(216,204,182,.88); border-radius: 28px; background: var(--card); box-shadow: var(--shadow); }
-    .panel { padding: 22px; overflow: hidden; }
-    .formula { padding: 22px; border-radius: 22px; background: var(--ink); color: #fff8e7; font-family: Georgia, Times New Roman, serif; font-size: clamp(1.35rem, 2.6vw, 2.35rem); line-height: 1.2; }
-    .formula small { display: block; margin-top: 12px; color: rgba(255,248,231,.74); font-family: Trebuchet MS, Gill Sans, Verdana, sans-serif; font-size: .9rem; line-height: 1.45; }
-    .metrics { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin-top: 14px; }
-    .metric { min-height: 118px; padding: 16px; border-radius: 20px; border: 1px solid rgba(71,104,61,.17); background: rgba(255,250,240,.75); }
-    .metric strong { display: block; font-family: Georgia, Times New Roman, serif; font-size: 1.8rem; line-height: 1; color: var(--moss2); }
-    .metric span { display: block; margin-top: 8px; color: var(--muted); font-size: .9rem; }
-    .section { margin: 24px 0; padding: clamp(22px, 4vw, 38px); }
-    .section-head { display: flex; justify-content: space-between; gap: 20px; align-items: end; margin-bottom: 22px; }
-    h2 { font-size: clamp(2rem, 4vw, 3.25rem); letter-spacing: -.045em; }
-    .kicker { max-width: 620px; color: var(--muted); margin: 8px 0 0; }
-    .two { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .method { padding: 22px; border-radius: 22px; background: rgba(237,242,224,.58); border: 1px solid rgba(71,104,61,.18); }
-    .method h3 { font-size: 1.42rem; margin-bottom: 10px; }
-    .method p { margin: 0; color: var(--muted); }
-    .tables { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 18px; }
-    .table-card { overflow-x: auto; border-radius: 22px; border: 1px solid rgba(216,204,182,.95); background: rgba(255,250,240,.64); }
-    table { width: 100%; border-collapse: collapse; font-size: .95rem; }
-    caption { text-align: left; padding: 16px 16px 0; color: var(--moss2); font-weight: 900; }
-    th, td { padding: 10px 12px; border-bottom: 1px solid rgba(216,204,182,.8); text-align: right; white-space: nowrap; }
-    th:first-child, td:first-child { text-align: left; }
-    th { color: var(--muted); font-size: .82rem; letter-spacing: .02em; text-transform: uppercase; }
-    tr:last-child td { border-bottom: 0; }
-    .best { color: var(--moss2); font-weight: 900; }
-    .note { margin-top: 16px; color: var(--muted); font-size: .96rem; }
-    .placeholder-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
-    .placeholder { min-height: 190px; display: grid; place-items: center; text-align: center; padding: 18px; border-radius: 20px; border: 1px dashed rgba(71,104,61,.35); background: rgba(255,250,240,.58); color: var(--muted); }
-    pre { margin: 0; padding: 18px; overflow-x: auto; border-radius: 20px; background: var(--ink); color: #fff8e7; font-size: .88rem; line-height: 1.45; }
-    footer { padding: 22px 0 46px; color: var(--muted); text-align: center; font-size: .92rem; }
-    @media (max-width: 900px) { .hero, .two, .tables, .placeholder-grid { grid-template-columns: 1fr; } nav { align-items: flex-start; border-radius: 24px; flex-direction: column; } .links { justify-content: flex-start; } .section-head { display: block; } }
-    @media (max-width: 560px) { .wrap { width: min(100% - 22px, 1120px); } h1 { font-size: clamp(2.8rem, 18vw, 4.2rem); } .metrics { grid-template-columns: 1fr; } th, td { padding: 9px 10px; } }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 900;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      color: var(--moss-dark);
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 31px;
+      height: 31px;
+      border-radius: 11px;
+      background:
+        linear-gradient(135deg, rgba(72, 107, 62, 0.96), rgba(217, 166, 66, 0.96)),
+        var(--moss);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 15px;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .hero {
+      padding: 58px 0 28px;
+      text-align: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      padding: 8px 13px;
+      border: 1px solid rgba(72, 107, 62, 0.24);
+      border-radius: 999px;
+      color: var(--moss-dark);
+      background: rgba(237, 242, 223, 0.82);
+      font-size: 0.9rem;
+      font-weight: 800;
+      letter-spacing: 0.03em;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.04;
+      color: #121a11;
+    }
+
+    h1 {
+      max-width: 1040px;
+      margin: 0 auto;
+      font-size: clamp(3.3rem, 8vw, 7.4rem);
+      letter-spacing: -0.073em;
+    }
+
+    h1 span {
+      color: var(--moss);
+    }
+
+    .subtitle {
+      max-width: 860px;
+      margin: 22px auto 0;
+      color: #3b4638;
+      font-size: clamp(1.08rem, 2vw, 1.34rem);
+    }
+
+    .authors {
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+      padding: 11px 18px;
+      border: 1px solid rgba(38, 63, 36, 0.22);
+      border-radius: 999px;
+      background: var(--ink);
+      color: var(--paper-soft);
+      box-shadow: 0 14px 30px rgba(21, 27, 20, 0.14);
+      font-weight: 900;
+      transition: transform 180ms ease, box-shadow 180ms ease;
+    }
+
+    .button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(21, 27, 20, 0.20);
+      text-decoration: none;
+    }
+
+    .button.secondary {
+      background: rgba(255, 250, 240, 0.76);
+      color: var(--moss-dark);
+      box-shadow: none;
+    }
+
+    .tldr {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      margin: 32px auto 0;
+      padding: clamp(18px, 3vw, 28px);
+      border: 1px solid rgba(215, 202, 180, 0.84);
+      border-radius: var(--radius);
+      background: var(--cream-glass);
+      box-shadow: var(--shadow);
+      text-align: left;
+    }
+
+    .tldr strong {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--moss-dark);
+      font-size: 0.92rem;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+    }
+
+    .tldr p {
+      margin: 0;
+      color: #303a2e;
+      font-size: clamp(1.05rem, 1.8vw, 1.26rem);
+    }
+
+    .formula {
+      min-width: 260px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      background: var(--deep-glass);
+      color: #fff8e7;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.3rem, 2.5vw, 2.08rem);
+      line-height: 1.2;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+    }
+
+    .formula small {
+      display: block;
+      margin-top: 10px;
+      color: rgba(255, 248, 231, 0.72);
+      font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", Verdana, sans-serif;
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    section {
+      margin: 24px 0;
+      padding: clamp(24px, 4vw, 40px);
+      border: 1px solid rgba(215, 202, 180, 0.86);
+      border-radius: var(--radius);
+      background: var(--cream-glass);
+      box-shadow: var(--shadow);
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4.2vw, 3.8rem);
+      letter-spacing: -0.052em;
+    }
+
+    .section-kicker {
+      max-width: 600px;
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(72, 107, 62, 0.12);
+      color: var(--moss-dark);
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .video-wall {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .video-card {
+      overflow: hidden;
+      border: 1px solid rgba(215, 202, 180, 0.82);
+      border-radius: 22px;
+      background: rgba(255, 250, 240, 0.74);
+      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
+    }
+
+    .video-card video,
+    .video-card img {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: #182016;
+      object-fit: cover;
+    }
+
+    .video-card .wide-video {
+      aspect-ratio: 4 / 1;
+    }
+
+    .video-caption {
+      padding: 13px 14px 15px;
+    }
+
+    .video-caption strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.98rem;
+    }
+
+    .video-caption span {
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .mini-card {
+      padding: 22px;
+      border: 1px solid rgba(72, 107, 62, 0.16);
+      border-radius: 24px;
+      background: rgba(255, 250, 240, 0.70);
+    }
+
+    .mini-card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(1.45rem, 3vw, 2.2rem);
+      letter-spacing: -0.035em;
+    }
+
+    .mini-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .stat {
+      min-height: 126px;
+      padding: 16px;
+      border: 1px solid rgba(72, 107, 62, 0.16);
+      border-radius: 20px;
+      background: rgba(255, 250, 240, 0.78);
+    }
+
+    .stat strong {
+      display: block;
+      color: var(--moss-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.55rem, 3vw, 2.28rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .stat span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid rgba(215, 202, 180, 0.84);
+      border-radius: 22px;
+      background: rgba(255, 250, 240, 0.72);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 760px;
+    }
+
+    th,
+    td {
+      padding: 13px 15px;
+      border-bottom: 1px solid rgba(215, 202, 180, 0.74);
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    th:first-child,
+    td:first-child,
+    th:nth-child(2),
+    td:nth-child(2) {
+      text-align: left;
+    }
+
+    th {
+      color: var(--moss-dark);
+      background: rgba(237, 242, 223, 0.78);
+      font-size: 0.86rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .best {
+      color: var(--moss-dark);
+      font-weight: 900;
+    }
+
+    .note {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .abstract {
+      columns: 2 340px;
+      column-gap: 34px;
+      color: #334030;
+      font-size: 1.02rem;
+    }
+
+    .abstract p {
+      margin-top: 0;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 0;
+      padding: 20px;
+      border-radius: 20px;
+      background: #172015;
+      color: #fff8e7;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    footer {
+      padding: 22px 0 44px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.92rem;
+    }
+
+    .fade-in {
+      animation: rise 720ms ease both;
+    }
+
+    @keyframes rise {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 920px) {
+      nav,
+      .section-head,
+      .tldr {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .tldr,
+      .split {
+        grid-template-columns: 1fr;
+      }
+
+      .video-wall,
+      .stat-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .formula {
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      h1 {
+        font-size: clamp(2.85rem, 18vw, 4.1rem);
+      }
+
+      .links,
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .video-wall,
+      .stat-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 22px 16px;
+      }
+    }
   </style>
 </head>
 <body>
-  <header class="wrap">
-    <nav>
-      <a class="brand" href="#"><span class="mark"></span>PRISM</a>
+  <div class="wrap">
+    <nav class="fade-in" aria-label="Primary navigation">
+      <a class="brand" href="#">
+        <span class="brand-mark" aria-hidden="true"></span>
+        PRISM
+      </a>
       <div class="links">
-        <a href="#method">Method</a>
+        <a href="#abstract">Abstract</a>
         <a href="#results">Results</a>
+        <a href="#bfm">BFM-Zero</a>
+        <a href="#smolvla">SmolVLA</a>
         <a href="#videos">Videos</a>
-        <a href="#citation">Citation</a>
+        <a href="#bibtex">BibTeX</a>
       </div>
     </nav>
-  </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div>
-        <div class="eyebrow">Polynomial proprioception for robot policies</div>
-        <h1><span>PRISM</span> exposes physical interactions from proprioception.</h1>
-        <p class="subtitle">A lightweight polynomial conditioning module that helps sensor-minimal locomotion and vision-language-action policies reason over multiplicative structure in robot state.</p>
-        <p class="authors">Sean Lee and collaborators</p>
-        <div class="actions">
-          <a class="button" href="#results">View Results</a>
-          <a class="button secondary" href="#citation">Citation</a>
+    <header class="hero fade-in">
+      <div class="eyebrow">Polynomial proprioceptive conditioning for stronger robot policy backbones</div>
+      <h1><span>PRISM</span>: Learnable Quadratic Context for Generalist Robot Policies</h1>
+      <p class="subtitle">
+        A lightweight proprioceptive conditioner that injects learnable first- and second-order state interactions into modern locomotion and vision-language-action policies.
+      </p>
+      <p class="authors">Anonymous Authors</p>
+      <div class="actions">
+        <a class="button" href="assets/prism/prism-paper.pdf">Paper PDF</a>
+        <a class="button secondary" href="#videos">Watch Results</a>
+        <a class="button secondary" href="#results">See Tables</a>
+      </div>
+
+      <div class="tldr">
+        <div>
+          <strong>TL;DR</strong>
+          <p>
+            PRISM improves stronger backbones without simply scaling capacity: at matched checkpoints, it lowers BFM-Zero motion tracking error and raises SmolVLA LIBERO multi-task success over both standard and larger-conditioner baselines.
+          </p>
+        </div>
+        <div class="formula">
+          state + state<sup>2</sup> -> gated conditioner
+          <small>Learned gates decide when each proprioceptive dimension should contribute linearly or quadratically.</small>
         </div>
       </div>
-      <aside class="panel">
-        <div class="formula">h = MLP((W<sub>l</sub>s) . (W<sub>r</sub>s))<small>PRISM replaces a purely linear proprioceptive conditioner with a learnable quadratic interaction branch.</small></div>
-        <div class="metrics">
-          <div class="metric"><strong>66.55</strong><span>LIBERO average success with PRISM-GatedQuad at 80K eval50.</span></div>
-          <div class="metric"><strong>1404.2</strong><span>Average BFM-Zero joint-position tracking error at 9.6M.</span></div>
-          <div class="metric"><strong>1.910M</strong><span>SmolVLA PRISM proprioception conditioner parameters.</span></div>
-          <div class="metric"><strong>32.665M</strong><span>BFM-Zero PRISM inference parameters.</span></div>
+    </header>
+
+    <section id="videos" class="fade-in">
+      <div class="section-head">
+        <div>
+          <h2>Video Highlights</h2>
+          <p class="section-kicker">
+            Following the VIGOR-style layout, qualitative rollouts are visible before the detailed tables.
+          </p>
         </div>
-      </aside>
+        <span class="pill">BFM comparisons + LIBERO samples</span>
+      </div>
+
+      <div class="video-wall">
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4"></video>
+          <div class="video-caption">
+            <strong>BFM-Zero nominal tracking</strong>
+            <span>GT, BFM-Zero, Larger BFM-Zero, and PRISM-GatedQuad side by side.</span>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4"></video>
+          <div class="video-caption">
+            <strong>Low-friction perturbation</strong>
+            <span>Robustness rollout under reduced contact friction.</span>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4"></video>
+          <div class="video-caption">
+            <strong>Payload / mass perturbation</strong>
+            <span>Robustness rollout under body-mass perturbation.</span>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/spatial.mp4"></video>
+          <div class="video-caption">
+            <strong>LIBERO Spatial sample</strong>
+            <span>Qualitative PRISM-SmVLA rollout sample from saved eval videos.</span>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/object.mp4"></video>
+          <div class="video-caption">
+            <strong>LIBERO Object sample</strong>
+            <span>Manipulation behavior under object-centric task variation.</span>
+          </div>
+        </article>
+
+        <article class="video-card">
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long.mp4"></video>
+          <div class="video-caption">
+            <strong>LIBERO Long-horizon sample</strong>
+            <span>Long-horizon manipulation sample; official metrics are reported below.</span>
+          </div>
+        </article>
+      </div>
+      <p class="note">
+        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO videos are qualitative rollout samples; the SmolVLA table reports official 80K eval50 results.
+      </p>
     </section>
 
-    <section id="method" class="section">
-      <div class="section-head"><div><h2>Method</h2><p class="kicker">PRISM changes the representation of proprioception, not the sensing interface, action space, or low-level controller.</p></div></div>
-      <div class="two">
-        <article class="method"><h3>Locomotion</h3><p>We add PRISM to BFM-Zero and compare against both the standard BFM-Zero model and a larger-capacity BFM-Zero control. Evaluation is aligned at 9.6M environment steps and averaged across nominal, low-friction, and payload-mass settings.</p></article>
-        <article class="method"><h3>Manipulation</h3><p>We add PRISM to SmolVLA by applying polynomial features only to proprioceptive state. SmolVLM features remain unchanged, while the action expert and proprioception conditioner are tuned on LIBERO multi-task demonstrations.</p></article>
+    <section id="abstract">
+      <div class="section-head">
+        <div>
+          <h2>Abstract</h2>
+          <p class="section-kicker">
+            PRISM targets proprioceptive context, not the visual backbone or attention mechanism.
+          </p>
+        </div>
+      </div>
+      <div class="abstract">
+        <p>
+          Physical robot behavior depends on multiplicative interactions between joint state, velocity, contact, load, and task context. Standard proprioceptive encoders often compress these signals with shallow linear or MLP projections, which can under-represent useful second-order structure unless the policy learns it indirectly.
+        </p>
+        <p>
+          PRISM adds a lightweight polynomial conditioning module over proprioception. Instead of replacing the base policy, it augments the conditioner with learnable gated quadratic features, allowing the downstream policy to use first-order or second-order state evidence dimension by dimension.
+        </p>
+        <p>
+          We validate this idea on two stronger backbones: BFM-Zero for humanoid locomotion and SmolVLA for LIBERO manipulation. Across both domains, PRISM improves over the standard backbone and a larger-capacity conditioner, suggesting the gain is not merely a parameter-count effect.
+        </p>
       </div>
     </section>
 
-    <section id="results" class="section">
-      <div class="section-head"><div><h2>Stronger Backbone Validation</h2><p class="kicker">The original controlled experiments isolate the architectural effect. These additional experiments test whether the same polynomial bias remains useful with stronger modern backbones.</p></div></div>
-      <div class="tables">
-        <div class="table-card">
-          <table>
-            <caption>Locomotion: BFM-Zero</caption>
-            <thead><tr><th>Method</th><th>Params</th><th>Joint Pos. Err. ↓</th></tr></thead>
-            <tbody>
-              <tr><td>BFM-Zero</td><td>32.109M</td><td>1462.8</td></tr>
-              <tr><td>Larger BFM-Zero</td><td>49.260M</td><td>1456.1</td></tr>
-              <tr><td><strong>PRISM</strong></td><td>32.665M</td><td class="best">1404.2</td></tr>
-            </tbody>
-          </table>
+    <section id="results">
+      <div class="section-head">
+        <div>
+          <h2>Stronger-Backbone Results</h2>
+          <p class="section-kicker">
+            Main results use aligned checkpoints and official evaluation protocols where available.
+          </p>
         </div>
-        <div class="table-card">
-          <table>
-            <caption>Manipulation: SmolVLA</caption>
-            <thead><tr><th>Method</th><th>Params</th><th>LIBERO Avg. ↑</th></tr></thead>
-            <tbody>
-              <tr><td>SmolVLA</td><td>450.046M</td><td>63.50</td></tr>
-              <tr><td>Larger SmolVLA</td><td>456.245M</td><td>64.90</td></tr>
-              <tr><td><strong>PRISM</strong></td><td>451.925M</td><td class="best">66.55</td></tr>
-            </tbody>
-          </table>
-        </div>
+        <span class="pill">capacity control included</span>
       </div>
-      <p class="note">For BFM-Zero, Joint Pos. Err. denotes the average joint-position tracking error used in the original evaluation. For SmolVLA, LIBERO Avg. denotes the mean success rate across Spatial, Object, Goal, and Long under official eval50.</p>
+
+      <div class="split">
+        <article class="mini-card">
+          <h3>Locomotion: BFM-Zero</h3>
+          <p>
+            At the aligned 9.6M checkpoint, PRISM reaches the lowest joint-position tracking error while adding only 0.556M inference parameters over BFM-Zero and using far fewer parameters than the larger baseline.
+          </p>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>1404.2</strong>
+              <span>Joint Pos. Err. with PRISM, lower is better.</span>
+            </div>
+            <div class="stat">
+              <strong>-4.0%</strong>
+              <span>Error reduction vs. standard BFM-Zero.</span>
+            </div>
+            <div class="stat">
+              <strong>32.7M</strong>
+              <span>PRISM inference params vs. 49.3M Larger BFM-Zero.</span>
+            </div>
+            <div class="stat">
+              <strong>9.6M</strong>
+              <span>Aligned checkpoint used for this comparison.</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="mini-card">
+          <h3>Manipulation: SmolVLA</h3>
+          <p>
+            At 80K steps with official LIBERO multi-task eval50, PRISM improves average success over both SmolVLA and a larger-conditioner SmolVLA baseline.
+          </p>
+          <div class="stat-grid">
+            <div class="stat">
+              <strong>66.55</strong>
+              <span>LIBERO average success with PRISM, higher is better.</span>
+            </div>
+            <div class="stat">
+              <strong>+3.05</strong>
+              <span>Absolute gain over standard SmolVLA.</span>
+            </div>
+            <div class="stat">
+              <strong>451.9M</strong>
+              <span>Total PRISM-SmVLA params vs. 456.2M larger conditioner.</span>
+            </div>
+            <div class="stat">
+              <strong>80K</strong>
+              <span>Checkpoint used for official eval50 reporting.</span>
+            </div>
+          </div>
+        </article>
+      </div>
     </section>
 
-    <section id="videos" class="section">
-      <div class="section-head"><div><h2>Videos</h2><p class="kicker">The live page is currently deployed as a lightweight standalone page. Video and PDF assets will be added after binary asset upload is enabled for the GitHub Pages repository.</p></div></div>
-      <div class="placeholder-grid">
-        <div class="placeholder">BFM-Zero nominal tracking comparison</div>
-        <div class="placeholder">Low-friction locomotion comparison</div>
-        <div class="placeholder">Payload-mass locomotion comparison</div>
+    <section id="bfm">
+      <div class="section-head">
+        <div>
+          <h2>BFM-Zero Locomotion</h2>
+          <p class="section-kicker">
+            BFM-Zero reports average joint-position tracking error between generated and reference motions. Lower is better.
+          </p>
+        </div>
+        <span class="pill">9.6M aligned checkpoint</span>
       </div>
+
+      <div class="table-wrap">
+        <table aria-label="BFM-Zero stronger-backbone comparison">
+          <thead>
+            <tr>
+              <th>Setting</th>
+              <th>Method</th>
+              <th>Params</th>
+              <th>Joint Pos. Err. ↓</th>
+              <th>Capacity Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>BFM-Zero</td>
+              <td>BFM-Zero</td>
+              <td>32.109M</td>
+              <td>1462.8</td>
+              <td>--</td>
+            </tr>
+            <tr>
+              <td>BFM-Zero</td>
+              <td>Larger BFM-Zero</td>
+              <td>49.260M</td>
+              <td>1456.1</td>
+              <td>yes</td>
+            </tr>
+            <tr>
+              <td>BFM-Zero</td>
+              <td class="best">PRISM-GatedQuad</td>
+              <td>32.665M</td>
+              <td class="best">1404.2</td>
+              <td>yes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">
+        Scores are averaged across nominal, low-friction, and payload/mass perturbation evaluations. At this early checkpoint, sparse success is less informative, so the tracking metric is used as the primary motion-quality indicator.
+      </p>
     </section>
 
-    <section id="citation" class="section">
-      <div class="section-head"><div><h2>Citation</h2><p class="kicker">Replace the title, venue, and arXiv identifier once the arXiv version is live.</p></div></div>
-      <pre>@misc{lee2026prism,
-  title  = {PRISM: Polynomial Proprioceptive Conditioning for Robot Control},
-  author = {Lee, Sean and Collaborators},
-  year   = {2026},
-  note   = {Project page: https://lsh3163.github.io/prism/}
-}</pre>
+    <section id="smolvla">
+      <div class="section-head">
+        <div>
+          <h2>SmolVLA LIBERO Manipulation</h2>
+          <p class="section-kicker">
+            Official LIBERO multi-task eval50 at the 80K checkpoint. Higher success is better.
+          </p>
+        </div>
+        <span class="pill">80K official eval50</span>
+      </div>
+
+      <div class="table-wrap">
+        <table aria-label="SmolVLA LIBERO stronger-backbone comparison">
+          <thead>
+            <tr>
+              <th>Method</th>
+              <th>Total Params</th>
+              <th>Spatial</th>
+              <th>Object</th>
+              <th>Goal</th>
+              <th>Long</th>
+              <th>LIBERO Avg. ↑</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>SmolVLA</td>
+              <td>450.046M</td>
+              <td>69.8</td>
+              <td>57.2</td>
+              <td>81.2</td>
+              <td>45.8</td>
+              <td>63.50</td>
+            </tr>
+            <tr>
+              <td>Larger SmolVLA</td>
+              <td>456.245M</td>
+              <td>64.6</td>
+              <td>65.6</td>
+              <td>85.0</td>
+              <td>44.4</td>
+              <td>64.90</td>
+            </tr>
+            <tr>
+              <td class="best">PRISM-GatedQuad</td>
+              <td>451.925M</td>
+              <td class="best">70.0</td>
+              <td>57.4</td>
+              <td class="best">85.4</td>
+              <td class="best">53.4</td>
+              <td class="best">66.55</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="note">
+        PRISM adds 1.879M parameters over SmolVLA (+0.42% total) while using 4.321M fewer parameters than the larger-conditioner baseline.
+      </p>
     </section>
-  </main>
-  <footer class="wrap">Built for the PRISM project. Hosted with GitHub Pages.</footer>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Why Polynomial Features?</h2>
+          <p class="section-kicker">
+            The module makes a targeted architectural bet: proprioception benefits from explicit learnable multiplicative structure.
+          </p>
+        </div>
+      </div>
+
+      <div class="split">
+        <article class="mini-card">
+          <h3>First-order context</h3>
+          <p>
+            Linear terms preserve the original proprioceptive signal, allowing the base policy to use ordinary state cues when quadratic interactions are unnecessary.
+          </p>
+        </article>
+        <article class="mini-card">
+          <h3>Second-order context</h3>
+          <p>
+            Quadratic terms expose interaction-like evidence that can correspond to physical effects such as load, velocity-dependent behavior, and contact-sensitive dynamics.
+          </p>
+        </article>
+      </div>
+      <p class="note">
+        The gated design keeps the feature choice learnable instead of hard-coding every dimension to be purely linear or purely quadratic.
+      </p>
+    </section>
+
+    <section id="bibtex">
+      <div class="section-head">
+        <div>
+          <h2>BibTeX</h2>
+          <p class="section-kicker">Placeholder citation for the project page.</p>
+        </div>
+      </div>
+      <pre><code>@article{anonymous2026prism,
+  title   = {PRISM: Polynomial Proprioceptive Conditioning for Generalist Robot Policies},
+  author  = {Anonymous Authors},
+  journal = {},
+  year    = {2026}
+}</code></pre>
+    </section>
+
+    <footer>
+      Project page layout inspired by the video-first style of VIGOR and the Nerfies project page family.
+    </footer>
+  </div>
 </body>
 </html>
