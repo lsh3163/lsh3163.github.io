@@ -556,7 +556,7 @@
       </p>
       <p class="authors">Anonymous Authors</p>
       <div class="actions">
-        <a class="button" href="assets/prism/prism-paper.pdf?v=d1f05618">Paper PDF</a>
+        <a class="button" href="assets/prism/prism-paper.pdf?v=20260706-prism-success">Paper PDF</a>
         <a class="button secondary" href="#videos">Watch Results</a>
         <a class="button secondary" href="#results">See Tables</a>
       </div>
@@ -588,15 +588,15 @@
 
       <div class="video-wall">
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=d1f05618"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
             <strong>BFM-Zero nominal tracking</strong>
-            <span>GT, BFM-Zero, Larger BFM-Zero, and PRISM-GatedQuad side by side.</span>
+            <span>GT, BFM-Zero, Larger BFM-Zero, and PRISM side by side.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=d1f05618"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
             <strong>Low-friction perturbation</strong>
             <span>Robustness rollout under reduced contact friction.</span>
@@ -604,7 +604,7 @@
         </article>
 
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=d1f05618"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
             <strong>Payload / mass perturbation</strong>
             <span>Robustness rollout under body-mass perturbation.</span>
@@ -612,31 +612,31 @@
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/spatial.mp4?v=d1f05618"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long-task1-success.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
-            <strong>LIBERO Spatial sample</strong>
-            <span>Qualitative PRISM-SmVLA rollout sample from saved eval videos.</span>
+            <strong>LIBERO Long-horizon success</strong>
+            <span>80K eval50 PRISM success from a task where PRISM reaches 66% vs. 42% / 20% for SmolVLA / Larger.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/object.mp4?v=d1f05618"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/goal-task6-success.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
-            <strong>LIBERO Object sample</strong>
-            <span>Manipulation behavior under object-centric task variation.</span>
+            <strong>LIBERO Goal success</strong>
+            <span>Goal-conditioned manipulation from a task where PRISM improves success to 84% vs. 42% / 64%.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long.mp4?v=d1f05618"></video>
+          <video controls muted loop playsinline preload="metadata" src="assets/prism/libero-samples/long-task6-success.mp4?v=20260706-prism-success"></video>
           <div class="video-caption">
-            <strong>LIBERO Long-horizon sample</strong>
-            <span>Long-horizon manipulation sample; official metrics are reported below.</span>
+            <strong>LIBERO Long-horizon cup task</strong>
+            <span>PRISM-only successful episode from official eval50 video logs.</span>
           </div>
         </article>
       </div>
       <p class="note">
-        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO videos are qualitative rollout samples; the SmolVLA table reports official 80K eval50 results.
+        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO clips are successful PRISM rollouts selected from the official 80K eval50 video logs; the full aggregate metrics are reported below.
       </p>
     </section>
 
@@ -715,7 +715,7 @@
             </div>
             <div class="stat">
               <strong>451.9M</strong>
-              <span>Total PRISM-SmVLA params vs. 456.2M larger conditioner.</span>
+              <span>Total PRISM-SmolVLA params vs. 456.2M larger conditioner.</span>
             </div>
             <div class="stat">
               <strong>80K</strong>
@@ -765,7 +765,7 @@
             </tr>
             <tr>
               <td>BFM-Zero</td>
-              <td class="best">PRISM-GatedQuad</td>
+              <td class="best">PRISM</td>
               <td>32.665M</td>
               <td class="best">1404.2</td>
               <td>yes</td>
@@ -823,7 +823,7 @@
               <td>64.90</td>
             </tr>
             <tr>
-              <td class="best">PRISM-GatedQuad</td>
+              <td class="best">PRISM</td>
               <td>451.925M</td>
               <td class="best">70.0</td>
               <td>57.4</td>
