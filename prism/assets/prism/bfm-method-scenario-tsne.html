@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>BFM-Zero Scenario t-SNE by Method</title>
+  <title>BFM-Zero Representation Space</title>
   <style>
     :root {
       --paper: #f6efe2;
@@ -13,13 +13,17 @@
     }
     body {
       margin: 0;
-      background: radial-gradient(circle at 10% 8%, rgba(217,166,66,.28), transparent 30rem), linear-gradient(135deg, #f4e5cc, #edf2df);
+      background: transparent;
       color: var(--ink);
       font-family: "Avenir Next", "Trebuchet MS", Verdana, sans-serif;
     }
     main {
-      width: min(1480px, calc(100% - 32px));
-      margin: 28px auto;
+      width: 100%;
+      margin: 0 auto;
+      padding: 0;
+    }
+    header {
+      display: none;
     }
     h1 {
       margin: 0;
@@ -70,10 +74,7 @@
       border-radius: 2px;
     }
     .layout {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 330px;
-      gap: 18px;
-      align-items: start;
+      display: block;
     }
     .plots {
       display: grid;
@@ -107,6 +108,7 @@
       position: sticky;
       top: 18px;
       padding: 16px;
+      display: none;
     }
     .preview img {
       width: 100%;
@@ -155,7 +157,7 @@
 <body>
   <main>
     <header>
-      <h1>Scenario-colored t-SNE by method</h1>
+      <h1>BFM-Zero representation space</h1>
       <p>
         Each panel computes t-SNE independently for one method using the actor <code>history_conditioned</code> representation from motion-30 BFM-Zero rollouts.
         Colors indicate nominal, low-friction, and payload/mass conditions. Hover or click a point to inspect its rendered frame.
