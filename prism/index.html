@@ -145,15 +145,25 @@
     }
 
     h1 {
-      max-width: 1120px;
+      max-width: 1180px;
       margin: 0 auto;
-      font-size: clamp(2.45rem, 5.05vw, 4.75rem);
-      line-height: 0.98;
-      letter-spacing: -0.055em;
+      font-size: clamp(3.2rem, 7vw, 6.4rem);
+      line-height: 0.9;
+      letter-spacing: -0.06em;
     }
 
     h1 span {
       color: var(--moss);
+    }
+
+    h1 small {
+      display: block;
+      margin-top: 14px;
+      color: #121a11;
+      font-size: clamp(1.45rem, 3.1vw, 2.75rem);
+      line-height: 1.02;
+      letter-spacing: -0.045em;
+      white-space: nowrap;
     }
 
     .subtitle {
@@ -424,6 +434,31 @@
       box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
     }
 
+    .representation-frame {
+      display: block;
+      width: 100%;
+      min-height: 760px;
+      border: 1px solid rgba(215, 202, 180, 0.82);
+      border-radius: 22px;
+      background: rgba(255, 250, 240, 0.74);
+      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
+    }
+
+    .method-figure {
+      overflow: hidden;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 26px;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(217, 166, 66, 0.24), transparent 12rem),
+        rgba(255, 250, 240, 0.72);
+    }
+
+    .method-figure svg {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
     .video-caption {
       padding: 13px 14px 15px;
     }
@@ -614,6 +649,14 @@
         font-size: clamp(2.35rem, 13vw, 3.25rem);
       }
 
+      h1 small {
+        white-space: normal;
+      }
+
+      .representation-frame {
+        min-height: 980px;
+      }
+
       .links,
       .actions {
         justify-content: flex-start;
@@ -640,8 +683,9 @@
       </a>
       <div class="links">
         <a href="#method">Method</a>
-        <a href="#summary">Summary</a>
+        <a href="#results">Results</a>
         <a href="#bfm">BFM-Zero</a>
+        <a href="#compliance">Compliance</a>
         <a href="#representations">Representations</a>
         <a href="#libero">LIBERO</a>
         <a href="#bibtex">BibTeX</a>
@@ -649,16 +693,14 @@
     </nav>
 
     <header class="hero fade-in">
-      <div class="eyebrow">polynomial representations for proprioceptive robot control</div>
-      <h1><span>PRISM:</span> Polynomial Representations<br>for Interaction-Structured Motor Control</h1>
+      <h1><span>PRISM</span><small>Polynomial Representations for Interaction-Structured Motor Control</small></h1>
       <p class="subtitle">
-        A compact proprioceptive conditioner that exposes state interactions before MLP and attention-heavy robot policies consume them.
+        PRISM learns degree-2 proprioceptive interactions that reveal contact, load, and dynamics from deployable robot observations alone.
       </p>
-      <p class="authors">Anonymous Authors</p>
+      <p class="authors">Seung Hyun Lee and Stella X. Yu</p>
       <div class="actions">
         <a class="button" href="assets/prism/prism-paper.pdf?v=20260706-prism-success">Paper PDF</a>
         <a class="button secondary disabled" href="#" aria-disabled="true">Code coming soon</a>
-        <a class="button secondary disabled" href="#" aria-disabled="true">arXiv coming soon</a>
         <a class="button secondary" href="#bfm">BFM Results</a>
         <a class="button secondary" href="#libero">LIBERO Results</a>
       </div>
@@ -667,12 +709,12 @@
         <div>
           <strong>TL;DR</strong>
           <p>
-            PRISM improves BFM-Zero and SmolVLA over both baseline and larger-model controls without simply scaling capacity.
+            Robot behavior depends on coupled joint, velocity, contact, and load effects, but deployed policies often receive only proprioception. PRISM makes those physical couplings learnable.
           </p>
         </div>
         <div class="formula">
-          proprioception first
-          <small>Learned polynomial features expose joint, velocity, contact, and load interactions before the policy backbone.</small>
+          no force labels
+          <small>No tactile input, wrench sensing, contact labels, or simulator-only physical parameters are added.</small>
         </div>
       </div>
     </header>
@@ -680,62 +722,67 @@
     <section id="method" class="fade-in">
       <div class="section-head">
         <div>
-          <h2>PRISM exposes state interactions before MLP and attention policies</h2>
+          <h2>PRISM changes only the proprioceptive representation</h2>
           <p class="section-kicker">
-            A small learnable polynomial conditioner for proprioception.
+            A deployable degree-2 conditioner over robot state history.
           </p>
         </div>
-        <span class="pill">state interactions first</span>
       </div>
       <p class="takeaway">
-        PRISM keeps the policy unchanged and makes physical state interactions easier for the backbone to use.
+        The base policy keeps the same observations, actions, controller, and training recipe; PRISM only replaces the proprioceptive conditioner.
       </p>
-      <div class="method-grid">
-        <article class="flow-card">
-          <span class="flow-badge">Signals</span>
-          <h3>Proprioceptive context</h3>
-          <p>Robot behavior often changes through products of joint state, velocity, contact, and load.</p>
-          <div class="symbol-row">
-            <span class="symbol-chip">q</span>
-            <span class="symbol-chip">dq</span>
-            <span class="symbol-chip">contact</span>
-            <span class="symbol-chip">payload</span>
-          </div>
-        </article>
-        <article class="flow-card">
-          <span class="flow-badge">PRISM</span>
-          <h3>Learned polynomial gates</h3>
-          <p>Training learns which first-order, second-order, and mixed features matter for control.</p>
-          <div class="symbol-row">
-            <span class="symbol-chip">linear</span>
-            <span class="symbol-chip">quadratic</span>
-            <span class="symbol-chip">mixed</span>
-          </div>
-        </article>
-        <article class="flow-card">
-          <span class="flow-badge">Backbone</span>
-          <h3>MLP / attention support</h3>
-          <p>BFM-Zero and SmolVLA still choose actions; PRISM only changes state conditioning.</p>
-          <div class="symbol-row">
-            <span class="symbol-chip">BFM-Zero</span>
-            <span class="symbol-chip">SmolVLA</span>
-          </div>
-        </article>
+      <div class="method-figure" role="img" aria-label="PRISM method diagram">
+        <svg viewBox="0 0 1180 390" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#263f24"/>
+            </marker>
+            <linearGradient id="prismGrad" x1="0" x2="1">
+              <stop offset="0" stop-color="#486b3e"/>
+              <stop offset="1" stop-color="#d9a642"/>
+            </linearGradient>
+          </defs>
+          <rect x="42" y="70" width="260" height="210" rx="28" fill="#fffaf0" stroke="#d7cab4" stroke-width="2"/>
+          <text x="172" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-weight="700" fill="#151b14">Deployable state</text>
+          <text x="172" y="160" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#5a6257">state history, actions, commands</text>
+          <text x="172" y="202" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#5a6257">no force / tactile / contact labels</text>
+          <text x="172" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#486b3e">x<tspan baseline-shift="sub" font-size="15">t-k:t</tspan></text>
+
+          <line x1="318" y1="175" x2="415" y2="175" stroke="#263f24" stroke-width="4" marker-end="url(#arrow)"/>
+
+          <rect x="430" y="42" width="320" height="266" rx="32" fill="url(#prismGrad)" opacity="0.96"/>
+          <text x="590" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="36" font-weight="700" fill="#fffaf0">PRISM</text>
+          <text x="590" y="139" text-anchor="middle" font-family="Georgia,serif" font-size="27" fill="#fffaf0">phi(x) = [Wx, (W_lx) &times; (W_rx)]</text>
+          <text x="590" y="184" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#fff8e7">learned linear + quadratic factors</text>
+          <text x="590" y="226" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="19" fill="#fff8e7">interaction terms emerge from training</text>
+          <text x="590" y="268" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#fff8e7">initialized near-linear, optimized end-to-end</text>
+
+          <line x1="766" y1="175" x2="863" y2="175" stroke="#263f24" stroke-width="4" marker-end="url(#arrow)"/>
+
+          <rect x="878" y="70" width="260" height="210" rx="28" fill="#fffaf0" stroke="#d7cab4" stroke-width="2"/>
+          <text x="1008" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-weight="700" fill="#151b14">Policy backbone</text>
+          <text x="1008" y="160" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#5a6257">BFM-Zero or SmolVLA</text>
+          <text x="1008" y="202" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#5a6257">same action space and objective</text>
+          <text x="1008" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#486b3e">a<tspan baseline-shift="sub" font-size="15">t</tspan></text>
+
+          <text x="590" y="350" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" font-weight="700" fill="#263f24">
+            PRISM targets physical couplings in proprioception, not extra sensors or a residual controller.
+          </text>
+        </svg>
       </div>
     </section>
 
-    <section id="summary">
+    <section id="results">
       <div class="section-head">
         <div>
-          <h2>PRISM beats larger-model controls on stronger backbones</h2>
+          <h2>PRISM improves stronger backbones without simply scaling capacity</h2>
           <p class="section-kicker">
-            Same checkpoints, same evaluation, smaller than the larger-capacity baselines.
+            One summary table, matched checkpoints, larger-model controls shown in gray.
           </p>
         </div>
-        <span class="pill">capacity control included</span>
       </div>
       <p class="takeaway">
-        The gains hold for BFM-Zero (MLP locomotion) and SmolVLA (attention-based manipulation).
+        The same proprioceptive interaction idea improves whole-body locomotion and RGB-based manipulation while using fewer parameters than larger controls.
       </p>
       <div class="table-wrap">
         <table aria-label="Strong-backbone summary">
@@ -816,64 +863,14 @@
     <section id="bfm">
       <div class="section-head">
         <div>
-          <h2>BFM-Zero (MLP): PRISM lowers Tracking EMD under dynamics shifts</h2>
+          <h2>BFM-Zero: PRISM lowers Tracking EMD under dynamics shifts</h2>
           <p class="section-kicker">
-            A stronger locomotion baseline, not a toy controller.
+            Side-by-side locomotion rollouts from the aligned 9.6M checkpoint.
           </p>
         </div>
-        <span class="pill">9.6M aligned checkpoint</span>
       </div>
       <p class="takeaway">
-        The strongest BFM-Zero numbers come from PRISM, not the much larger conditioner.
-      </p>
-
-      <div class="table-wrap">
-        <table aria-label="BFM-Zero stronger-backbone comparison">
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Params</th>
-              <th>Nominal EMD ↓</th>
-              <th>Low Friction EMD ↓</th>
-              <th>Payload EMD ↓</th>
-              <th>Avg. EMD ↓</th>
-              <th>Capacity Control</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Baseline</td>
-              <td>32.109M</td>
-              <td>1.104</td>
-              <td>1.582</td>
-              <td>1.121</td>
-              <td>1.269</td>
-              <td>--</td>
-            </tr>
-            <tr>
-              <td class="best">PRISM</td>
-              <td>32.665M</td>
-              <td class="best">1.050</td>
-              <td class="best">1.548</td>
-              <td class="best">1.073</td>
-              <td class="best">1.224</td>
-              <td>yes</td>
-            </tr>
-            <tr class="muted-row">
-              <td>Larger Model</td>
-              <td>49.260M</td>
-              <td>1.090</td>
-              <td>1.589</td>
-              <td>1.114</td>
-              <td>1.264</td>
-              <td>yes</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="note">
-        Lower EMD indicates closer trajectory-level motion matching; all rows use the aligned 9.6M checkpoint.
+        PRISM tracks reference motion more closely under nominal, low-friction, and payload perturbations without adding privileged physical inputs.
       </p>
 
       <p class="video-subhead">BFM-Zero matched comparison clips</p>
@@ -921,6 +918,39 @@
           </div>
         </article>
       </div>
+      <p class="note">
+        Current saved clips use walking motions; dance, jump, fall, and fight rollouts are prepared for rendering and can be swapped in once Slurm is available.
+      </p>
+    </section>
+
+    <section id="compliance">
+      <div class="section-head">
+        <div>
+          <h2>PRISM shows compliance-like disturbance adaptation without force inputs</h2>
+          <p class="section-kicker">
+            Qualitative BFM-Zero disturbance rollouts compare the baseline and PRISM under the same saved scenarios.
+          </p>
+        </div>
+      </div>
+      <p class="takeaway">
+        The policy receives no force, wrench, tactile, contact-label, or admittance signal; adaptation must come from proprioceptive interaction structure.
+      </p>
+      <div class="video-wall">
+        <article class="video-card">
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/push-disturbance-baseline-prism.mp4?v=20260708-compliance"></video>
+          <div class="video-caption">
+            <strong>Push disturbance</strong>
+            <span>Each half shows the saved BFM-Zero reference/rollout view for baseline and PRISM.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/command-switch-baseline-prism.mp4?v=20260708-compliance"></video>
+          <div class="video-caption">
+            <strong>Command switch</strong>
+            <span>Baseline and PRISM are evaluated under the same target-command change.</span>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section id="representations">
@@ -928,85 +958,33 @@
         <div>
           <h2>PRISM separates low-friction states in representation space</h2>
           <p class="section-kicker">
-            Scenario-colored t-SNE with larger, shaped markers.
+            The interactive plot is embedded below; hover or click points to inspect rollout frames.
           </p>
         </div>
-        <span class="pill">scenario-colored frames</span>
       </div>
       <p class="takeaway">
-        In the PRISM panel, low-friction frames form the clearest cluster apart from nominal and payload.
+        Low-friction states form the clearest cluster in the PRISM representation, suggesting that the learned polynomial features encode dynamics context.
       </p>
 
-      <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260708-big-markers" target="_blank" rel="noopener">
-        <img class="representation-preview" src="assets/prism/bfm-method-scenario-tsne.png?v=20260708-big-markers" alt="Method-wise t-SNE plots of BFM-Zero, Larger BFM-Zero, and PRISM actor representations colored and shaped by robustness scenario.">
-      </a>
+      <iframe class="representation-frame" src="assets/prism/bfm-method-scenario-tsne.html?v=20260708-embedded" title="Interactive BFM-Zero scenario t-SNE by method"></iframe>
 
       <p class="note">
-        Green circles are nominal, blue triangles are low friction, and orange squares are payload; each point is one rollout frame with an inspectable thumbnail.
+        Green circles are nominal, blue triangles are low friction, and orange squares are payload. Open the plot in a new tab if the embedded view is too small.
+        <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260708-embedded" target="_blank" rel="noopener">Open interactive t-SNE</a>.
       </p>
     </section>
 
     <section id="libero">
       <div class="section-head">
         <div>
-          <h2>SmolVLA (Attention): PRISM raises LIBERO success at 80K</h2>
+          <h2>SmolVLA: PRISM improves contact-relevant LIBERO execution</h2>
           <p class="section-kicker">
-            A stronger VLA baseline with the visual-language backbone left unchanged.
+            Official LIBERO multi-task eval50 at the 80K checkpoint.
           </p>
         </div>
-        <span class="pill">80K official eval50</span>
       </div>
       <p class="takeaway">
-        PRISM improves SmolVLA while adding fewer parameters than the larger-conditioner control.
-      </p>
-
-      <div class="table-wrap">
-        <table aria-label="SmolVLA LIBERO stronger-backbone comparison">
-          <thead>
-            <tr>
-              <th>Method</th>
-              <th>Total Params</th>
-              <th>Spatial</th>
-              <th>Object</th>
-              <th>Goal</th>
-              <th>Long</th>
-              <th>LIBERO Avg. ↑</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Baseline</td>
-              <td>450.046M</td>
-              <td>69.8</td>
-              <td>57.2</td>
-              <td>81.2</td>
-              <td>45.8</td>
-              <td>63.50</td>
-            </tr>
-            <tr>
-              <td class="best">PRISM</td>
-              <td>451.925M</td>
-              <td class="best">70.0</td>
-              <td>57.4</td>
-              <td class="best">85.4</td>
-              <td class="best">53.4</td>
-              <td class="best">66.55</td>
-            </tr>
-            <tr class="muted-row">
-              <td>Larger Model</td>
-              <td>456.245M</td>
-              <td>64.6</td>
-              <td>65.6</td>
-              <td>85.0</td>
-              <td>44.4</td>
-              <td>64.90</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <p class="note">
-        PRISM adds 1.879M parameters over SmolVLA (+0.42% total) while using 4.321M fewer parameters than the larger-conditioner baseline.
+        PRISM changes only proprioceptive conditioning and improves average success, with the largest gains on long-horizon execution.
       </p>
 
       <p class="video-subhead">LIBERO same-episode comparisons</p>
@@ -1042,9 +1020,9 @@
           <p class="section-kicker">Placeholder citation for the project page.</p>
         </div>
       </div>
-<pre><code>@article{anonymous2026prism,
+<pre><code>@article{lee2026prism,
   title   = {PRISM: Polynomial Representations for Interaction-Structured Motor Control},
-  author  = {Anonymous Authors},
+  author  = {Seung Hyun Lee and Stella X. Yu},
   journal = {},
   year    = {2026}
 }</code></pre>
