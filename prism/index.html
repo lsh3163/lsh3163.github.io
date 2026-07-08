@@ -408,6 +408,10 @@
       gap: 16px;
     }
 
+    .video-wall.two-up {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .video-card {
       overflow: hidden;
       border: 1px solid rgba(215, 202, 180, 0.82);
@@ -445,7 +449,8 @@
     .representation-frame {
       display: block;
       width: 100%;
-      min-height: 760px;
+      height: min(62vw, 600px);
+      min-height: 500px;
       border: 1px solid rgba(215, 202, 180, 0.82);
       border-radius: 22px;
       background: rgba(255, 250, 240, 0.74);
@@ -453,7 +458,9 @@
     }
 
     .method-figure {
+      position: relative;
       overflow: hidden;
+      padding: clamp(18px, 3vw, 28px);
       border: 1px solid rgba(72, 107, 62, 0.18);
       border-radius: 26px;
       background:
@@ -461,10 +468,101 @@
         rgba(255, 250, 240, 0.72);
     }
 
-    .method-figure svg {
-      display: block;
-      width: 100%;
-      height: auto;
+    .method-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) 46px minmax(0, 1.25fr) 46px minmax(0, 0.9fr);
+      gap: 12px;
+      align-items: stretch;
+    }
+
+    .method-card {
+      min-width: 0;
+      padding: clamp(18px, 2.4vw, 26px);
+      border: 1px solid rgba(215, 202, 180, 0.82);
+      border-radius: 24px;
+      background: rgba(255, 250, 240, 0.78);
+      box-shadow: 0 14px 38px rgba(38, 31, 20, 0.09);
+    }
+
+    .method-card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(1.2rem, 2.1vw, 1.78rem);
+      letter-spacing: -0.03em;
+    }
+
+    .method-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+
+    .method-card .state-token {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(72, 107, 62, 0.12);
+      color: var(--moss-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-weight: 800;
+    }
+
+    .method-card.prism-card {
+      color: #fffaf0;
+      background:
+        radial-gradient(circle at 12% 10%, rgba(255, 250, 240, 0.20), transparent 9rem),
+        linear-gradient(135deg, rgba(72, 107, 62, 0.98), rgba(217, 166, 66, 0.96));
+      border-color: rgba(255, 250, 240, 0.22);
+    }
+
+    .method-card.prism-card h3,
+    .method-card.prism-card p {
+      color: #fffaf0;
+    }
+
+    .formula-line {
+      margin: 12px 0 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(21, 27, 20, 0.23);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1rem, 1.85vw, 1.42rem);
+      line-height: 1.25;
+      overflow-wrap: anywhere;
+    }
+
+    .method-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .method-tags span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.17);
+      color: #fffaf0;
+      font-size: 0.82rem;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .arrow-cell {
+      display: grid;
+      place-items: center;
+      color: var(--moss-dark);
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    .method-caption {
+      max-width: 840px;
+      margin: 18px auto 0;
+      color: var(--moss-dark);
+      font-weight: 800;
+      text-align: center;
     }
 
     .video-caption {
@@ -647,6 +745,19 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
+      .method-flow {
+        grid-template-columns: 1fr;
+      }
+
+      .arrow-cell {
+        transform: rotate(90deg);
+        min-height: 28px;
+      }
+
+      .representation-frame {
+        height: 820px;
+      }
+
       .formula {
         min-width: 0;
       }
@@ -662,7 +773,8 @@
       }
 
       .representation-frame {
-        min-height: 980px;
+        height: 1120px;
+        min-height: 1120px;
       }
 
       .links,
@@ -671,6 +783,7 @@
       }
 
       .video-wall,
+      .video-wall.two-up,
       .stat-grid,
       .method-grid {
         grid-template-columns: 1fr;
@@ -693,6 +806,7 @@
         <a href="#method">Method</a>
         <a href="#results">Results</a>
         <a href="#bfm">RL Locomotion</a>
+        <a href="#disturbance">Disturbance</a>
         <a href="#representations">Representations</a>
         <a href="#libero">VLA Manipulation</a>
         <a href="#bibtex">BibTeX</a>
@@ -735,43 +849,36 @@
         The observation stream, action space, controller, and training recipe stay fixed; only the proprioceptive conditioner changes.
       </p>
       <div class="method-figure" role="img" aria-label="PRISM method diagram">
-        <svg viewBox="0 0 1180 390" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#263f24"/>
-            </marker>
-            <linearGradient id="prismGrad" x1="0" x2="1">
-              <stop offset="0" stop-color="#486b3e"/>
-              <stop offset="1" stop-color="#d9a642"/>
-            </linearGradient>
-          </defs>
-          <rect x="42" y="70" width="260" height="210" rx="28" fill="#fffaf0" stroke="#d7cab4" stroke-width="2"/>
-          <text x="172" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-weight="700" fill="#151b14">Deployable state</text>
-          <text x="172" y="160" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#5a6257">state history, actions, commands</text>
-          <text x="172" y="202" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#5a6257">no force / tactile / contact labels</text>
-          <text x="172" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#486b3e">x<tspan baseline-shift="sub" font-size="15">t-k:t</tspan></text>
-
-          <line x1="318" y1="175" x2="415" y2="175" stroke="#263f24" stroke-width="4" marker-end="url(#arrow)"/>
-
-          <rect x="430" y="42" width="320" height="266" rx="32" fill="url(#prismGrad)" opacity="0.96"/>
-          <text x="590" y="95" text-anchor="middle" font-family="Georgia,serif" font-size="36" font-weight="700" fill="#fffaf0">PRISM</text>
-          <text x="590" y="139" text-anchor="middle" font-family="Georgia,serif" font-size="27" fill="#fffaf0">phi(x) = [Wx, (W_lx) &times; (W_rx)]</text>
-          <text x="590" y="184" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#fff8e7">learned linear + quadratic factors</text>
-          <text x="590" y="226" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="19" fill="#fff8e7">interaction terms emerge from training</text>
-          <text x="590" y="268" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#fff8e7">initialized near-linear, optimized end-to-end</text>
-
-          <line x1="766" y1="175" x2="863" y2="175" stroke="#263f24" stroke-width="4" marker-end="url(#arrow)"/>
-
-          <rect x="878" y="70" width="260" height="210" rx="28" fill="#fffaf0" stroke="#d7cab4" stroke-width="2"/>
-          <text x="1008" y="118" text-anchor="middle" font-family="Georgia,serif" font-size="30" font-weight="700" fill="#151b14">Policy backbone</text>
-          <text x="1008" y="160" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="20" fill="#5a6257">BFM-Zero or SmolVLA</text>
-          <text x="1008" y="202" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="18" fill="#5a6257">same action space and objective</text>
-          <text x="1008" y="244" text-anchor="middle" font-family="Georgia,serif" font-size="24" fill="#486b3e">a<tspan baseline-shift="sub" font-size="15">t</tspan></text>
-
-          <text x="590" y="350" text-anchor="middle" font-family="Avenir Next,Trebuchet MS,sans-serif" font-size="19" font-weight="700" fill="#263f24">
-            Physical couplings are represented inside proprioception, before the policy acts.
-          </text>
-        </svg>
+        <div class="method-flow">
+          <article class="method-card">
+            <h3>Deployable state</h3>
+            <p>State history, previous actions, and commands are the only inputs.</p>
+            <p>No tactile, force, wrench, contact-label, or privileged simulator parameter is added.</p>
+            <span class="state-token">x<sub>t-k:t</sub></span>
+          </article>
+          <div class="arrow-cell" aria-hidden="true">→</div>
+          <article class="method-card prism-card">
+            <h3>PRISM</h3>
+            <div class="formula-line">
+              phi(x) = [Wx, (W<sub>l</sub>x) &times; (W<sub>r</sub>x)]
+            </div>
+            <p>Learned first- and second-order factors expose state interactions before the policy consumes proprioception.</p>
+            <div class="method-tags" aria-label="PRISM design properties">
+              <span>learned quadratic factors</span>
+              <span>near-linear initialization</span>
+              <span>end-to-end optimization</span>
+            </div>
+          </article>
+          <div class="arrow-cell" aria-hidden="true">→</div>
+          <article class="method-card">
+            <h3>Policy backbone</h3>
+            <p>BFM-Zero and SmolVLA keep the same action space, loss, and training/evaluation recipe.</p>
+            <span class="state-token">a<sub>t</sub></span>
+          </article>
+        </div>
+        <p class="method-caption">
+          PRISM changes the representation of proprioception, not the controller or observation budget.
+        </p>
       </div>
     </section>
 
@@ -897,6 +1004,36 @@
           <div class="video-caption">
             <strong>Payload mass</strong>
             <span>Body-mass perturbation.</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="disturbance">
+      <div class="section-head">
+        <div>
+          <h2>Disturbance response: PRISM recovers from state shifts</h2>
+          <p class="section-kicker">
+            Qualitative BFM-Zero rollouts under push and command-change perturbations.
+          </p>
+        </div>
+      </div>
+      <p class="takeaway">
+        These clips stress the same policy with sudden physical or command shifts; PRISM still uses only proprioceptive observations.
+      </p>
+      <div class="video-wall two-up">
+        <article class="video-card">
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/push-disturbance-baseline-prism.mp4?v=20260708-disturbance"></video>
+          <div class="video-caption">
+            <strong>Push disturbance</strong>
+            <span>Baseline and PRISM under the same external disturbance setup.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/command-switch-baseline-prism.mp4?v=20260708-disturbance"></video>
+          <div class="video-caption">
+            <strong>Command switch</strong>
+            <span>Baseline and PRISM under the same target-command change.</span>
           </div>
         </article>
       </div>
