@@ -420,6 +420,10 @@
       box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
     }
 
+    .video-card.featured {
+      grid-column: 1 / -1;
+    }
+
     .video-card video,
     .video-card img {
       display: block;
@@ -449,8 +453,8 @@
     .representation-frame {
       display: block;
       width: 100%;
-      height: min(62vw, 600px);
-      min-height: 500px;
+      height: min(44vw, 470px);
+      min-height: 380px;
       border: 1px solid rgba(215, 202, 180, 0.82);
       border-radius: 22px;
       background: rgba(255, 250, 240, 0.74);
@@ -755,7 +759,7 @@
       }
 
       .representation-frame {
-        height: 820px;
+        height: 900px;
       }
 
       .formula {
@@ -773,8 +777,8 @@
       }
 
       .representation-frame {
-        height: 1120px;
-        min-height: 1120px;
+        height: 1180px;
+        min-height: 1180px;
       }
 
       .links,
@@ -806,7 +810,7 @@
         <a href="#method">Method</a>
         <a href="#results">Results</a>
         <a href="#bfm">RL Locomotion</a>
-        <a href="#disturbance">Disturbance</a>
+        <a href="#contact">Contact Behavior</a>
         <a href="#representations">Representations</a>
         <a href="#libero">VLA Manipulation</a>
         <a href="#bibtex">BibTeX</a>
@@ -860,12 +864,12 @@
           <article class="method-card prism-card">
             <h3>PRISM</h3>
             <div class="formula-line">
-              phi(x) = [Wx, (W<sub>l</sub>x) &times; (W<sub>r</sub>x)]
+              phi(x) = RMSNorm(MLP((W<sub>l</sub>x) &odot; (1 + &alpha; &odot; W<sub>r</sub>x)))
             </div>
-            <p>Learned first- and second-order factors expose state interactions before the policy consumes proprioception.</p>
+            <p>Learned first- and gated second-order factors expose state interactions before the policy consumes proprioception.</p>
             <div class="method-tags" aria-label="PRISM design properties">
-              <span>learned quadratic factors</span>
-              <span>near-linear initialization</span>
+              <span>learned gate &alpha;</span>
+              <span>near-linear start</span>
               <span>end-to-end optimization</span>
             </div>
           </article>
@@ -1009,31 +1013,24 @@
       </div>
     </section>
 
-    <section id="disturbance">
+    <section id="contact">
       <div class="section-head">
         <div>
-          <h2>Disturbance response: PRISM recovers from state shifts</h2>
+          <h2>LIBERO contact behavior: PRISM adjusts through interaction</h2>
           <p class="section-kicker">
-            Qualitative BFM-Zero rollouts under push and command-change perturbations.
+            Same-episode SmolVLA comparison on a contact-rich cup manipulation.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        These clips stress the same policy with sudden physical or command shifts; PRISM still uses only proprioceptive observations.
+        The clip highlights the kind of compliance-like behavior we want to show: the policy uses visual and proprioceptive feedback to keep contact and complete the manipulation without explicit force sensing.
       </p>
-      <div class="video-wall two-up">
-        <article class="video-card">
-          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/push-disturbance-baseline-prism.mp4?v=20260708-disturbance"></video>
+      <div class="video-wall">
+        <article class="video-card featured">
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-compliance/cup-contact-adjustment-comparison.mp4?v=20260708-libero-contact"></video>
           <div class="video-caption">
-            <strong>Push disturbance</strong>
-            <span>Baseline and PRISM under the same external disturbance setup.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/command-switch-baseline-prism.mp4?v=20260708-disturbance"></video>
-          <div class="video-caption">
-            <strong>Command switch</strong>
-            <span>Baseline and PRISM under the same target-command change.</span>
+            <strong>Cup contact adjustment</strong>
+            <span>SmolVLA and Larger fail; PRISM succeeds on the same contact-rich LIBERO episode.</span>
           </div>
         </article>
       </div>
