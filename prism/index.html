@@ -14,6 +14,7 @@
       --line: #d7cab4;
       --moss: #486b3e;
       --moss-dark: #263f24;
+      --blue: #2f6fbe;
       --amber: #d9a642;
       --clay: #b86842;
       --cream-glass: rgba(255, 250, 240, 0.78);
@@ -144,10 +145,10 @@
     }
 
     h1 {
-      max-width: 1040px;
+      max-width: 980px;
       margin: 0 auto;
-      font-size: clamp(3.3rem, 8vw, 7.4rem);
-      letter-spacing: -0.073em;
+      font-size: clamp(2.7rem, 5.8vw, 5.25rem);
+      letter-spacing: -0.06em;
     }
 
     h1 span {
@@ -200,6 +201,12 @@
       background: rgba(255, 250, 240, 0.76);
       color: var(--moss-dark);
       box-shadow: none;
+    }
+
+    .button.disabled {
+      cursor: not-allowed;
+      opacity: 0.55;
+      pointer-events: none;
     }
 
     .tldr {
@@ -291,6 +298,88 @@
       color: var(--moss-dark);
       font-weight: 900;
       white-space: nowrap;
+    }
+
+    .takeaway {
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 20px;
+      background: rgba(237, 242, 223, 0.68);
+      color: #303a2e;
+    }
+
+    .takeaway strong {
+      color: var(--moss-dark);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .method-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 18px;
+    }
+
+    .flow-card {
+      position: relative;
+      min-height: 170px;
+      padding: 20px;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(217, 166, 66, 0.24), transparent 8rem),
+        rgba(255, 250, 240, 0.74);
+    }
+
+    .flow-card h3 {
+      margin-bottom: 10px;
+      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+      letter-spacing: -0.035em;
+    }
+
+    .flow-card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .flow-badge {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 12px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(21, 27, 20, 0.90);
+      color: var(--paper-soft);
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .symbol-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+
+    .symbol-chip {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(72, 107, 62, 0.10);
+      color: var(--moss-dark);
+      font-weight: 900;
+      font-size: 0.84rem;
+    }
+
+    .video-subhead {
+      margin: 4px 0 14px;
+      color: var(--moss-dark);
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     .video-wall {
@@ -514,7 +603,8 @@
       }
 
       .video-wall,
-      .stat-grid {
+      .stat-grid,
+      .method-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -525,7 +615,7 @@
 
     @media (max-width: 620px) {
       h1 {
-        font-size: clamp(2.85rem, 18vw, 4.1rem);
+        font-size: clamp(2.35rem, 13vw, 3.25rem);
       }
 
       .links,
@@ -534,7 +624,8 @@
       }
 
       .video-wall,
-      .stat-grid {
+      .stat-grid,
+      .method-grid {
         grid-template-columns: 1fr;
       }
 
@@ -553,9 +644,10 @@
       </a>
       <div class="links">
         <a href="#abstract">Abstract</a>
+        <a href="#method">Method</a>
         <a href="#results">Results</a>
         <a href="#bfm">BFM-Zero</a>
-        <a href="#representations">t-SNE</a>
+        <a href="#representations">Representations</a>
         <a href="#smolvla">SmolVLA</a>
         <a href="#videos">Videos</a>
         <a href="#bibtex">BibTeX</a>
@@ -571,8 +663,9 @@
       <p class="authors">Anonymous Authors</p>
       <div class="actions">
         <a class="button" href="assets/prism/prism-paper.pdf?v=20260706-prism-success">Paper PDF</a>
+        <a class="button secondary disabled" href="#" aria-disabled="true">Code coming soon</a>
+        <a class="button secondary disabled" href="#" aria-disabled="true">arXiv coming soon</a>
         <a class="button secondary" href="#videos">Watch Results</a>
-        <a class="button secondary" href="#results">See Tables</a>
       </div>
 
       <div class="tldr">
@@ -584,44 +677,96 @@
         </div>
         <div class="formula">
           interaction-structured motor control
-          <small>A polynomial inductive bias initializes the representation; training learns which proprioceptive feature mixtures matter end-to-end.</small>
+          <small>Joint position, velocity, contact, and payload signals interact multiplicatively; PRISM exposes those interactions before the policy backbone has to infer them from scratch.</small>
         </div>
       </div>
     </header>
+
+    <section id="method" class="fade-in">
+      <div class="section-head">
+        <div>
+          <h2>Interaction-Structured Motor Control</h2>
+          <p class="section-kicker">
+            Takeaway: PRISM is a small proprioceptive conditioning module, not a replacement for the policy backbone.
+          </p>
+        </div>
+        <span class="pill">state interactions first</span>
+      </div>
+      <p class="takeaway">
+        <strong>Core message.</strong>
+        MLPs and attention layers are expressive, but they still receive proprioception through an input representation. PRISM makes low-order physical interactions easier to access by learning polynomial feature mixtures over proprioception before the downstream MLP, action expert, or attention-heavy policy consumes them.
+      </p>
+      <div class="method-grid">
+        <article class="flow-card">
+          <span class="flow-badge">Signals</span>
+          <h3>Proprioceptive context</h3>
+          <p>Robot behavior changes when joint state, velocity, contact, and load vary together rather than independently.</p>
+          <div class="symbol-row">
+            <span class="symbol-chip">q</span>
+            <span class="symbol-chip">dq</span>
+            <span class="symbol-chip">contact</span>
+            <span class="symbol-chip">payload</span>
+          </div>
+        </article>
+        <article class="flow-card">
+          <span class="flow-badge">PRISM</span>
+          <h3>Learned polynomial gates</h3>
+          <p>A polynomial initialization gives the model first- and second-order proprioceptive features, while training learns which mixtures matter.</p>
+          <div class="symbol-row">
+            <span class="symbol-chip">linear</span>
+            <span class="symbol-chip">quadratic</span>
+            <span class="symbol-chip">mixed</span>
+          </div>
+        </article>
+        <article class="flow-card">
+          <span class="flow-badge">Backbone</span>
+          <h3>MLP / attention support</h3>
+          <p>The base policy still performs the final reasoning; PRISM simply feeds it a representation where physical interactions are less buried.</p>
+          <div class="symbol-row">
+            <span class="symbol-chip">BFM-Zero</span>
+            <span class="symbol-chip">SmolVLA</span>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <section id="videos" class="fade-in">
       <div class="section-head">
         <div>
           <h2>Video Highlights</h2>
           <p class="section-kicker">
-            Following the VIGOR-style layout, qualitative rollouts are visible before the detailed tables.
+            Takeaway: side-by-side rollouts show that the same compact PRISM module helps both humanoid tracking and LIBERO manipulation.
           </p>
         </div>
         <span class="pill">BFM comparisons + LIBERO comparisons</span>
       </div>
+      <p class="takeaway">
+        <strong>Why these videos.</strong>
+        BFM-Zero tests whether PRISM helps proprioceptive motor control under different poses and dynamics shifts. SmolVLA tests whether the same idea still helps an attention-heavy VLA policy whose action expert receives proprioceptive conditioning.
+      </p>
 
       <div class="video-wall">
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260706-h264-m30"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-pose-m25-nominal.mp4?v=20260707-pose-diversity"></video>
           <div class="video-caption">
-            <strong>BFM-Zero nominal tracking</strong>
-            <span>GT, BFM-Zero, Larger BFM-Zero, and PRISM side by side.</span>
+            <strong>BFM-Zero pose tracking</strong>
+            <span>GT, BFM-Zero, Larger BFM-Zero, and PRISM on a different reference pose sequence.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260706-h264-m30"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260707-pose-diversity"></video>
           <div class="video-caption">
             <strong>Low-friction perturbation</strong>
-            <span>Robustness rollout under reduced contact friction.</span>
+            <span>Reduced contact friction; this is also the condition that separates most clearly in the representation plot.</span>
           </div>
         </article>
 
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260706-h264-m30"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-pose-m25-payload.mp4?v=20260707-pose-diversity"></video>
           <div class="video-caption">
             <strong>Payload / mass perturbation</strong>
-            <span>Robustness rollout under body-mass perturbation.</span>
+            <span>Same comparison under body-mass perturbation, using the second BFM reference motion.</span>
           </div>
         </article>
 
@@ -650,7 +795,7 @@
         </article>
       </div>
       <p class="note">
-        BFM videos are aligned to the 9.6M checkpoint comparison used in the locomotion table. LIBERO videos are same-episode comparisons selected from the official 80K eval50 logs, with aggregate metrics reported below.
+        BFM videos use aligned 9.6M checkpoints and show GT | BFM-Zero | Larger BFM-Zero | PRISM. LIBERO videos are same-episode comparisons selected from the 80K eval50 logs, with aggregate metrics reported below.
       </p>
     </section>
 
@@ -659,10 +804,14 @@
         <div>
           <h2>Abstract</h2>
           <p class="section-kicker">
-            PRISM targets proprioceptive context, not the visual backbone or attention mechanism.
+            Takeaway: the target is the proprioceptive representation that feeds modern robot policy backbones.
           </p>
         </div>
       </div>
+      <p class="takeaway">
+        <strong>Why proprioception.</strong>
+        Vision-language policies and locomotion foundation models already have strong MLP or attention blocks. PRISM asks whether the state conditioner itself should expose physical interactions before those blocks do the rest of the work.
+      </p>
       <div class="abstract">
         <p>
           Physical robot behavior depends on multiplicative interactions between joint state, velocity, contact, load, and task context. Standard proprioceptive encoders often compress these signals with shallow linear or MLP projections, which can make useful higher-order structure harder to discover.
@@ -681,26 +830,30 @@
         <div>
           <h2>Stronger-Backbone Results</h2>
           <p class="section-kicker">
-            Main results use aligned checkpoints and official evaluation protocols where available.
+            Takeaway: PRISM improves matched-checkpoint baselines and also beats larger-capacity controls.
           </p>
         </div>
         <span class="pill">capacity control included</span>
       </div>
+      <p class="takeaway">
+        <strong>Why these baselines.</strong>
+        BFM-Zero is a strong promptable locomotion backbone; SmolVLA is a compact VLA model with an action expert. The larger-conditioner rows check whether the gain is merely from adding parameters rather than from polynomial proprioceptive structure.
+      </p>
 
       <div class="split">
         <article class="mini-card">
           <h3>Locomotion: BFM-Zero</h3>
           <p>
-            At the aligned 9.6M checkpoint, PRISM reaches the lowest joint-position tracking error while adding only 0.556M inference parameters over BFM-Zero and using far fewer parameters than the larger baseline.
+            At the aligned 9.6M checkpoint, PRISM reaches the lowest average Tracking EMD across nominal, low-friction, and payload-mass settings while adding only 0.556M inference parameters over BFM-Zero.
           </p>
           <div class="stat-grid">
             <div class="stat">
-              <strong>1404.2</strong>
-              <span>Joint Pos. Err. with PRISM, lower is better.</span>
+              <strong>1.224</strong>
+              <span>Average Tracking EMD with PRISM, lower is better.</span>
             </div>
             <div class="stat">
-              <strong>-4.0%</strong>
-              <span>Error reduction vs. standard BFM-Zero.</span>
+              <strong>-3.6%</strong>
+              <span>Average EMD reduction vs. standard BFM-Zero.</span>
             </div>
             <div class="stat">
               <strong>32.7M</strong>
@@ -716,7 +869,7 @@
         <article class="mini-card">
           <h3>Manipulation: SmolVLA</h3>
           <p>
-            At 80K steps with official LIBERO multi-task eval50, PRISM improves average success over both SmolVLA and a larger-conditioner SmolVLA baseline.
+            At 80K steps with LIBERO multi-task eval50, PRISM improves average success over both SmolVLA and a larger-conditioner SmolVLA baseline.
           </p>
           <div class="stat-grid">
             <div class="stat">
@@ -745,43 +898,55 @@
         <div>
           <h2>BFM-Zero Locomotion</h2>
           <p class="section-kicker">
-            BFM-Zero reports average joint-position tracking error between generated and reference motions. Lower is better.
+            Takeaway: polynomial proprioceptive conditioning helps a strong locomotion backbone under both nominal and perturbed dynamics.
           </p>
         </div>
         <span class="pill">9.6M aligned checkpoint</span>
       </div>
+      <p class="takeaway">
+        <strong>Why BFM-Zero.</strong>
+        BFM-Zero is already designed for promptable whole-body humanoid behavior, so improvement here is a harder test than adding PRISM to a small bespoke controller. PRISM is compared with both the original model and a much larger BFM-Zero conditioner.
+      </p>
 
       <div class="table-wrap">
         <table aria-label="BFM-Zero stronger-backbone comparison">
           <thead>
             <tr>
-              <th>Setting</th>
               <th>Method</th>
               <th>Params</th>
-              <th>Joint Pos. Err. ↓</th>
+              <th>Nominal EMD ↓</th>
+              <th>Low Friction EMD ↓</th>
+              <th>Payload EMD ↓</th>
+              <th>Avg. EMD ↓</th>
               <th>Capacity Control</th>
             </tr>
           </thead>
           <tbody>
             <tr>
               <td>BFM-Zero</td>
-              <td>BFM-Zero</td>
               <td>32.109M</td>
-              <td>1462.8</td>
+              <td>1.104</td>
+              <td>1.582</td>
+              <td>1.121</td>
+              <td>1.269</td>
               <td>--</td>
             </tr>
             <tr>
-              <td>BFM-Zero</td>
               <td>Larger BFM-Zero</td>
               <td>49.260M</td>
-              <td>1456.1</td>
+              <td>1.090</td>
+              <td>1.589</td>
+              <td>1.114</td>
+              <td>1.264</td>
               <td>yes</td>
             </tr>
             <tr>
-              <td>BFM-Zero</td>
               <td class="best">PRISM</td>
               <td>32.665M</td>
-              <td class="best">1404.2</td>
+              <td class="best">1.050</td>
+              <td class="best">1.548</td>
+              <td class="best">1.073</td>
+              <td class="best">1.224</td>
               <td>yes</td>
             </tr>
           </tbody>
@@ -789,27 +954,31 @@
       </div>
 
       <p class="note">
-        Scores are averaged across nominal, low-friction, and payload/mass perturbation evaluations. At this early checkpoint, sparse success is less informative, so the tracking metric is used as the primary motion-quality indicator.
+        Lower EMD indicates closer trajectory-level motion matching. The gain is modest but paired across the same motion set, and it holds against the larger-capacity control.
       </p>
     </section>
 
     <section id="representations">
       <div class="section-head">
         <div>
-          <h2>Representation t-SNE</h2>
+          <h2>Representation Takeaway</h2>
           <p class="section-kicker">
-            We compute a separate t-SNE for each method and color points by nominal, low-friction, and payload/mass conditions.
+            Takeaway: PRISM makes the low-friction dynamics shift visibly separable in actor representations.
           </p>
         </div>
-        <span class="pill">hover-linked frames</span>
+        <span class="pill">scenario-colored frames</span>
       </div>
+      <p class="takeaway">
+        <strong>What to look for.</strong>
+        Green circles are nominal rollouts, blue triangles are low-friction rollouts, and orange squares are payload/mass rollouts. In the PRISM panel, low-friction points form the clearest separate cluster, matching the hypothesis that polynomial proprioceptive features help encode contact-sensitive dynamics.
+      </p>
 
-      <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260706-method-scenario" target="_blank" rel="noopener">
-        <img class="representation-preview" src="assets/prism/bfm-method-scenario-tsne.png?v=20260706-method-scenario" alt="Method-wise t-SNE plots of BFM-Zero, Larger BFM-Zero, and PRISM actor representations colored by robustness scenario.">
+      <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260707-scenario-markers" target="_blank" rel="noopener">
+        <img class="representation-preview" src="assets/prism/bfm-method-scenario-tsne.png?v=20260707-scenario-markers" alt="Method-wise t-SNE plots of BFM-Zero, Larger BFM-Zero, and PRISM actor representations colored and shaped by robustness scenario.">
       </a>
 
       <p class="note">
-        Each point is one sampled rollout step from motion 30. The interactive version links every point to the corresponding rendered frame, making it easier to inspect scenario-dependent representation structure within each method.
+        Each point is one sampled rollout step from motion 30. The interactive version links every point to the corresponding rendered frame; hover or click to inspect which physical state produced each representation.
       </p>
     </section>
 
@@ -818,11 +987,15 @@
         <div>
           <h2>SmolVLA LIBERO Manipulation</h2>
           <p class="section-kicker">
-            Official LIBERO multi-task eval50 at the 80K checkpoint. Higher success is better.
+            Takeaway: PRISM helps the proprioceptive conditioner that feeds the SmolVLA action expert.
           </p>
         </div>
         <span class="pill">80K official eval50</span>
       </div>
+      <p class="takeaway">
+        <strong>Why SmolVLA.</strong>
+        SmolVLA already has a strong vision-language backbone and attention-heavy token processing. PRISM does not modify that backbone; it improves the state-conditioning path so the action expert receives a more interaction-aware proprioceptive signal.
+      </p>
 
       <div class="table-wrap">
         <table aria-label="SmolVLA LIBERO stronger-backbone comparison">
@@ -879,27 +1052,31 @@
         <div>
           <h2>Learned Polynomial Conditioning</h2>
           <p class="section-kicker">
-            The module makes a targeted architectural bet: proprioception benefits from a learnable polynomial inductive bias, not a fixed hand-engineered feature map.
+            Takeaway: PRISM keeps the implementation learnable while biasing the conditioner toward useful physical interactions.
           </p>
         </div>
       </div>
+      <p class="takeaway">
+        <strong>Design choice.</strong>
+        We do not hard-code a fixed state-plus-square representation at inference. Instead, the conditioner is initialized with polynomial structure and then learns how much each dimension should contribute linearly, quadratically, or through mixed features.
+      </p>
 
       <div class="split">
         <article class="mini-card">
-          <h3>Initialization bias</h3>
+          <h3>Helpful for MLPs</h3>
           <p>
-            PRISM starts from a polynomially structured conditioner, making low-order proprioceptive interactions easy for the policy to access early in training.
+            An MLP can learn products in principle, but it may spend capacity discovering basic state interactions. PRISM exposes those interactions earlier and lets the MLP refine them.
           </p>
         </article>
         <article class="mini-card">
-          <h3>Automatic feature mixing</h3>
+          <h3>Compatible with attention</h3>
           <p>
-            During training, the conditioner learns how much each dimension should behave linearly, quadratically, or as a mixed feature for the task.
+            Attention mixes token information, while PRISM improves the proprioceptive token or conditioner before attention-heavy VLA processing consumes it.
           </p>
         </article>
       </div>
       <p class="note">
-        The design avoids hard-coding a fixed state-plus-square representation; polynomial structure is used as a learnable inductive bias.
+        In both backbones, the policy remains responsible for final action selection; PRISM only changes the representation of proprioceptive context.
       </p>
     </section>
 
