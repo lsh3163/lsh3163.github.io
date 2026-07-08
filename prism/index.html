@@ -873,54 +873,62 @@
         PRISM tracks reference motion more closely under nominal, low-friction, and payload perturbations without adding privileged physical inputs.
       </p>
 
-      <p class="video-subhead">BFM-Zero matched comparison clips</p>
+      <p class="video-subhead">Diverse reference motions</p>
+      <div class="video-wall">
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m1-dance.mp4?v=20260708-diverse"></video>
+          <div class="video-caption">
+            <strong>Dance motion</strong>
+            <span>GT | BFM-Zero | Larger | PRISM.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m4-jump.mp4?v=20260708-diverse"></video>
+          <div class="video-caption">
+            <strong>Jump motion</strong>
+            <span>Matched 9.6M checkpoint comparison.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260708-diverse"></video>
+          <div class="video-caption">
+            <strong>Fall motion</strong>
+            <span>Non-walking pose sequence.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260708-diverse"></video>
+          <div class="video-caption">
+            <strong>Fight motion</strong>
+            <span>Fast upper-body interaction pattern.</span>
+          </div>
+        </article>
+      </div>
+
+      <p class="video-subhead">Dynamics shifts</p>
       <div class="video-wall">
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-pose-m25-nominal.mp4?v=20260708-bfm-more"></video>
           <div class="video-caption">
-            <strong>Motion 25: nominal</strong>
-            <span>GT | BFM-Zero | Larger | PRISM.</span>
+            <strong>Nominal</strong>
+            <span>Same reference, nominal dynamics.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-pose-m25-low-friction.mp4?v=20260708-bfm-more"></video>
           <div class="video-caption">
-            <strong>Motion 25: low friction</strong>
-            <span>Same pose sequence with reduced contact friction.</span>
+            <strong>Low friction</strong>
+            <span>Reduced contact friction.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-pose-m25-payload.mp4?v=20260708-bfm-more"></video>
           <div class="video-caption">
-            <strong>Motion 25: payload</strong>
-            <span>Same pose sequence under body-mass perturbation.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260708-bfm-more"></video>
-          <div class="video-caption">
-            <strong>Motion 30: nominal</strong>
-            <span>Second saved walking reference motion.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260708-bfm-more"></video>
-          <div class="video-caption">
-            <strong>Motion 30: low friction</strong>
-            <span>The shift that separates most clearly in representation space.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260708-bfm-more"></video>
-          <div class="video-caption">
-            <strong>Motion 30: payload</strong>
-            <span>Second saved walking reference under mass perturbation.</span>
+            <strong>Payload mass</strong>
+            <span>Body-mass perturbation.</span>
           </div>
         </article>
       </div>
-      <p class="note">
-        Current saved clips use walking motions; dance, jump, fall, and fight rollouts are prepared for rendering and can be swapped in once Slurm is available.
-      </p>
     </section>
 
     <section id="compliance">
