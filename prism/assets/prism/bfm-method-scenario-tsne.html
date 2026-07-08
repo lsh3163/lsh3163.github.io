@@ -198,14 +198,14 @@
       const color = colors[point.scenario] || "#333333";
       let el;
       if (marker === "triangle") {
-        const size = 9.2;
+        const size = 11.5;
         el = document.createElementNS("http://www.w3.org/2000/svg", "polygon");
         el.setAttribute(
           "points",
           `${point.x},${point.y - size} ${point.x - size},${point.y + size} ${point.x + size},${point.y + size}`
         );
       } else if (marker === "square") {
-        const size = 15.2;
+        const size = 18.0;
         el = document.createElementNS("http://www.w3.org/2000/svg", "rect");
         el.setAttribute("x", point.x - size / 2);
         el.setAttribute("y", point.y - size / 2);
@@ -216,7 +216,7 @@
         el = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         el.setAttribute("cx", point.x);
         el.setAttribute("cy", point.y);
-        el.setAttribute("r", 8.0);
+        el.setAttribute("r", 9.5);
       }
       el.setAttribute("class", "point");
       el.setAttribute("fill", color);
