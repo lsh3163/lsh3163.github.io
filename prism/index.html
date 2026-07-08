@@ -412,6 +412,10 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
+    .video-wall.four-up {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
     .video-card {
       overflow: hidden;
       border: 1px solid rgba(215, 202, 180, 0.82);
@@ -1008,6 +1012,38 @@
           <div class="video-caption">
             <strong>Payload mass</strong>
             <span>Body-mass perturbation.</span>
+          </div>
+        </article>
+      </div>
+
+      <p class="video-subhead">Diverse reference motions</p>
+      <div class="video-wall four-up">
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m1-dance.mp4?v=20260708-long-pose"></video>
+          <div class="video-caption">
+            <strong>Dance-like upper-body motion</strong>
+            <span>GT | BFM-Zero | Larger | PRISM.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m4-jump.mp4?v=20260708-long-pose"></video>
+          <div class="video-caption">
+            <strong>Jump-style transition</strong>
+            <span>Same aligned 9.6M checkpoints.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260708-long-pose"></video>
+          <div class="video-caption">
+            <strong>Fall / recovery pose</strong>
+            <span>Clear non-walking whole-body motion.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260708-long-pose"></video>
+          <div class="video-caption">
+            <strong>Fight-like lateral motion</strong>
+            <span>Different reference motion family.</span>
           </div>
         </article>
       </div>
