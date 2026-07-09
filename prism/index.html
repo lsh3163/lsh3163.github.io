@@ -1193,7 +1193,6 @@
       </a>
       <div class="links">
         <a href="#method">Method</a>
-        <a href="#visual">Visual Takeaway</a>
         <a href="#results">Results</a>
         <a href="#bfm">RL Locomotion</a>
         <a href="#contact">Contact Behavior</a>
@@ -1267,36 +1266,6 @@
         </div>
       </div>
     </header>
-
-    <section id="visual" class="fade-in">
-      <div class="section-head">
-        <div>
-          <h2>First, look for the green panel</h2>
-          <p class="section-kicker">
-            These enlarged videos are the fastest way to see the qualitative claim before reading the table.
-          </p>
-        </div>
-      </div>
-      <p class="look-card">
-        <span>Visual reading rule:</span> compare the green PRISM panel against the baseline panel, then check whether it stays closer to the reference or completes the object interaction.
-      </p>
-      <div class="visual-grid">
-        <article class="video-card">
-          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/bfm-fall-recovery-spotlight.mp4?v=20260709-visual-v2"></video>
-          <div class="video-caption">
-            <strong>BFM-Zero locomotion</strong>
-            <span>PRISM is highlighted in green; compare recovery pose drift against GT.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-visual-v2"></video>
-          <div class="video-caption">
-            <strong>SmolVLA LIBERO manipulation</strong>
-            <span>PRISM completes the contact-rich episode where the controls stall.</span>
-          </div>
-        </article>
-      </div>
-    </section>
 
     <section id="method" class="fade-in">
       <div class="section-head">
@@ -1438,59 +1407,51 @@
         A small proprioceptive interaction encoder improves a strong reinforcement-learning locomotion policy under nominal and shifted dynamics.
       </p>
 
-      <p class="video-subhead">Most diagnostic visual</p>
+      <p class="video-subhead">Metric-aligned dynamics rollouts</p>
+      <p class="note motion-note">
+        These are the same nominal, low-friction, and payload-mass conditions used in the BFM-Zero table; use them as qualitative context for the EMD improvements.
+      </p>
       <div class="video-wall">
         <article class="video-card featured">
-          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/bfm-fall-recovery-spotlight.mp4?v=20260709-visual-v2"></video>
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Fall / recovery pose</strong>
-            <span>GT, BFM-Zero, and PRISM are enlarged; inspect the green panel first.</span>
+            <strong>Low friction stress test</strong>
+            <span>Full rollout: GT | BFM-Zero | Larger | PRISM. This is the hardest reported dynamics shift.</span>
           </div>
         </article>
-      </div>
-
-      <p class="video-subhead">Dynamics-shift examples</p>
-      <div class="video-wall">
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260708-prism-label"></video>
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Nominal</strong>
-            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
+            <span>Same panel order; the table reports the aligned tracking EMD.</span>
           </div>
         </article>
         <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260708-prism-label"></video>
-          <div class="video-caption">
-            <strong>Low friction</strong>
-            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260708-prism-label"></video>
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Payload mass</strong>
-            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
+            <span>Same panel order; PRISM is evaluated without extra force or load input.</span>
           </div>
         </article>
       </div>
 
-      <p class="video-subhead">Disturbance sanity checks</p>
+      <p class="video-subhead">Motion coverage checks</p>
       <p class="note motion-note">
-        These qualitative rollouts are not part of the main table, but they make the perturbation story easier to inspect visually.
+        These full-context clips check non-walking references. They are qualitative sanity checks, not the primary source of the BFM-Zero improvement claim.
       </p>
-      <div class="video-wall disturbance-wall">
+      <div class="video-wall two-up">
         <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/push-disturbance-baseline-prism.mp4?v=20260709-disturbance"></video>
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Push disturbance</strong>
-            <span>Panel order: BFM-Zero | PRISM.</span>
+            <strong>Fall-and-get-up reference</strong>
+            <span>Full 14-second rollout, including the approach, fall, and recovery phases.</span>
           </div>
         </article>
         <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/command-switch-baseline-prism.mp4?v=20260709-disturbance"></video>
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Command switch</strong>
-            <span>Panel order: BFM-Zero | PRISM.</span>
+            <strong>Fight-style reference</strong>
+            <span>A second non-walking motion to show that the rollout renderer is not restricted to walk cycles.</span>
           </div>
         </article>
       </div>
@@ -1510,7 +1471,7 @@
       </p>
       <div class="video-wall">
         <article class="video-card featured">
-          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-visual-v2"></video>
+          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Cup contact adjustment</strong>
             <span>Green PRISM panel completes the same contact-rich LIBERO episode where both controls stall.</span>
@@ -1606,24 +1567,24 @@
       <p class="video-subhead">LIBERO same-episode successes</p>
       <div class="video-wall">
         <article class="video-card">
-          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260708-libero-grouped"></video>
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Long-horizon task</strong>
             <span>SmolVLA and Larger fail; PRISM succeeds.</span>
           </div>
         </article>
         <article class="video-card">
-          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260708-libero-grouped"></video>
+          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Goal task</strong>
-            <span>PRISM completes the same eval50 episode.</span>
+            <strong>Long-horizon cup task</strong>
+            <span>Three-way comparison video; this replaces the cropped spotlight so the episode is visible end-to-end.</span>
           </div>
         </article>
         <article class="video-card">
-          <video class="spotlight-video" controls muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-long-cup-spotlight.mp4?v=20260709-visual-v2"></video>
+          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Long-horizon cup task</strong>
-            <span>Annotated view: controls stall, PRISM completes.</span>
+            <strong>Goal task</strong>
+            <span>PRISM completes the same eval50 episode.</span>
           </div>
         </article>
       </div>
