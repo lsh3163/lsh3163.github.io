@@ -573,6 +573,12 @@
       text-align: center;
     }
 
+    .method-diagram {
+      display: block;
+      width: 100%;
+      border-radius: 24px;
+    }
+
     .video-caption {
       padding: 13px 14px 15px;
     }
@@ -701,6 +707,98 @@
       font-size: 0.92rem;
     }
 
+    .motion-note {
+      margin: 12px 0 14px;
+    }
+
+    .contact-insight {
+      display: grid;
+      grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
+      gap: 18px;
+      margin-top: 16px;
+      padding: 18px;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 24px;
+      background:
+        radial-gradient(circle at 92% 16%, rgba(217, 166, 66, 0.18), transparent 11rem),
+        rgba(255, 250, 240, 0.72);
+    }
+
+    .contact-insight h3 {
+      margin-bottom: 10px;
+      font-size: clamp(1.35rem, 2.8vw, 2rem);
+      letter-spacing: -0.035em;
+    }
+
+    .contact-insight p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .proxy-traces {
+      display: grid;
+      gap: 10px;
+    }
+
+    .proxy-row {
+      display: grid;
+      grid-template-columns: 94px minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+      padding: 9px 10px;
+      border-radius: 17px;
+      background: rgba(255, 250, 240, 0.76);
+      border: 1px solid rgba(215, 202, 180, 0.74);
+    }
+
+    .proxy-label {
+      color: var(--ink);
+      font-size: 0.82rem;
+      font-weight: 900;
+      line-height: 1.15;
+    }
+
+    .proxy-row svg {
+      display: block;
+      width: 100%;
+      height: 54px;
+    }
+
+    .proxy-axis {
+      stroke: rgba(90, 98, 87, 0.22);
+      stroke-width: 1.5;
+    }
+
+    .proxy-path {
+      fill: none;
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .proxy-baseline {
+      stroke: var(--clay);
+    }
+
+    .proxy-larger {
+      stroke: #6f7680;
+    }
+
+    .proxy-prism {
+      stroke: var(--moss);
+    }
+
+    .proxy-dot {
+      filter: drop-shadow(0 2px 3px rgba(21, 27, 20, 0.18));
+    }
+
+    .proxy-note {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.35;
+    }
+
     pre {
       overflow-x: auto;
       margin: 0;
@@ -749,7 +847,8 @@
 
       .video-wall,
       .stat-grid,
-      .method-grid {
+      .method-grid,
+      .contact-insight {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -792,8 +891,10 @@
 
       .video-wall,
       .video-wall.two-up,
+      .video-wall.four-up,
       .stat-grid,
-      .method-grid {
+      .method-grid,
+      .contact-insight {
         grid-template-columns: 1fr;
       }
 
@@ -847,45 +948,19 @@
     <section id="method" class="fade-in">
       <div class="section-head">
         <div>
-          <h2>PRISM learns proprioceptive interactions, not a new controller</h2>
+          <h2>PRISM makes physical state couplings learnable</h2>
           <p class="section-kicker">
-            A compact degree-2 conditioner over robot state history.
+            A compact degree-2 conditioner over deployable proprioception.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        The observation stream, action space, controller, and training recipe stay fixed; only the proprioceptive conditioner changes.
+        Each proprioceptive feature can stay linear or join a learned second-order interaction.
       </p>
       <div class="method-figure" role="img" aria-label="PRISM method diagram">
-        <div class="method-flow">
-          <article class="method-card">
-            <h3>Deployable state</h3>
-            <p>State history, previous actions, and commands are the only inputs.</p>
-            <p>No tactile, force, wrench, contact-label, or privileged simulator parameter is added.</p>
-            <span class="state-token">x<sub>t-k:t</sub></span>
-          </article>
-          <div class="arrow-cell" aria-hidden="true">→</div>
-          <article class="method-card prism-card">
-            <h3>PRISM</h3>
-            <div class="formula-line">
-              phi(x) = RMSNorm(MLP((W<sub>l</sub>x) &odot; (1 + &alpha; &odot; W<sub>r</sub>x)))
-            </div>
-            <p>Learned first- and gated second-order factors expose state interactions before the policy consumes proprioception.</p>
-            <div class="method-tags" aria-label="PRISM design properties">
-              <span>learned gate &alpha;</span>
-              <span>near-linear start</span>
-              <span>end-to-end optimization</span>
-            </div>
-          </article>
-          <div class="arrow-cell" aria-hidden="true">→</div>
-          <article class="method-card">
-            <h3>Policy backbone</h3>
-            <p>BFM-Zero and SmolVLA keep the same action space, loss, and training/evaluation recipe.</p>
-            <span class="state-token">a<sub>t</sub></span>
-          </article>
-        </div>
+        <img class="method-diagram" src="assets/prism/prism-method-compact.svg?v=20260708-compact" alt="PRISM transforms proprioceptive history into learned linear and gated quadratic interaction features before the policy consumes the state token.">
         <p class="method-caption">
-          PRISM changes the representation of proprioception, not the controller or observation budget.
+          The policy receives the same deployable observations; PRISM makes their interaction structure explicit.
         </p>
       </div>
     </section>
@@ -1016,13 +1091,16 @@
         </article>
       </div>
 
-      <p class="video-subhead">Diverse reference motions</p>
+      <p class="video-subhead">Motion coverage checks</p>
+      <p class="note motion-note">
+        These clips show that the BFM-Zero evaluation covers non-walking references; the performance claim comes from the dynamics-shift EMD results above.
+      </p>
       <div class="video-wall four-up">
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m1-dance.mp4?v=20260708-long-pose"></video>
           <div class="video-caption">
             <strong>Dance-like upper-body motion</strong>
-            <span>GT | BFM-Zero | Larger | PRISM.</span>
+            <span>Qualitative rollout check.</span>
           </div>
         </article>
         <article class="video-card">
@@ -1036,14 +1114,14 @@
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260708-long-pose"></video>
           <div class="video-caption">
             <strong>Fall / recovery pose</strong>
-            <span>Clear non-walking whole-body motion.</span>
+            <span>Clear non-walking reference.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260708-long-pose"></video>
           <div class="video-caption">
             <strong>Fight-like lateral motion</strong>
-            <span>Different reference motion family.</span>
+            <span>Different reference family.</span>
           </div>
         </article>
       </div>
@@ -1052,14 +1130,14 @@
     <section id="contact">
       <div class="section-head">
         <div>
-          <h2>LIBERO contact behavior: PRISM adjusts through interaction</h2>
+          <h2>LIBERO contact: PRISM recovers after object interaction</h2>
           <p class="section-kicker">
             Same-episode SmolVLA comparison on a contact-rich cup manipulation.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        The clip highlights the kind of compliance-like behavior we want to show: the policy uses visual and proprioceptive feedback to keep contact and complete the manipulation without explicit force sensing.
+        Compliance-like behavior appears as smoother contact recovery: PRISM keeps manipulating after contact while the baselines lose progress.
       </p>
       <div class="video-wall">
         <article class="video-card featured">
@@ -1069,6 +1147,55 @@
             <span>SmolVLA and Larger fail; PRISM succeeds on the same contact-rich LIBERO episode.</span>
           </div>
         </article>
+      </div>
+      <div class="contact-insight" aria-label="Qualitative contact-load proxy animation">
+        <div>
+          <h3>Contact-load proxy</h3>
+          <p>
+            The animated traces are a qualitative visual guide for the contact episode, not measured force-sensor data.
+          </p>
+          <p class="proxy-note">
+            Desired reading: less spiky contact and continued progress after the cup interaction.
+          </p>
+        </div>
+        <div class="proxy-traces">
+          <div class="proxy-row">
+            <span class="proxy-label">SmolVLA</span>
+            <svg viewBox="0 0 170 54" aria-hidden="true">
+              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
+              <path id="proxy-baseline-path" class="proxy-path proxy-baseline" d="M2 39 C20 18 36 12 50 32 S76 47 91 27 S115 11 133 35 S153 46 168 42"/>
+              <circle class="proxy-dot" r="4" fill="#b86842">
+                <animateMotion dur="3.4s" repeatCount="indefinite">
+                  <mpath href="#proxy-baseline-path"/>
+                </animateMotion>
+              </circle>
+            </svg>
+          </div>
+          <div class="proxy-row">
+            <span class="proxy-label">Larger</span>
+            <svg viewBox="0 0 170 54" aria-hidden="true">
+              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
+              <path id="proxy-larger-path" class="proxy-path proxy-larger" d="M2 38 C25 24 40 16 58 30 S89 42 105 29 S130 17 148 32 S160 39 168 40"/>
+              <circle class="proxy-dot" r="4" fill="#6f7680">
+                <animateMotion dur="3.4s" repeatCount="indefinite">
+                  <mpath href="#proxy-larger-path"/>
+                </animateMotion>
+              </circle>
+            </svg>
+          </div>
+          <div class="proxy-row">
+            <span class="proxy-label">PRISM</span>
+            <svg viewBox="0 0 170 54" aria-hidden="true">
+              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
+              <path id="proxy-prism-path" class="proxy-path proxy-prism" d="M2 38 C24 33 43 25 63 26 S96 30 116 22 S145 21 168 18"/>
+              <circle class="proxy-dot" r="4" fill="#486b3e">
+                <animateMotion dur="3.4s" repeatCount="indefinite">
+                  <mpath href="#proxy-prism-path"/>
+                </animateMotion>
+              </circle>
+            </svg>
+          </div>
+        </div>
       </div>
     </section>
 
