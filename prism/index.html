@@ -64,6 +64,13 @@
       text-decoration: underline;
     }
 
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid rgba(217, 166, 66, 0.78);
+      outline-offset: 3px;
+      border-radius: 12px;
+    }
+
     .wrap {
       width: min(1180px, calc(100% - 32px));
       margin: 0 auto;
@@ -76,6 +83,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 22px;
+      position: sticky;
+      top: 12px;
+      z-index: 10;
       margin-top: 28px;
       padding: 14px 18px;
       border: 1px solid rgba(215, 202, 180, 0.76);
@@ -225,6 +235,53 @@
       cursor: not-allowed;
       opacity: 0.55;
       pointer-events: none;
+    }
+
+    .button.ghost {
+      background: rgba(237, 242, 223, 0.78);
+      color: var(--moss-dark);
+      box-shadow: none;
+    }
+
+    .button.small {
+      min-height: 36px;
+      padding: 8px 13px;
+      font-size: 0.86rem;
+    }
+
+    .hero-proof {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      max-width: 940px;
+      margin: 26px auto 0;
+    }
+
+    .proof-card {
+      min-width: 0;
+      padding: 16px;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 22px;
+      background: rgba(255, 250, 240, 0.70);
+      box-shadow: 0 14px 38px rgba(38, 31, 20, 0.08);
+      text-align: left;
+    }
+
+    .proof-card strong {
+      display: block;
+      color: var(--moss-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.35rem, 2.6vw, 2rem);
+      line-height: 1;
+      letter-spacing: -0.035em;
+    }
+
+    .proof-card span {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
     }
 
     .tldr {
@@ -391,6 +448,60 @@
       text-transform: uppercase;
     }
 
+    .interface-strip,
+    .evidence-grid,
+    .suite-grid,
+    .signal-strip {
+      display: grid;
+      gap: 12px;
+    }
+
+    .interface-strip {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin: 0 0 18px;
+    }
+
+    .interface-chip,
+    .evidence-card,
+    .suite-card,
+    .signal-chip {
+      min-width: 0;
+      border: 1px solid rgba(72, 107, 62, 0.16);
+      border-radius: 18px;
+      background: rgba(255, 250, 240, 0.72);
+    }
+
+    .interface-chip {
+      padding: 12px 14px;
+      color: var(--moss-dark);
+      font-size: 0.9rem;
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .evidence-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      margin-bottom: 16px;
+    }
+
+    .evidence-card {
+      padding: 15px;
+    }
+
+    .evidence-card strong {
+      display: block;
+      color: var(--ink);
+      font-size: 0.95rem;
+    }
+
+    .evidence-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.88rem;
+      line-height: 1.35;
+    }
+
     .method-grid {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -482,6 +593,11 @@
 
     .video-card.featured {
       grid-column: 1 / -1;
+    }
+
+    .video-wall.disturbance-wall {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 14px;
     }
 
     .video-card video,
@@ -712,6 +828,7 @@
       border: 1px solid rgba(215, 202, 180, 0.84);
       border-radius: 22px;
       background: rgba(255, 250, 240, 0.72);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
     }
 
     table {
@@ -807,6 +924,58 @@
       background: rgba(255, 250, 240, 0.82);
     }
 
+    .signal-strip {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin: 14px 0 0;
+    }
+
+    .signal-chip {
+      padding: 11px 12px;
+      color: var(--muted);
+      font-size: 0.86rem;
+      line-height: 1.35;
+    }
+
+    .signal-chip strong {
+      display: block;
+      color: var(--moss-dark);
+      font-size: 0.82rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .download-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .suite-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      margin: 0 0 18px;
+    }
+
+    .suite-card {
+      padding: 13px 14px;
+    }
+
+    .suite-card strong {
+      display: block;
+      color: var(--moss-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.42rem;
+      line-height: 1;
+    }
+
+    .suite-card span {
+      display: block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 0.84rem;
+      line-height: 1.35;
+    }
+
     .tsne-legend {
       display: flex;
       flex-wrap: wrap;
@@ -871,6 +1040,20 @@
       animation: rise 720ms ease both;
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .fade-in {
+        animation: none;
+      }
+
+      .button {
+        transition: none;
+      }
+    }
+
     @keyframes rise {
       from {
         opacity: 0;
@@ -899,7 +1082,12 @@
       .stat-grid,
       .method-grid,
       .contact-insight,
-      .physics-cues {
+      .physics-cues,
+      .hero-proof,
+      .interface-strip,
+      .evidence-grid,
+      .suite-grid,
+      .signal-strip {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -913,7 +1101,7 @@
       }
 
       .representation-frame {
-        height: 900px;
+        height: 760px;
       }
 
       .formula {
@@ -931,8 +1119,8 @@
       }
 
       .representation-frame {
-        height: 1180px;
-        min-height: 1180px;
+        height: 720px;
+        min-height: 720px;
       }
 
       .links,
@@ -943,10 +1131,16 @@
       .video-wall,
       .video-wall.two-up,
       .video-wall.four-up,
+      .video-wall.disturbance-wall,
       .stat-grid,
       .method-grid,
       .contact-insight,
-      .physics-cues {
+      .physics-cues,
+      .hero-proof,
+      .interface-strip,
+      .evidence-grid,
+      .suite-grid,
+      .signal-strip {
         grid-template-columns: 1fr;
       }
 
@@ -956,6 +1150,10 @@
 
       section {
         padding: 22px 16px;
+      }
+
+      nav {
+        position: static;
       }
     }
   </style>
@@ -986,9 +1184,25 @@
       <p class="authors">Seung Hyun Lee and Stella X. Yu</p>
       <div class="actions">
         <a class="button" href="assets/prism/prism-paper.pdf?v=20260706-prism-success">Paper PDF</a>
-        <a class="button secondary disabled" href="#" aria-disabled="true">Code coming soon</a>
+        <a class="button secondary disabled" href="#" aria-disabled="true">arXiv pending</a>
+        <a class="button ghost disabled" href="#" aria-disabled="true">Code pending release</a>
         <a class="button secondary" href="#bfm">BFM Results</a>
         <a class="button secondary" href="#libero">LIBERO Results</a>
+      </div>
+
+      <div class="hero-proof" aria-label="Headline evidence">
+        <div class="proof-card">
+          <strong>-3.5%</strong>
+          <span>Average BFM-Zero tracking EMD vs. the standard backbone.</span>
+        </div>
+        <div class="proof-card">
+          <strong>+3.05 pts</strong>
+          <span>Official LIBERO eval50 average success over SmolVLA.</span>
+        </div>
+        <div class="proof-card">
+          <strong>0 extra sensors</strong>
+          <span>Only deployable proprioception is re-encoded; no force or contact labels are used by the policy.</span>
+        </div>
       </div>
 
       <div class="tldr">
@@ -1039,6 +1253,11 @@
       <p class="takeaway">
         PRISM gives the policy learnable products of deployable proprioceptive signals, so coupled physical effects can be represented directly.
       </p>
+      <div class="interface-strip" aria-label="PRISM interface summary">
+        <div class="interface-chip">Same proprioceptive observations</div>
+        <div class="interface-chip">Learned second-order interactions</div>
+        <div class="interface-chip">Same downstream policy backbone</div>
+      </div>
       <div class="method-figure" role="img" aria-label="PRISM method diagram">
         <img class="method-diagram" src="assets/prism/prism-method-compact.svg?v=20260709-context" alt="PRISM transforms proprioceptive history into learned linear and quadratic interaction features before the policy consumes the state token.">
         <p class="method-caption">
@@ -1059,6 +1278,20 @@
       <p class="takeaway">
         Across both backbones, PRISM gains persist against larger controls, pointing to representation rather than parameter count.
       </p>
+      <div class="evidence-grid" aria-label="Result interpretation">
+        <div class="evidence-card">
+          <strong>Capacity control</strong>
+          <span>Larger models add many more parameters, but PRISM remains better on the reported metrics.</span>
+        </div>
+        <div class="evidence-card">
+          <strong>Dynamics stress</strong>
+          <span>BFM-Zero is tested under nominal, low-friction, and payload-mass conditions.</span>
+        </div>
+        <div class="evidence-card">
+          <strong>Backbone transfer</strong>
+          <span>The same representation idea improves both RL locomotion and VLA manipulation.</span>
+        </div>
+      </div>
       <div class="table-wrap">
         <table aria-label="Strong-backbone summary">
           <thead>
@@ -1186,6 +1419,27 @@
           </div>
         </article>
       </div>
+
+      <p class="video-subhead">Disturbance sanity checks</p>
+      <p class="note motion-note">
+        These qualitative rollouts are not part of the main table, but they make the perturbation story easier to inspect visually.
+      </p>
+      <div class="video-wall disturbance-wall">
+        <article class="video-card">
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/push-disturbance-baseline-prism.mp4?v=20260709-disturbance"></video>
+          <div class="video-caption">
+            <strong>Push disturbance</strong>
+            <span>Panel order: BFM-Zero | PRISM.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-compliance/command-switch-baseline-prism.mp4?v=20260709-disturbance"></video>
+          <div class="video-caption">
+            <strong>Command switch</strong>
+            <span>Panel order: BFM-Zero | PRISM.</span>
+          </div>
+        </article>
+      </div>
     </section>
 
     <section id="contact">
@@ -1218,6 +1472,20 @@
           <p class="telemetry-note">
             These signals are never provided to the policy; they diagnose whether the same proprioceptive policy recovers after contact.
           </p>
+          <div class="signal-strip" aria-label="Contact analysis contract">
+            <div class="signal-chip">
+              <strong>Policy input</strong>
+              Images, language, and proprioception only.
+            </div>
+            <div class="signal-chip">
+              <strong>Logged after rollout</strong>
+              Simulator force and velocity for analysis.
+            </div>
+          </div>
+          <div class="download-row">
+            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.csv?v=20260709-force-velocity">Download telemetry CSV</a>
+            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-force-velocity" target="_blank" rel="noopener">Open force plot</a>
+          </div>
         </div>
         <img class="telemetry-plot" src="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-force-velocity" alt="Measured simulator contact force and end-effector speed traces for SmolVLA, Larger, and PRISM.">
       </div>
@@ -1233,7 +1501,7 @@
         </div>
       </div>
       <p class="takeaway">
-        Low-friction states form the clearest cluster in the PRISM representation, suggesting that the learned polynomial features encode dynamics context.
+        PRISM separates low-friction state regions most clearly, suggesting that the learned polynomial features encode dynamics context.
       </p>
 
       <div class="tsne-legend" aria-label="Dynamics condition legend">
@@ -1261,6 +1529,25 @@
       <p class="takeaway">
         PRISM raises official LIBERO eval50 success and completes selected contact-rich episodes where baseline and larger controls stall.
       </p>
+
+      <div class="suite-grid" aria-label="PRISM LIBERO suite success">
+        <div class="suite-card">
+          <strong>70.0</strong>
+          <span>Spatial success, best among controls.</span>
+        </div>
+        <div class="suite-card">
+          <strong>85.4</strong>
+          <span>Goal success, best among controls.</span>
+        </div>
+        <div class="suite-card">
+          <strong>53.4</strong>
+          <span>Long-horizon success, largest gain.</span>
+        </div>
+        <div class="suite-card">
+          <strong>1.91M</strong>
+          <span>Proprioceptive conditioner params.</span>
+        </div>
+      </div>
 
       <p class="video-subhead">LIBERO same-episode successes</p>
       <div class="video-wall">
