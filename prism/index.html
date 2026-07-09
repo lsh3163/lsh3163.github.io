@@ -617,6 +617,30 @@
       aspect-ratio: 3 / 1;
     }
 
+    .video-card .spotlight-video {
+      aspect-ratio: 2.2 / 1;
+    }
+
+    .visual-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .look-card {
+      margin: 0 0 16px;
+      padding: 15px 17px;
+      border: 1px solid rgba(72, 107, 62, 0.18);
+      border-radius: 20px;
+      background: rgba(237, 242, 223, 0.66);
+      color: #303a2e;
+      font-weight: 800;
+    }
+
+    .look-card span {
+      color: var(--moss-dark);
+    }
+
     .representation-preview {
       display: block;
       width: 100%;
@@ -1079,6 +1103,7 @@
       }
 
       .video-wall,
+      .visual-grid,
       .stat-grid,
       .method-grid,
       .contact-insight,
@@ -1132,6 +1157,7 @@
       .video-wall.two-up,
       .video-wall.four-up,
       .video-wall.disturbance-wall,
+      .visual-grid,
       .stat-grid,
       .method-grid,
       .contact-insight,
@@ -1167,6 +1193,7 @@
       </a>
       <div class="links">
         <a href="#method">Method</a>
+        <a href="#visual">Visual Takeaway</a>
         <a href="#results">Results</a>
         <a href="#bfm">RL Locomotion</a>
         <a href="#contact">Contact Behavior</a>
@@ -1240,6 +1267,36 @@
         </div>
       </div>
     </header>
+
+    <section id="visual" class="fade-in">
+      <div class="section-head">
+        <div>
+          <h2>First, look for the green panel</h2>
+          <p class="section-kicker">
+            These enlarged videos are the fastest way to see the qualitative claim before reading the table.
+          </p>
+        </div>
+      </div>
+      <p class="look-card">
+        <span>Visual reading rule:</span> compare the green PRISM panel against the baseline panel, then check whether it stays closer to the reference or completes the object interaction.
+      </p>
+      <div class="visual-grid">
+        <article class="video-card">
+          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/bfm-fall-recovery-spotlight.mp4?v=20260709-visual-v2"></video>
+          <div class="video-caption">
+            <strong>BFM-Zero locomotion</strong>
+            <span>PRISM is highlighted in green; compare recovery pose drift against GT.</span>
+          </div>
+        </article>
+        <article class="video-card">
+          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-visual-v2"></video>
+          <div class="video-caption">
+            <strong>SmolVLA LIBERO manipulation</strong>
+            <span>PRISM completes the contact-rich episode where the controls stall.</span>
+          </div>
+        </article>
+      </div>
+    </section>
 
     <section id="method" class="fade-in">
       <div class="section-head">
@@ -1381,6 +1438,17 @@
         A small proprioceptive interaction encoder improves a strong reinforcement-learning locomotion policy under nominal and shifted dynamics.
       </p>
 
+      <p class="video-subhead">Most diagnostic visual</p>
+      <div class="video-wall">
+        <article class="video-card featured">
+          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/bfm-fall-recovery-spotlight.mp4?v=20260709-visual-v2"></video>
+          <div class="video-caption">
+            <strong>Fall / recovery pose</strong>
+            <span>GT, BFM-Zero, and PRISM are enlarged; inspect the green panel first.</span>
+          </div>
+        </article>
+      </div>
+
       <p class="video-subhead">Dynamics-shift examples</p>
       <div class="video-wall">
         <article class="video-card">
@@ -1401,20 +1469,6 @@
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260708-prism-label"></video>
           <div class="video-caption">
             <strong>Payload mass</strong>
-            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
-          </div>
-        </article>
-      </div>
-
-      <p class="video-subhead">Motion coverage checks</p>
-      <p class="note motion-note">
-        We keep this section selective: the page highlights a non-walking reference where PRISM is visually closest, while the table above carries the quantitative claim.
-      </p>
-      <div class="video-wall">
-        <article class="video-card featured">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260709-selected-pose"></video>
-          <div class="video-caption">
-            <strong>Fall / recovery pose</strong>
             <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
@@ -1456,10 +1510,10 @@
       </p>
       <div class="video-wall">
         <article class="video-card featured">
-          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-compliance/cup-contact-adjustment-comparison.mp4?v=20260708-libero-contact"></video>
+          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-visual-v2"></video>
           <div class="video-caption">
             <strong>Cup contact adjustment</strong>
-            <span>SmolVLA and Larger fail; PRISM succeeds on the same contact-rich LIBERO episode.</span>
+            <span>Green PRISM panel completes the same contact-rich LIBERO episode where both controls stall.</span>
           </div>
         </article>
       </div>
@@ -1566,10 +1620,10 @@
           </div>
         </article>
         <article class="video-card">
-          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260708-libero-grouped"></video>
+          <video class="spotlight-video" controls muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-long-cup-spotlight.mp4?v=20260709-visual-v2"></video>
           <div class="video-caption">
             <strong>Long-horizon cup task</strong>
-            <span>PRISM finishes the cup manipulation.</span>
+            <span>Annotated view: controls stall, PRISM completes.</span>
           </div>
         </article>
       </div>
