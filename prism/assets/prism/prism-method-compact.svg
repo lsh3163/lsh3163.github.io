@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 430" role="img" aria-labelledby="title desc">
   <title id="title">Compact PRISM method diagram</title>
-  <desc id="desc">Proprioceptive history is transformed into learned linear and gated quadratic factors, passed through MLP and RMSNorm, and consumed by the policy backbone.</desc>
+  <desc id="desc">Proprioceptive history is transformed into learned linear and second-order interaction factors, passed through MLP and RMSNorm, and consumed by the policy backbone.</desc>
   <defs>
     <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
       <path d="M2,2 L10,6 L2,10 Z" fill="#486b3e"/>
@@ -36,8 +36,8 @@
 
   <g filter="url(#softShadow)">
     <rect x="354" y="226" width="238" height="112" rx="22" fill="#fff3d8" stroke="#e5c479" stroke-width="2"/>
-    <text x="473" y="264" text-anchor="middle" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="16" font-weight="800" fill="#7a5215">learned gate</text>
-    <text x="473" y="304" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="31" font-weight="700" fill="#151b14">1 + &#945; &#8857; W<tspan baseline-shift="sub" font-size="18">r</tspan>x</text>
+    <text x="473" y="264" text-anchor="middle" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="16" font-weight="800" fill="#7a5215">learned context</text>
+    <text x="473" y="304" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="30" font-weight="700" fill="#151b14">1 + &#945; &#8857; W<tspan baseline-shift="sub" font-size="18">r</tspan>x</text>
   </g>
 
   <path d="M592 148 C625 148 628 206 658 206" fill="none" stroke="#486b3e" stroke-width="4" marker-end="url(#arrow)"/>
@@ -46,8 +46,9 @@
   <g filter="url(#softShadow)">
     <rect x="660" y="134" width="228" height="168" rx="25" fill="url(#prismGrad)" stroke="#fffaf0" stroke-opacity="0.32" stroke-width="2"/>
     <text x="774" y="172" text-anchor="middle" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="17" font-weight="900" fill="#fffaf0">PRISM interaction</text>
-    <text x="774" y="219" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="31" font-weight="700" fill="#fffaf0">(W<tspan baseline-shift="sub" font-size="18">l</tspan>x) &#8857; gate</text>
-    <text x="774" y="257" text-anchor="middle" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="15" font-weight="700" fill="#fff7df">near-linear at init, learned end-to-end</text>
+    <text x="774" y="209" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="29" font-weight="700" fill="#fffaf0">(W<tspan baseline-shift="sub" font-size="17">l</tspan>x) &#8857;</text>
+    <text x="774" y="243" text-anchor="middle" font-family="Georgia, Times New Roman, serif" font-size="27" font-weight="700" fill="#fffaf0">(1 + &#945; &#8857; W<tspan baseline-shift="sub" font-size="16">r</tspan>x)</text>
+    <text x="774" y="277" text-anchor="middle" font-family="Avenir Next, Trebuchet MS, sans-serif" font-size="15" font-weight="700" fill="#fff7df">near-linear at init, learned end-to-end</text>
   </g>
 
   <path d="M888 218 L948 218" fill="none" stroke="#486b3e" stroke-width="4" marker-end="url(#arrow)"/>

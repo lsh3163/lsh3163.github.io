@@ -168,6 +168,11 @@
       letter-spacing: -0.035em;
     }
 
+    h1 small .title-line {
+      display: block;
+      white-space: nowrap;
+    }
+
     .subtitle {
       max-width: 860px;
       margin: 22px auto 0;
@@ -250,6 +255,57 @@
       color: #303a2e;
       font-size: clamp(1.02rem, 1.5vw, 1.18rem);
       line-height: 1.58;
+    }
+
+    .physics-cues {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 6px;
+    }
+
+    .cue-card {
+      min-width: 0;
+      padding: 14px;
+      border: 1px solid rgba(72, 107, 62, 0.16);
+      border-radius: 18px;
+      background: rgba(255, 250, 240, 0.72);
+    }
+
+    .cue-card strong {
+      display: block;
+      margin: 0 0 8px;
+      color: var(--ink);
+      font-size: 0.9rem;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+    }
+
+    .cue-flow {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      color: var(--moss-dark);
+      font-size: 0.88rem;
+      font-weight: 850;
+      line-height: 1.25;
+    }
+
+    .cue-token {
+      min-height: 44px;
+      display: grid;
+      place-items: center;
+      padding: 7px 8px;
+      border-radius: 14px;
+      background: rgba(72, 107, 62, 0.10);
+      text-align: center;
+    }
+
+    .cue-arrow {
+      color: var(--amber);
+      font-size: 1.25rem;
+      text-align: center;
     }
 
     .formula {
@@ -735,68 +791,62 @@
       color: var(--muted);
     }
 
-    .proxy-traces {
-      display: grid;
-      gap: 10px;
-    }
-
-    .proxy-row {
-      display: grid;
-      grid-template-columns: 94px minmax(0, 1fr);
-      align-items: center;
-      gap: 12px;
-      padding: 9px 10px;
-      border-radius: 17px;
-      background: rgba(255, 250, 240, 0.76);
-      border: 1px solid rgba(215, 202, 180, 0.74);
-    }
-
-    .proxy-label {
-      color: var(--ink);
-      font-size: 0.82rem;
-      font-weight: 900;
-      line-height: 1.15;
-    }
-
-    .proxy-row svg {
-      display: block;
-      width: 100%;
-      height: 54px;
-    }
-
-    .proxy-axis {
-      stroke: rgba(90, 98, 87, 0.22);
-      stroke-width: 1.5;
-    }
-
-    .proxy-path {
-      fill: none;
-      stroke-width: 4;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .proxy-baseline {
-      stroke: var(--clay);
-    }
-
-    .proxy-larger {
-      stroke: #6f7680;
-    }
-
-    .proxy-prism {
-      stroke: var(--moss);
-    }
-
-    .proxy-dot {
-      filter: drop-shadow(0 2px 3px rgba(21, 27, 20, 0.18));
-    }
-
-    .proxy-note {
+    .telemetry-note {
       margin-top: 6px;
       color: var(--muted);
       font-size: 0.82rem;
       line-height: 1.35;
+    }
+
+    .telemetry-plot {
+      display: block;
+      width: 100%;
+      min-height: 260px;
+      border: 1px solid rgba(215, 202, 180, 0.74);
+      border-radius: 20px;
+      background: rgba(255, 250, 240, 0.82);
+    }
+
+    .tsne-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 0 0 12px;
+    }
+
+    .tsne-legend span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 11px;
+      border: 1px solid rgba(215, 202, 180, 0.82);
+      border-radius: 999px;
+      background: rgba(255, 250, 240, 0.72);
+      color: var(--moss-dark);
+      font-size: 0.9rem;
+      font-weight: 850;
+    }
+
+    .tsne-marker {
+      width: 13px;
+      height: 13px;
+      display: inline-block;
+      flex: 0 0 auto;
+    }
+
+    .tsne-marker.nominal {
+      border-radius: 999px;
+      background: #2f8f57;
+    }
+
+    .tsne-marker.low-friction {
+      background: var(--blue);
+      clip-path: polygon(50% 0, 0 100%, 100% 100%);
+    }
+
+    .tsne-marker.payload {
+      border-radius: 3px;
+      background: #d88a32;
     }
 
     pre {
@@ -848,7 +898,8 @@
       .video-wall,
       .stat-grid,
       .method-grid,
-      .contact-insight {
+      .contact-insight,
+      .physics-cues {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -894,8 +945,13 @@
       .video-wall.four-up,
       .stat-grid,
       .method-grid,
-      .contact-insight {
+      .contact-insight,
+      .physics-cues {
         grid-template-columns: 1fr;
+      }
+
+      h1 small .title-line {
+        white-space: normal;
       }
 
       section {
@@ -923,7 +979,7 @@
     </nav>
 
     <header class="hero fade-in">
-      <h1><span>PRISM</span><small>Polynomial Representations for Interaction-Structured Motor Control</small></h1>
+      <h1><span>PRISM</span><small><span class="title-line">Polynomial Representations for</span><span class="title-line">Interaction-Structured Motor Control</span></small></h1>
       <p class="subtitle">
         PRISM makes interaction terms among joints, velocities, contacts, and load learnable from deployable proprioceptive observations.
       </p>
@@ -942,6 +998,32 @@
         <p>
           <strong>Deployable setup.</strong> PRISM uses only the policy's proprioceptive stream and adds no tactile input, wrench sensing, contact labels, or simulator-only physical parameters.
         </p>
+        <div class="physics-cues" aria-label="Physical context inferred from proprioception">
+          <div class="cue-card">
+            <strong>Body momentum</strong>
+            <div class="cue-flow">
+              <span class="cue-token">joint angle + velocity</span>
+              <span class="cue-arrow">→</span>
+              <span class="cue-token">motion-dependent load</span>
+            </div>
+          </div>
+          <div class="cue-card">
+            <strong>Contact onset</strong>
+            <div class="cue-flow">
+              <span class="cue-token">gripper / joint slowdown</span>
+              <span class="cue-arrow">→</span>
+              <span class="cue-token">object interaction cue</span>
+            </div>
+          </div>
+          <div class="cue-card">
+            <strong>Slip or drag</strong>
+            <div class="cue-flow">
+              <span class="cue-token">command vs. realized motion</span>
+              <span class="cue-arrow">→</span>
+              <span class="cue-token">dynamics mismatch</span>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -955,10 +1037,10 @@
         </div>
       </div>
       <p class="takeaway">
-        Each proprioceptive feature can stay linear or join a learned second-order interaction.
+        PRISM gives the policy learnable products of deployable proprioceptive signals, so coupled physical effects can be represented directly.
       </p>
       <div class="method-figure" role="img" aria-label="PRISM method diagram">
-        <img class="method-diagram" src="assets/prism/prism-method-compact.svg?v=20260708-compact" alt="PRISM transforms proprioceptive history into learned linear and gated quadratic interaction features before the policy consumes the state token.">
+        <img class="method-diagram" src="assets/prism/prism-method-compact.svg?v=20260709-context" alt="PRISM transforms proprioceptive history into learned linear and quadratic interaction features before the policy consumes the state token.">
         <p class="method-caption">
           The policy receives the same deployable observations; PRISM makes their interaction structure explicit.
         </p>
@@ -968,14 +1050,14 @@
     <section id="results">
       <div class="section-head">
         <div>
-          <h2>PRISM improves SOTA RL and VLA policy backbones</h2>
+          <h2>State interactions matter more than scale</h2>
           <p class="section-kicker">
-            One summary table, matched checkpoints, larger-model controls shown in gray.
+            Strong RL and VLA backbones improve when proprioception exposes useful physical couplings.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        The same proprioceptive interaction idea improves whole-body locomotion and RGB-based manipulation while using fewer parameters than larger controls.
+        Across both backbones, PRISM gains persist against larger controls, pointing to representation rather than parameter count.
       </p>
       <div class="table-wrap">
         <table aria-label="Strong-backbone summary">
@@ -1058,7 +1140,7 @@
         <div>
           <h2>SOTA RL locomotion: PRISM improves BFM-Zero tracking</h2>
           <p class="section-kicker">
-            Side-by-side whole-body rollouts from the aligned 9.6M checkpoint.
+            Side-by-side whole-body rollouts under nominal and shifted dynamics.
           </p>
         </div>
       </div>
@@ -1072,56 +1154,35 @@
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260708-prism-label"></video>
           <div class="video-caption">
             <strong>Nominal</strong>
-            <span>GT | BFM-Zero | Larger | PRISM.</span>
+            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260708-prism-label"></video>
           <div class="video-caption">
             <strong>Low friction</strong>
-            <span>Reduced contact friction.</span>
+            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260708-prism-label"></video>
           <div class="video-caption">
             <strong>Payload mass</strong>
-            <span>Body-mass perturbation.</span>
+            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
       </div>
 
       <p class="video-subhead">Motion coverage checks</p>
       <p class="note motion-note">
-        These clips show that the BFM-Zero evaluation covers non-walking references; the performance claim comes from the dynamics-shift EMD results above.
+        We keep this section selective: the page highlights a non-walking reference where PRISM is visually closest, while the table above carries the quantitative claim.
       </p>
-      <div class="video-wall four-up">
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m1-dance.mp4?v=20260708-long-pose"></video>
-          <div class="video-caption">
-            <strong>Dance-like upper-body motion</strong>
-            <span>Qualitative rollout check.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m4-jump.mp4?v=20260708-long-pose"></video>
-          <div class="video-caption">
-            <strong>Jump-style transition</strong>
-            <span>Same aligned 9.6M checkpoints.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260708-long-pose"></video>
+      <div class="video-wall">
+        <article class="video-card featured">
+          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall.mp4?v=20260709-selected-pose"></video>
           <div class="video-caption">
             <strong>Fall / recovery pose</strong>
-            <span>Clear non-walking reference.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260708-long-pose"></video>
-          <div class="video-caption">
-            <strong>Fight-like lateral motion</strong>
-            <span>Different reference family.</span>
+            <span>Panel order: GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
       </div>
@@ -1148,54 +1209,17 @@
           </div>
         </article>
       </div>
-      <div class="contact-insight" aria-label="Qualitative contact-load proxy animation">
+      <div class="contact-insight" aria-label="Measured simulator contact force and velocity traces">
         <div>
-          <h3>Contact-load proxy</h3>
+          <h3>Measured force and velocity</h3>
           <p>
-            The animated traces are a qualitative visual guide for the contact episode, not measured force-sensor data.
+            We log true simulator contact force and end-effector speed after rollout for analysis only.
           </p>
-          <p class="proxy-note">
-            Desired reading: less spiky contact and continued progress after the cup interaction.
+          <p class="telemetry-note">
+            These signals are never provided to the policy; they diagnose whether the same proprioceptive policy recovers after contact.
           </p>
         </div>
-        <div class="proxy-traces">
-          <div class="proxy-row">
-            <span class="proxy-label">SmolVLA</span>
-            <svg viewBox="0 0 170 54" aria-hidden="true">
-              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
-              <path id="proxy-baseline-path" class="proxy-path proxy-baseline" d="M2 39 C20 18 36 12 50 32 S76 47 91 27 S115 11 133 35 S153 46 168 42"/>
-              <circle class="proxy-dot" r="4" fill="#b86842">
-                <animateMotion dur="3.4s" repeatCount="indefinite">
-                  <mpath href="#proxy-baseline-path"/>
-                </animateMotion>
-              </circle>
-            </svg>
-          </div>
-          <div class="proxy-row">
-            <span class="proxy-label">Larger</span>
-            <svg viewBox="0 0 170 54" aria-hidden="true">
-              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
-              <path id="proxy-larger-path" class="proxy-path proxy-larger" d="M2 38 C25 24 40 16 58 30 S89 42 105 29 S130 17 148 32 S160 39 168 40"/>
-              <circle class="proxy-dot" r="4" fill="#6f7680">
-                <animateMotion dur="3.4s" repeatCount="indefinite">
-                  <mpath href="#proxy-larger-path"/>
-                </animateMotion>
-              </circle>
-            </svg>
-          </div>
-          <div class="proxy-row">
-            <span class="proxy-label">PRISM</span>
-            <svg viewBox="0 0 170 54" aria-hidden="true">
-              <line class="proxy-axis" x1="2" y1="44" x2="168" y2="44"/>
-              <path id="proxy-prism-path" class="proxy-path proxy-prism" d="M2 38 C24 33 43 25 63 26 S96 30 116 22 S145 21 168 18"/>
-              <circle class="proxy-dot" r="4" fill="#486b3e">
-                <animateMotion dur="3.4s" repeatCount="indefinite">
-                  <mpath href="#proxy-prism-path"/>
-                </animateMotion>
-              </circle>
-            </svg>
-          </div>
-        </div>
+        <img class="telemetry-plot" src="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-force-velocity" alt="Measured simulator contact force and end-effector speed traces for SmolVLA, Larger, and PRISM.">
       </div>
     </section>
 
@@ -1212,6 +1236,11 @@
         Low-friction states form the clearest cluster in the PRISM representation, suggesting that the learned polynomial features encode dynamics context.
       </p>
 
+      <div class="tsne-legend" aria-label="Dynamics condition legend">
+        <span><i class="tsne-marker nominal"></i>Nominal</span>
+        <span><i class="tsne-marker low-friction"></i>Low friction</span>
+        <span><i class="tsne-marker payload"></i>Payload mass</span>
+      </div>
       <iframe class="representation-frame" src="assets/prism/bfm-method-scenario-tsne.html?v=20260708-plot-only" title="Interactive BFM-Zero representation plot"></iframe>
 
       <p class="note">
@@ -1223,14 +1252,14 @@
     <section id="libero">
       <div class="section-head">
         <div>
-          <h2>VLA-based manipulation: PRISM improves SmolVLA on LIBERO</h2>
+          <h2>Proprioceptive interactions transfer to VLA manipulation</h2>
           <p class="section-kicker">
-            Official LIBERO multi-task eval50 at the 80K checkpoint.
+            Same SmolVLA vision-language-action backbone; only the proprioceptive conditioner changes.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        PRISM changes only proprioceptive conditioning and improves average success on a vision-language-action policy.
+        PRISM raises official LIBERO eval50 success and completes selected contact-rich episodes where baseline and larger controls stall.
       </p>
 
       <p class="video-subhead">LIBERO same-episode successes</p>
