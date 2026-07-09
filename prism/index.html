@@ -434,12 +434,14 @@
 
     .takeaway {
       margin: 0 0 18px;
-      padding: 14px 16px;
+      padding: 10px 14px;
       border: 1px solid rgba(72, 107, 62, 0.18);
       border-radius: 20px;
       background: rgba(237, 242, 223, 0.68);
       color: #303a2e;
+      font-size: 0.95rem;
       font-weight: 700;
+      line-height: 1.32;
     }
 
     .takeaway strong {
@@ -581,6 +583,10 @@
 
     .video-wall.four-up {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .video-wall.bfm-rollouts {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
     .video-card {
@@ -776,7 +782,7 @@
     }
 
     .video-caption {
-      padding: 13px 14px 15px;
+      padding: 11px 13px 13px;
     }
 
     .video-caption strong {
@@ -789,7 +795,8 @@
       display: block;
       margin-top: 4px;
       color: var(--muted);
-      font-size: 0.88rem;
+      font-size: 0.82rem;
+      line-height: 1.28;
     }
 
     .split {
@@ -901,7 +908,8 @@
     .note {
       margin: 14px 0 0;
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.86rem;
+      line-height: 1.35;
     }
 
     .motion-note {
@@ -910,8 +918,8 @@
 
     .contact-insight {
       display: grid;
-      grid-template-columns: minmax(220px, 0.72fr) minmax(0, 1.28fr);
-      gap: 18px;
+      grid-template-columns: 1fr;
+      gap: 14px;
       margin-top: 16px;
       padding: 18px;
       border: 1px solid rgba(72, 107, 62, 0.18);
@@ -923,7 +931,7 @@
 
     .contact-insight h3 {
       margin-bottom: 10px;
-      font-size: clamp(1.35rem, 2.8vw, 2rem);
+      font-size: clamp(1.2rem, 2.4vw, 1.7rem);
       letter-spacing: -0.035em;
     }
 
@@ -942,10 +950,52 @@
     .telemetry-plot {
       display: block;
       width: 100%;
-      min-height: 260px;
+      min-height: 300px;
       border: 1px solid rgba(215, 202, 180, 0.74);
       border-radius: 20px;
       background: rgba(255, 250, 240, 0.82);
+    }
+
+    .metric-strip,
+    .telemetry-summary {
+      display: grid;
+      gap: 10px;
+      margin: 0 0 14px;
+    }
+
+    .metric-strip {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .telemetry-summary {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .metric-card,
+    .telemetry-card {
+      min-width: 0;
+      padding: 11px 12px;
+      border: 1px solid rgba(72, 107, 62, 0.16);
+      border-radius: 16px;
+      background: rgba(255, 250, 240, 0.76);
+    }
+
+    .metric-card strong,
+    .telemetry-card strong {
+      display: block;
+      color: var(--moss-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.28rem;
+      line-height: 1;
+    }
+
+    .metric-card span,
+    .telemetry-card span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 0.78rem;
+      line-height: 1.24;
     }
 
     .signal-strip {
@@ -1112,7 +1162,9 @@
       .interface-strip,
       .evidence-grid,
       .suite-grid,
-      .signal-strip {
+      .signal-strip,
+      .metric-strip,
+      .telemetry-summary {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
@@ -1157,6 +1209,7 @@
       .video-wall.two-up,
       .video-wall.four-up,
       .video-wall.disturbance-wall,
+      .video-wall.bfm-rollouts,
       .visual-grid,
       .stat-grid,
       .method-grid,
@@ -1166,7 +1219,9 @@
       .interface-strip,
       .evidence-grid,
       .suite-grid,
-      .signal-strip {
+      .signal-strip,
+      .metric-strip,
+      .telemetry-summary {
         grid-template-columns: 1fr;
       }
 
@@ -1277,7 +1332,7 @@
         </div>
       </div>
       <p class="takeaway">
-        PRISM gives the policy learnable products of deployable proprioceptive signals, so coupled physical effects can be represented directly.
+        PRISM adds learnable proprioceptive products before the same policy backbone.
       </p>
       <div class="interface-strip" aria-label="PRISM interface summary">
         <div class="interface-chip">Same proprioceptive observations</div>
@@ -1302,7 +1357,7 @@
         </div>
       </div>
       <p class="takeaway">
-        Across both backbones, PRISM gains persist against larger controls, pointing to representation rather than parameter count.
+        Gains persist against larger controls, so scale alone is not the explanation.
       </p>
       <div class="evidence-grid" aria-label="Result interpretation">
         <div class="evidence-card">
@@ -1397,61 +1452,73 @@
     <section id="bfm">
       <div class="section-head">
         <div>
-          <h2>SOTA RL locomotion: PRISM improves BFM-Zero tracking</h2>
+          <h2>RL locomotion: lower BFM-Zero tracking error</h2>
           <p class="section-kicker">
-            Side-by-side whole-body rollouts under nominal and shifted dynamics.
+            Metric-aligned rollouts under nominal and shifted dynamics.
           </p>
         </div>
       </div>
       <p class="takeaway">
-        A small proprioceptive interaction encoder improves a strong reinforcement-learning locomotion policy under nominal and shifted dynamics.
+        The primary BFM evidence is lower tracking EMD; videos provide qualitative context.
       </p>
 
-      <p class="video-subhead">Metric-aligned dynamics rollouts</p>
-      <p class="note motion-note">
-        These are the same nominal, low-friction, and payload-mass conditions used in the BFM-Zero table; use them as qualitative context for the EMD improvements.
-      </p>
-      <div class="video-wall">
-        <article class="video-card featured">
+      <div class="metric-strip" aria-label="BFM-Zero EMD improvements">
+        <div class="metric-card">
+          <strong>-4.9%</strong>
+          <span>Nominal tracking EMD vs. BFM-Zero.</span>
+        </div>
+        <div class="metric-card">
+          <strong>-2.1%</strong>
+          <span>Low-friction tracking EMD vs. BFM-Zero.</span>
+        </div>
+        <div class="metric-card">
+          <strong>-4.3%</strong>
+          <span>Payload-mass tracking EMD vs. BFM-Zero.</span>
+        </div>
+      </div>
+
+      <p class="video-subhead">Metric-aligned rollout context</p>
+      <div class="video-wall bfm-rollouts">
+        <article class="video-card">
           <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
-            <strong>Low friction stress test</strong>
-            <span>Full rollout: GT | BFM-Zero | Larger | PRISM. This is the hardest reported dynamics shift.</span>
+            <strong>Low friction</strong>
+            <span>Hardest shifted condition; GT | BFM-Zero | Larger | PRISM.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Nominal</strong>
-            <span>Same panel order; the table reports the aligned tracking EMD.</span>
+            <span>Visual context for the nominal EMD row.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Payload mass</strong>
-            <span>Same panel order; PRISM is evaluated without extra force or load input.</span>
+            <span>Same proprioception, no load sensor.</span>
           </div>
         </article>
       </div>
 
       <p class="video-subhead">Motion coverage checks</p>
       <p class="note motion-note">
-        These full-context clips check non-walking references. They are qualitative sanity checks, not the primary source of the BFM-Zero improvement claim.
+        These clips verify non-walking references; they are not the main improvement evidence.
       </p>
       <div class="video-wall two-up">
         <article class="video-card">
           <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Fall-and-get-up reference</strong>
-            <span>Full 14-second rollout, including the approach, fall, and recovery phases.</span>
+            <span>Full 14-second rollout with approach, fall, and recovery.</span>
           </div>
         </article>
         <article class="video-card">
           <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260709-evidence-v3"></video>
           <div class="video-caption">
             <strong>Fight-style reference</strong>
-            <span>A second non-walking motion to show that the rollout renderer is not restricted to walk cycles.</span>
+            <span>Additional non-walking reference for coverage.</span>
           </div>
         </article>
       </div>
@@ -1467,7 +1534,7 @@
         </div>
       </div>
       <p class="takeaway">
-        Compliance-like behavior appears as smoother contact recovery: PRISM keeps manipulating after contact while the baselines lose progress.
+        PRISM keeps moving after contact while logged force spikes stay lower.
       </p>
       <div class="video-wall">
         <article class="video-card featured">
@@ -1480,29 +1547,27 @@
       </div>
       <div class="contact-insight" aria-label="Measured simulator contact force and velocity traces">
         <div>
-          <h3>Measured force and velocity</h3>
-          <p>
-            We log true simulator contact force and end-effector speed after rollout for analysis only.
-          </p>
-          <p class="telemetry-note">
-            These signals are never provided to the policy; they diagnose whether the same proprioceptive policy recovers after contact.
-          </p>
-          <div class="signal-strip" aria-label="Contact analysis contract">
-            <div class="signal-chip">
-              <strong>Policy input</strong>
-              Images, language, and proprioception only.
+          <h3>How to read the contact trace</h3>
+          <div class="telemetry-summary" aria-label="Contact trace summary">
+            <div class="telemetry-card">
+              <strong>16.6</strong>
+              <span>PRISM 95th-percentile force; lower than both controls.</span>
             </div>
-            <div class="signal-chip">
-              <strong>Logged after rollout</strong>
-              Simulator force and velocity for analysis.
+            <div class="telemetry-card">
+              <strong>0.34</strong>
+              <span>PRISM mean end-effector speed; motion continues after contact.</span>
+            </div>
+            <div class="telemetry-card">
+              <strong>Logged only</strong>
+              <span>Force and velocity are analysis signals, not policy inputs.</span>
             </div>
           </div>
           <div class="download-row">
             <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.csv?v=20260709-force-velocity">Download telemetry CSV</a>
-            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-force-velocity" target="_blank" rel="noopener">Open force plot</a>
+            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-readable-force" target="_blank" rel="noopener">Open force plot</a>
           </div>
         </div>
-        <img class="telemetry-plot" src="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-force-velocity" alt="Measured simulator contact force and end-effector speed traces for SmolVLA, Larger, and PRISM.">
+        <img class="telemetry-plot" src="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-readable-force" alt="Measured simulator contact force and end-effector speed traces for SmolVLA, Larger, and PRISM.">
       </div>
     </section>
 
@@ -1516,7 +1581,7 @@
         </div>
       </div>
       <p class="takeaway">
-        PRISM separates low-friction state regions most clearly, suggesting that the learned polynomial features encode dynamics context.
+        PRISM separates low-friction states most clearly in learned state space.
       </p>
 
       <div class="tsne-legend" aria-label="Dynamics condition legend">
@@ -1542,7 +1607,7 @@
         </div>
       </div>
       <p class="takeaway">
-        PRISM raises official LIBERO eval50 success and completes selected contact-rich episodes where baseline and larger controls stall.
+        The same proprioceptive encoder improves official LIBERO success and selected contact episodes.
       </p>
 
       <div class="suite-grid" aria-label="PRISM LIBERO suite success">
