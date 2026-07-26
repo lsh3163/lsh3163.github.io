@@ -3,1676 +3,543 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#17352d">
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
-  <meta name="description" content="PRISM project page for polynomial representations in interaction-structured motor control, with BFM-Zero locomotion and SmolVLA LIBERO manipulation results.">
-  <style>
-    :root {
-      --paper: #f6efe2;
-      --paper-soft: #fffaf0;
-      --ink: #151b14;
-      --muted: #5a6257;
-      --line: #d7cab4;
-      --moss: #486b3e;
-      --moss-dark: #263f24;
-      --blue: #2f6fbe;
-      --amber: #d9a642;
-      --clay: #b86842;
-      --cream-glass: rgba(255, 250, 240, 0.78);
-      --deep-glass: rgba(21, 27, 20, 0.92);
-      --shadow: 0 24px 70px rgba(38, 31, 20, 0.16);
-      --radius: 28px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at 8% 10%, rgba(217, 166, 66, 0.34), transparent 27rem),
-        radial-gradient(circle at 88% 6%, rgba(72, 107, 62, 0.30), transparent 30rem),
-        linear-gradient(135deg, #f4e5cc 0%, #f6efe2 45%, #edf2df 100%);
-      font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", Verdana, sans-serif;
-      line-height: 1.56;
-      min-height: 100vh;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(21, 27, 20, 0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(21, 27, 20, 0.04) 1px, transparent 1px);
-      background-size: 46px 46px;
-      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.46), transparent 72%);
-    }
-
-    a {
-      color: var(--moss-dark);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    a:focus-visible,
-    button:focus-visible {
-      outline: 3px solid rgba(217, 166, 66, 0.78);
-      outline-offset: 3px;
-      border-radius: 12px;
-    }
-
-    .wrap {
-      width: min(1180px, calc(100% - 32px));
-      margin: 0 auto;
-      position: relative;
-      z-index: 1;
-    }
-
-    nav {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 22px;
-      position: sticky;
-      top: 12px;
-      z-index: 10;
-      margin-top: 28px;
-      padding: 14px 18px;
-      border: 1px solid rgba(215, 202, 180, 0.76);
-      border-radius: 999px;
-      background: rgba(255, 250, 240, 0.68);
-      backdrop-filter: blur(18px);
-      box-shadow: 0 12px 38px rgba(38, 31, 20, 0.08);
-    }
-
-    .brand {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 900;
-      letter-spacing: 0.09em;
-      text-transform: uppercase;
-      color: var(--moss-dark);
-      white-space: nowrap;
-    }
-
-    .brand-mark {
-      width: 31px;
-      height: 31px;
-      border-radius: 11px;
-      background:
-        linear-gradient(135deg, rgba(72, 107, 62, 0.96), rgba(217, 166, 66, 0.96)),
-        var(--moss);
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
-    }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: flex-end;
-      gap: 15px;
-      color: var(--muted);
-      font-size: 0.94rem;
-    }
-
-    .hero {
-      padding: 58px 0 28px;
-      text-align: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 18px;
-      padding: 8px 13px;
-      border: 1px solid rgba(72, 107, 62, 0.24);
-      border-radius: 999px;
-      color: var(--moss-dark);
-      background: rgba(237, 242, 223, 0.82);
-      font-size: 0.9rem;
-      font-weight: 800;
-      letter-spacing: 0.03em;
-    }
-
-    h1,
-    h2,
-    h3 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      line-height: 1.04;
-      color: #121a11;
-    }
-
-    h1 {
-      display: grid;
-      justify-items: center;
-      gap: 10px;
-      max-width: 1040px;
-      margin: 0 auto;
-      font-size: clamp(2.9rem, 6.2vw, 5.4rem);
-      line-height: 0.96;
-      letter-spacing: -0.045em;
-    }
-
-    h1 span {
-      color: var(--moss);
-    }
-
-    h1 small {
-      display: block;
-      max-width: 980px;
-      color: #121a11;
-      font-size: clamp(1.35rem, 2.55vw, 2.35rem);
-      line-height: 1.08;
-      letter-spacing: -0.035em;
-    }
-
-    h1 small .title-line {
-      display: block;
-      white-space: nowrap;
-    }
-
-    .subtitle {
-      max-width: 860px;
-      margin: 22px auto 0;
-      color: #3b4638;
-      font-size: clamp(1.08rem, 2vw, 1.34rem);
-    }
-
-    .authors {
-      margin: 16px 0 0;
-      color: var(--muted);
-      font-size: 1rem;
-    }
-
-    .actions {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 30px;
-    }
-
-    .button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 44px;
-      padding: 11px 18px;
-      border: 1px solid rgba(38, 63, 36, 0.22);
-      border-radius: 999px;
-      background: var(--ink);
-      color: var(--paper-soft);
-      box-shadow: 0 14px 30px rgba(21, 27, 20, 0.14);
-      font-weight: 900;
-      transition: transform 180ms ease, box-shadow 180ms ease;
-    }
-
-    .button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 38px rgba(21, 27, 20, 0.20);
-      text-decoration: none;
-    }
-
-    .button.secondary {
-      background: rgba(255, 250, 240, 0.76);
-      color: var(--moss-dark);
-      box-shadow: none;
-    }
-
-    .button.disabled {
-      cursor: not-allowed;
-      opacity: 0.55;
-      pointer-events: none;
-    }
-
-    .button.ghost {
-      background: rgba(237, 242, 223, 0.78);
-      color: var(--moss-dark);
-      box-shadow: none;
-    }
-
-    .button.small {
-      min-height: 36px;
-      padding: 8px 13px;
-      font-size: 0.86rem;
-    }
-
-    .hero-proof {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      max-width: 940px;
-      margin: 26px auto 0;
-    }
-
-    .proof-card {
-      min-width: 0;
-      padding: 16px;
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 22px;
-      background: rgba(255, 250, 240, 0.70);
-      box-shadow: 0 14px 38px rgba(38, 31, 20, 0.08);
-      text-align: left;
-    }
-
-    .proof-card strong {
-      display: block;
-      color: var(--moss-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.35rem, 2.6vw, 2rem);
-      line-height: 1;
-      letter-spacing: -0.035em;
-    }
-
-    .proof-card span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.35;
-    }
-
-    .tldr {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 12px;
-      max-width: 940px;
-      margin: 32px auto 0;
-      padding: clamp(18px, 3vw, 28px);
-      border: 1px solid rgba(215, 202, 180, 0.84);
-      border-radius: var(--radius);
-      background: var(--cream-glass);
-      box-shadow: var(--shadow);
-      text-align: left;
-    }
-
-    .tldr strong {
-      display: inline;
-      margin-right: 6px;
-      color: var(--moss-dark);
-      font-size: 1em;
-      letter-spacing: 0.01em;
-      text-transform: none;
-    }
-
-    .tldr p {
-      margin: 0;
-      color: #303a2e;
-      font-size: clamp(1.02rem, 1.5vw, 1.18rem);
-      line-height: 1.58;
-    }
-
-    .physics-cues {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 6px;
-    }
-
-    .cue-card {
-      min-width: 0;
-      padding: 14px;
-      border: 1px solid rgba(72, 107, 62, 0.16);
-      border-radius: 18px;
-      background: rgba(255, 250, 240, 0.72);
-    }
-
-    .cue-card strong {
-      display: block;
-      margin: 0 0 8px;
-      color: var(--ink);
-      font-size: 0.9rem;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-    }
-
-    .cue-flow {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr) 24px minmax(0, 1fr);
-      align-items: center;
-      gap: 8px;
-      color: var(--moss-dark);
-      font-size: 0.88rem;
-      font-weight: 850;
-      line-height: 1.25;
-    }
-
-    .cue-token {
-      min-height: 44px;
-      display: grid;
-      place-items: center;
-      padding: 7px 8px;
-      border-radius: 14px;
-      background: rgba(72, 107, 62, 0.10);
-      text-align: center;
-    }
-
-    .cue-arrow {
-      color: var(--amber);
-      font-size: 1.25rem;
-      text-align: center;
-    }
-
-    .formula {
-      min-width: 260px;
-      padding: 18px 20px;
-      border-radius: 22px;
-      background: var(--deep-glass);
-      color: #fff8e7;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.3rem, 2.5vw, 2.08rem);
-      line-height: 1.2;
-      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09);
-    }
-
-    .formula small {
-      display: block;
-      margin-top: 10px;
-      color: rgba(255, 248, 231, 0.72);
-      font-family: "Avenir Next", "Trebuchet MS", "Gill Sans", Verdana, sans-serif;
-      font-size: 0.82rem;
-      line-height: 1.45;
-    }
-
-    .section-anchor {
-      color: var(--moss-dark);
-      font-weight: 900;
-    }
-
-    section {
-      margin: 24px 0;
-      padding: clamp(24px, 4vw, 40px);
-      border: 1px solid rgba(215, 202, 180, 0.86);
-      border-radius: var(--radius);
-      background: var(--cream-glass);
-      box-shadow: var(--shadow);
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 24px;
-      margin-bottom: 24px;
-    }
-
-    h2 {
-      font-size: clamp(1.8rem, 3.35vw, 3.05rem);
-      letter-spacing: -0.045em;
-    }
-
-    .section-kicker {
-      max-width: 600px;
-      margin: 10px 0 0;
-      color: var(--muted);
-      font-size: 1.02rem;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: rgba(72, 107, 62, 0.12);
-      color: var(--moss-dark);
-      font-weight: 900;
-      white-space: nowrap;
-    }
-
-    .takeaway {
-      margin: 0 0 18px;
-      padding: 10px 14px;
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 20px;
-      background: rgba(237, 242, 223, 0.68);
-      color: #303a2e;
-      font-size: 0.95rem;
-      font-weight: 700;
-      line-height: 1.32;
-    }
-
-    .takeaway strong {
-      color: var(--moss-dark);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .interface-strip,
-    .evidence-grid,
-    .suite-grid,
-    .signal-strip {
-      display: grid;
-      gap: 12px;
-    }
-
-    .interface-strip {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin: 0 0 18px;
-    }
-
-    .interface-chip,
-    .evidence-card,
-    .suite-card,
-    .signal-chip {
-      min-width: 0;
-      border: 1px solid rgba(72, 107, 62, 0.16);
-      border-radius: 18px;
-      background: rgba(255, 250, 240, 0.72);
-    }
-
-    .interface-chip {
-      padding: 12px 14px;
-      color: var(--moss-dark);
-      font-size: 0.9rem;
-      font-weight: 850;
-      text-align: center;
-    }
-
-    .evidence-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      margin-bottom: 16px;
-    }
-
-    .evidence-card {
-      padding: 15px;
-    }
-
-    .evidence-card strong {
-      display: block;
-      color: var(--ink);
-      font-size: 0.95rem;
-    }
-
-    .evidence-card span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.88rem;
-      line-height: 1.35;
-    }
-
-    .method-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 18px;
-    }
-
-    .flow-card {
-      position: relative;
-      min-height: 170px;
-      padding: 20px;
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 88% 12%, rgba(217, 166, 66, 0.24), transparent 8rem),
-        rgba(255, 250, 240, 0.74);
-    }
-
-    .flow-card h3 {
-      margin-bottom: 10px;
-      font-size: clamp(1.3rem, 2.6vw, 1.9rem);
-      letter-spacing: -0.035em;
-    }
-
-    .flow-card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .flow-badge {
-      display: inline-flex;
-      align-items: center;
-      margin-bottom: 12px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      background: rgba(21, 27, 20, 0.90);
-      color: var(--paper-soft);
-      font-size: 0.78rem;
-      font-weight: 900;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .symbol-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .symbol-chip {
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(72, 107, 62, 0.10);
-      color: var(--moss-dark);
-      font-weight: 900;
-      font-size: 0.84rem;
-    }
-
-    .video-subhead {
-      margin: 4px 0 14px;
-      color: var(--moss-dark);
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .video-wall {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .video-wall.two-up {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .video-wall.four-up {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .video-wall.bfm-rollouts {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .video-card {
-      overflow: hidden;
-      border: 1px solid rgba(215, 202, 180, 0.82);
-      border-radius: 22px;
-      background: rgba(255, 250, 240, 0.74);
-      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
-    }
-
-    .video-card.featured {
-      grid-column: 1 / -1;
-    }
-
-    .video-wall.disturbance-wall {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin-top: 14px;
-    }
-
-    .video-card video,
-    .video-card img {
-      display: block;
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      background: #182016;
-      object-fit: contain;
-    }
-
-    .video-card .wide-video {
-      aspect-ratio: 4 / 1;
-    }
-
-    .video-card .comparison-video {
-      aspect-ratio: 3 / 1;
-    }
-
-    .video-card .spotlight-video {
-      aspect-ratio: 2.2 / 1;
-    }
-
-    .visual-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
-    }
-
-    .look-card {
-      margin: 0 0 16px;
-      padding: 15px 17px;
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 20px;
-      background: rgba(237, 242, 223, 0.66);
-      color: #303a2e;
-      font-weight: 800;
-    }
-
-    .look-card span {
-      color: var(--moss-dark);
-    }
-
-    .representation-preview {
-      display: block;
-      width: 100%;
-      border: 1px solid rgba(215, 202, 180, 0.82);
-      border-radius: 22px;
-      background: rgba(255, 250, 240, 0.74);
-      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
-    }
-
-    .representation-frame {
-      display: block;
-      width: 100%;
-      height: min(44vw, 470px);
-      min-height: 380px;
-      border: 1px solid rgba(215, 202, 180, 0.82);
-      border-radius: 22px;
-      background: rgba(255, 250, 240, 0.74);
-      box-shadow: 0 16px 42px rgba(38, 31, 20, 0.10);
-    }
-
-    .method-figure {
-      position: relative;
-      overflow: hidden;
-      padding: clamp(18px, 3vw, 28px);
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 26px;
-      background:
-        radial-gradient(circle at 88% 12%, rgba(217, 166, 66, 0.24), transparent 12rem),
-        rgba(255, 250, 240, 0.72);
-    }
-
-    .method-flow {
-      display: grid;
-      grid-template-columns: minmax(0, 0.9fr) 46px minmax(0, 1.25fr) 46px minmax(0, 0.9fr);
-      gap: 12px;
-      align-items: stretch;
-    }
-
-    .method-card {
-      min-width: 0;
-      padding: clamp(18px, 2.4vw, 26px);
-      border: 1px solid rgba(215, 202, 180, 0.82);
-      border-radius: 24px;
-      background: rgba(255, 250, 240, 0.78);
-      box-shadow: 0 14px 38px rgba(38, 31, 20, 0.09);
-    }
-
-    .method-card h3 {
-      margin-bottom: 10px;
-      font-size: clamp(1.2rem, 2.1vw, 1.78rem);
-      letter-spacing: -0.03em;
-    }
-
-    .method-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 0.95rem;
-      line-height: 1.45;
-    }
-
-    .method-card .state-token {
-      display: inline-block;
-      margin-top: 18px;
-      padding: 7px 12px;
-      border-radius: 999px;
-      background: rgba(72, 107, 62, 0.12);
-      color: var(--moss-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-weight: 800;
-    }
-
-    .method-card.prism-card {
-      color: #fffaf0;
-      background:
-        radial-gradient(circle at 12% 10%, rgba(255, 250, 240, 0.20), transparent 9rem),
-        linear-gradient(135deg, rgba(72, 107, 62, 0.98), rgba(217, 166, 66, 0.96));
-      border-color: rgba(255, 250, 240, 0.22);
-    }
-
-    .method-card.prism-card h3,
-    .method-card.prism-card p {
-      color: #fffaf0;
-    }
-
-    .formula-line {
-      margin: 12px 0 14px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(21, 27, 20, 0.23);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1rem, 1.85vw, 1.42rem);
-      line-height: 1.25;
-      overflow-wrap: anywhere;
-    }
-
-    .method-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 14px;
-    }
-
-    .method-tags span {
-      padding: 7px 10px;
-      border-radius: 999px;
-      background: rgba(255, 250, 240, 0.17);
-      color: #fffaf0;
-      font-size: 0.82rem;
-      font-weight: 800;
-      line-height: 1.2;
-    }
-
-    .arrow-cell {
-      display: grid;
-      place-items: center;
-      color: var(--moss-dark);
-      font-size: 2rem;
-      font-weight: 900;
-    }
-
-    .method-caption {
-      max-width: 840px;
-      margin: 18px auto 0;
-      color: var(--moss-dark);
-      font-weight: 800;
-      text-align: center;
-    }
-
-    .method-diagram {
-      display: block;
-      width: 100%;
-      border-radius: 24px;
-    }
-
-    .video-caption {
-      padding: 11px 13px 13px;
-    }
-
-    .video-caption strong {
-      display: block;
-      color: var(--ink);
-      font-size: 0.98rem;
-    }
-
-    .video-caption span {
-      display: block;
-      margin-top: 4px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.28;
-    }
-
-    .split {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .mini-card {
-      padding: 22px;
-      border: 1px solid rgba(72, 107, 62, 0.16);
-      border-radius: 24px;
-      background: rgba(255, 250, 240, 0.70);
-    }
-
-    .mini-card h3 {
-      margin-bottom: 10px;
-      font-size: clamp(1.45rem, 3vw, 2.2rem);
-      letter-spacing: -0.035em;
-    }
-
-    .mini-card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .stat-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .stat {
-      min-height: 126px;
-      padding: 16px;
-      border: 1px solid rgba(72, 107, 62, 0.16);
-      border-radius: 20px;
-      background: rgba(255, 250, 240, 0.78);
-    }
-
-    .stat strong {
-      display: block;
-      color: var(--moss-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(1.55rem, 3vw, 2.28rem);
-      line-height: 1;
-      letter-spacing: -0.035em;
-    }
-
-    .stat span {
-      display: block;
-      margin-top: 8px;
-      color: var(--muted);
-      font-size: 0.88rem;
-    }
-
-    .table-wrap {
-      overflow-x: auto;
-      border: 1px solid rgba(215, 202, 180, 0.84);
-      border-radius: 22px;
-      background: rgba(255, 250, 240, 0.72);
-      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.58);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      min-width: 760px;
-    }
-
-    th,
-    td {
-      padding: 13px 15px;
-      border-bottom: 1px solid rgba(215, 202, 180, 0.74);
-      text-align: right;
-      white-space: nowrap;
-    }
-
-    th:first-child,
-    td:first-child,
-    th:nth-child(2),
-    td:nth-child(2) {
-      text-align: left;
-    }
-
-    th {
-      color: var(--moss-dark);
-      background: rgba(237, 242, 223, 0.78);
-      font-size: 0.86rem;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .best {
-      color: var(--moss-dark);
-      font-weight: 900;
-    }
-
-    .muted-row td {
-      background: rgba(21, 27, 20, 0.045);
-      color: #646b60;
-    }
-
-    .note {
-      margin: 14px 0 0;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.35;
-    }
-
-    .motion-note {
-      margin: 12px 0 14px;
-    }
-
-    .contact-insight {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 14px;
-      margin-top: 16px;
-      padding: 18px;
-      border: 1px solid rgba(72, 107, 62, 0.18);
-      border-radius: 24px;
-      background:
-        radial-gradient(circle at 92% 16%, rgba(217, 166, 66, 0.18), transparent 11rem),
-        rgba(255, 250, 240, 0.72);
-    }
-
-    .contact-insight h3 {
-      margin-bottom: 10px;
-      font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-      letter-spacing: -0.035em;
-    }
-
-    .contact-insight p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .telemetry-note {
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.82rem;
-      line-height: 1.35;
-    }
-
-    .telemetry-plot {
-      display: block;
-      width: 100%;
-      min-height: 300px;
-      border: 1px solid rgba(215, 202, 180, 0.74);
-      border-radius: 20px;
-      background: rgba(255, 250, 240, 0.82);
-    }
-
-    .metric-strip,
-    .telemetry-summary {
-      display: grid;
-      gap: 10px;
-      margin: 0 0 14px;
-    }
-
-    .metric-strip {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .telemetry-summary {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .metric-card,
-    .telemetry-card {
-      min-width: 0;
-      padding: 11px 12px;
-      border: 1px solid rgba(72, 107, 62, 0.16);
-      border-radius: 16px;
-      background: rgba(255, 250, 240, 0.76);
-    }
-
-    .metric-card strong,
-    .telemetry-card strong {
-      display: block;
-      color: var(--moss-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.28rem;
-      line-height: 1;
-    }
-
-    .metric-card span,
-    .telemetry-card span {
-      display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 0.78rem;
-      line-height: 1.24;
-    }
-
-    .signal-strip {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin: 14px 0 0;
-    }
-
-    .signal-chip {
-      padding: 11px 12px;
-      color: var(--muted);
-      font-size: 0.86rem;
-      line-height: 1.35;
-    }
-
-    .signal-chip strong {
-      display: block;
-      color: var(--moss-dark);
-      font-size: 0.82rem;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    .download-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 12px;
-    }
-
-    .suite-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      margin: 0 0 18px;
-    }
-
-    .suite-card {
-      padding: 13px 14px;
-    }
-
-    .suite-card strong {
-      display: block;
-      color: var(--moss-dark);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 1.42rem;
-      line-height: 1;
-    }
-
-    .suite-card span {
-      display: block;
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 0.84rem;
-      line-height: 1.35;
-    }
-
-    .tsne-legend {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin: 0 0 12px;
-    }
-
-    .tsne-legend span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 11px;
-      border: 1px solid rgba(215, 202, 180, 0.82);
-      border-radius: 999px;
-      background: rgba(255, 250, 240, 0.72);
-      color: var(--moss-dark);
-      font-size: 0.9rem;
-      font-weight: 850;
-    }
-
-    .tsne-marker {
-      width: 13px;
-      height: 13px;
-      display: inline-block;
-      flex: 0 0 auto;
-    }
-
-    .tsne-marker.nominal {
-      border-radius: 999px;
-      background: #2f8f57;
-    }
-
-    .tsne-marker.low-friction {
-      background: var(--blue);
-      clip-path: polygon(50% 0, 0 100%, 100% 100%);
-    }
-
-    .tsne-marker.payload {
-      border-radius: 3px;
-      background: #d88a32;
-    }
-
-    pre {
-      overflow-x: auto;
-      margin: 0;
-      padding: 20px;
-      border-radius: 20px;
-      background: #172015;
-      color: #fff8e7;
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    footer {
-      padding: 22px 0 44px;
-      color: var(--muted);
-      text-align: center;
-      font-size: 0.92rem;
-    }
-
-    .fade-in {
-      animation: rise 720ms ease both;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-
-      .fade-in {
-        animation: none;
-      }
-
-      .button {
-        transition: none;
-      }
-    }
-
-    @keyframes rise {
-      from {
-        opacity: 0;
-        transform: translateY(14px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media (max-width: 920px) {
-      nav,
-      .section-head,
-      .tldr {
-        align-items: stretch;
-        flex-direction: column;
-      }
-
-      .tldr,
-      .split {
-        grid-template-columns: 1fr;
-      }
-
-      .video-wall,
-      .visual-grid,
-      .stat-grid,
-      .method-grid,
-      .contact-insight,
-      .physics-cues,
-      .hero-proof,
-      .interface-strip,
-      .evidence-grid,
-      .suite-grid,
-      .signal-strip,
-      .metric-strip,
-      .telemetry-summary {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
-
-      .method-flow {
-        grid-template-columns: 1fr;
-      }
-
-      .arrow-cell {
-        transform: rotate(90deg);
-        min-height: 28px;
-      }
-
-      .representation-frame {
-        height: 760px;
-      }
-
-      .formula {
-        min-width: 0;
-      }
-    }
-
-    @media (max-width: 620px) {
-      h1 {
-        font-size: clamp(2.35rem, 13vw, 3.25rem);
-      }
-
-      h1 small {
-        white-space: normal;
-      }
-
-      .representation-frame {
-        height: 720px;
-        min-height: 720px;
-      }
-
-      .links,
-      .actions {
-        justify-content: flex-start;
-      }
-
-      .video-wall,
-      .video-wall.two-up,
-      .video-wall.four-up,
-      .video-wall.disturbance-wall,
-      .video-wall.bfm-rollouts,
-      .visual-grid,
-      .stat-grid,
-      .method-grid,
-      .contact-insight,
-      .physics-cues,
-      .hero-proof,
-      .interface-strip,
-      .evidence-grid,
-      .suite-grid,
-      .signal-strip,
-      .metric-strip,
-      .telemetry-summary {
-        grid-template-columns: 1fr;
-      }
-
-      h1 small .title-line {
-        white-space: normal;
-      }
-
-      section {
-        padding: 22px 16px;
-      }
-
-      nav {
-        position: static;
-      }
-    }
-  </style>
+  <meta name="description" content="PRISM learns multiplicative interactions in deployable proprioception and improves BFM-Zero locomotion and SmolVLA manipulation.">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260725-redesign">
+  <script defer src="assets/prism/site.js?v=20260725-redesign"></script>
 </head>
 <body>
-  <div class="wrap">
-    <nav class="fade-in" aria-label="Primary navigation">
-      <a class="brand" href="#">
-        <span class="brand-mark" aria-hidden="true"></span>
-        PRISM
-      </a>
-      <div class="links">
-        <a href="#method">Method</a>
-        <a href="#results">Results</a>
-        <a href="#bfm">RL Locomotion</a>
-        <a href="#contact">Contact Behavior</a>
-        <a href="#representations">Representations</a>
-        <a href="#libero">VLA Manipulation</a>
-        <a href="#bibtex">BibTeX</a>
-      </div>
-    </nav>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-    <header class="hero fade-in">
-      <h1><span>PRISM</span><small><span class="title-line">Polynomial Representations for</span><span class="title-line">Interaction-Structured Motor Control</span></small></h1>
-      <p class="subtitle">
-        PRISM makes interaction terms among joints, velocities, contacts, and load learnable from deployable proprioceptive observations.
+  <nav class="site-nav" aria-label="Primary navigation">
+    <a class="brand" href="#top" aria-label="PRISM home">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>PRISM</span>
+    </a>
+    <div class="nav-links">
+      <a href="#method">Method</a>
+      <a href="#locomotion">Locomotion</a>
+      <a href="#manipulation">Manipulation</a>
+      <a href="#analysis">Analysis</a>
+    </div>
+    <a class="nav-paper" href="assets/prism/prism-paper.pdf">Paper PDF</a>
+  </nav>
+
+  <header class="hero shell" id="top">
+    <div class="hero-title reveal">
+      <p class="eyebrow">Proprioception can encode more than isolated state values</p>
+      <h1>
+        <span><em>PRISM:</em> Polynomial Representations for</span>
+        <span>Interaction-Structured Motor Control</span>
+      </h1>
+      <p class="authors">Seung Hyun Lee <span aria-hidden="true">&middot;</span> Stella X. Yu</p>
+    </div>
+
+    <div class="hero-copy reveal">
+      <p class="hero-lede">
+        Robot dynamics emerge from coupled state variables. PRISM makes those
+        multiplicative couplings learnable while keeping the same deployable
+        observations and policy backbone.
       </p>
-      <p class="authors">Seung Hyun Lee and Stella X. Yu</p>
-      <div class="actions">
-        <a class="button" href="assets/prism/prism-paper.pdf?v=20260706-prism-success">Paper PDF</a>
-        <a class="button secondary disabled" href="#" aria-disabled="true">arXiv pending</a>
-        <a class="button ghost disabled" href="#" aria-disabled="true">Code pending release</a>
-        <a class="button secondary" href="#bfm">BFM Results</a>
-        <a class="button secondary" href="#libero">LIBERO Results</a>
+      <div class="hero-actions">
+        <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
+        <a class="button secondary" href="#results">Explore results</a>
+        <span class="button disabled" aria-disabled="true">Code coming soon</span>
       </div>
+    </div>
 
-      <div class="hero-proof" aria-label="Headline evidence">
-        <div class="proof-card">
-          <strong>-3.5%</strong>
-          <span>Average BFM-Zero tracking EMD vs. the standard backbone.</span>
-        </div>
-        <div class="proof-card">
-          <strong>+3.05 pts</strong>
-          <span>Official LIBERO eval50 average success over SmolVLA.</span>
-        </div>
-        <div class="proof-card">
-          <strong>0 extra sensors</strong>
-          <span>Only deployable proprioception is re-encoded; no force or contact labels are used by the policy.</span>
+    <div class="hero-visual reveal" aria-label="PRISM at a glance">
+      <div class="hero-visual-head">
+        <span>One representation change</span>
+        <span class="status-dot">End-to-end learned</span>
+      </div>
+      <div class="hero-equation">
+        <span class="equation-input">x</span>
+        <span class="equation-arrow" aria-hidden="true">&rarr;</span>
+        <span class="equation-body">
+          (W<sub>l</sub>x) &odot; (1 + &alpha; &odot; W<sub>r</sub>x)
+        </span>
+        <span class="equation-arrow" aria-hidden="true">&rarr;</span>
+        <span class="equation-output">&phi;(x)</span>
+      </div>
+      <div class="coupling-field" aria-hidden="true">
+        <span class="coupling-node n1">q</span>
+        <span class="coupling-node n2">q&#775;</span>
+        <span class="coupling-node n3">a<sub>t-1</sub></span>
+        <span class="coupling-node n4">cmd</span>
+        <svg viewBox="0 0 520 220" preserveAspectRatio="none">
+          <path d="M92 54 C188 42 198 172 300 154"/>
+          <path d="M94 168 C178 166 232 54 424 64"/>
+          <path d="M300 154 C354 130 378 94 424 64"/>
+          <path d="M92 54 C218 92 278 110 424 64"/>
+        </svg>
+        <div class="coupling-core">
+          <strong>Learned products</strong>
+          <span>state-dependent physical context</span>
         </div>
       </div>
+      <div class="sensor-row">
+        <span>Same proprioception</span>
+        <span>No force input</span>
+        <span>No contact labels</span>
+      </div>
+    </div>
+  </header>
 
-      <div class="tldr">
+  <main id="main">
+    <section class="motivation band">
+      <div class="shell motivation-grid">
+        <div class="section-intro reveal">
+          <p class="section-label">Motivation</p>
+          <h2>A joint value is only meaningful in context.</h2>
+        </div>
+        <div class="context-cards reveal">
+          <article>
+            <div class="context-pair"><span>joint angle</span><b>&times;</b><span>velocity</span></div>
+            <p>distinguishes a static pose from moving momentum</p>
+          </article>
+          <article>
+            <div class="context-pair"><span>command</span><b>&times;</b><span>realized motion</span></div>
+            <p>reveals slip and dynamics mismatch</p>
+          </article>
+          <article>
+            <div class="context-pair"><span>motion</span><b>&times;</b><span>slowdown</span></div>
+            <p>provides a proprioceptive cue for interaction</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="method">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-label">Method</p>
+          <h2>PRISM starts near-linear, then learns useful quadratic context.</h2>
+        </div>
         <p>
-          <strong>Motivation.</strong> Robot behavior is shaped by coupled body-state effects: a joint angle matters differently under changing velocity, contact, load, and commanded motion.
+          The learned feature-wise scale &alpha; is initialized to 0.01. Training can
+          preserve the linear path or amplify the second-order factor where it helps.
         </p>
+      </div>
+
+      <div class="method-stage reveal" role="img" aria-label="PRISM GatedQuad architecture">
+        <div class="method-input method-box">
+          <span class="box-kicker">Deployable input</span>
+          <strong>Proprioceptive history x</strong>
+          <div class="token-list">
+            <span>joints</span><span>velocities</span><span>actions</span><span>commands</span>
+          </div>
+        </div>
+
+        <div class="branch-lines" aria-hidden="true">
+          <span></span><span></span>
+        </div>
+
+        <div class="factor-stack">
+          <div class="factor-card linear-factor">
+            <span>Linear factor</span>
+            <strong>u = W<sub>l</sub>x</strong>
+          </div>
+          <div class="factor-card context-factor">
+            <span>Learned context</span>
+            <strong>c = 1 + &alpha; &odot; W<sub>r</sub>x</strong>
+          </div>
+        </div>
+
+        <div class="multiply-node" aria-label="element-wise product">&odot;</div>
+
+        <div class="method-box interaction-box">
+          <span class="box-kicker">GatedQuad feature</span>
+          <strong>z = u &odot; c</strong>
+          <small>linear behavior + learned degree-2 interactions</small>
+        </div>
+
+        <div class="method-arrow" aria-hidden="true">&rarr;</div>
+
+        <div class="method-box output-box">
+          <span class="box-kicker">Policy token</span>
+          <strong>&phi;(x)</strong>
+          <small>MLP &rarr; RMSNorm &rarr; unchanged backbone</small>
+        </div>
+      </div>
+
+      <div class="method-notes reveal">
+        <span><b>Near-linear initialization</b> stabilizes optimization.</span>
+        <span><b>Factorized products</b> avoid an explicit x &otimes; x expansion.</span>
+        <span><b>Same interface</b> isolates representation from sensing and control.</span>
+      </div>
+    </section>
+
+    <section class="section shell results-overview" id="results">
+      <div class="section-heading compact reveal">
+        <div>
+          <p class="section-label">Headline results</p>
+          <h2>Interaction structure beats simply making the conditioner larger.</h2>
+        </div>
+        <p>Matched checkpoints, shared observations, and the same downstream policy.</p>
+      </div>
+
+      <div class="result-duo">
+        <article class="result-panel bfm-panel reveal">
+          <div class="result-panel-head">
+            <div>
+              <span class="benchmark-tag">RL locomotion</span>
+              <h3>BFM-Zero</h3>
+            </div>
+            <div class="headline-number">
+              <strong>1.224</strong>
+              <span>mean Tracking EMD</span>
+            </div>
+          </div>
+          <p class="panel-claim">PRISM lowers tracking mismatch in all three dynamics conditions.</p>
+          <div class="compact-table" role="table" aria-label="BFM-Zero Tracking EMD">
+            <div class="compact-row table-head" role="row">
+              <span role="columnheader">Method</span>
+              <span role="columnheader">Nominal</span>
+              <span role="columnheader">Low friction</span>
+              <span role="columnheader">Payload</span>
+            </div>
+            <div class="compact-row" role="row">
+              <span role="cell">BFM-Zero <small>32.109M</small></span>
+              <span role="cell">1.104</span><span role="cell">1.582</span><span role="cell">1.121</span>
+            </div>
+            <div class="compact-row prism-row" role="row">
+              <span role="cell">PRISM <small>32.665M</small></span>
+              <span role="cell">1.050</span><span role="cell">1.548</span><span role="cell">1.073</span>
+            </div>
+            <div class="compact-row larger-row" role="row">
+              <span role="cell">Larger <small>49.260M</small></span>
+              <span role="cell">1.090</span><span role="cell">1.589</span><span role="cell">1.114</span>
+            </div>
+          </div>
+          <p class="protocol-note">Tracking EMD &darr; at the aligned 9.6M checkpoint.</p>
+        </article>
+
+        <article class="result-panel libero-panel reveal">
+          <div class="result-panel-head">
+            <div>
+              <span class="benchmark-tag">VLA manipulation</span>
+              <h3>SmolVLA on LIBERO</h3>
+            </div>
+            <div class="headline-number">
+              <strong>66.55</strong>
+              <span>average success</span>
+            </div>
+          </div>
+          <p class="panel-claim">PRISM improves the same VLA backbone with fewer parameters than the larger control.</p>
+          <div class="overview-bars" aria-label="LIBERO average success comparison">
+            <div class="overview-bar">
+              <div><span>SmolVLA</span><b>63.50</b></div>
+              <i style="--score:63.5%"></i>
+              <small>450.046M parameters</small>
+            </div>
+            <div class="overview-bar prism">
+              <div><span>PRISM</span><b>66.55</b></div>
+              <i style="--score:66.55%"></i>
+              <small>451.925M parameters</small>
+            </div>
+            <div class="overview-bar larger">
+              <div><span>Larger</span><b>64.90</b></div>
+              <i style="--score:64.9%"></i>
+              <small>456.245M parameters</small>
+            </div>
+          </div>
+          <p class="protocol-note">Official LIBERO multi-task eval50 at 80K.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section shell" id="locomotion">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-label">BFM-Zero / locomotion</p>
+          <h2>PRISM tracks the reference more closely under dynamics shifts.</h2>
+        </div>
         <p>
-          <strong>Deployable setup.</strong> PRISM uses only the policy's proprioceptive stream and adds no tactile input, wrench sensing, contact labels, or simulator-only physical parameters.
-        </p>
-        <div class="physics-cues" aria-label="Physical context inferred from proprioception">
-          <div class="cue-card">
-            <strong>Body momentum</strong>
-            <div class="cue-flow">
-              <span class="cue-token">joint angle + velocity</span>
-              <span class="cue-arrow">→</span>
-              <span class="cue-token">motion-dependent load</span>
-            </div>
-          </div>
-          <div class="cue-card">
-            <strong>Contact onset</strong>
-            <div class="cue-flow">
-              <span class="cue-token">gripper / joint slowdown</span>
-              <span class="cue-arrow">→</span>
-              <span class="cue-token">object interaction cue</span>
-            </div>
-          </div>
-          <div class="cue-card">
-            <strong>Slip or drag</strong>
-            <div class="cue-flow">
-              <span class="cue-token">command vs. realized motion</span>
-              <span class="cue-arrow">→</span>
-              <span class="cue-token">dynamics mismatch</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <section id="method" class="fade-in">
-      <div class="section-head">
-        <div>
-          <h2>PRISM makes physical state couplings learnable</h2>
-          <p class="section-kicker">
-            A compact degree-2 conditioner over deployable proprioception.
-          </p>
-        </div>
-      </div>
-      <p class="takeaway">
-        PRISM adds learnable proprioceptive products before the same policy backbone.
-      </p>
-      <div class="interface-strip" aria-label="PRISM interface summary">
-        <div class="interface-chip">Same proprioceptive observations</div>
-        <div class="interface-chip">Learned second-order interactions</div>
-        <div class="interface-chip">Same downstream policy backbone</div>
-      </div>
-      <div class="method-figure" role="img" aria-label="PRISM method diagram">
-        <img class="method-diagram" src="assets/prism/prism-method-compact.svg?v=20260709-context" alt="PRISM transforms proprioceptive history into learned linear and quadratic interaction features before the policy consumes the state token.">
-        <p class="method-caption">
-          The policy receives the same deployable observations; PRISM makes their interaction structure explicit.
+          Select a condition to connect the aggregate metric with its aligned
+          whole-body rollout.
         </p>
       </div>
-    </section>
 
-    <section id="results">
-      <div class="section-head">
-        <div>
-          <h2>State interactions matter more than scale</h2>
-          <p class="section-kicker">
-            Strong RL and VLA backbones improve when proprioception exposes useful physical couplings.
-          </p>
-        </div>
-      </div>
-      <p class="takeaway">
-        Gains persist against larger controls, so scale alone is not the explanation.
-      </p>
-      <div class="evidence-grid" aria-label="Result interpretation">
-        <div class="evidence-card">
-          <strong>Capacity control</strong>
-          <span>Larger models add many more parameters, but PRISM remains better on the reported metrics.</span>
-        </div>
-        <div class="evidence-card">
-          <strong>Dynamics stress</strong>
-          <span>BFM-Zero is tested under nominal, low-friction, and payload-mass conditions.</span>
-        </div>
-        <div class="evidence-card">
-          <strong>Backbone transfer</strong>
-          <span>The same representation idea improves both RL locomotion and VLA manipulation.</span>
-        </div>
-      </div>
-      <div class="table-wrap">
-        <table aria-label="Strong-backbone summary">
-          <thead>
-            <tr>
-              <th>Backbone</th>
-              <th>Method</th>
-              <th>Total Params</th>
-              <th>Nominal EMD ↓</th>
-              <th>Low Friction EMD ↓</th>
-              <th>Payload EMD ↓</th>
-              <th>LIBERO Avg. ↑</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>BFM-Zero (MLP)</td>
-              <td>Baseline</td>
-              <td>32.109M</td>
-              <td>1.104</td>
-              <td>1.582</td>
-              <td>1.121</td>
-              <td>--</td>
-            </tr>
-            <tr>
-              <td>BFM-Zero (MLP)</td>
-              <td class="best">PRISM</td>
-              <td>32.665M</td>
-              <td class="best">1.050</td>
-              <td class="best">1.548</td>
-              <td class="best">1.073</td>
-              <td>--</td>
-            </tr>
-            <tr class="muted-row">
-              <td>BFM-Zero (MLP)</td>
-              <td>Larger Model</td>
-              <td>49.260M</td>
-              <td>1.090</td>
-              <td>1.589</td>
-              <td>1.114</td>
-              <td>--</td>
-            </tr>
-            <tr>
-              <td>SmolVLA (Attention)</td>
-              <td>Baseline</td>
-              <td>450.046M</td>
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <td>63.50</td>
-            </tr>
-            <tr>
-              <td>SmolVLA (Attention)</td>
-              <td class="best">PRISM</td>
-              <td>451.925M</td>
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <td class="best">66.55</td>
-            </tr>
-            <tr class="muted-row">
-              <td>SmolVLA (Attention)</td>
-              <td>Larger Model</td>
-              <td>456.245M</td>
-              <td>--</td>
-              <td>--</td>
-              <td>--</td>
-              <td>64.90</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <p class="note">
-        Larger-model rows are gray because they test whether gains come merely from added capacity.
-      </p>
-    </section>
-
-    <section id="bfm">
-      <div class="section-head">
-        <div>
-          <h2>RL locomotion: lower BFM-Zero tracking error</h2>
-          <p class="section-kicker">
-            Metric-aligned rollouts under nominal and shifted dynamics.
-          </p>
-        </div>
-      </div>
-      <p class="takeaway">
-        The primary BFM evidence is lower tracking EMD; videos provide qualitative context.
-      </p>
-
-      <div class="metric-strip" aria-label="BFM-Zero EMD improvements">
-        <div class="metric-card">
-          <strong>-4.9%</strong>
-          <span>Nominal tracking EMD vs. BFM-Zero.</span>
-        </div>
-        <div class="metric-card">
-          <strong>-2.1%</strong>
-          <span>Low-friction tracking EMD vs. BFM-Zero.</span>
-        </div>
-        <div class="metric-card">
-          <strong>-4.3%</strong>
-          <span>Payload-mass tracking EMD vs. BFM-Zero.</span>
-        </div>
+      <div class="scenario-tabs tab-list reveal" role="tablist" aria-label="BFM dynamics scenario">
+        <button type="button" class="tab active" role="tab" aria-selected="true"
+          data-bfm-scenario="low-friction">Low friction</button>
+        <button type="button" class="tab" role="tab" aria-selected="false"
+          data-bfm-scenario="nominal">Nominal</button>
+        <button type="button" class="tab" role="tab" aria-selected="false"
+          data-bfm-scenario="payload">Payload mass</button>
       </div>
 
-      <p class="video-subhead">Metric-aligned rollout context</p>
-      <div class="video-wall bfm-rollouts">
-        <article class="video-card">
-          <video class="wide-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/bfm-low-friction.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Low friction</strong>
-            <span>Hardest shifted condition; GT | BFM-Zero | Larger | PRISM.</span>
+      <div class="evidence-split reveal">
+        <article class="media-card">
+          <div class="media-frame bfm-frame">
+            <video id="bfm-video" autoplay muted loop playsinline controls preload="metadata"
+              poster="assets/prism/posters/bfm-low-friction.jpg"
+              src="assets/prism/bfm-low-friction.mp4"></video>
+            <span class="prism-focus quarter" aria-hidden="true"></span>
+            <span class="focus-badge">PRISM</span>
           </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-nominal.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Nominal</strong>
-            <span>Visual context for the nominal EMD row.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-payload.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Payload mass</strong>
-            <span>Same proprioception, no load sensor.</span>
-          </div>
-        </article>
-      </div>
-
-      <p class="video-subhead">Motion coverage checks</p>
-      <p class="note motion-note">
-        These clips verify non-walking references; they are not the main improvement evidence.
-      </p>
-      <div class="video-wall two-up">
-        <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Fall-and-get-up reference</strong>
-            <span>Full 14-second rollout with approach, fall, and recovery.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="wide-video" controls muted loop playsinline preload="metadata" src="assets/prism/bfm-diverse-poses/bfm-m37-fight.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Fight-style reference</strong>
-            <span>Additional non-walking reference for coverage.</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="contact">
-      <div class="section-head">
-        <div>
-          <h2>LIBERO contact: PRISM recovers after object interaction</h2>
-          <p class="section-kicker">
-            Same-episode SmolVLA comparison on a contact-rich cup manipulation.
-          </p>
-        </div>
-      </div>
-      <p class="takeaway">
-        PRISM keeps moving after contact while logged force spikes stay lower.
-      </p>
-      <div class="video-wall">
-        <article class="video-card featured">
-          <video class="spotlight-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/spotlights/libero-cup-contact-spotlight.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Cup contact adjustment</strong>
-            <span>Green PRISM panel completes the same contact-rich LIBERO episode where both controls stall.</span>
-          </div>
-        </article>
-      </div>
-      <div class="contact-insight" aria-label="Measured simulator contact force and velocity traces">
-        <div>
-          <h3>How to read the contact trace</h3>
-          <div class="telemetry-summary" aria-label="Contact trace summary">
-            <div class="telemetry-card">
-              <strong>16.6</strong>
-              <span>PRISM 95th-percentile force; lower than both controls.</span>
+          <div class="media-caption">
+            <div>
+              <strong id="bfm-caption-title">Low-friction tracking</strong>
+              <span id="bfm-caption-copy">The hardest dynamics shift in the aligned evaluation.</span>
             </div>
-            <div class="telemetry-card">
-              <strong>0.34</strong>
-              <span>PRISM mean end-effector speed; motion continues after contact.</span>
+            <span class="panel-order">GT &nbsp;|&nbsp; BFM-Zero &nbsp;|&nbsp; Larger &nbsp;|&nbsp; PRISM</span>
+          </div>
+        </article>
+
+        <article class="metric-visual">
+          <div class="metric-visual-head">
+            <div>
+              <span>Tracking EMD</span>
+              <strong id="bfm-metric-title">Low friction</strong>
             </div>
-            <div class="telemetry-card">
-              <strong>Logged only</strong>
-              <span>Force and velocity are analysis signals, not policy inputs.</span>
+            <span class="direction">lower is better</span>
+          </div>
+          <div id="bfm-bars" class="metric-bars" aria-live="polite"></div>
+          <div class="delta-callout">
+            <strong id="bfm-delta">-2.1%</strong>
+            <span>PRISM vs. BFM-Zero</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="subsection-heading reveal">
+        <div>
+          <p class="section-label">Reference coverage</p>
+          <h3>One policy follows non-walking whole-body motions.</h3>
+        </div>
+        <p>These clips show motion diversity; aggregate EMD above is the comparison metric.</p>
+      </div>
+
+      <div class="motion-showcase reveal">
+        <div class="motion-player media-frame bfm-frame">
+          <video id="motion-video" muted loop playsinline controls preload="metadata"
+            poster="assets/prism/posters/bfm-fall.jpg"
+            src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4"></video>
+          <span class="prism-focus quarter" aria-hidden="true"></span>
+          <span class="focus-badge">PRISM</span>
+        </div>
+        <div class="motion-selector" role="tablist" aria-label="Reference motion">
+          <button class="motion-choice active" type="button" role="tab" aria-selected="true"
+            data-motion="fall">
+            <span>01</span><strong>Fall and recovery</strong><small>full 14-second sequence</small>
+          </button>
+          <button class="motion-choice" type="button" role="tab" aria-selected="false"
+            data-motion="dance">
+            <span>02</span><strong>Dance</strong><small>fast upper-body coordination</small>
+          </button>
+          <button class="motion-choice" type="button" role="tab" aria-selected="false"
+            data-motion="jump">
+            <span>03</span><strong>Jump</strong><small>vertical whole-body motion</small>
+          </button>
+          <button class="motion-choice" type="button" role="tab" aria-selected="false"
+            data-motion="fight">
+            <span>04</span><strong>Fight sequence</strong><small>asymmetric arm-leg motion</small>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section shell" id="manipulation">
+      <div class="section-heading reveal">
+        <div>
+          <p class="section-label">SmolVLA / manipulation</p>
+          <h2>The same interaction model improves a VLA policy.</h2>
+        </div>
+        <p>
+          PRISM changes only proprioceptive conditioning; the frozen SmolVLM and
+          action-expert design remain shared.
+        </p>
+      </div>
+
+      <div class="libero-scoreboard reveal">
+        <div class="score-summary">
+          <span>LIBERO average success</span>
+          <strong>63.50 <i>&rarr;</i> 66.55</strong>
+          <small>+3.05 points over SmolVLA</small>
+        </div>
+        <div class="suite-scores" aria-label="PRISM LIBERO success by suite">
+          <div><span>Spatial</span><strong>70.0</strong></div>
+          <div><span>Object</span><strong>57.4</strong></div>
+          <div><span>Goal</span><strong>85.4</strong></div>
+          <div class="accent"><span>Long</span><strong>53.4</strong></div>
+        </div>
+      </div>
+
+      <div class="subsection-heading reveal">
+        <div>
+          <p class="section-label">Same-episode comparisons</p>
+          <h3>PRISM completes episodes where both controls stall.</h3>
+        </div>
+        <p>All three panels use the same task and evaluation episode.</p>
+      </div>
+
+      <div class="libero-gallery reveal">
+        <article class="media-card">
+          <div class="media-frame libero-frame">
+            <video id="libero-video" autoplay muted loop playsinline controls preload="metadata"
+              poster="assets/prism/posters/libero-long1.jpg"
+              src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4"></video>
+            <span class="prism-focus third" aria-hidden="true"></span>
+            <span class="focus-badge success">PRISM success</span>
+          </div>
+          <div class="media-caption">
+            <div>
+              <strong id="libero-caption-title">Long-horizon placement</strong>
+              <span id="libero-caption-copy">PRISM completes the object placement while both controls stall.</span>
+            </div>
+            <span class="panel-order">SmolVLA &nbsp;|&nbsp; Larger &nbsp;|&nbsp; PRISM</span>
+          </div>
+        </article>
+        <div class="episode-selector" role="tablist" aria-label="LIBERO comparison episode">
+          <button type="button" class="episode-choice active" role="tab" aria-selected="true"
+            data-libero-episode="long1"><span>Long</span><strong>Place in basket</strong></button>
+          <button type="button" class="episode-choice" role="tab" aria-selected="false"
+            data-libero-episode="long6"><span>Long</span><strong>Cup sequence</strong></button>
+          <button type="button" class="episode-choice" role="tab" aria-selected="false"
+            data-libero-episode="goal"><span>Goal</span><strong>Goal-conditioned task</strong></button>
+        </div>
+      </div>
+
+      <div class="subsection-heading contact-heading reveal">
+        <div>
+          <p class="section-label">Contact behavior</p>
+          <h3>PRISM keeps moving with lower logged force spikes.</h3>
+        </div>
+        <p>Force is recorded after rollout for analysis and is never provided to the policy.</p>
+      </div>
+
+      <div class="contact-grid reveal">
+        <article class="media-card contact-video-card">
+          <div class="media-frame libero-frame">
+            <video id="contact-video" autoplay muted loop playsinline controls preload="metadata"
+              poster="assets/prism/posters/libero-contact.jpg"
+              src="assets/prism/libero-compliance/cup-contact-adjustment-comparison.mp4"></video>
+            <span class="prism-focus third" aria-hidden="true"></span>
+            <span class="focus-badge success">PRISM success</span>
+          </div>
+          <div class="contact-stats">
+            <div><span>Force p95</span><strong>16.6</strong><small>PRISM</small></div>
+            <div><span>EEF speed</span><strong>0.34</strong><small>PRISM mean</small></div>
+            <div><span>Policy force input</span><strong>None</strong><small>analysis only</small></div>
+          </div>
+        </article>
+
+        <article class="dynamic-chart-card">
+          <div class="chart-head">
+            <div>
+              <span class="chart-kicker">Synchronized rollout trace</span>
+              <strong id="contact-chart-title">Contact force norm</strong>
+            </div>
+            <div class="chart-toggle" role="tablist" aria-label="Contact chart signal">
+              <button type="button" class="active" role="tab" aria-selected="true"
+                data-contact-signal="force_norm">Force</button>
+              <button type="button" role="tab" aria-selected="false"
+                data-contact-signal="eef_speed">Speed</button>
             </div>
           </div>
-          <div class="download-row">
-            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.csv?v=20260709-force-velocity">Download telemetry CSV</a>
-            <a class="button secondary small" href="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-readable-force" target="_blank" rel="noopener">Open force plot</a>
+          <div class="chart-legend" aria-label="Method colors">
+            <span><i class="baseline"></i>SmolVLA</span>
+            <span><i class="larger"></i>Larger</span>
+            <span><i class="prism"></i>PRISM</span>
           </div>
-        </div>
-        <img class="telemetry-plot" src="assets/prism/libero-compliance/libero-contact-force-velocity.svg?v=20260709-readable-force" alt="Measured simulator contact force and end-effector speed traces for SmolVLA, Larger, and PRISM.">
-      </div>
-    </section>
-
-    <section id="representations">
-      <div class="section-head">
-        <div>
-          <h2>PRISM clusters dynamics shifts in learned state space</h2>
-          <p class="section-kicker">
-            BFM-Zero actor representations colored by dynamics condition.
+          <div class="canvas-wrap">
+            <canvas id="contact-chart" aria-label="Animated contact force and end-effector speed traces"></canvas>
+            <div class="chart-loading" id="contact-loading">Loading trace...</div>
+          </div>
+          <p class="chart-reading" id="contact-reading">
+            Lower peaks indicate softer contact while the synchronized video shows whether motion continues.
           </p>
-        </div>
+        </article>
       </div>
-      <p class="takeaway">
-        PRISM separates low-friction states most clearly in learned state space.
-      </p>
-
-      <div class="tsne-legend" aria-label="Dynamics condition legend">
-        <span><i class="tsne-marker nominal"></i>Nominal</span>
-        <span><i class="tsne-marker low-friction"></i>Low friction</span>
-        <span><i class="tsne-marker payload"></i>Payload mass</span>
-      </div>
-      <iframe class="representation-frame" src="assets/prism/bfm-method-scenario-tsne.html?v=20260708-plot-only" title="Interactive BFM-Zero representation plot"></iframe>
-
-      <p class="note">
-        Green circles are nominal, blue triangles are low friction, and orange squares are payload.
-        <a href="assets/prism/bfm-method-scenario-tsne.html?v=20260708-plot-only" target="_blank" rel="noopener">Open interactive plot</a>.
-      </p>
     </section>
 
-    <section id="libero">
-      <div class="section-head">
+    <section class="section shell" id="analysis">
+      <div class="section-heading reveal">
         <div>
-          <h2>Proprioceptive interactions transfer to VLA manipulation</h2>
-          <p class="section-kicker">
-            Same SmolVLA vision-language-action backbone; only the proprioceptive conditioner changes.
+          <p class="section-label">Representation analysis</p>
+          <h2>PRISM makes shifted dynamics easier to separate.</h2>
+        </div>
+        <p>
+          t-SNE of BFM-Zero actor features for the same reference motion. Switch
+          methods to compare how scenario structure changes.
+        </p>
+      </div>
+
+      <div class="tsne-layout reveal">
+        <article class="tsne-card">
+          <div class="tsne-toolbar">
+            <div class="method-tabs" role="tablist" aria-label="t-SNE method">
+              <button type="button" role="tab" aria-selected="false" data-tsne-method="BFM-Zero">BFM-Zero</button>
+              <button type="button" role="tab" aria-selected="false" data-tsne-method="Larger BFM-Zero">Larger</button>
+              <button type="button" class="active" role="tab" aria-selected="true" data-tsne-method="PRISM">PRISM</button>
+            </div>
+            <div class="tsne-legend">
+              <span><i class="circle nominal"></i>Nominal</span>
+              <span><i class="triangle friction"></i>Low friction</span>
+              <span><i class="square payload"></i>Payload</span>
+            </div>
+          </div>
+          <div class="tsne-canvas-wrap">
+            <canvas id="tsne-chart" aria-label="Animated scenario-colored t-SNE plot"></canvas>
+            <div id="tsne-tooltip" class="tsne-tooltip" hidden></div>
+            <div class="chart-loading" id="tsne-loading">Loading representation...</div>
+          </div>
+        </article>
+
+        <aside class="analysis-note">
+          <span class="analysis-index">01</span>
+          <h3>Low friction forms a distinct PRISM region.</h3>
+          <p>
+            The blue triangles concentrate away from nominal and payload states,
+            consistent with a representation that responds to changed dynamics.
           </p>
-        </div>
-      </div>
-      <p class="takeaway">
-        The same proprioceptive encoder improves official LIBERO success and selected contact episodes.
-      </p>
-
-      <div class="suite-grid" aria-label="PRISM LIBERO suite success">
-        <div class="suite-card">
-          <strong>70.0</strong>
-          <span>Spatial success, best among controls.</span>
-        </div>
-        <div class="suite-card">
-          <strong>85.4</strong>
-          <span>Goal success, best among controls.</span>
-        </div>
-        <div class="suite-card">
-          <strong>53.4</strong>
-          <span>Long-horizon success, largest gain.</span>
-        </div>
-        <div class="suite-card">
-          <strong>1.91M</strong>
-          <span>Proprioceptive conditioner params.</span>
-        </div>
-      </div>
-
-      <p class="video-subhead">LIBERO same-episode successes</p>
-      <div class="video-wall">
-        <article class="video-card">
-          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Long-horizon task</strong>
-            <span>SmolVLA and Larger fail; PRISM succeeds.</span>
+          <div class="analysis-caveat">
+            <strong>How to read this</strong>
+            <span>t-SNE is qualitative mechanism evidence, not a performance metric.</span>
           </div>
-        </article>
-        <article class="video-card">
-          <video class="comparison-video" controls autoplay muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Long-horizon cup task</strong>
-            <span>Three-way comparison video; this replaces the cropped spotlight so the episode is visible end-to-end.</span>
-          </div>
-        </article>
-        <article class="video-card">
-          <video class="comparison-video" controls muted loop playsinline preload="metadata" src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4?v=20260709-evidence-v3"></video>
-          <div class="video-caption">
-            <strong>Goal task</strong>
-            <span>PRISM completes the same eval50 episode.</span>
-          </div>
-        </article>
+        </aside>
       </div>
     </section>
 
-    <section id="bibtex">
-      <div class="section-head">
+    <section class="closing band">
+      <div class="shell closing-grid">
         <div>
-          <h2>BibTeX</h2>
-          <p class="section-kicker">Placeholder citation for the project page.</p>
+          <p class="section-label">Takeaway</p>
+          <h2>Expose interactions, keep the robot interface simple.</h2>
+        </div>
+        <p>
+          PRISM adds a compact, learnable degree-2 representation to deployable
+          proprioception. It improves strong RL and VLA backbones without adding
+          sensors, privileged physical parameters, or a separate controller.
+        </p>
+        <div class="closing-actions">
+          <a class="button light" href="assets/prism/prism-paper.pdf">Paper PDF</a>
+          <span class="button outline disabled" aria-disabled="true">arXiv pending</span>
+          <span class="button outline disabled" aria-disabled="true">Code pending</span>
         </div>
       </div>
-<pre><code>@article{lee2026prism,
-  title   = {PRISM: Polynomial Representations for Interaction-Structured Motor Control},
-  author  = {Seung Hyun Lee and Stella X. Yu},
-  journal = {},
-  year    = {2026}
+    </section>
+
+    <section class="section shell bibtex" id="bibtex">
+      <div>
+        <p class="section-label">Citation</p>
+        <h2>BibTeX</h2>
+      </div>
+      <pre><code>@article{lee2026prism,
+  title  = {PRISM: Polynomial Representations for Interaction-Structured Motor Control},
+  author = {Lee, Seung Hyun and Yu, Stella X.},
+  year   = {2026}
 }</code></pre>
     </section>
+  </main>
 
-    <footer>
-      Project page layout inspired by the video-first style of VIGOR and the Nerfies project page family.
-    </footer>
-  </div>
+  <footer class="site-footer shell">
+    <span>PRISM &copy; 2026</span>
+    <a href="#top">Back to top &uarr;</a>
+  </footer>
 </body>
 </html>
