@@ -249,11 +249,11 @@ function initContactChart() {
   const descriptions = {
     force_norm: {
       title: "Contact force norm",
-      reading: "Lower peaks indicate softer contact while the synchronized video shows whether motion continues.",
+      reading: "Read force together with speed and task progress; force is logged only for analysis.",
     },
     eef_speed: {
       title: "End-effector speed",
-      reading: "Sustained speed after interaction indicates that the policy continues progressing instead of stalling.",
+      reading: "The synchronized trace shows whether motion slows at contact and then resumes toward the task goal.",
     },
   };
 
