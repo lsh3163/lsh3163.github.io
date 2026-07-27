@@ -7,8 +7,8 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM learns compact polynomial interactions from deployment-available robot state across RL, imitation learning, and VLA policies.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-evidence">
-  <script defer src="assets/prism/site.js?v=20260727-evidence"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-flow">
+  <script defer src="assets/prism/site.js?v=20260727-flow"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -20,6 +20,7 @@
     </a>
     <div class="nav-links">
       <a href="#method">Method</a>
+      <a href="#results">Evidence</a>
       <a href="#locomotion">Locomotion</a>
       <a href="#manipulation">Manipulation</a>
       <a href="#analysis">Analysis</a>
@@ -35,6 +36,7 @@
         <span>Interaction-Structured Motor Control</span>
       </h1>
       <p class="authors">Seung Hyun Lee <span aria-hidden="true">&middot;</span> Stella X. Yu</p>
+      <p class="affiliation">Computer Science and Engineering <span aria-hidden="true">&middot;</span> University of Michigan, Ann Arbor</p>
     </div>
 
     <div class="hero-copy reveal">
@@ -193,7 +195,7 @@
       </div>
 
       <figcaption id="teaser-caption">
-        The controlled settings isolate the representation; BFM-Zero and SmolVLA test stronger policy backbones.
+        Roadmap: motivate the interaction basis, define PRISM, then separate controlled isolation from backbone transfer.
       </figcaption>
     </figure>
   </header>
@@ -202,7 +204,7 @@
     <section class="motivation band">
       <div class="shell motivation-grid">
         <div class="section-intro reveal">
-          <p class="section-label">Motivation</p>
+          <p class="section-label">01 / Motivation</p>
           <h2>Interactions add context.</h2>
           <p class="section-copy">
             Each coordinate remains informative on its own. PRISM also lets the
@@ -229,7 +231,7 @@
     <section class="section shell" id="method">
       <div class="section-heading reveal">
         <div>
-          <p class="section-label">Method</p>
+          <p class="section-label">02 / Method</p>
           <h2>PRISM learns polynomial state interactions.</h2>
         </div>
         <p>
@@ -281,8 +283,8 @@
     <section class="section shell results-overview" id="results">
       <div class="section-heading compact reveal">
         <div>
-          <p class="section-label">Evidence ladder</p>
-          <h2>Controlled tests, then stronger policies.</h2>
+          <p class="section-label">03 / Evidence ladder</p>
+          <h2>Isolate structure, then test transfer.</h2>
         </div>
         <p>
           Controlled baselines test structure versus capacity. BFM-Zero and
@@ -376,7 +378,7 @@
 
       <div class="evidence-group-head stronger-head reveal">
         <div>
-          <span>Stronger-backbone validation</span>
+          <span>Extended stronger-backbone validation</span>
           <strong>Do the gains persist in modern RL and VLA policies?</strong>
         </div>
         <p>PRISM changes only the deployment-available state conditioner.</p>
@@ -455,7 +457,7 @@
     <section class="section shell" id="locomotion">
       <div class="section-heading reveal">
         <div>
-          <p class="section-label">Stronger RL / BFM-Zero</p>
+          <p class="section-label">04A / Stronger RL / BFM-Zero</p>
           <h2>PRISM improves tracking across dynamics.</h2>
         </div>
         <p>
@@ -533,10 +535,17 @@
       </div>
     </section>
 
+    <section class="story-bridge" aria-label="Transition from reinforcement learning to vision-language-action policies">
+      <div class="shell story-bridge-inner reveal">
+        <span>From RL to VLA</span>
+        <strong>The next test keeps the representation change but moves from an RL actor to vision-language attention.</strong>
+      </div>
+    </section>
+
     <section class="section shell" id="manipulation">
       <div class="section-heading reveal">
         <div>
-          <p class="section-label">Stronger VLA / SmolVLA</p>
+          <p class="section-label">04B / Stronger VLA / SmolVLA</p>
           <h2>PRISM complements VLA attention.</h2>
         </div>
         <p>
@@ -675,16 +684,54 @@
       </div>
     </section>
 
+    <section class="story-bridge" aria-label="Transition from performance evidence to representation analysis">
+      <div class="shell story-bridge-inner reveal">
+        <span>From outcomes to mechanism</span>
+        <strong>Tracking and success ask whether PRISM helps; representation analysis asks what its features expose.</strong>
+      </div>
+    </section>
+
     <section class="section shell" id="analysis">
       <div class="section-heading reveal">
         <div>
-          <p class="section-label">Representation analysis</p>
-          <h2>Dynamics shifts reshape PRISM features.</h2>
+          <p class="section-label">05 / Mechanism analysis</p>
+          <h2>What changes inside the representation?</h2>
         </div>
         <p>
-          t-SNE provides a qualitative view of BFM-Zero actor features for the
-          same reference motion. It does not establish dynamics identification.
+          The arXiv paper uses frozen-feature probes and factor ablations. A
+          BFM-Zero t-SNE then provides a complementary strong-backbone view.
         </p>
+      </div>
+
+      <div class="mechanism-summary reveal">
+        <article>
+          <span class="benchmark-tag">Frozen linear probes</span>
+          <h3>Do physical-response proxies become easier to decode?</h3>
+          <p>
+            Slip, joint power, contact impulse, and contact work are computed
+            only for analysis from held-out rollouts.
+          </p>
+        </article>
+        <article>
+          <span class="benchmark-tag">Latent factor ablation</span>
+          <h3>Which learned factors most affect the action?</h3>
+          <p>
+            Dominant weights reveal velocity-memory, cross-joint, and
+            state-velocity structure; these terms are not hand-coded.
+          </p>
+        </article>
+        <div class="mechanism-note">
+          <strong>Paper evidence</strong>
+          <span>These diagnostics support representation-level interpretation, not causal identification of unobserved physics.</span>
+        </div>
+      </div>
+
+      <div class="subsection-heading analysis-subheading reveal">
+        <div>
+          <p class="section-label">Strong-backbone visualization</p>
+          <h3>Dynamics shifts reshape PRISM features.</h3>
+        </div>
+        <p>t-SNE is qualitative and complements, rather than replaces, the paper's probe analysis.</p>
       </div>
 
       <div class="tsne-layout reveal">
