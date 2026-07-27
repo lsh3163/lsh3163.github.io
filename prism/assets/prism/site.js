@@ -42,6 +42,33 @@ const BFM_SCENARIOS = {
   },
 };
 
+const BFM_MOTIONS = {
+  fall: {
+    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m33-fall-full.mp4`,
+    poster: `${ASSET_ROOT}/posters/bfm-fall.jpg`,
+    title: "Fall and recovery",
+    copy: "Compare pelvis height and recovery timing against the GT panel.",
+  },
+  jump: {
+    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m4-jump.mp4`,
+    poster: `${ASSET_ROOT}/posters/bfm-jump.jpg`,
+    title: "Jump",
+    copy: "Compare takeoff timing and landing posture against the GT panel.",
+  },
+  dance: {
+    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m1-dance.mp4`,
+    poster: `${ASSET_ROOT}/posters/bfm-dance.jpg`,
+    title: "Dance",
+    copy: "Rapid cross-body pose changes test whole-body phase alignment.",
+  },
+  fight: {
+    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m37-fight.mp4`,
+    poster: `${ASSET_ROOT}/posters/bfm-fight.jpg`,
+    title: "Fight",
+    copy: "Fast upper-body strikes broaden the reference-motion coverage.",
+  },
+};
+
 const LIBERO_EPISODES = {
   long1: {
     video: `${ASSET_ROOT}/libero-comparisons/long-task1-ep5-comparison.mp4`,
@@ -83,16 +110,90 @@ function setActiveButton(buttons, activeButton) {
   });
 }
 
+function focusComparison(video) {
+  const pan = video?.closest(".comparison-pan");
+  if (!pan || !window.matchMedia("(max-width: 620px)").matches) return;
+  requestAnimationFrame(() => {
+    pan.parentElement.scrollLeft = pan.parentElement.scrollWidth;
+  });
+}
+
 function swapVideo(video, src, autoplay = true, poster = null) {
   if (!video) return;
   if (poster) video.setAttribute("poster", poster);
-  if (video.getAttribute("src") === src) return;
+  if (video.getAttribute("src") === src) {
+    focusComparison(video);
+    return;
+  }
   video.pause();
   video.setAttribute("src", src);
   video.load();
+  focusComparison(video);
   if (autoplay) {
     video.play().catch(() => {});
   }
+}
+
+function initMobileNav() {
+  const button = document.querySelector(".nav-menu-toggle");
+  const menu = document.getElementById("mobile-nav");
+  if (!button || !menu) return;
+
+  const close = () => {
+    button.setAttribute("aria-expanded", "false");
+    menu.hidden = true;
+  };
+  const toggle = () => {
+    const open = button.getAttribute("aria-expanded") === "true";
+    button.setAttribute("aria-expanded", String(!open));
+    menu.hidden = open;
+  };
+
+  button.addEventListener("click", toggle);
+  menu.querySelectorAll("a").forEach((link) => link.addEventListener("click", close));
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") close();
+  });
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 860) close();
+  });
+}
+
+function initEvidenceTabs() {
+  const buttons = [...document.querySelectorAll("[data-evidence-tab]")];
+  const panels = [...document.querySelectorAll("[data-evidence-panel]")];
+  if (!buttons.length || !panels.length) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const selected = button.dataset.evidenceTab;
+      setActiveButton(buttons, button);
+      panels.forEach((panel) => {
+        const active = panel.dataset.evidencePanel === selected;
+        panel.hidden = !active;
+        if (active) {
+          panel.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
+        }
+      });
+    });
+  });
+}
+
+function initComparisonPans() {
+  const frames = [...document.querySelectorAll(".comparison-frame")];
+  const position = () => {
+    if (!window.matchMedia("(max-width: 620px)").matches) {
+      frames.forEach((frame) => {
+        frame.scrollLeft = 0;
+      });
+      return;
+    }
+    frames.forEach((frame) => {
+      frame.scrollLeft = frame.scrollWidth;
+    });
+  };
+  requestAnimationFrame(position);
+  window.addEventListener("resize", position);
 }
 
 function initReveal() {
@@ -172,6 +273,25 @@ function initBfmScenario() {
   activate(buttons.find((button) => button.classList.contains("active")) || buttons[0]);
 }
 
+function initBfmMotionSelector() {
+  const buttons = [...document.querySelectorAll("[data-bfm-motion]")];
+  const video = document.getElementById("bfm-motion-video");
+  const title = document.getElementById("bfm-motion-title");
+  const copy = document.getElementById("bfm-motion-copy");
+  if (!buttons.length || !video || !title || !copy) return;
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      const motion = BFM_MOTIONS[button.dataset.bfmMotion];
+      if (!motion) return;
+      setActiveButton(buttons, button);
+      swapVideo(video, motion.video, true, motion.poster);
+      title.textContent = motion.title;
+      copy.textContent = motion.copy;
+    });
+  });
+}
+
 function initLiberoSelector() {
   const buttons = [...document.querySelectorAll("[data-libero-episode]")];
   const video = document.getElementById("libero-video");
@@ -238,6 +358,7 @@ function initContactChart() {
   const loading = document.getElementById("contact-loading");
   const title = document.getElementById("contact-chart-title");
   const reading = document.getElementById("contact-reading");
+  const summary = document.getElementById("contact-summary");
   const buttons = [...document.querySelectorAll("[data-contact-signal]")];
   if (!canvas || !video) return;
 
@@ -245,15 +366,16 @@ function initContactChart() {
   let signal = "force_norm";
   let animationProgress = 0;
   let animationStart = performance.now();
+  let contactWindow = null;
 
   const descriptions = {
     force_norm: {
       title: "Contact force norm",
-      reading: "Read force together with speed and task progress; force is logged only for analysis.",
+      reading: "The shaded interval marks initial contact; the cursor follows video time.",
     },
     eef_speed: {
       title: "End-effector speed",
-      reading: "The synchronized trace shows whether motion slows at contact and then resumes toward the task goal.",
+      reading: "Read speed through the shaded contact interval and as motion resumes.",
     },
   };
 
@@ -289,6 +411,16 @@ function initContactChart() {
     context.fillText(`${maxTime.toFixed(1)}s`, width - pad.right, height - 8);
     context.textAlign = "left";
 
+    if (contactWindow) {
+      const startX = pad.left + (contactWindow.start / maxTime) * plotWidth;
+      const endX = pad.left + (contactWindow.end / maxTime) * plotWidth;
+      context.fillStyle = "rgba(214,123,67,0.10)";
+      context.fillRect(startX, pad.top, Math.max(4, endX - startX), plotHeight);
+      context.fillStyle = "#9b5a33";
+      context.font = '9px "Avenir Next", sans-serif';
+      context.fillText("initial contact", startX + 5, pad.top + 12);
+    }
+
     let progress;
     if (Number.isFinite(video.duration) && video.duration > 0 && !video.paused) {
       progress = video.currentTime / video.duration;
@@ -312,9 +444,13 @@ function initContactChart() {
       context.lineWidth = method === "PRISM" ? 3.2 : 2.3;
       context.lineJoin = "round";
       context.lineCap = "round";
+      context.setLineDash(
+        method === "SmolVLA" ? [7, 5] : method === "Larger" ? [2, 4] : [],
+      );
       context.globalAlpha = method === "PRISM" ? 1 : 0.72;
       context.stroke();
       context.globalAlpha = 1;
+      context.setLineDash([]);
     }
 
     const playheadX = pad.left + progress * plotWidth;
@@ -326,6 +462,19 @@ function initContactChart() {
     context.setLineDash([4, 4]);
     context.stroke();
     context.setLineDash([]);
+    context.beginPath();
+    context.arc(playheadX, pad.top + plotHeight, 3.4, 0, Math.PI * 2);
+    context.fillStyle = "#11231e";
+    context.fill();
+    context.fillStyle = "#54615b";
+    context.font = '9px "Avenir Next", sans-serif';
+    context.textAlign = playheadX > width - 62 ? "right" : "left";
+    context.fillText(
+      `${(progress * maxTime).toFixed(1)}s`,
+      playheadX + (playheadX > width - 62 ? -5 : 5),
+      pad.top + plotHeight - 6,
+    );
+    context.textAlign = "left";
 
     requestAnimationFrame(draw);
   }
@@ -345,6 +494,40 @@ function initContactChart() {
           eef_speed: Number(row.eef_speed),
         });
       });
+      const onsets = Object.values(grouped)
+        .map((rows) => rows.find((row) => row.force_norm > 2)?.time)
+        .filter(Number.isFinite);
+      if (onsets.length) {
+        contactWindow = {
+          start: Math.min(...onsets),
+          end: Math.max(...onsets) + 0.45,
+        };
+      }
+
+      if (summary) {
+        const head = document.createElement("div");
+        head.className = "contact-summary-head";
+        ["Method", "Force p95", "Mean speed"].forEach((label) => {
+          const cell = document.createElement("span");
+          cell.textContent = label;
+          head.appendChild(cell);
+        });
+        const rows = Object.entries(grouped).map(([method, methodRows]) => {
+          const row = document.createElement("div");
+          row.className = `contact-summary-row ${method === "PRISM" ? "prism" : ""}`;
+          const force = quantile(methodRows.map((entry) => entry.force_norm), 0.95);
+          const speed =
+            methodRows.reduce((total, entry) => total + entry.eef_speed, 0) /
+            methodRows.length;
+          [method, force.toFixed(1), speed.toFixed(2)].forEach((value) => {
+            const cell = document.createElement("span");
+            cell.textContent = value;
+            row.appendChild(cell);
+          });
+          return row;
+        });
+        summary.replaceChildren(head, ...rows);
+      }
       loading.classList.add("hidden");
       requestAnimationFrame(draw);
     })
@@ -499,8 +682,12 @@ function initTsne() {
 }
 
 function init() {
+  initMobileNav();
   initReveal();
+  initEvidenceTabs();
+  initComparisonPans();
   initBfmScenario();
+  initBfmMotionSelector();
   initLiberoSelector();
   initContactChart();
   initTsne();
