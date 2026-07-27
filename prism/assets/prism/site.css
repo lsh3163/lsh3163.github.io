@@ -245,6 +245,10 @@ canvas {
   padding-block: 66px 86px;
 }
 
+.hero > * {
+  min-width: 0;
+}
+
 .hero-title {
   text-align: center;
 }
@@ -379,6 +383,76 @@ h1 em {
     radial-gradient(circle at 78% 14%, rgba(217, 232, 182, 0.25), transparent 16rem),
     linear-gradient(145deg, #102b24, #21493d 64%, #2d5a49);
   box-shadow: 0 34px 90px rgba(17, 35, 30, 0.25);
+}
+
+.hero-teaser-image {
+  background: #102b24;
+}
+
+.teaser-image-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.teaser-image-head > div {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+
+.teaser-image-head span {
+  color: var(--lime);
+  font-size: 0.67rem;
+  font-weight: 950;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.teaser-image-head strong {
+  font-family: var(--serif);
+  font-size: 0.94rem;
+  font-weight: 600;
+}
+
+.teaser-image-head a {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 9px;
+  color: rgba(255, 255, 255, 0.74);
+  font-size: 0.64rem;
+  font-weight: 850;
+  transition: color 180ms ease, border-color 180ms ease, background 180ms ease;
+}
+
+.teaser-image-head a:hover {
+  border-color: rgba(217, 232, 182, 0.48);
+  color: var(--lime);
+  background: rgba(217, 232, 182, 0.08);
+}
+
+.teaser-image-link,
+.teaser-image-link picture,
+.teaser-image-link img {
+  display: block;
+  width: 100%;
+}
+
+.teaser-image-link {
+  overflow: hidden;
+  background: var(--paper);
+}
+
+.teaser-image-link img {
+  height: auto;
+  transition: transform 260ms ease;
+}
+
+.teaser-image-link:hover img {
+  transform: scale(1.004);
 }
 
 .teaser-head {
@@ -3078,6 +3152,39 @@ h1 em {
 
   h1 span {
     display: block;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+    white-space: normal;
+  }
+
+  .hero-teaser-image {
+    border-radius: 20px;
+  }
+
+  .teaser-image-head {
+    gap: 10px;
+    padding: 11px 12px;
+  }
+
+  .teaser-image-head > div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .teaser-image-head span {
+    font-size: 0.57rem;
+  }
+
+  .teaser-image-head strong {
+    font-size: 0.78rem;
+  }
+
+  .teaser-image-head a {
+    flex: 0 0 auto;
+    padding: 6px 8px;
+    font-size: 0.56rem;
   }
 
   .teaser-head {

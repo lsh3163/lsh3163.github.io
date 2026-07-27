@@ -7,8 +7,8 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM learns compact polynomial interactions from deployment-available robot state across RL, imitation learning, and VLA policies.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-evidence">
-  <script defer src="assets/prism/site.js?v=20260727-evidence"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-teaser">
+  <script defer src="assets/prism/site.js?v=20260727-teaser"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -67,149 +67,28 @@
       </div>
     </div>
 
-    <figure class="hero-teaser reveal" aria-labelledby="teaser-caption">
-      <div class="teaser-head">
-        <span>PRISM at a glance</span>
-        <strong>Why polynomial features? &rarr; What changes? &rarr; Where does it help?</strong>
+    <figure class="hero-teaser hero-teaser-image reveal" aria-labelledby="teaser-caption">
+      <div class="teaser-image-head">
+        <div>
+          <span>PRISM in one figure</span>
+          <strong>Method and on/off evidence</strong>
+        </div>
+        <a href="assets/prism/teaser/prism-on-off-teaser.png" target="_blank"
+          rel="noopener">Open full resolution</a>
       </div>
-
-      <div class="teaser-flow">
-        <article class="teaser-panel motivation-panel">
-          <div class="teaser-panel-title">
-            <span>01</span>
-            <div>
-              <small>Motivation</small>
-              <strong>First-order observations leave multiplicative mechanics implicit.</strong>
-            </div>
-          </div>
-          <div class="coupling-demo" aria-hidden="true">
-            <div class="state-cloud">
-              <span>q</span>
-              <span>q&#775;</span>
-              <span>cmd</span>
-              <span>a<sub>t-1</sub></span>
-            </div>
-            <span class="demo-arrow">&rarr;</span>
-            <div class="coupling-pairs">
-              <span><b>velocity</b><i>&times;</i><b>velocity</b></span>
-              <span><b>action</b><i>&times;</i><b>response</b></span>
-            </div>
-          </div>
-          <p>Affine input layers begin with sums; many control cues depend on products.</p>
-        </article>
-
-        <span class="teaser-arrow flow-arrow" aria-hidden="true">&rarr;</span>
-
-        <article class="teaser-panel method-panel">
-          <div class="teaser-panel-title">
-            <span>02</span>
-            <div>
-              <small>Method</small>
-              <strong>PRISM maps state through learned polynomial features.</strong>
-            </div>
-          </div>
-          <div class="teaser-method" aria-hidden="true">
-            <span class="teaser-token input-token">state</span>
-            <span class="demo-arrow">&rarr;</span>
-            <div class="teaser-prism-core">
-              <small>PRISM</small>
-              <strong>learned polynomial<br>interactions</strong>
-            </div>
-            <span class="demo-arrow">&rarr;</span>
-            <span class="teaser-token output-token">policy</span>
-          </div>
-          <div class="teaser-method-notes">
-            <span>same inputs</span>
-            <span>end-to-end learned</span>
-            <span>same policy interface</span>
-          </div>
-        </article>
-
-        <span class="teaser-arrow evidence-arrow" aria-hidden="true">&darr;</span>
-
-        <article class="teaser-panel results-panel">
-          <div class="teaser-panel-title">
-            <span>03</span>
-            <div>
-              <small>Evidence</small>
-              <strong>Controlled tests isolate the effect; stronger backbones test transfer.</strong>
-            </div>
-          </div>
-
-          <div class="teaser-evidence-grid">
-            <div class="teaser-chart" aria-label="Humanoid-Gym survival rate comparison">
-              <span class="evidence-kind">Controlled RL</span>
-              <div class="teaser-chart-head">
-                <span>Humanoid-Gym survival &uarr;</span>
-                <b>+41.5 pt</b>
-              </div>
-              <div class="teaser-bar baseline">
-                <span>Base</span><i><em style="--bar:51%"></em></i><strong>51.0</strong>
-              </div>
-              <div class="teaser-bar larger">
-                <span>Larger</span><i><em style="--bar:52.25%"></em></i><strong>52.25</strong>
-              </div>
-              <div class="teaser-bar prism">
-                <span>PRISM</span><i><em style="--bar:92.5%"></em></i><strong>92.5</strong>
-              </div>
-            </div>
-
-            <div class="teaser-chart" aria-label="Task-specific Diffusion Policy LIBERO success comparison">
-              <span class="evidence-kind">Controlled imitation</span>
-              <div class="teaser-chart-head">
-                <span>Task-specific LIBERO &uarr;</span>
-                <b>+27.2 pt</b>
-              </div>
-              <div class="teaser-bar baseline">
-                <span>Base</span><i><em style="--bar:63.8%"></em></i><strong>63.8</strong>
-              </div>
-              <div class="teaser-bar larger">
-                <span>Oracle</span><i><em style="--bar:64.5%"></em></i><strong>64.5</strong>
-              </div>
-              <div class="teaser-bar prism">
-                <span>PRISM</span><i><em style="--bar:91%"></em></i><strong>91.0</strong>
-              </div>
-            </div>
-
-            <div class="teaser-chart" aria-label="BFM-Zero mean tracking EMD comparison">
-              <span class="evidence-kind">Stronger RL</span>
-              <div class="teaser-chart-head">
-                <span>BFM-Zero mean EMD &darr;</span>
-                <b>&minus;3.6%</b>
-              </div>
-              <div class="teaser-bar baseline">
-                <span>Base</span><i><em style="--bar:100%"></em></i><strong>1.269</strong>
-              </div>
-              <div class="teaser-bar larger">
-                <span>Larger</span><i><em style="--bar:99.6%"></em></i><strong>1.264</strong>
-              </div>
-              <div class="teaser-bar prism">
-                <span>PRISM</span><i><em style="--bar:96.5%"></em></i><strong>1.224</strong>
-              </div>
-            </div>
-
-            <div class="teaser-chart" aria-label="SmolVLA LIBERO average success comparison">
-              <span class="evidence-kind">Stronger VLA</span>
-              <div class="teaser-chart-head">
-                <span>SmolVLA LIBERO Avg. &uarr;</span>
-                <b>+3.05 pt</b>
-              </div>
-              <div class="teaser-bar baseline">
-                <span>Base</span><i><em style="--bar:90.7%"></em></i><strong>63.50</strong>
-              </div>
-              <div class="teaser-bar larger">
-                <span>Larger</span><i><em style="--bar:92.7%"></em></i><strong>64.90</strong>
-              </div>
-              <div class="teaser-bar prism">
-                <span>PRISM</span><i><em style="--bar:95.1%"></em></i><strong>66.55</strong>
-              </div>
-            </div>
-          </div>
-        </article>
-      </div>
-
+      <a class="teaser-image-link" href="assets/prism/teaser/prism-on-off-teaser.png"
+        target="_blank" rel="noopener"
+        aria-label="Open the PRISM method and on-off result teaser at full resolution">
+        <picture>
+          <source media="(max-width: 620px)"
+            srcset="assets/prism/teaser/prism-on-off-teaser-mobile.png">
+          <img src="assets/prism/teaser/prism-on-off-teaser.png"
+            width="1800" height="900" fetchpriority="high"
+            alt="PRISM retains first-order proprioception, learns polynomial interactions, and recovers upright earlier than the same BFM-Zero policy without PRISM. Aggregate BFM-Zero, SmolVLA, and controlled RL improvements are shown below the rollout comparison.">
+        </picture>
+      </a>
       <figcaption id="teaser-caption">
-        Roadmap: motivate the interaction basis, define PRISM, then separate controlled isolation from backbone transfer.
+        The rollout is a selected BFM-Zero recovery example; the reported aggregate metrics remain the primary evidence.
       </figcaption>
     </figure>
   </header>
