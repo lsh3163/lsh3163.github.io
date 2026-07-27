@@ -7,8 +7,8 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM learns multiplicative interactions in deployable proprioception and improves BFM-Zero locomotion and SmolVLA manipulation.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260725-redesign">
-  <script defer src="assets/prism/site.js?v=20260725-redesign"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-interactions">
+  <script defer src="assets/prism/site.js?v=20260727-interactions"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -58,11 +58,9 @@
       <div class="hero-equation">
         <span class="equation-input">x</span>
         <span class="equation-arrow" aria-hidden="true">&rarr;</span>
-        <span class="equation-body">
-          (W<sub>l</sub>x) &odot; (1 + &alpha; &odot; W<sub>r</sub>x)
-        </span>
+        <span class="equation-body">learned polynomial interactions</span>
         <span class="equation-arrow" aria-hidden="true">&rarr;</span>
-        <span class="equation-output">&phi;(x)</span>
+        <span class="equation-output policy-output">policy</span>
       </div>
       <div class="coupling-field" aria-hidden="true">
         <span class="coupling-node n1">q</span>
@@ -76,8 +74,8 @@
           <path d="M92 54 C218 92 278 110 424 64"/>
         </svg>
         <div class="coupling-core">
-          <strong>Learned products</strong>
-          <span>state-dependent physical context</span>
+          <strong>Polynomial interactions</strong>
+          <span>learned from the task objective</span>
         </div>
       </div>
       <div class="sensor-row">
@@ -116,15 +114,16 @@
       <div class="section-heading reveal">
         <div>
           <p class="section-label">Method</p>
-          <h2>PRISM starts near-linear, then learns useful quadratic context.</h2>
+          <h2>PRISM learns which state interactions matter.</h2>
         </div>
         <p>
-          The learned feature-wise scale &alpha; is initialized to 0.01. Training can
-          preserve the linear path or amplify the second-order factor where it helps.
+          PRISM augments proprioception with a compact polynomial representation
+          learned end to end, without hand-designed force or contact labels.
         </p>
       </div>
 
-      <div class="method-stage reveal" role="img" aria-label="PRISM GatedQuad architecture">
+      <div class="method-stage reveal" role="img"
+        aria-label="Proprioception passes through learned polynomial interactions before entering the policy">
         <div class="method-input method-box">
           <span class="box-kicker">Deployable input</span>
           <strong>Proprioceptive history x</strong>
@@ -133,42 +132,32 @@
           </div>
         </div>
 
-        <div class="branch-lines" aria-hidden="true">
-          <span></span><span></span>
-        </div>
-
-        <div class="factor-stack">
-          <div class="factor-card linear-factor">
-            <span>Linear factor</span>
-            <strong>u = W<sub>l</sub>x</strong>
-          </div>
-          <div class="factor-card context-factor">
-            <span>Learned context</span>
-            <strong>c = 1 + &alpha; &odot; W<sub>r</sub>x</strong>
-          </div>
-        </div>
-
-        <div class="multiply-node" aria-label="element-wise product">&odot;</div>
+        <div class="method-arrow" aria-hidden="true">&rarr;</div>
 
         <div class="method-box interaction-box">
-          <span class="box-kicker">GatedQuad feature</span>
-          <strong>z = u &odot; c</strong>
-          <small>linear behavior + learned degree-2 interactions</small>
+          <span class="box-kicker">PRISM</span>
+          <strong>Learned polynomial interactions</strong>
+          <div class="interaction-pills" aria-hidden="true">
+            <span>joint &times; velocity</span>
+            <span>command &times; motion</span>
+            <span>state &times; action</span>
+          </div>
+          <small>The task selects useful couplings between state variables.</small>
         </div>
 
         <div class="method-arrow" aria-hidden="true">&rarr;</div>
 
         <div class="method-box output-box">
-          <span class="box-kicker">Policy token</span>
-          <strong>&phi;(x)</strong>
-          <small>MLP &rarr; RMSNorm &rarr; unchanged backbone</small>
+          <span class="box-kicker">Policy input</span>
+          <strong>Interaction-aware state</strong>
+          <small>consumed by the same downstream policy</small>
         </div>
       </div>
 
       <div class="method-notes reveal">
-        <span><b>Near-linear initialization</b> stabilizes optimization.</span>
-        <span><b>Factorized products</b> avoid an explicit x &otimes; x expansion.</span>
-        <span><b>Same interface</b> isolates representation from sensing and control.</span>
+        <span><b>Task-selected</b> interactions are learned end to end.</span>
+        <span><b>No extra sensing</b> or privileged dynamics labels are added.</span>
+        <span><b>Backbone-compatible</b> output preserves the policy interface.</span>
       </div>
     </section>
 
@@ -228,7 +217,7 @@
               <span>average success</span>
             </div>
           </div>
-          <p class="panel-claim">PRISM improves the same VLA backbone with fewer parameters than the larger control.</p>
+          <p class="panel-claim">An interaction-aware state token beats both the baseline and a larger conditioner.</p>
           <div class="overview-bars" aria-label="LIBERO average success comparison">
             <div class="overview-bar">
               <div><span>SmolVLA</span><b>63.50</b></div>
@@ -308,38 +297,26 @@
 
       <div class="subsection-heading reveal">
         <div>
-          <p class="section-label">Reference coverage</p>
-          <h3>One policy follows non-walking whole-body motions.</h3>
+          <p class="section-label">Qualitative non-walking case</p>
+          <h3>PRISM stays closer to the reference through fall and recovery.</h3>
         </div>
-        <p>These clips show motion diversity; aggregate EMD above is the comparison metric.</p>
+        <p>Our clearest non-walking comparison; Tracking EMD remains the primary evidence.</p>
       </div>
 
-      <div class="motion-showcase reveal">
-        <div class="motion-player media-frame bfm-frame">
-          <video id="motion-video" muted loop playsinline controls preload="metadata"
-            poster="assets/prism/posters/bfm-fall.jpg"
-            src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4"></video>
-          <span class="prism-focus quarter" aria-hidden="true"></span>
-          <span class="focus-badge">PRISM</span>
-        </div>
-        <div class="motion-selector" role="tablist" aria-label="Reference motion">
-          <button class="motion-choice active" type="button" role="tab" aria-selected="true"
-            data-motion="fall">
-            <span>01</span><strong>Fall and recovery</strong><small>full 14-second sequence</small>
-          </button>
-          <button class="motion-choice" type="button" role="tab" aria-selected="false"
-            data-motion="dance">
-            <span>02</span><strong>Dance</strong><small>fast upper-body coordination</small>
-          </button>
-          <button class="motion-choice" type="button" role="tab" aria-selected="false"
-            data-motion="jump">
-            <span>03</span><strong>Jump</strong><small>vertical whole-body motion</small>
-          </button>
-          <button class="motion-choice" type="button" role="tab" aria-selected="false"
-            data-motion="fight">
-            <span>04</span><strong>Fight sequence</strong><small>asymmetric arm-leg motion</small>
-          </button>
-        </div>
+      <div class="motion-showcase single-motion reveal">
+        <article class="media-card">
+          <div class="media-frame spotlight-frame">
+            <video autoplay muted loop playsinline controls preload="metadata"
+              src="assets/prism/spotlights/bfm-fall-recovery-spotlight.mp4"></video>
+          </div>
+          <div class="media-caption">
+            <div>
+              <strong>Fall and recovery</strong>
+              <span>Compare body pose and recovery drift against the GT panel.</span>
+            </div>
+            <span class="panel-order">GT &nbsp;|&nbsp; BFM-Zero &nbsp;|&nbsp; PRISM</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -347,13 +324,40 @@
       <div class="section-heading reveal">
         <div>
           <p class="section-label">SmolVLA / manipulation</p>
-          <h2>The same interaction model improves a VLA policy.</h2>
+          <h2>Polynomial state interactions complement attention.</h2>
         </div>
         <p>
-          PRISM changes only proprioceptive conditioning; the frozen SmolVLM and
-          action-expert design remain shared.
+          Attention integrates state with vision and language. PRISM first enriches
+          the state token, exposing coordinate couplings before cross-token reasoning.
         </p>
       </div>
+
+      <div class="attention-bridge reveal" role="img"
+        aria-label="PRISM builds a polynomial state token before SmolVLA attention integrates it with vision and language">
+        <div class="bridge-node">
+          <span>Input</span>
+          <strong>Proprioception</strong>
+        </div>
+        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
+        <div class="bridge-node prism-node">
+          <span>PRISM</span>
+          <strong>Polynomial interaction token</strong>
+        </div>
+        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
+        <div class="bridge-node attention-node">
+          <span>SmolVLA</span>
+          <strong>Attention with vision + language</strong>
+        </div>
+        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
+        <div class="bridge-node">
+          <span>Policy</span>
+          <strong>Action expert</strong>
+        </div>
+      </div>
+      <p class="attention-caption reveal">
+        Attention still performs cross-token integration; only the proprioceptive
+        representation changes across methods.
+      </p>
 
       <div class="libero-scoreboard reveal">
         <div class="score-summary">
@@ -512,7 +516,7 @@
           <h2>Expose interactions, keep the robot interface simple.</h2>
         </div>
         <p>
-          PRISM adds a compact, learnable degree-2 representation to deployable
+          PRISM adds a compact, learnable polynomial representation to deployable
           proprioception. It improves strong RL and VLA backbones without adding
           sensors, privileged physical parameters, or a separate controller.
         </p>
