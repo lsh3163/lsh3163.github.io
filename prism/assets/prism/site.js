@@ -42,25 +42,6 @@ const BFM_SCENARIOS = {
   },
 };
 
-const MOTIONS = {
-  fall: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m33-fall-full.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-fall.jpg`,
-  },
-  dance: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m1-dance.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-dance.jpg`,
-  },
-  jump: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m4-jump.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-jump.jpg`,
-  },
-  fight: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m37-fight.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-fight.jpg`,
-  },
-};
-
 const LIBERO_EPISODES = {
   long1: {
     video: `${ASSET_ROOT}/libero-comparisons/long-task1-ep5-comparison.mp4`,
@@ -189,20 +170,6 @@ function initBfmScenario() {
 
   buttons.forEach((button) => button.addEventListener("click", () => activate(button)));
   activate(buttons.find((button) => button.classList.contains("active")) || buttons[0]);
-}
-
-function initMotionSelector() {
-  const buttons = [...document.querySelectorAll("[data-motion]")];
-  const video = document.getElementById("motion-video");
-  if (!buttons.length || !video) return;
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      setActiveButton(buttons, button);
-      const motion = MOTIONS[button.dataset.motion];
-      if (!motion) return;
-      swapVideo(video, motion.video, true, motion.poster);
-    });
-  });
 }
 
 function initLiberoSelector() {
@@ -534,7 +501,6 @@ function initTsne() {
 function init() {
   initReveal();
   initBfmScenario();
-  initMotionSelector();
   initLiberoSelector();
   initContactChart();
   initTsne();
