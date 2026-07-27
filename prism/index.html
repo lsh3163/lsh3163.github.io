@@ -41,10 +41,12 @@
 
     <div class="hero-copy reveal">
       <p class="hero-lede">
-        Robot behavior depends on relationships among configuration, velocity,
-        commands, and recent actions. PRISM gives policies a compact polynomial
-        basis for learning those relationships without changing their sensors or
-        control interface.
+        Policies observe positions, velocities, commands, and action histories as
+        separate coordinates. Yet control-relevant mechanics is often
+        multiplicative: power couples effort with velocity, inertial effects
+        couple velocities, and contact or slip leaves coupled signatures over
+        time. PRISM exposes a compact, learnable polynomial basis for these
+        interactions without adding sensors.
       </p>
       <div class="hero-actions">
         <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
@@ -56,7 +58,7 @@
     <figure class="hero-teaser reveal" aria-labelledby="teaser-caption">
       <div class="teaser-head">
         <span>PRISM at a glance</span>
-        <strong>Why interactions? &rarr; What changes? &rarr; Where does it help?</strong>
+        <strong>Why polynomial features? &rarr; What changes? &rarr; Where does it help?</strong>
       </div>
 
       <div class="teaser-flow">
@@ -65,7 +67,7 @@
             <span>01</span>
             <div>
               <small>Motivation</small>
-              <strong>Behavior depends on relationships among state variables.</strong>
+              <strong>First-order observations leave multiplicative mechanics implicit.</strong>
             </div>
           </div>
           <div class="coupling-demo" aria-hidden="true">
@@ -77,11 +79,11 @@
             </div>
             <span class="demo-arrow">&rarr;</span>
             <div class="coupling-pairs">
-              <span><b>pose</b><i>&times;</i><b>motion</b></span>
-              <span><b>goal</b><i>&times;</i><b>response</b></span>
+              <span><b>velocity</b><i>&times;</i><b>velocity</b></span>
+              <span><b>action</b><i>&times;</i><b>response</b></span>
             </div>
           </div>
-          <p>Each value remains useful; products add context when variables act together.</p>
+          <p>Affine input layers begin with sums; many control cues depend on products.</p>
         </article>
 
         <span class="teaser-arrow flow-arrow" aria-hidden="true">&rarr;</span>
@@ -205,24 +207,26 @@
       <div class="shell motivation-grid">
         <div class="section-intro reveal">
           <p class="section-label">01 / Motivation</p>
-          <h2>Interactions add context.</h2>
+          <h2>Why add a polynomial basis?</h2>
           <p class="section-copy">
-            Each coordinate remains informative on its own. PRISM also lets the
-            policy model how signals jointly shape behavior.
+            A policy receives first-order coordinates, while many mechanics-relevant
+            cues have multiplicative structure. Standard affine projections must
+            synthesize those products indirectly; PRISM makes learned low-degree
+            products available while retaining the original signals.
           </p>
         </div>
         <div class="context-cards reveal">
           <article>
-            <div class="context-pair"><span>configuration</span><b>&times;</b><span>velocity</span></div>
-            <p>can encode how motion effects vary with body pose</p>
+            <div class="context-pair"><span>effort</span><b>&times;</b><span>velocity</span></div>
+            <p>matches mechanical-power structure when actuator effort is observed</p>
           </article>
           <article>
-            <div class="context-pair"><span>command</span><b>&times;</b><span>response</span></div>
-            <p>can distinguish similar motion under different goals</p>
+            <div class="context-pair"><span>velocity</span><b>&times;</b><span>velocity</span></div>
+            <p>directly represents quadratic motion and inertial couplings</p>
           </article>
           <article>
-            <div class="context-pair"><span>recent action</span><b>&times;</b><span>state change</span></div>
-            <p>can summarize how the body responded over time</p>
+            <div class="context-pair"><span>action history</span><b>&times;</b><span>state change</span></div>
+            <p>can expose response signatures associated with slip, impact, or contact</p>
           </article>
         </div>
       </div>
