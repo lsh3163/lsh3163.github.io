@@ -7,8 +7,8 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM learns compact polynomial interactions from deployment-available robot state across RL, imitation learning, and VLA policies.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-rollout">
-  <script defer src="assets/prism/site.js?v=20260727-rollout"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-results-first">
+  <script defer src="assets/prism/site.js?v=20260727-results-first"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -19,10 +19,10 @@
       <span>PRISM</span>
     </a>
     <div class="nav-links">
-      <a href="#method">Method</a>
       <a href="#results">Evidence</a>
       <a href="#locomotion">Locomotion</a>
       <a href="#manipulation">Manipulation</a>
+      <a href="#method">Method</a>
       <a href="#analysis">Analysis</a>
     </div>
     <button class="nav-menu-toggle" type="button" aria-expanded="false"
@@ -32,17 +32,16 @@
     </button>
     <a class="nav-paper" href="assets/prism/prism-paper.pdf">Paper PDF</a>
     <div class="mobile-nav" id="mobile-nav" hidden>
-      <a href="#method">Method</a>
       <a href="#results">Evidence</a>
       <a href="#locomotion">Locomotion</a>
       <a href="#manipulation">Manipulation</a>
+      <a href="#method">Method</a>
       <a href="#analysis">Analysis</a>
     </div>
   </nav>
 
-  <header class="hero shell" id="top">
+  <header class="hero shell result-first-hero" id="top">
     <div class="hero-title reveal">
-      <p class="eyebrow">Polynomial structure for deployable proprioceptive control</p>
       <h1>
         <span><em>PRISM:</em> Polynomial Representations for</span>
         <span>Interaction-Structured Motor Control</span>
@@ -51,14 +50,11 @@
       <p class="affiliation">Computer Science and Engineering <span aria-hidden="true">&middot;</span> University of Michigan, Ann Arbor</p>
     </div>
 
-    <div class="hero-copy reveal">
-      <p class="hero-lede">
-        Policies observe positions, velocities, commands, and action histories as
-        separate coordinates. Yet control-relevant mechanics is often
-        multiplicative: power couples effort with velocity, inertial effects
-        couple velocities, and contact or slip leaves coupled signatures over
-        time. PRISM exposes a compact, learnable polynomial basis for these
-        interactions without adding sensors.
+    <div class="hero-summary reveal">
+      <p>
+        PRISM learns polynomial interactions from proprioception alone, improving
+        robust locomotion and long-horizon manipulation without extra sensors or
+        simply scaling the policy.
       </p>
       <div class="hero-actions">
         <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
@@ -67,134 +63,70 @@
       </div>
     </div>
 
-    <figure class="hero-teaser reveal" aria-labelledby="teaser-caption">
-      <div class="teaser-head">
-        <span>PRISM at a glance</span>
-        <strong>Why polynomial features? &rarr; What changes? &rarr; Where does it help?</strong>
+    <section class="hero-results reveal" aria-labelledby="hero-results-title">
+      <div class="hero-results-head">
+        <div>
+          <span>Selected results</span>
+          <h2 id="hero-results-title">PRISM recovers and completes where controls stall.</h2>
+        </div>
+        <a href="#results">Full benchmark evidence &darr;</a>
       </div>
 
-      <div class="teaser-flow">
-        <article class="teaser-panel motivation-panel">
-          <div class="teaser-panel-title">
-            <span>01</span>
+      <article class="hero-featured-result">
+        <div class="hero-result-copy">
+          <div>
+            <span>RL locomotion &middot; BFM-Zero</span>
+            <strong>Fall recovery returns toward the reference motion.</strong>
+          </div>
+          <b>Across dynamics: mean EMD &minus;3.6%</b>
+        </div>
+        <video autoplay muted loop playsinline controls preload="auto"
+          poster="assets/prism/posters/bfm-fall-highlight.jpg"
+          aria-label="Reference, BFM-Zero without PRISM, and BFM-Zero with PRISM during the same fall-recovery sequence">
+          <source src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.webm" type="video/webm">
+          <source src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.mp4" type="video/mp4">
+        </video>
+      </article>
+
+      <div class="hero-secondary-results">
+        <article class="hero-libero-result">
+          <div class="hero-result-copy">
             <div>
-              <small>Motivation</small>
-              <strong>First-order observations leave multiplicative mechanics implicit.</strong>
+              <span>VLA manipulation &middot; SmolVLA</span>
+              <strong>PRISM completes the same long-horizon episode.</strong>
             </div>
+            <b>LIBERO Avg. +3.05 pt</b>
           </div>
-          <div class="coupling-demo" aria-hidden="true">
-            <div class="state-cloud">
-              <span>q</span>
-              <span>q&#775;</span>
-              <span>cmd</span>
-              <span>a<sub>t-1</sub></span>
-            </div>
-            <span class="demo-arrow">&rarr;</span>
-            <div class="coupling-pairs">
-              <span><b>velocity</b><i>&times;</i><b>velocity</b></span>
-              <span><b>action</b><i>&times;</i><b>response</b></span>
-            </div>
-          </div>
-          <p>Affine input layers begin with sums; many control cues depend on products.</p>
+          <video autoplay muted loop playsinline controls preload="auto"
+            poster="assets/prism/posters/libero-long-highlight.jpg"
+            aria-label="SmolVLA without PRISM and SmolVLA with PRISM during the same long-horizon LIBERO episode">
+            <source src="assets/prism/highlights/libero-long-prism-on-off.webm" type="video/webm">
+            <source src="assets/prism/highlights/libero-long-prism-on-off.mp4" type="video/mp4">
+          </video>
         </article>
 
-        <span class="teaser-arrow flow-arrow" aria-hidden="true">&rarr;</span>
-
-        <article class="teaser-panel method-panel">
-          <div class="teaser-panel-title">
-            <span>02</span>
-            <div>
-              <small>Method</small>
-              <strong>PRISM maps state through learned polynomial features.</strong>
-            </div>
+        <aside class="hero-gains" aria-label="Largest controlled benchmark gains">
+          <div class="hero-gains-head">
+            <span>Controlled evidence</span>
+            <strong>Structure, not just capacity.</strong>
           </div>
-          <div class="teaser-method" aria-hidden="true">
-            <span class="teaser-token input-token">state</span>
-            <span class="demo-arrow">&rarr;</span>
-            <div class="teaser-prism-core">
-              <small>PRISM</small>
-              <strong>learned polynomial<br>interactions</strong>
-            </div>
-            <span class="demo-arrow">&rarr;</span>
-            <span class="teaser-token output-token">policy</span>
+          <div class="hero-gain">
+            <span>Humanoid-Gym survival</span>
+            <strong>+41.5 <small>pt</small></strong>
+            <em>51.0 &rarr; 92.5</em>
           </div>
-          <div class="teaser-method-notes">
-            <span>same inputs</span>
-            <span>end-to-end learned</span>
-            <span>same policy interface</span>
+          <div class="hero-gain">
+            <span>Task-specific LIBERO success</span>
+            <strong>+27.2 <small>pt</small></strong>
+            <em>63.8 &rarr; 91.0</em>
           </div>
-        </article>
-
-        <span class="teaser-arrow evidence-arrow" aria-hidden="true">&darr;</span>
-
-        <article class="teaser-panel results-panel">
-          <div class="teaser-panel-title">
-            <span>03</span>
-            <div>
-              <small>Evidence</small>
-              <strong>Behavior changes in rollout, not only in the final score.</strong>
-            </div>
-          </div>
-
-          <div class="teaser-results-layout">
-            <div class="teaser-rollout-card">
-              <div class="teaser-rollout-head">
-                <span>BFM-Zero fall recovery</span>
-                <b>mean EMD &minus;3.6%</b>
-              </div>
-              <video autoplay muted loop playsinline preload="metadata"
-                poster="assets/prism/posters/bfm-fall-highlight.jpg"
-                aria-label="Reference, BFM-Zero without PRISM, and BFM-Zero with PRISM during a selected fall-recovery sequence"
-                src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.mp4"></video>
-              <div class="teaser-rollout-foot">
-                <span>Reference &middot; Without PRISM &middot; With PRISM</span>
-                <a href="#locomotion">See full comparisons &darr;</a>
-              </div>
-            </div>
-
-            <div class="teaser-evidence-stack">
-              <div class="teaser-chart" aria-label="Humanoid-Gym survival rate comparison">
-                <span class="evidence-kind">Controlled RL</span>
-                <div class="teaser-chart-head">
-                  <span>Humanoid-Gym survival &uarr;</span>
-                  <b>+41.5 pt</b>
-                </div>
-                <div class="teaser-bar baseline">
-                  <span>Base</span><i><em style="--bar:51%"></em></i><strong>51.0</strong>
-                </div>
-                <div class="teaser-bar larger">
-                  <span>Larger</span><i><em style="--bar:52.25%"></em></i><strong>52.25</strong>
-                </div>
-                <div class="teaser-bar prism">
-                  <span>PRISM</span><i><em style="--bar:92.5%"></em></i><strong>92.5</strong>
-                </div>
-              </div>
-
-              <div class="teaser-chart" aria-label="Task-specific Diffusion Policy LIBERO success comparison">
-                <span class="evidence-kind">Controlled imitation</span>
-                <div class="teaser-chart-head">
-                  <span>Task-specific LIBERO &uarr;</span>
-                  <b>+27.2 pt</b>
-                </div>
-                <div class="teaser-bar baseline">
-                  <span>Base</span><i><em style="--bar:63.8%"></em></i><strong>63.8</strong>
-                </div>
-                <div class="teaser-bar larger">
-                  <span>Oracle</span><i><em style="--bar:64.5%"></em></i><strong>64.5</strong>
-                </div>
-                <div class="teaser-bar prism">
-                  <span>PRISM</span><i><em style="--bar:91%"></em></i><strong>91.0</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </article>
+        </aside>
       </div>
 
-      <figcaption id="teaser-caption">
-        A selected recovery rollout makes the behavior difference visible; aggregate benchmark metrics remain the primary evidence.
-      </figcaption>
-    </figure>
+      <p class="hero-results-note">
+        Selected same-sequence comparisons; aggregate evaluations are reported below.
+      </p>
+    </section>
   </header>
 
   <main id="main">
@@ -511,51 +443,6 @@
         </div>
       </div>
 
-      <div class="result-highlight reveal">
-        <div class="result-highlight-head">
-          <div>
-            <span class="benchmark-tag">PRISM on / off</span>
-            <h3>PRISM changes both scores and behavior.</h3>
-          </div>
-          <p>Videos are selected for visual interpretability; aggregate metrics remain the primary evidence.</p>
-        </div>
-        <div class="highlight-deltas">
-          <div>
-            <span>Humanoid-Gym survival</span>
-            <strong>+41.5 <small>pt</small></strong>
-            <i style="--before:51%; --after:92.5%"><em></em></i>
-            <small>51.0 without &rarr; 92.5 with PRISM</small>
-          </div>
-          <div>
-            <span>Task-specific LIBERO</span>
-            <strong>+27.2 <small>pt</small></strong>
-            <i style="--before:63.8%; --after:91%"><em></em></i>
-            <small>63.8 without &rarr; 91.0 with PRISM</small>
-          </div>
-        </div>
-        <div class="highlight-media-grid">
-          <article class="highlight-media-card">
-            <video autoplay muted loop playsinline controls preload="metadata"
-              poster="assets/prism/posters/bfm-fall-highlight.jpg"
-              src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.mp4"></video>
-            <div>
-              <span>RL locomotion</span>
-              <strong>Recovery returns toward the reference phase.</strong>
-              <small>Selected BFM-Zero fall-recovery sequence.</small>
-            </div>
-          </article>
-          <article class="highlight-media-card">
-            <video autoplay muted loop playsinline controls preload="metadata"
-              poster="assets/prism/posters/libero-long-highlight.jpg"
-              src="assets/prism/highlights/libero-long-prism-on-off.mp4"></video>
-            <div>
-              <span>VLA manipulation</span>
-              <strong>The same long-horizon episode reaches the basket.</strong>
-              <small>Selected SmolVLA LIBERO evaluation episode.</small>
-            </div>
-          </article>
-        </div>
-      </div>
     </section>
 
     <section class="section shell" id="locomotion">
