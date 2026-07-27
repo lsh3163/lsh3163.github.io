@@ -7,8 +7,8 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM learns multiplicative interactions in deployable proprioception and improves BFM-Zero locomotion and SmolVLA manipulation.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-interactions">
-  <script defer src="assets/prism/site.js?v=20260727-interactions"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-teaser">
+  <script defer src="assets/prism/site.js?v=20260727-teaser"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -29,7 +29,7 @@
 
   <header class="hero shell" id="top">
     <div class="hero-title reveal">
-      <p class="eyebrow">Proprioception can encode more than isolated state values</p>
+      <p class="eyebrow">Learn physical interactions from deployable robot state</p>
       <h1>
         <span><em>PRISM:</em> Polynomial Representations for</span>
         <span>Interaction-Structured Motor Control</span>
@@ -39,9 +39,9 @@
 
     <div class="hero-copy reveal">
       <p class="hero-lede">
-        Robot dynamics emerge from coupled state variables. PRISM makes those
-        multiplicative couplings learnable while keeping the same deployable
-        observations and policy backbone.
+        Robot dynamics leave coupled signatures across proprioceptive state.
+        PRISM gives the policy a compact polynomial basis for learning those
+        interactions while preserving the same observations and backbone.
       </p>
       <div class="hero-actions">
         <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
@@ -50,40 +50,113 @@
       </div>
     </div>
 
-    <div class="hero-visual reveal" aria-label="PRISM at a glance">
-      <div class="hero-visual-head">
-        <span>One representation change</span>
-        <span class="status-dot">End-to-end learned</span>
+    <figure class="hero-teaser reveal" aria-labelledby="teaser-caption">
+      <div class="teaser-head">
+        <span>PRISM at a glance</span>
+        <strong>Coupled state &rarr; learned interactions &rarr; stronger control</strong>
       </div>
-      <div class="hero-equation">
-        <span class="equation-input">x</span>
-        <span class="equation-arrow" aria-hidden="true">&rarr;</span>
-        <span class="equation-body">learned polynomial interactions</span>
-        <span class="equation-arrow" aria-hidden="true">&rarr;</span>
-        <span class="equation-output policy-output">policy</span>
+
+      <div class="teaser-flow">
+        <article class="teaser-panel motivation-panel">
+          <div class="teaser-panel-title">
+            <span>01</span>
+            <div>
+              <small>Motivation</small>
+              <strong>Physical context lives in coupled state.</strong>
+            </div>
+          </div>
+          <div class="coupling-demo" aria-hidden="true">
+            <div class="state-cloud">
+              <span>q</span>
+              <span>q&#775;</span>
+              <span>cmd</span>
+              <span>a<sub>t-1</sub></span>
+            </div>
+            <span class="demo-arrow">&rarr;</span>
+            <div class="coupling-pairs">
+              <span><b>joint</b><i>&times;</i><b>velocity</b></span>
+              <span><b>command</b><i>&times;</i><b>motion</b></span>
+            </div>
+          </div>
+          <p>Individual coordinates become informative through their interactions.</p>
+        </article>
+
+        <span class="teaser-arrow" aria-hidden="true">&rarr;</span>
+
+        <article class="teaser-panel method-panel">
+          <div class="teaser-panel-title">
+            <span>02</span>
+            <div>
+              <small>Method</small>
+              <strong>PRISM learns a polynomial state representation.</strong>
+            </div>
+          </div>
+          <div class="teaser-method" aria-hidden="true">
+            <span class="teaser-token input-token">state</span>
+            <span class="demo-arrow">&rarr;</span>
+            <div class="teaser-prism-core">
+              <small>PRISM</small>
+              <strong>learned polynomial<br>interactions</strong>
+            </div>
+            <span class="demo-arrow">&rarr;</span>
+            <span class="teaser-token output-token">policy</span>
+          </div>
+          <div class="teaser-method-notes">
+            <span>same inputs</span>
+            <span>end-to-end learned</span>
+            <span>same policy interface</span>
+          </div>
+        </article>
+
+        <span class="teaser-arrow" aria-hidden="true">&rarr;</span>
+
+        <article class="teaser-panel results-panel">
+          <div class="teaser-panel-title">
+            <span>03</span>
+            <div>
+              <small>Evidence</small>
+              <strong>Structure helps beyond added capacity.</strong>
+            </div>
+          </div>
+
+          <div class="teaser-chart" aria-label="BFM-Zero mean tracking EMD comparison">
+            <div class="teaser-chart-head">
+              <span>BFM-Zero mean EMD &darr;</span>
+              <b>&minus;3.6%</b>
+            </div>
+            <div class="teaser-bar baseline">
+              <span>Base</span><i><em style="--bar:97.6%"></em></i><strong>1.269</strong>
+            </div>
+            <div class="teaser-bar larger">
+              <span>Larger</span><i><em style="--bar:97.2%"></em></i><strong>1.264</strong>
+            </div>
+            <div class="teaser-bar prism">
+              <span>PRISM</span><i><em style="--bar:94.2%"></em></i><strong>1.224</strong>
+            </div>
+          </div>
+
+          <div class="teaser-chart" aria-label="SmolVLA LIBERO average success comparison">
+            <div class="teaser-chart-head">
+              <span>SmolVLA LIBERO Avg. &uarr;</span>
+              <b>+3.05 pt</b>
+            </div>
+            <div class="teaser-bar baseline">
+              <span>Base</span><i><em style="--bar:90.7%"></em></i><strong>63.50</strong>
+            </div>
+            <div class="teaser-bar larger">
+              <span>Larger</span><i><em style="--bar:92.7%"></em></i><strong>64.90</strong>
+            </div>
+            <div class="teaser-bar prism">
+              <span>PRISM</span><i><em style="--bar:95.1%"></em></i><strong>66.55</strong>
+            </div>
+          </div>
+        </article>
       </div>
-      <div class="coupling-field" aria-hidden="true">
-        <span class="coupling-node n1">q</span>
-        <span class="coupling-node n2">q&#775;</span>
-        <span class="coupling-node n3">a<sub>t-1</sub></span>
-        <span class="coupling-node n4">cmd</span>
-        <svg viewBox="0 0 520 220" preserveAspectRatio="none">
-          <path d="M92 54 C188 42 198 172 300 154"/>
-          <path d="M94 168 C178 166 232 54 424 64"/>
-          <path d="M300 154 C354 130 378 94 424 64"/>
-          <path d="M92 54 C218 92 278 110 424 64"/>
-        </svg>
-        <div class="coupling-core">
-          <strong>Polynomial interactions</strong>
-          <span>learned from the task objective</span>
-        </div>
-      </div>
-      <div class="sensor-row">
-        <span>Same proprioception</span>
-        <span>No force input</span>
-        <span>No contact labels</span>
-      </div>
-    </div>
+
+      <figcaption id="teaser-caption">
+        PRISM changes the state representation, not the sensing or control interface.
+      </figcaption>
+    </figure>
   </header>
 
   <main id="main">
