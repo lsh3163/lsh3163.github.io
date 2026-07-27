@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#17352d">
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
-  <meta name="description" content="PRISM learns compact polynomial interactions from deployment-available robot state across RL, imitation learning, and VLA policies.">
+  <meta name="description" content="PRISM makes coupled proprioceptive effects directly learnable through compact products of learned state factors.">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-results-first">
-  <script defer src="assets/prism/site.js?v=20260727-results-first"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-interactions">
+  <script defer src="assets/prism/site.js?v=20260727-interactions"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -52,9 +52,8 @@
 
     <div class="hero-summary reveal">
       <p>
-        PRISM learns polynomial interactions from proprioception alone, improving
-        robust locomotion and long-horizon manipulation without extra sensors or
-        simply scaling the policy.
+        PRISM gives policies direct access to coupled state effects through compact
+        products between learned proprioceptive factors.
       </p>
       <div class="hero-actions">
         <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
@@ -66,8 +65,8 @@
     <section class="hero-results reveal" aria-labelledby="hero-results-title">
       <div class="hero-results-head">
         <div>
-          <span>Selected results</span>
-          <h2 id="hero-results-title">PRISM recovers and completes where controls stall.</h2>
+          <span>Why interactions matter</span>
+          <h2 id="hero-results-title">Control depends on how state signals interact.</h2>
         </div>
         <a href="#results">Full benchmark evidence &darr;</a>
       </div>
@@ -76,9 +75,9 @@
         <div class="hero-result-copy">
           <div>
             <span>RL locomotion &middot; BFM-Zero</span>
-            <strong>Fall recovery returns toward the reference motion.</strong>
+            <strong>Pose and velocity jointly shape recovery.</strong>
           </div>
-          <b>Across dynamics: mean EMD &minus;3.6%</b>
+          <b>Mean tracking EMD &minus;3.6%</b>
         </div>
         <video autoplay muted loop playsinline controls preload="auto"
           poster="assets/prism/posters/bfm-fall-highlight.jpg"
@@ -93,7 +92,7 @@
           <div class="hero-result-copy">
             <div>
               <span>VLA manipulation &middot; SmolVLA</span>
-              <strong>PRISM completes the same long-horizon episode.</strong>
+              <strong>End-effector pose and gripper state jointly shape contact.</strong>
             </div>
             <b>LIBERO Avg. +3.05 pt</b>
           </div>
@@ -108,7 +107,7 @@
         <aside class="hero-gains" aria-label="Largest controlled benchmark gains">
           <div class="hero-gains-head">
             <span>Controlled evidence</span>
-            <strong>Structure, not just capacity.</strong>
+            <strong>Gains persist against larger controls.</strong>
           </div>
           <div class="hero-gain">
             <span>Humanoid-Gym survival</span>
@@ -134,18 +133,17 @@
       <div class="shell motivation-grid">
         <div class="section-intro reveal">
           <p class="section-label">01 / Motivation</p>
-          <h2>Why add a polynomial basis?</h2>
+          <h2>Why polynomial interactions?</h2>
           <p class="section-copy">
-            A policy receives first-order coordinates, while many mechanics-relevant
-            cues have multiplicative structure. Standard affine projections must
-            synthesize those products indirectly; PRISM makes learned low-degree
-            products available while retaining the original signals.
+            Affine projections combine state channels additively. Physical response
+            often depends on their products. PRISM retains the linear path and adds
+            compact products between learned projections.
           </p>
         </div>
         <div class="motivation-visual reveal" role="img"
-          aria-label="First-order proprioceptive signals are retained while learned products expose control-relevant response structure">
+          aria-label="PRISM retains linear proprioceptive signals and adds products between learned state projections">
           <div class="signal-stage">
-            <span class="visual-kicker">Observed separately</span>
+            <span class="visual-kicker">State channels</span>
             <div class="signal-tokens" aria-hidden="true">
               <span>joints</span>
               <span>velocity</span>
@@ -159,28 +157,31 @@
           </div>
           <div class="basis-stage">
             <div class="basis-lane first-order-lane">
-              <span>First-order signals</span>
+              <span>Linear term</span>
               <div aria-hidden="true"><i>q</i><b>+</b><i>v</i><b>+</b><i>a</i></div>
               <small>retained</small>
             </div>
             <div class="basis-lane product-lane">
-              <span>Learned products</span>
+              <span>Interaction term</span>
               <div class="product-examples" aria-hidden="true">
-                <span><i>v</i><b>&times;</b><i>v</i></span>
-                <span><i>a</i><b>&times;</b><i>&Delta;q</i></span>
+                <span>
+                  <i class="learned-factor">W<sub>L</sub>x</i>
+                  <b>&times;</b>
+                  <i class="learned-factor">W<sub>R</sub>x</i>
+                </span>
               </div>
-              <small>added when useful</small>
+              <small>learned jointly</small>
             </div>
           </div>
           <div class="visual-arrow response-arrow" aria-hidden="true">
             <i></i>
           </div>
           <div class="response-stage">
-            <span class="visual-kicker">Control-relevant response</span>
+            <span class="visual-kicker">Where coupling matters</span>
             <div class="response-signals">
-              <span>power structure</span>
-              <span>inertial coupling</span>
-              <span>contact / slip signatures</span>
+              <span>recovery response</span>
+              <span>dynamics shifts</span>
+              <span>contact-rich tasks</span>
             </div>
           </div>
         </div>
@@ -194,18 +195,18 @@
           <h2>PRISM learns polynomial state interactions.</h2>
         </div>
         <p>
-          PRISM preserves first-order state and adds compact, learned products.
-          Both paths are optimized jointly before entering the policy.
+          A first-order factor is enriched with products of additional learned factors.
+          The resulting polynomial state enters the unchanged policy.
         </p>
       </div>
 
       <div class="method-stage reveal" role="img"
-        aria-label="Proprioception splits into a retained first-order path and a learned multiplicative path, which merge before the policy">
+        aria-label="PRISM combines a retained first-order term with products between learned proprioceptive factors before the policy">
         <div class="method-input method-box">
           <span class="box-kicker">Deployable input</span>
-          <strong>Proprioceptive history</strong>
+          <strong>Proprioceptive input</strong>
           <div class="token-list">
-            <span>joints</span><span>velocities</span><span>actions</span><span>commands</span>
+            <span>joints</span><span>velocities</span><span>gripper</span><span>history</span>
           </div>
         </div>
 
@@ -213,21 +214,21 @@
 
         <div class="method-box interaction-box">
           <span class="box-kicker">PRISM</span>
-          <strong>Two paths, one state representation</strong>
+          <strong>Linear state + learned interactions</strong>
           <div class="prism-paths" aria-hidden="true">
             <div class="prism-path linear-path">
-              <span>First-order path</span>
-              <small>preserve individual signals</small>
+              <span>Linear term</span>
+              <small>preserve first-order response</small>
             </div>
             <div class="path-merge">
-              <i></i><b>merge</b><i></i>
+              <i></i><b>combine</b><i></i>
             </div>
             <div class="prism-path multiplicative-path">
-              <span>Multiplicative path</span>
-              <small>learn factor products</small>
+              <span>Interaction term</span>
+              <small>multiply learned factors</small>
             </div>
           </div>
-          <div class="joint-representation">joint polynomial representation</div>
+          <div class="joint-representation">polynomial state representation</div>
         </div>
 
         <div class="method-arrow" aria-hidden="true">&rarr;</div>
@@ -240,9 +241,9 @@
       </div>
 
       <div class="method-notes reveal">
-        <span><b>Compact</b> without enumerating every coordinate pair.</span>
-        <span><b>Deployable</b> with no added sensors or dynamics labels.</span>
-        <span><b>Compatible</b> with the same policy and action interface.</span>
+        <span><b>Compact:</b> factorized instead of enumerating every pair.</span>
+        <span><b>Deployable:</b> no extra sensing or dynamics labels.</span>
+        <span><b>Drop-in:</b> policy and action interface stay unchanged.</span>
       </div>
     </section>
 

@@ -990,6 +990,22 @@ h1 em {
   gap: 3px;
 }
 
+.product-examples .learned-factor {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  padding-inline: 6px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.product-examples sub {
+  font-size: 0.62em;
+  line-height: 0;
+  transform: translateY(0.28em);
+}
+
 .product-lane i {
   color: #704329;
   background: rgba(214, 123, 67, 0.13);
