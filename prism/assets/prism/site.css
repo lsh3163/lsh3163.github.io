@@ -15,9 +15,9 @@
   --green: #2f8f57;
   --gray: #8b918e;
   --shadow: 0 24px 70px rgba(12, 42, 35, 0.12);
-  --serif: "Iowan Old Style", "Palatino Linotype", "Book Antiqua", Georgia, serif;
-  --sans: "Avenir Next", "Gill Sans", "Trebuchet MS", sans-serif;
-  --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --serif: "IBM Plex Serif", "Book Antiqua", Georgia, serif;
+  --sans: "Atkinson Hyperlegible", "Trebuchet MS", sans-serif;
+  --mono: "IBM Plex Mono", Consolas, monospace;
 }
 
 * {
@@ -246,9 +246,9 @@ p {
   max-width: none;
   margin-bottom: 24px;
   font-family: var(--serif);
-  font-size: clamp(2.85rem, 5.3vw, 5.1rem);
+  font-size: clamp(2.1rem, 4.8vw, 4.65rem);
   font-weight: 500;
-  letter-spacing: -0.055em;
+  letter-spacing: -0.06em;
   line-height: 0.99;
 }
 
@@ -513,6 +513,49 @@ p {
   line-height: 1.68;
 }
 
+.method-figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+}
+
+.method-figure-frame {
+  display: block;
+  padding: 18px;
+  background: #fff;
+}
+
+.method-figure-frame img {
+  width: 100%;
+  height: auto;
+}
+
+.method-figure figcaption {
+  display: flex;
+  gap: 28px;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 18px 22px;
+  border-top: 1px solid var(--line);
+  background: #f0ede4;
+}
+
+.method-figure figcaption strong {
+  flex: 0 0 auto;
+  font-family: var(--serif);
+  font-size: 1rem;
+}
+
+.method-figure figcaption span {
+  max-width: 700px;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+  line-height: 1.55;
+}
+
 .physics-flow {
   display: grid;
   grid-template-columns: 1fr 70px 1.25fr 70px 1.25fr;
@@ -758,7 +801,7 @@ p {
 
 .method-strip {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   margin-top: 18px;
   border: 1px solid var(--line);
   border-radius: 15px;
@@ -1930,12 +1973,13 @@ i.prism {
   }
 
   .hero h1 {
-    font-size: clamp(2.35rem, 11vw, 3.25rem);
-    line-height: 0.98;
+    font-size: clamp(1rem, 4.7vw, 1.9rem);
+    letter-spacing: -0.045em;
+    line-height: 1.08;
   }
 
   .hero h1 span {
-    white-space: normal;
+    white-space: nowrap;
   }
 
   .hero-lead {
@@ -1977,6 +2021,16 @@ i.prism {
 
   .section-heading h2 {
     font-size: 2.25rem;
+  }
+
+  .method-figure-frame {
+    padding: 8px;
+  }
+
+  .method-figure figcaption {
+    display: grid;
+    gap: 6px;
+    padding: 15px 17px;
   }
 
   .physics-flow {
