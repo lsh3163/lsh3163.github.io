@@ -2032,15 +2032,17 @@ main,
   margin-top: 88px;
 }
 
-.smol-video-highlight {
+.smol-video-grid {
   display: grid;
-  grid-template-columns: minmax(0, 2.1fr) minmax(220px, 0.9fr);
-  align-items: center;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
   margin-bottom: 18px;
 }
 
-.smol-video-highlight > div:last-child {
-  padding: 24px;
+.smol-video-grid .libero-video-card .video-frame,
+.smol-video-grid .libero-video-card video {
+  min-height: 0;
+  aspect-ratio: 3 / 1;
 }
 
 .backbone-score span {
@@ -2376,8 +2378,8 @@ main,
     grid-template-columns: 1fr;
   }
 
-  .smol-video-highlight {
-    display: block;
+  .smol-video-grid {
+    grid-template-columns: 1fr;
   }
 
   .bfm-video-grid {
