@@ -1743,6 +1743,334 @@ i.prism {
   text-decoration: none;
 }
 
+/* Keep the paper narrative on one quiet surface and reserve color for evidence. */
+main,
+.idea-section,
+.evidence-section,
+.backbones-section,
+.analysis-section,
+.paper-section,
+.bibtex {
+  color: var(--ink);
+  background: var(--paper);
+}
+
+.section {
+  padding: 76px 0;
+}
+
+.evidence-section,
+.backbones-section,
+.analysis-section,
+.paper-section,
+.bibtex {
+  border-top: 1px solid var(--line);
+}
+
+.section-heading {
+  display: block;
+  margin-bottom: 32px;
+}
+
+.section-heading .section-index {
+  margin: 0 0 10px;
+}
+
+.section-heading h2 {
+  max-width: none;
+  font-size: clamp(1.9rem, 2.55vw, 2.4rem);
+  line-height: 1.08;
+  white-space: nowrap;
+}
+
+.section-heading > p:last-child,
+.section-heading.light > p:last-child {
+  max-width: 800px;
+  margin: 12px 0 0;
+  color: var(--ink-soft);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.eyebrow,
+.section-index,
+.card-label,
+.flow-label,
+.backbone-kicker {
+  font-size: 0.78rem;
+}
+
+.nav-links a,
+.nav-actions a,
+.button {
+  font-size: 0.84rem;
+}
+
+.hero-visual-top > span {
+  font-size: 0.75rem;
+}
+
+.signal-cloud i,
+.interaction-ribbon {
+  font-size: 0.75rem;
+}
+
+.cue-grid span {
+  font-size: 0.8rem;
+}
+
+.cue-grid strong {
+  font-size: 0.79rem;
+}
+
+.hero-proof {
+  grid-template-columns: auto 1fr 1fr;
+}
+
+.proof-label,
+.proof-stat span {
+  font-size: 0.78rem;
+}
+
+.method-figure figcaption strong {
+  font-size: 1.05rem;
+}
+
+.method-figure {
+  width: min(1380px, calc(100vw - 32px));
+  margin: 0 auto;
+}
+
+.method-figure figcaption span {
+  font-size: 0.9rem;
+}
+
+.method-strip {
+  background: var(--white);
+}
+
+.method-strip > div {
+  padding: 17px 20px;
+  text-align: center;
+}
+
+.method-strip strong {
+  font-size: 0.9rem;
+  line-height: 1.3;
+}
+
+.benchmark-card,
+.probe-grid,
+.factor-card,
+.tsne-card {
+  border-color: var(--line);
+  background: var(--white);
+  box-shadow: 0 14px 38px rgba(16, 35, 29, 0.07);
+}
+
+.benchmark-head span {
+  font-size: 0.75rem;
+}
+
+.headline-metric strong {
+  color: var(--forest-bright);
+}
+
+.headline-metric span {
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.benchmark-card > p {
+  margin: 20px 0 24px;
+  color: var(--ink-soft);
+  font-size: 0.9rem;
+}
+
+.benchmark-bar {
+  color: var(--ink-soft);
+  font-size: 0.82rem;
+}
+
+.benchmark-bar > i {
+  height: 8px;
+  background: var(--paper-warm);
+}
+
+.benchmark-bar > i b {
+  background: var(--orange);
+}
+
+.benchmark-bar.muted {
+  color: var(--gray);
+}
+
+.benchmark-bar.muted > i b {
+  background: var(--gray);
+}
+
+.benchmark-bar.prism {
+  color: var(--ink);
+}
+
+.benchmark-bar.prism > i b {
+  background: var(--forest-bright);
+}
+
+.metric-foot {
+  border-top-color: var(--line);
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.metric-foot b {
+  color: var(--ink);
+}
+
+.backbone-score span {
+  font-size: 0.75rem;
+}
+
+.backbone-score small {
+  font-size: 0.75rem;
+}
+
+.scenario-metrics span,
+.scenario-metrics strong {
+  font-size: 0.8rem;
+}
+
+.scenario-metrics .scenario-head {
+  font-size: 0.75rem;
+}
+
+.video-key,
+.media-note {
+  font-size: 0.78rem;
+}
+
+.video-card span {
+  font-size: 0.75rem;
+}
+
+.video-card p {
+  font-size: 0.8rem;
+}
+
+.vla-flow > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 58px;
+  font-size: 0.84rem;
+  font-weight: 750;
+  text-align: center;
+}
+
+.suite-card-head > div,
+.chart-legend {
+  font-size: 0.78rem;
+}
+
+.suite-row {
+  font-size: 0.78rem;
+}
+
+.suite-card > p,
+.dynamic-chart-card > p,
+.tsne-card > p {
+  font-size: 0.78rem;
+}
+
+.chart-head span {
+  font-size: 0.75rem;
+}
+
+.chart-toggle button,
+.method-tabs button {
+  font-size: 0.78rem;
+}
+
+.chart-loading {
+  font-size: 0.76rem;
+}
+
+.analysis-section {
+  background: var(--paper);
+}
+
+.probe-grid article {
+  background: var(--white);
+}
+
+.probe-grid article + article {
+  border-left-color: var(--line);
+}
+
+.probe-grid span {
+  color: var(--ink-soft);
+  font-size: 0.75rem;
+}
+
+.probe-grid strong {
+  color: var(--forest-bright);
+}
+
+.probe-grid p {
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+}
+
+.factor-list > div {
+  font-size: 0.76rem;
+}
+
+.factor-card > p,
+.tsne-legend {
+  font-size: 0.75rem;
+}
+
+.tsne-tooltip {
+  font-size: 0.75rem;
+}
+
+.paper-section {
+  padding: 48px 0;
+}
+
+.paper-inner {
+  grid-template-columns: 1fr auto;
+  gap: 32px;
+  padding: 28px 30px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: var(--white);
+}
+
+.paper-inner .section-index {
+  color: var(--orange);
+}
+
+.paper-inner h2 {
+  font-size: clamp(1.55rem, 2.2vw, 2rem);
+  white-space: nowrap;
+}
+
+.paper-section .button.light {
+  color: var(--white);
+  background: var(--forest);
+}
+
+.paper-section .button.outline {
+  border-color: var(--line);
+  color: var(--ink);
+}
+
+.bibtex pre,
+.site-footer {
+  font-size: 0.75rem;
+}
+
 .js .reveal {
   opacity: 1;
   transform: none;
@@ -2185,5 +2513,92 @@ i.prism {
 
   .site-footer {
     gap: 20px;
+  }
+}
+
+@media (max-width: 860px) {
+  .section-heading {
+    display: block;
+  }
+
+  .section-heading .section-index {
+    margin: 0 0 9px;
+  }
+
+  .probe-grid article + article,
+  .probe-grid article:nth-child(3),
+  .probe-grid article:nth-child(4) {
+    border-color: var(--line);
+  }
+
+  .paper-inner {
+    grid-template-columns: 1fr auto;
+  }
+
+  .paper-actions {
+    grid-column: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-menu-toggle {
+    font-size: 0.75rem;
+  }
+
+  .section {
+    padding: 58px 0;
+  }
+
+  .section-heading {
+    margin-bottom: 28px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(0.98rem, 4.15vw, 1.08rem);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  .section-heading > p:last-child,
+  .section-heading.light > p:last-child {
+    margin-top: 10px;
+    font-size: 0.9rem;
+  }
+
+  .method-figure figcaption span {
+    font-size: 0.82rem;
+  }
+
+  .method-figure {
+    width: calc(100% - 28px);
+  }
+
+  .method-figure-frame {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .method-figure-frame img {
+    width: 760px;
+    max-width: none;
+  }
+
+  .scenario-metrics span,
+  .scenario-metrics strong {
+    font-size: 0.75rem;
+  }
+
+  .backbone-title h3 {
+    font-size: 1.3rem;
+  }
+
+  .paper-inner {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+
+  .paper-inner h2 {
+    font-size: 1.05rem;
+    white-space: nowrap;
   }
 }
