@@ -7,9 +7,12 @@
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM makes action-relevant interactions among observable robot signals explicit, learnable, and compact.">
   <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-arxiv">
-  <script defer src="assets/prism/site.js?v=20260728-arxiv"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-method">
+  <script defer src="assets/prism/site.js?v=20260728-method"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -20,7 +23,7 @@
       <span>PRISM</span>
     </a>
     <div class="nav-links">
-      <a href="#idea">Idea</a>
+      <a href="#idea">Method</a>
       <a href="#evidence">Evidence</a>
       <a href="#backbones">Strong backbones</a>
       <a href="#analysis">Analysis</a>
@@ -34,7 +37,7 @@
       <span>Menu</span><i aria-hidden="true"></i>
     </button>
     <div class="mobile-nav" id="mobile-nav" hidden>
-      <a href="#idea">Idea</a>
+      <a href="#idea">Method</a>
       <a href="#evidence">Evidence</a>
       <a href="#backbones">Strong backbones</a>
       <a href="#analysis">Analysis</a>
@@ -118,82 +121,47 @@
   <main id="main">
     <section class="section shell idea-section" id="idea">
       <div class="section-heading reveal">
-        <p class="section-index">01 / Why polynomial interactions?</p>
-        <h2>The policy sees coordinates. Control depends on their relationships.</h2>
+        <p class="section-index">01 / Method</p>
+        <h2>Make relationships explicit before the policy must discover them.</h2>
         <p>
-          Affine layers begin from weighted sums of first-order variables. PRISM
-          adds a compact basis for products, where power-like, inertial, slip,
-          and contact responses can become easier for the policy to represent.
+          PRISM projects proprioception into learned latent factors and
+          multiplies them to expose low-degree interactions. The resulting
+          representation enters the original policy while sensing, objectives,
+          and the action interface remain unchanged.
         </p>
       </div>
 
-      <div class="physics-flow reveal">
-        <div class="flow-column observations">
-          <span class="flow-label">What the policy observes</span>
-          <div class="observation-stack">
-            <span><i>q</i> joint positions</span>
-            <span><i>q&#775;</i> joint velocities</span>
-            <span><i>a</i> recent actions</span>
-            <span><i>c</i> commands</span>
-          </div>
-        </div>
-
-        <div class="flow-arrow" aria-hidden="true">
-          <span></span><b>interact</b><span></span>
-        </div>
-
-        <div class="flow-column physical-cues">
-          <span class="flow-label">What control must respond to</span>
-          <div class="physical-card">
-            <i class="cue-icon power-icon" aria-hidden="true"></i>
-            <div><strong>Power and load</strong><span>actuation changes with motion</span></div>
-          </div>
-          <div class="physical-card">
-            <i class="cue-icon slip-icon" aria-hidden="true"></i>
-            <div><strong>Slip and inertia</strong><span>motion depends on motion history</span></div>
-          </div>
-          <div class="physical-card">
-            <i class="cue-icon contact-icon" aria-hidden="true"></i>
-            <div><strong>Impact and compliance</strong><span>actions matter differently at contact</span></div>
-          </div>
-        </div>
-
-        <div class="flow-arrow" aria-hidden="true">
-          <span></span><b>learn</b><span></span>
-        </div>
-
-        <div class="flow-column prism-module">
-          <span class="flow-label">PRISM</span>
-          <div class="factor-pair">
-            <span><small>learned factor</small><b>u = W<sub>1</sub>x</b></span>
-            <i>&times;</i>
-            <span><small>learned factor</small><b>v = W<sub>2</sub>x</b></span>
-          </div>
-          <div class="representation-output">
-            <span>first-order path</span>
-            <b>+</b>
-            <span>factorized interaction</span>
-          </div>
-          <strong class="module-output">polynomial representation</strong>
-        </div>
-      </div>
+      <figure class="method-figure reveal">
+        <a class="method-figure-frame"
+          href="https://raw.githubusercontent.com/lsh3163/prism/main/assets/prism-method.png"
+          target="_blank" rel="noopener"
+          aria-label="Open the PRISM method figure at full resolution">
+          <img src="https://raw.githubusercontent.com/lsh3163/prism/main/assets/prism-method.png"
+            width="1923" height="876"
+            loading="lazy" decoding="async"
+            alt="PRISM integration in reinforcement learning and imitation learning. A learned latent polynomial interaction transforms proprioception before the existing policy network.">
+        </a>
+        <figcaption>
+          <strong>One representation, two policy families.</strong>
+          <span>
+            PRISM modifies only the proprioceptive branch in reinforcement
+            learning (top) and imitation or VLA policies (bottom).
+          </span>
+        </figcaption>
+      </figure>
 
       <div class="method-strip reveal">
         <div>
-          <span>Learned end-to-end</span>
-          <strong>No physical proxy is manually assigned.</strong>
+          <span>Learned structure</span>
+          <strong>Factorized polynomial interactions optimized end-to-end.</strong>
         </div>
         <div>
-          <span>Compact</span>
-          <strong>No explicit enumeration of every monomial.</strong>
+          <span>Deployable sensing</span>
+          <strong>The policy uses its existing proprioceptive signals.</strong>
         </div>
         <div>
-          <span>Deployable</span>
-          <strong>No force, wrench, tactile, or contact input.</strong>
-        </div>
-        <div>
-          <span>Drop-in</span>
-          <strong>The downstream action interface stays unchanged.</strong>
+          <span>Backbone-compatible</span>
+          <strong>The downstream policy and action interface stay intact.</strong>
         </div>
       </div>
     </section>
