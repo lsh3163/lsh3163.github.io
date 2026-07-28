@@ -1096,7 +1096,7 @@ p {
 
 .bfm-video-grid {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -1124,6 +1124,15 @@ p {
 
 .video-frame video {
   object-fit: contain;
+}
+
+.bfm-video-grid > .video-card:not(.video-card-wide) .video-frame {
+  aspect-ratio: 4 / 1;
+}
+
+.bfm-video-grid > .video-card:not(.video-card-wide) video {
+  width: 100%;
+  height: 100%;
 }
 
 .video-card > div:last-child {

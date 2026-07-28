@@ -352,24 +352,34 @@
           <article class="video-card reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-low-friction.jpg">
-                <source src="assets/prism/bfm-low-friction.mp4" type="video/mp4">
+                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction walking reference">
+                <source src="assets/prism/bfm-page-samples/bfm-m13-low-friction-walk.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Dynamics shift</span><strong>Low friction</strong></div>
+            <div><span>Dynamics shift</span><strong>Low-friction walk</strong></div>
           </article>
 
           <article class="video-card reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-payload.jpg">
-                <source src="assets/prism/bfm-payload.mp4" type="video/mp4">
+                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction dance reference">
+                <source src="assets/prism/bfm-page-samples/bfm-m2-low-friction-dance.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Dynamics shift</span><strong>Payload mass</strong></div>
+            <div><span>Cross-body pose</span><strong>Low-friction dance</strong></div>
+          </article>
+
+          <article class="video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a payload-perturbed running reference">
+                <source src="assets/prism/bfm-page-samples/bfm-m24-payload-run.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div><span>Dynamics shift</span><strong>Payload run</strong></div>
           </article>
         </div>
-        <p class="media-note reveal">Aggregate Tracking EMD is evaluated over all 40 LAFAN motions; videos are selected synchronized examples.</p>
+        <p class="media-note reveal">Aggregate Tracking EMD is evaluated over all 40 LAFAN motions; videos are selected synchronized examples with favorable per-motion EMD differences.</p>
       </article>
 
       <article class="backbone-block smol-block" id="manipulation">
