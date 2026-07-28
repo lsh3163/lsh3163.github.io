@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#17352d">
+  <meta name="theme-color" content="#0e2b24">
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
-  <meta name="description" content="PRISM makes coupled proprioceptive effects directly learnable through compact products of learned state factors.">
+  <meta name="description" content="PRISM makes action-relevant interactions among observable robot signals explicit, learnable, and compact.">
+  <link rel="icon" href="data:,">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260727-interactions">
-  <script defer src="assets/prism/site.js?v=20260727-interactions"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-arxiv">
+  <script defer src="assets/prism/site.js?v=20260728-arxiv"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -19,865 +20,536 @@
       <span>PRISM</span>
     </a>
     <div class="nav-links">
-      <a href="#results">Evidence</a>
-      <a href="#locomotion">Locomotion</a>
-      <a href="#manipulation">Manipulation</a>
-      <a href="#method">Method</a>
+      <a href="#idea">Idea</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#backbones">Strong backbones</a>
       <a href="#analysis">Analysis</a>
+    </div>
+    <div class="nav-actions">
+      <a href="https://arxiv.org/abs/2607.23473">arXiv</a>
+      <a class="nav-code" href="https://github.com/lsh3163/prism">Code</a>
     </div>
     <button class="nav-menu-toggle" type="button" aria-expanded="false"
       aria-controls="mobile-nav">
-      <span>Sections</span>
-      <i aria-hidden="true"></i>
+      <span>Menu</span><i aria-hidden="true"></i>
     </button>
-    <a class="nav-paper" href="assets/prism/prism-paper.pdf">Paper PDF</a>
     <div class="mobile-nav" id="mobile-nav" hidden>
-      <a href="#results">Evidence</a>
-      <a href="#locomotion">Locomotion</a>
-      <a href="#manipulation">Manipulation</a>
-      <a href="#method">Method</a>
+      <a href="#idea">Idea</a>
+      <a href="#evidence">Evidence</a>
+      <a href="#backbones">Strong backbones</a>
       <a href="#analysis">Analysis</a>
+      <a href="https://arxiv.org/abs/2607.23473">arXiv</a>
+      <a href="https://github.com/lsh3163/prism">Code</a>
     </div>
   </nav>
 
-  <header class="hero shell result-first-hero" id="top">
-    <div class="hero-title reveal">
-      <h1>
-        <span><em>PRISM:</em> Polynomial Representations for</span>
-        <span>Interaction-Structured Motor Control</span>
-      </h1>
-      <p class="authors">Seung Hyun Lee <span aria-hidden="true">&middot;</span> Stella X. Yu</p>
-      <p class="affiliation">Computer Science and Engineering <span aria-hidden="true">&middot;</span> University of Michigan, Ann Arbor</p>
-    </div>
-
-    <div class="hero-summary reveal">
-      <p>
-        PRISM gives policies direct access to coupled state effects through compact
-        products between learned proprioceptive factors.
-      </p>
-      <div class="hero-actions">
-        <a class="button primary" href="assets/prism/prism-paper.pdf">Read the paper</a>
-        <a class="button secondary" href="#results">Explore results</a>
-        <a class="button secondary" href="https://github.com/lsh3163/prism">View code</a>
-      </div>
-    </div>
-
-    <section class="hero-results reveal" aria-labelledby="hero-results-title">
-      <div class="hero-results-head">
-        <div>
-          <span>Why interactions matter</span>
-          <h2 id="hero-results-title">Control depends on how state signals interact.</h2>
+  <header class="hero" id="top">
+    <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+    <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+    <div class="shell hero-inner">
+      <div class="hero-copy reveal">
+        <p class="eyebrow">arXiv:2607.23473</p>
+        <h1>
+          <span><em>PRISM:</em> Polynomial Representations for</span>
+          <span>Interaction-Structured Motor Control</span>
+        </h1>
+        <p class="authors">Seung Hyun Lee <span>&middot;</span> Stella X. Yu</p>
+        <p class="affiliation">University of Michigan, Ann Arbor</p>
+        <p class="hero-lead">
+          Action-relevant physical cues are often not missing from robot
+          observations. They are latent in interactions among the signals the
+          robot already senses.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://arxiv.org/abs/2607.23473">Read on arXiv</a>
+          <a class="button secondary" href="https://arxiv.org/pdf/2607.23473">PDF</a>
+          <a class="button secondary" href="https://github.com/lsh3163/prism">Code</a>
         </div>
-        <a href="#results">Full benchmark evidence &darr;</a>
       </div>
 
-      <article class="hero-featured-result">
-        <div class="hero-result-copy">
+      <div class="hero-visual reveal" aria-label="Observable robot signals contain action-relevant physical interactions">
+        <div class="hero-visual-top">
+          <span>Observable signals</span>
+          <div class="signal-cloud">
+            <i>joint state</i>
+            <i>velocity</i>
+            <i>recent action</i>
+            <i>command</i>
+            <i>history</i>
+          </div>
+        </div>
+        <div class="interaction-ribbon">
+          <span class="ribbon-line" aria-hidden="true"></span>
+          <strong>learned interactions</strong>
+          <span class="ribbon-line" aria-hidden="true"></span>
+        </div>
+        <div class="cue-grid">
           <div>
-            <span>RL locomotion &middot; BFM-Zero</span>
-            <strong>Pose and velocity jointly shape recovery.</strong>
+            <span>motion coupling</span>
+            <strong>velocity <b>&times;</b> history</strong>
           </div>
-          <b>Mean tracking EMD &minus;3.6%</b>
+          <div>
+            <span>load response</span>
+            <strong>action <b>&times;</b> velocity</strong>
+          </div>
+          <div>
+            <span>contact context</span>
+            <strong>state <b>&times;</b> action</strong>
+          </div>
         </div>
-        <video autoplay muted loop playsinline controls preload="auto"
-          poster="assets/prism/posters/bfm-fall-highlight.jpg"
-          aria-label="Reference, BFM-Zero without PRISM, and BFM-Zero with PRISM during the same fall-recovery sequence">
-          <source src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.webm" type="video/webm">
-          <source src="assets/prism/highlights/bfm-fall-recovery-prism-on-off.mp4" type="video/mp4">
-        </video>
-      </article>
-
-      <div class="hero-secondary-results">
-        <article class="hero-libero-result">
-          <div class="hero-result-copy">
-            <div>
-              <span>VLA manipulation &middot; SmolVLA</span>
-              <strong>End-effector pose and gripper state jointly shape contact.</strong>
-            </div>
-            <b>LIBERO Avg. +3.05 pt</b>
-          </div>
-          <video autoplay muted loop playsinline controls preload="auto"
-            poster="assets/prism/posters/libero-long-highlight.jpg"
-            aria-label="SmolVLA without PRISM and SmolVLA with PRISM during the same long-horizon LIBERO episode">
-            <source src="assets/prism/highlights/libero-long-prism-on-off.webm" type="video/webm">
-            <source src="assets/prism/highlights/libero-long-prism-on-off.mp4" type="video/mp4">
-          </video>
-        </article>
-
-        <aside class="hero-gains" aria-label="Largest controlled benchmark gains">
-          <div class="hero-gains-head">
-            <span>Controlled evidence</span>
-            <strong>Gains persist against larger controls.</strong>
-          </div>
-          <div class="hero-gain">
-            <span>Humanoid-Gym survival</span>
-            <strong>+41.5 <small>pt</small></strong>
-            <em>51.0 &rarr; 92.5</em>
-          </div>
-          <div class="hero-gain">
-            <span>Task-specific LIBERO success</span>
-            <strong>+27.2 <small>pt</small></strong>
-            <em>63.8 &rarr; 91.0</em>
-          </div>
-        </aside>
+        <p>Illustrative physical relationships, not hand-coded features.</p>
       </div>
+    </div>
 
-      <p class="hero-results-note">
-        Selected same-sequence comparisons; aggregate evaluations are reported below.
-      </p>
-    </section>
+    <div class="shell hero-proof reveal" aria-label="Headline controlled results">
+      <span class="proof-label">Controlled evidence</span>
+      <div class="proof-stat">
+        <span>Humanoid-Gym survival</span>
+        <strong>51.0 <i>&rarr;</i> 92.5</strong>
+      </div>
+      <div class="proof-stat">
+        <span>Task-specific LIBERO success</span>
+        <strong>63.8 <i>&rarr;</i> 91.0</strong>
+      </div>
+      <p>A larger control does not recover either gain.</p>
+    </div>
   </header>
 
   <main id="main">
-    <section class="motivation band">
-      <div class="shell motivation-grid">
-        <div class="section-intro reveal">
-          <p class="section-label">01 / Motivation</p>
-          <h2>Why polynomial interactions?</h2>
-          <p class="section-copy">
-            Affine projections combine state channels additively. Physical response
-            often depends on their products. PRISM retains the linear path and adds
-            compact products between learned projections.
+    <section class="section shell idea-section" id="idea">
+      <div class="section-heading reveal">
+        <p class="section-index">01 / Why polynomial interactions?</p>
+        <h2>The policy sees coordinates. Control depends on their relationships.</h2>
+        <p>
+          Affine layers begin from weighted sums of first-order variables. PRISM
+          adds a compact basis for products, where power-like, inertial, slip,
+          and contact responses can become easier for the policy to represent.
+        </p>
+      </div>
+
+      <div class="physics-flow reveal">
+        <div class="flow-column observations">
+          <span class="flow-label">What the policy observes</span>
+          <div class="observation-stack">
+            <span><i>q</i> joint positions</span>
+            <span><i>q&#775;</i> joint velocities</span>
+            <span><i>a</i> recent actions</span>
+            <span><i>c</i> commands</span>
+          </div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">
+          <span></span><b>interact</b><span></span>
+        </div>
+
+        <div class="flow-column physical-cues">
+          <span class="flow-label">What control must respond to</span>
+          <div class="physical-card">
+            <i class="cue-icon power-icon" aria-hidden="true"></i>
+            <div><strong>Power and load</strong><span>actuation changes with motion</span></div>
+          </div>
+          <div class="physical-card">
+            <i class="cue-icon slip-icon" aria-hidden="true"></i>
+            <div><strong>Slip and inertia</strong><span>motion depends on motion history</span></div>
+          </div>
+          <div class="physical-card">
+            <i class="cue-icon contact-icon" aria-hidden="true"></i>
+            <div><strong>Impact and compliance</strong><span>actions matter differently at contact</span></div>
+          </div>
+        </div>
+
+        <div class="flow-arrow" aria-hidden="true">
+          <span></span><b>learn</b><span></span>
+        </div>
+
+        <div class="flow-column prism-module">
+          <span class="flow-label">PRISM</span>
+          <div class="factor-pair">
+            <span><small>learned factor</small><b>u = W<sub>1</sub>x</b></span>
+            <i>&times;</i>
+            <span><small>learned factor</small><b>v = W<sub>2</sub>x</b></span>
+          </div>
+          <div class="representation-output">
+            <span>first-order path</span>
+            <b>+</b>
+            <span>factorized interaction</span>
+          </div>
+          <strong class="module-output">polynomial representation</strong>
+        </div>
+      </div>
+
+      <div class="method-strip reveal">
+        <div>
+          <span>Learned end-to-end</span>
+          <strong>No physical proxy is manually assigned.</strong>
+        </div>
+        <div>
+          <span>Compact</span>
+          <strong>No explicit enumeration of every monomial.</strong>
+        </div>
+        <div>
+          <span>Deployable</span>
+          <strong>No force, wrench, tactile, or contact input.</strong>
+        </div>
+        <div>
+          <span>Drop-in</span>
+          <strong>The downstream action interface stays unchanged.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section evidence-section" id="evidence">
+      <div class="shell">
+        <div class="section-heading light reveal">
+          <p class="section-index">02 / Controlled evidence</p>
+          <h2>Interaction structure improves control where extra width does not.</h2>
+          <p>
+            The paper first isolates PRISM against standard and larger-capacity
+            controls under matched observations, objectives, and action interfaces.
           </p>
         </div>
-        <div class="motivation-visual reveal" role="img"
-          aria-label="PRISM retains linear proprioceptive signals and adds products between learned state projections">
-          <div class="signal-stage">
-            <span class="visual-kicker">State channels</span>
-            <div class="signal-tokens" aria-hidden="true">
-              <span>joints</span>
-              <span>velocity</span>
-              <span>command</span>
-              <span>history</span>
-            </div>
-          </div>
-          <div class="visual-arrow" aria-hidden="true">
-            <i></i>
-            <small>learned basis</small>
-          </div>
-          <div class="basis-stage">
-            <div class="basis-lane first-order-lane">
-              <span>Linear term</span>
-              <div aria-hidden="true"><i>q</i><b>+</b><i>v</i><b>+</b><i>a</i></div>
-              <small>retained</small>
-            </div>
-            <div class="basis-lane product-lane">
-              <span>Interaction term</span>
-              <div class="product-examples" aria-hidden="true">
-                <span>
-                  <i class="learned-factor">W<sub>L</sub>x</i>
-                  <b>&times;</b>
-                  <i class="learned-factor">W<sub>R</sub>x</i>
-                </span>
+
+        <div class="controlled-grid">
+          <article class="benchmark-card reveal">
+            <div class="benchmark-head">
+              <div>
+                <span>Reinforcement learning</span>
+                <h3>Humanoid-Gym</h3>
               </div>
-              <small>learned jointly</small>
+              <div class="headline-metric">
+                <strong>92.5%</strong><span>survival</span>
+              </div>
             </div>
-          </div>
-          <div class="visual-arrow response-arrow" aria-hidden="true">
-            <i></i>
-          </div>
-          <div class="response-stage">
-            <span class="visual-kicker">Where coupling matters</span>
-            <div class="response-signals">
-              <span>recovery response</span>
-              <span>dynamics shifts</span>
-              <span>contact-rich tasks</span>
+            <p>Polynomial interactions stabilize command tracking; a parameter-matched MLP remains near baseline.</p>
+            <div class="benchmark-bars" aria-label="Humanoid-Gym survival rate comparison">
+              <div class="benchmark-bar">
+                <span>MLP</span><i><b style="--value:51%"></b></i><strong>51.0</strong>
+              </div>
+              <div class="benchmark-bar muted">
+                <span>Larger MLP</span><i><b style="--value:52.25%"></b></i><strong>52.25</strong>
+              </div>
+              <div class="benchmark-bar prism">
+                <span>PRISM</span><i><b style="--value:92.5%"></b></i><strong>92.5</strong>
+              </div>
             </div>
-          </div>
+            <div class="metric-foot">
+              <span>Linear error <b>0.2099</b></span>
+              <span>Episode length <b>2233.4</b></span>
+            </div>
+          </article>
+
+          <article class="benchmark-card reveal">
+            <div class="benchmark-head">
+              <div>
+                <span>Imitation learning</span>
+                <h3>Task-specific LIBERO</h3>
+              </div>
+              <div class="headline-metric">
+                <strong>91.0%</strong><span>success</span>
+              </div>
+            </div>
+            <p>Polynomial proprioceptive conditioning improves contact-rich manipulation without adding force feedback.</p>
+            <div class="benchmark-bars" aria-label="Task-specific LIBERO success comparison">
+              <div class="benchmark-bar">
+                <span>Diffusion</span><i><b style="--value:63.8%"></b></i><strong>63.8</strong>
+              </div>
+              <div class="benchmark-bar">
+                <span>MCC-Sensorless</span><i><b style="--value:47.8%"></b></i><strong>47.8</strong>
+              </div>
+              <div class="benchmark-bar muted">
+                <span>MCC-Oracle</span><i><b style="--value:64.5%"></b></i><strong>64.5</strong>
+              </div>
+              <div class="benchmark-bar prism">
+                <span>PRISM</span><i><b style="--value:91%"></b></i><strong>91.0</strong>
+              </div>
+            </div>
+            <div class="metric-foot">
+              <span>Same RGB + state input</span>
+              <span>MCC-Oracle alone uses force</span>
+            </div>
+          </article>
         </div>
+
+        <p class="protocol-line reveal">
+          These controlled experiments establish the main claim. The next section
+          asks whether the same representation transfers to substantially stronger
+          RL and VLA backbones.
+        </p>
       </div>
     </section>
 
-    <section class="section shell" id="method">
+    <section class="section shell backbones-section" id="backbones">
       <div class="section-heading reveal">
-        <div>
-          <p class="section-label">02 / Method</p>
-          <h2>PRISM learns polynomial state interactions.</h2>
-        </div>
+        <p class="section-index">03 / Stronger policy backbones</p>
+        <h2>The same interaction bias transfers to SOTA RL and VLA policies.</h2>
         <p>
-          A first-order factor is enriched with products of additional learned factors.
-          The resulting polynomial state enters the unchanged policy.
+          PRISM changes the deployable state representation, not the simulator,
+          action space, visual-language backbone, or policy objective.
         </p>
       </div>
 
-      <div class="method-stage reveal" role="img"
-        aria-label="PRISM combines a retained first-order term with products between learned proprioceptive factors before the policy">
-        <div class="method-input method-box">
-          <span class="box-kicker">Deployable input</span>
-          <strong>Proprioceptive input</strong>
-          <div class="token-list">
-            <span>joints</span><span>velocities</span><span>gripper</span><span>history</span>
-          </div>
-        </div>
-
-        <div class="method-arrow" aria-hidden="true">&rarr;</div>
-
-        <div class="method-box interaction-box">
-          <span class="box-kicker">PRISM</span>
-          <strong>Linear state + learned interactions</strong>
-          <div class="prism-paths" aria-hidden="true">
-            <div class="prism-path linear-path">
-              <span>Linear term</span>
-              <small>preserve first-order response</small>
-            </div>
-            <div class="path-merge">
-              <i></i><b>combine</b><i></i>
-            </div>
-            <div class="prism-path multiplicative-path">
-              <span>Interaction term</span>
-              <small>multiply learned factors</small>
-            </div>
-          </div>
-          <div class="joint-representation">polynomial state representation</div>
-        </div>
-
-        <div class="method-arrow" aria-hidden="true">&rarr;</div>
-
-        <div class="method-box output-box">
-          <span class="box-kicker">Policy input</span>
-          <strong>Conditioned state</strong>
-          <small>consumed by the same downstream policy</small>
-        </div>
-      </div>
-
-      <div class="method-notes reveal">
-        <span><b>Compact:</b> factorized instead of enumerating every pair.</span>
-        <span><b>Deployable:</b> no extra sensing or dynamics labels.</span>
-        <span><b>Drop-in:</b> policy and action interface stay unchanged.</span>
-      </div>
-    </section>
-
-    <section class="section shell results-overview" id="results">
-      <div class="section-heading compact reveal">
-        <div>
-          <p class="section-label">03 / Evidence ladder</p>
-          <h2>Isolate structure, then test transfer.</h2>
-        </div>
-        <p>
-          Controlled baselines test structure versus capacity. BFM-Zero and
-          SmolVLA test whether the same idea transfers to stronger backbones.
-        </p>
-      </div>
-
-      <div class="evidence-switcher reveal" role="tablist" aria-label="Evidence group">
-        <button type="button" class="active" id="evidence-controlled-tab"
-          role="tab" aria-selected="true"
-          aria-controls="evidence-controlled" data-evidence-tab="controlled">
-          <span>01</span>
-          <strong>Controlled isolation</strong>
-          <small>structure vs. capacity</small>
-        </button>
-        <button type="button" id="evidence-strong-tab" role="tab" aria-selected="false"
-          aria-controls="evidence-strong" data-evidence-tab="strong">
-          <span>02</span>
-          <strong>Stronger backbones</strong>
-          <small>RL and VLA transfer</small>
-        </button>
-      </div>
-
-      <div class="evidence-panel" id="evidence-controlled" role="tabpanel"
-        aria-labelledby="evidence-controlled-tab"
-        data-evidence-panel="controlled">
-        <div class="evidence-group-head">
+      <article class="backbone-block bfm-block" id="locomotion">
+        <div class="backbone-title reveal">
           <div>
-            <span>Controlled isolation</span>
-            <strong>PRISM improves when representation is the main variable.</strong>
+            <span class="backbone-kicker">BFM-Zero / humanoid RL</span>
+            <h3>Polynomial state interactions improve motion tracking under dynamics shifts.</h3>
           </div>
-          <p>Shared training setup and deployment observations within each benchmark.</p>
+          <div class="backbone-score">
+            <span>Mean Tracking EMD</span>
+            <strong>1.269 <i>&rarr;</i> 1.224</strong>
+            <small>lower is better</small>
+          </div>
         </div>
 
-        <div class="result-duo controlled-results">
-          <article class="result-panel humanoid-panel reveal">
-          <div class="result-panel-head">
-            <div>
-              <span class="benchmark-tag">Controlled RL</span>
-              <h3>Humanoid-Gym</h3>
-            </div>
-            <div class="headline-number">
-              <strong>92.50</strong>
-              <span>survival rate</span>
-            </div>
+        <div class="scenario-metrics reveal" aria-label="BFM-Zero Tracking EMD">
+          <div class="scenario-head">
+            <span>Condition</span><span>BFM-Zero</span><span>Larger</span><span>PRISM</span>
           </div>
-          <p class="panel-claim">
-            A capacity-matched MLP remains near baseline, while PRISM improves
-            stability and command tracking.
-          </p>
-          <div class="compact-table" role="table" aria-label="Humanoid-Gym locomotion comparison">
-            <div class="compact-row table-head" role="row">
-              <span role="columnheader">Method</span>
-              <span role="columnheader">Survival &uarr;</span>
-              <span role="columnheader">Lin. err. &darr;</span>
-              <span role="columnheader">Ep. length &uarr;</span>
-            </div>
-            <div class="compact-row" role="row">
-              <span role="cell">MLP</span>
-              <span role="cell">51.00</span><span role="cell">0.4607</span><span role="cell">1340.8</span>
-            </div>
-            <div class="compact-row larger-row" role="row">
-              <span role="cell">Larger MLP</span>
-              <span role="cell">52.25</span><span role="cell">0.4738</span><span role="cell">1349.9</span>
-            </div>
-            <div class="compact-row prism-row" role="row">
-              <span role="cell">PRISM</span>
-              <span role="cell">92.50</span><span role="cell">0.2099</span><span role="cell">2233.4</span>
-            </div>
-          </div>
-          <p class="protocol-note">Five-seed evaluation with shared PPO, rewards, observations, and actions.</p>
-          </article>
-
-          <article class="result-panel diffusion-panel reveal">
-          <div class="result-panel-head">
-            <div>
-              <span class="benchmark-tag">Controlled imitation</span>
-              <h3>Task-specific LIBERO</h3>
-            </div>
-            <div class="headline-number">
-              <strong>91.0</strong>
-              <span>average success</span>
-            </div>
-          </div>
-          <p class="panel-claim">
-            Forty separately trained Diffusion Policies isolate the effect of
-            proprioceptive conditioning across LIBERO tasks.
-          </p>
-          <div class="overview-bars" aria-label="Task-specific LIBERO average success comparison">
-            <div class="overview-bar">
-              <div><span>Diffusion Policy</span><b>63.8</b></div>
-              <i style="--score:63.8%"></i>
-            </div>
-            <div class="overview-bar">
-              <div><span>MCC-Sensorless</span><b>47.8</b></div>
-              <i style="--score:47.8%"></i>
-            </div>
-            <div class="overview-bar larger">
-              <div><span>MCC-Oracle</span><b>64.5</b></div>
-              <i style="--score:64.5%"></i>
-            </div>
-            <div class="overview-bar prism">
-              <div><span>PRISM</span><b>91.0</b></div>
-              <i style="--score:91%"></i>
-            </div>
-          </div>
-          <p class="protocol-note">Task-specific 20K policies; MCC-Oracle alone receives simulator force.</p>
-          </article>
-        </div>
-      </div>
-
-      <div class="evidence-panel" id="evidence-strong" role="tabpanel"
-        aria-labelledby="evidence-strong-tab"
-        data-evidence-panel="strong" hidden>
-        <div class="evidence-group-head">
           <div>
-            <span>Stronger-backbone validation</span>
-            <strong>The same representation change transfers to RL and VLA policies.</strong>
+            <strong><i class="scenario-dot nominal"></i>Nominal</strong>
+            <span>1.104</span><span>1.090</span><span class="best">1.050</span>
           </div>
-          <p>Only the deployment-available state conditioner changes.</p>
+          <div>
+            <strong><i class="scenario-dot friction"></i>Low friction</strong>
+            <span>1.582</span><span>1.589</span><span class="best">1.548</span>
+          </div>
+          <div>
+            <strong><i class="scenario-dot payload"></i>Payload mass</strong>
+            <span>1.121</span><span>1.114</span><span class="best">1.073</span>
+          </div>
         </div>
 
-        <div class="result-duo strong-results">
-          <article class="result-panel bfm-panel reveal">
-          <div class="result-panel-head">
+        <div class="video-key reveal">
+          <span>Every synchronized comparison uses the same order:</span>
+          <strong>GT</strong><i>|</i><strong>BFM-Zero</strong><i>|</i><strong>Larger</strong><i>|</i><strong>PRISM</strong>
+        </div>
+
+        <div class="bfm-video-grid">
+          <article class="video-card video-card-wide reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-fall.jpg">
+                <source src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4" type="video/mp4">
+              </video>
+            </div>
             <div>
-              <span class="benchmark-tag">RL locomotion</span>
-              <h3>BFM-Zero</h3>
+              <span>Non-walking reference</span>
+              <strong>Fall and recovery</strong>
+              <p>Compare pelvis recovery and return to the reference motion.</p>
             </div>
-            <div class="headline-number">
-              <strong>1.224</strong>
-              <span>mean Tracking EMD</span>
-            </div>
-          </div>
-          <p class="panel-claim">PRISM lowers tracking mismatch in all three dynamics conditions.</p>
-          <div class="compact-table" role="table" aria-label="BFM-Zero Tracking EMD">
-            <div class="compact-row table-head" role="row">
-              <span role="columnheader">Method</span>
-              <span role="columnheader">Nominal</span>
-              <span role="columnheader">Low friction</span>
-              <span role="columnheader">Payload</span>
-            </div>
-            <div class="compact-row" role="row">
-              <span role="cell">BFM-Zero <small>32.109M</small></span>
-              <span role="cell">1.104</span><span role="cell">1.582</span><span role="cell">1.121</span>
-            </div>
-            <div class="compact-row prism-row" role="row">
-              <span role="cell">PRISM <small>32.665M</small></span>
-              <span role="cell">1.050</span><span role="cell">1.548</span><span role="cell">1.073</span>
-            </div>
-            <div class="compact-row larger-row" role="row">
-              <span role="cell">Larger <small>49.260M</small></span>
-              <span role="cell">1.090</span><span role="cell">1.589</span><span role="cell">1.114</span>
-            </div>
-          </div>
-          <p class="protocol-note">Tracking EMD &darr; at the aligned 9.6M checkpoint; one training seed.</p>
           </article>
 
-          <article class="result-panel libero-panel reveal">
-          <div class="result-panel-head">
-            <div>
-              <span class="benchmark-tag">VLA manipulation</span>
-              <h3>SmolVLA on LIBERO</h3>
+          <article class="video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-jump.jpg">
+                <source src="assets/prism/bfm-diverse-poses/bfm-m4-jump.mp4" type="video/mp4">
+              </video>
             </div>
-            <div class="headline-number">
-              <strong>66.55</strong>
-              <span>average success</span>
+            <div><span>Dynamic pose</span><strong>Jump and landing</strong></div>
+          </article>
+
+          <article class="video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-low-friction.jpg">
+                <source src="assets/prism/bfm-low-friction.mp4" type="video/mp4">
+              </video>
             </div>
-          </div>
-          <p class="panel-claim">A polynomial state token beats both the baseline and a larger conditioner.</p>
-          <div class="overview-bars" aria-label="LIBERO average success comparison">
-            <div class="overview-bar">
-              <div><span>SmolVLA</span><b>63.50</b></div>
-              <i style="--score:63.5%"></i>
-              <small>450.046M parameters</small>
+            <div><span>Dynamics shift</span><strong>Low friction</strong></div>
+          </article>
+
+          <article class="video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-payload.jpg">
+                <source src="assets/prism/bfm-payload.mp4" type="video/mp4">
+              </video>
             </div>
-            <div class="overview-bar prism">
-              <div><span>PRISM</span><b>66.55</b></div>
-              <i style="--score:66.55%"></i>
-              <small>451.925M parameters</small>
-            </div>
-            <div class="overview-bar larger">
-              <div><span>Larger</span><b>64.90</b></div>
-              <i style="--score:64.9%"></i>
-              <small>456.245M parameters</small>
-            </div>
-          </div>
-          <p class="protocol-note">Official LIBERO multi-task eval50 at 80K; one training seed.</p>
+            <div><span>Dynamics shift</span><strong>Payload mass</strong></div>
           </article>
         </div>
-      </div>
+        <p class="media-note reveal">Aggregate Tracking EMD is evaluated over all 40 LAFAN motions; videos are selected synchronized examples.</p>
+      </article>
 
-    </section>
-
-    <section class="section shell" id="locomotion">
-      <div class="section-heading reveal">
-        <div>
-          <p class="section-label">04A / Stronger RL / BFM-Zero</p>
-          <h2>PRISM improves tracking across dynamics.</h2>
-        </div>
-        <p>
-          Aligned whole-body rollouts connect Tracking EMD to behavior under
-          nominal, low-friction, and payload-mass conditions.
-        </p>
-      </div>
-
-      <div class="scenario-tabs tab-list reveal" role="tablist" aria-label="BFM dynamics scenario">
-        <button type="button" class="tab active" role="tab" aria-selected="true"
-          data-bfm-scenario="low-friction">Low friction</button>
-        <button type="button" class="tab" role="tab" aria-selected="false"
-          data-bfm-scenario="nominal">Nominal</button>
-        <button type="button" class="tab" role="tab" aria-selected="false"
-          data-bfm-scenario="payload">Payload mass</button>
-      </div>
-
-      <div class="evidence-split reveal">
-        <article class="media-card">
-          <div class="media-frame bfm-frame comparison-frame">
-            <div class="comparison-pan four-panel" data-comparison-focus="right">
-              <video id="bfm-video" autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-low-friction.jpg"
-                src="assets/prism/bfm-low-friction.mp4"></video>
-              <span class="prism-focus quarter" aria-hidden="true"></span>
-              <span class="focus-badge">PRISM</span>
-            </div>
+      <article class="backbone-block smol-block" id="manipulation">
+        <div class="backbone-title reveal">
+          <div>
+            <span class="backbone-kicker">SmolVLA / vision-language-action policy</span>
+            <h3>A polynomial state token gives attention richer proprioceptive context.</h3>
           </div>
-          <div class="media-caption">
+          <div class="backbone-score">
+            <span>LIBERO average success</span>
+            <strong>63.50 <i>&rarr;</i> 66.55</strong>
+            <small>official multi-task eval50</small>
+          </div>
+        </div>
+
+        <div class="vla-flow reveal" aria-label="PRISM conditions proprioception before SmolVLA attention">
+          <span><small>robot state</small><strong>proprioception</strong></span>
+          <i>&rarr;</i>
+          <span class="prism-step"><small>PRISM</small><strong>polynomial state token</strong></span>
+          <i>&rarr;</i>
+          <span><small>SmolVLA</small><strong>vision + language attention</strong></span>
+          <i>&rarr;</i>
+          <span><small>action expert</small><strong>robot action</strong></span>
+        </div>
+
+        <div class="smol-results-grid">
+          <article class="suite-card reveal">
+            <div class="suite-card-head">
+              <span>Suite success</span>
+              <div><i class="baseline"></i>SmolVLA <i class="larger"></i>Larger <i class="prism"></i>PRISM</div>
+            </div>
+            <div class="suite-row">
+              <strong>Spatial</strong>
+              <div><span class="baseline" style="--score:69.8%"></span><span class="larger" style="--score:64.6%"></span><span class="prism" style="--score:70%"></span></div>
+              <b>70.0</b>
+            </div>
+            <div class="suite-row">
+              <strong>Object</strong>
+              <div><span class="baseline" style="--score:57.2%"></span><span class="larger" style="--score:65.6%"></span><span class="prism" style="--score:57.4%"></span></div>
+              <b>57.4</b>
+            </div>
+            <div class="suite-row">
+              <strong>Goal</strong>
+              <div><span class="baseline" style="--score:81.2%"></span><span class="larger" style="--score:85%"></span><span class="prism" style="--score:85.4%"></span></div>
+              <b>85.4</b>
+            </div>
+            <div class="suite-row highlight">
+              <strong>Long</strong>
+              <div><span class="baseline" style="--score:45.8%"></span><span class="larger" style="--score:44.4%"></span><span class="prism" style="--score:53.4%"></span></div>
+              <b>53.4</b>
+            </div>
+            <p>The largest gain appears on long-horizon tasks (+7.6 points).</p>
+          </article>
+
+          <article class="video-card libero-video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/libero-long1.jpg">
+                <source src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4" type="video/mp4">
+              </video>
+            </div>
             <div>
-              <strong id="bfm-caption-title">Low-friction tracking</strong>
-              <span id="bfm-caption-copy">The hardest dynamics shift in the aligned evaluation.</span>
+              <span>SmolVLA | Larger | PRISM</span>
+              <strong>Long-horizon placement</strong>
+              <p>Matched episode; aggregate conclusions use 2,000 eval50 rollouts.</p>
             </div>
-            <span class="panel-order">GT &nbsp;|&nbsp; BFM-Zero &nbsp;|&nbsp; Larger &nbsp;|&nbsp; PRISM</span>
-          </div>
-          <p class="comparison-swipe-hint">Swipe to compare synchronized panels; the view opens on PRISM.</p>
-        </article>
+          </article>
+        </div>
 
-        <article class="metric-visual">
-          <div class="metric-visual-head">
-            <div>
-              <span>Tracking EMD</span>
-              <strong id="bfm-metric-title">Low friction</strong>
-            </div>
-            <span class="direction">lower is better</span>
-          </div>
-          <div id="bfm-bars" class="metric-bars" aria-live="polite"></div>
-          <div class="delta-callout">
-            <strong id="bfm-delta">-2.1%</strong>
-            <span>PRISM vs. BFM-Zero</span>
-          </div>
-        </article>
-      </div>
-
-      <div class="subsection-heading reveal">
-        <div>
-          <p class="section-label">Motion coverage</p>
-          <h3>Compare synchronized poses beyond walking.</h3>
-        </div>
-        <p>The fall sequence gives the clearest contrast; jump, dance, and fight broaden the pose coverage.</p>
-      </div>
-
-      <div class="motion-gallery reveal">
-        <article class="media-card">
-          <div class="media-frame bfm-frame comparison-frame">
-            <div class="comparison-pan four-panel" data-comparison-focus="right">
-              <video id="bfm-motion-video" autoplay muted loop playsinline controls preload="metadata"
-              poster="assets/prism/posters/bfm-fall.jpg"
-                src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4"></video>
-              <span class="prism-focus quarter" aria-hidden="true"></span>
-              <span class="focus-badge">PRISM</span>
-            </div>
-          </div>
-          <div class="media-caption">
-            <div>
-              <strong id="bfm-motion-title">Fall and recovery</strong>
-              <span id="bfm-motion-copy">Compare pelvis height and recovery timing against the GT panel.</span>
-            </div>
-            <span class="panel-order">GT &nbsp;|&nbsp; BFM-Zero &nbsp;|&nbsp; Larger &nbsp;|&nbsp; PRISM</span>
-          </div>
-          <p class="comparison-swipe-hint">Swipe to inspect each method at the same rollout time.</p>
-        </article>
-        <div class="motion-selector" role="tablist" aria-label="BFM reference motion">
-          <button type="button" class="motion-choice active" role="tab" aria-selected="true"
-            data-bfm-motion="fall"><span>Strongest contrast</span><strong>Fall + recovery</strong></button>
-          <button type="button" class="motion-choice" role="tab" aria-selected="false"
-            data-bfm-motion="jump"><span>Dynamic pose</span><strong>Jump</strong></button>
-          <button type="button" class="motion-choice" role="tab" aria-selected="false"
-            data-bfm-motion="dance"><span>Cross-body motion</span><strong>Dance</strong></button>
-          <button type="button" class="motion-choice" role="tab" aria-selected="false"
-            data-bfm-motion="fight"><span>Fast upper body</span><strong>Fight</strong></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="story-bridge" aria-label="Transition from reinforcement learning to vision-language-action policies">
-      <div class="shell story-bridge-inner reveal">
-        <span>From RL to VLA</span>
-        <strong>The next test keeps the representation change but moves from an RL actor to vision-language attention.</strong>
-      </div>
-    </section>
-
-    <section class="section shell" id="manipulation">
-      <div class="section-heading reveal">
-        <div>
-          <p class="section-label">04B / Stronger VLA / SmolVLA</p>
-          <h2>PRISM complements VLA attention.</h2>
-        </div>
-        <p>
-          PRISM conditions proprioception before SmolVLA combines the resulting
-          state token with vision and language; the attention and action-expert
-          architecture remain unchanged.
-        </p>
-      </div>
-
-      <div class="attention-bridge reveal" role="img"
-        aria-label="PRISM builds a polynomial state token before SmolVLA attention integrates it with vision and language">
-        <div class="bridge-node">
-          <span>Input</span>
-          <strong>Proprioception</strong>
-        </div>
-        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
-        <div class="bridge-node prism-node">
-          <span>PRISM</span>
-          <strong>Polynomial interaction token</strong>
-        </div>
-        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
-        <div class="bridge-node attention-node">
-          <span>SmolVLA</span>
-          <strong>Attention with vision + language</strong>
-        </div>
-        <span class="bridge-arrow" aria-hidden="true">&rarr;</span>
-        <div class="bridge-node">
-          <span>Policy</span>
-          <strong>Action expert</strong>
-        </div>
-      </div>
-      <p class="attention-caption reveal">
-        For PRISM, attention and the action-expert architecture stay fixed; only
-        the proprioceptive representation changes.
-      </p>
-
-      <div class="libero-scoreboard reveal">
-        <div class="score-summary">
-          <span>LIBERO average success</span>
-          <strong>63.50 <i>&rarr;</i> 66.55</strong>
-          <small>+3.05 points over SmolVLA</small>
-        </div>
-        <div class="suite-comparison" aria-label="LIBERO suite success across all methods">
-          <div class="suite-legend">
-            <span><i class="baseline"></i>SmolVLA</span>
-            <span><i class="larger"></i>Larger</span>
-            <span><i class="prism"></i>PRISM</span>
-          </div>
-          <div class="suite-row">
-            <strong>Spatial</strong>
-            <div class="suite-method-bars">
-              <span class="baseline" style="--score:69.8%"><i></i><b>69.8</b></span>
-              <span class="larger" style="--score:64.6%"><i></i><b>64.6</b></span>
-              <span class="prism" style="--score:70%"><i></i><b>70.0</b></span>
-            </div>
-          </div>
-          <div class="suite-row">
-            <strong>Object</strong>
-            <div class="suite-method-bars">
-              <span class="baseline" style="--score:57.2%"><i></i><b>57.2</b></span>
-              <span class="larger" style="--score:65.6%"><i></i><b>65.6</b></span>
-              <span class="prism" style="--score:57.4%"><i></i><b>57.4</b></span>
-            </div>
-          </div>
-          <div class="suite-row">
-            <strong>Goal</strong>
-            <div class="suite-method-bars">
-              <span class="baseline" style="--score:81.2%"><i></i><b>81.2</b></span>
-              <span class="larger" style="--score:85%"><i></i><b>85.0</b></span>
-              <span class="prism" style="--score:85.4%"><i></i><b>85.4</b></span>
-            </div>
-          </div>
-          <div class="suite-row suite-row-highlight">
-            <strong>Long</strong>
-            <div class="suite-method-bars">
-              <span class="baseline" style="--score:45.8%"><i></i><b>45.8</b></span>
-              <span class="larger" style="--score:44.4%"><i></i><b>44.4</b></span>
-              <span class="prism" style="--score:53.4%"><i></i><b>53.4</b></span>
-            </div>
-          </div>
-          <p>PRISM's largest baseline gain is on Long (+7.6); Larger remains best on Object.</p>
-        </div>
-      </div>
-
-      <div class="subsection-heading reveal">
-        <div>
-          <p class="section-label">Selected same-episode comparisons</p>
-          <h3>Matched episodes reveal failure modes.</h3>
-        </div>
-        <p>These examples complement, but do not replace, aggregate eval50 success.</p>
-      </div>
-
-      <div class="libero-gallery reveal">
-        <article class="media-card">
-          <div class="media-frame libero-frame comparison-frame">
-            <div class="comparison-pan three-panel" data-comparison-focus="right">
-              <video id="libero-video" autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/libero-long1.jpg"
-                src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4"></video>
-              <span class="prism-focus third" aria-hidden="true"></span>
-              <span class="focus-badge success">PRISM success</span>
-            </div>
-          </div>
-          <div class="media-caption">
-            <div>
-              <strong id="libero-caption-title">Long-horizon placement</strong>
-              <span id="libero-caption-copy">PRISM completes the object placement while both controls stall.</span>
-            </div>
-            <span class="panel-order">SmolVLA &nbsp;|&nbsp; Larger &nbsp;|&nbsp; PRISM</span>
-          </div>
-          <p class="comparison-swipe-hint">Swipe to compare the same evaluation episode.</p>
-        </article>
-        <div class="episode-selector" role="tablist" aria-label="LIBERO comparison episode">
-          <button type="button" class="episode-choice active" role="tab" aria-selected="true"
-            data-libero-episode="long1"><span>Long</span><strong>Place in basket</strong></button>
-          <button type="button" class="episode-choice" role="tab" aria-selected="false"
-            data-libero-episode="long6"><span>Long</span><strong>Cup sequence</strong></button>
-          <button type="button" class="episode-choice" role="tab" aria-selected="false"
-            data-libero-episode="goal"><span>Goal</span><strong>Goal-conditioned task</strong></button>
-        </div>
-      </div>
-
-      <div class="subsection-heading contact-heading reveal">
-        <div>
-          <p class="section-label">Post-hoc contact diagnostic</p>
-          <h3>Contact traces show adaptive motion.</h3>
-        </div>
-        <p>Simulator force is logged only after rollout; this selected trace is a mechanism diagnostic, not aggregate proof.</p>
-      </div>
-
-      <div class="contact-grid reveal">
-        <article class="media-card contact-video-card">
-          <div class="media-frame libero-frame comparison-frame">
-            <div class="comparison-pan three-panel" data-comparison-focus="right">
+        <div class="contact-panel reveal">
+          <article class="video-card contact-video-card">
+            <div class="video-frame">
               <video id="contact-video" autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/libero-contact-neutral.jpg"
-                src="assets/prism/libero-compliance/cup-contact-comparison-neutral.mp4"></video>
-              <span class="prism-focus third" aria-hidden="true"></span>
-              <span class="focus-badge success">PRISM panel</span>
+                poster="assets/prism/posters/libero-contact-neutral.jpg">
+                <source src="assets/prism/libero-compliance/cup-contact-comparison-neutral.mp4" type="video/mp4">
+              </video>
             </div>
-          </div>
-          <div class="contact-summary" id="contact-summary" aria-live="polite">
-            <div class="contact-summary-head">
-              <span>Method</span><span>Force p95</span><span>Mean speed</span>
-            </div>
-            <div class="contact-summary-loading">Loading rollout summary...</div>
-          </div>
-          <p class="contact-input-note">Force is simulator telemetry logged after rollout, never a policy input.</p>
-        </article>
-
-        <article class="dynamic-chart-card">
-          <div class="chart-head">
             <div>
-              <span class="chart-kicker">Synchronized rollout trace</span>
-              <strong id="contact-chart-title">Contact force norm</strong>
+              <span>Post-hoc contact diagnostic</span>
+              <strong>Motion changes through contact</strong>
+              <p>Simulator force is logged after rollout and is never a policy input.</p>
             </div>
-            <div class="chart-toggle" role="tablist" aria-label="Contact chart signal">
-              <button type="button" class="active" role="tab" aria-selected="true"
-                data-contact-signal="force_norm">Force</button>
-              <button type="button" role="tab" aria-selected="false"
-                data-contact-signal="eef_speed">Speed</button>
+          </article>
+
+          <article class="dynamic-chart-card">
+            <div class="chart-head">
+              <div><span>Selected rollout</span><strong id="contact-chart-title">Contact force norm</strong></div>
+              <div class="chart-toggle" role="tablist" aria-label="Contact chart signal">
+                <button type="button" class="active" role="tab" aria-selected="true" data-contact-signal="force_norm">Force</button>
+                <button type="button" role="tab" aria-selected="false" data-contact-signal="eef_speed">Speed</button>
+              </div>
             </div>
-          </div>
-          <div class="chart-legend" aria-label="Method colors">
-            <span><i class="baseline"></i>SmolVLA</span>
-            <span><i class="larger"></i>Larger</span>
-            <span><i class="prism"></i>PRISM</span>
-          </div>
-          <div class="canvas-wrap">
-            <canvas id="contact-chart" aria-label="Animated contact force and end-effector speed traces"></canvas>
-            <div class="chart-loading" id="contact-loading">Loading trace...</div>
-          </div>
-          <p class="chart-reading" id="contact-reading">
-            The shaded interval marks initial contact; the cursor follows video time.
+            <div class="chart-legend">
+              <span><i class="baseline"></i>SmolVLA</span>
+              <span><i class="larger"></i>Larger</span>
+              <span><i class="prism"></i>PRISM</span>
+            </div>
+            <div class="canvas-wrap">
+              <canvas id="contact-chart" aria-label="Animated force and end-effector speed traces"></canvas>
+              <div class="chart-loading" id="contact-loading">Loading trace...</div>
+            </div>
+            <p id="contact-reading">The shaded interval marks initial contact; the cursor follows video time.</p>
+            <div id="contact-summary" class="contact-summary" aria-live="polite"></div>
+          </article>
+        </div>
+      </article>
+    </section>
+
+    <section class="section analysis-section" id="analysis">
+      <div class="shell">
+        <div class="section-heading light reveal">
+          <p class="section-index">04 / Representation analysis</p>
+          <h2>The learned representation exposes mechanics-relevant responses.</h2>
+          <p>
+            Frozen probes evaluate what is linearly accessible; factor ablations
+            identify which learned products actually change the policy action.
           </p>
-        </article>
-      </div>
-    </section>
-
-    <section class="story-bridge" aria-label="Transition from performance evidence to representation analysis">
-      <div class="shell story-bridge-inner reveal">
-        <span>From outcomes to mechanism</span>
-        <strong>Tracking and success ask whether PRISM helps; representation analysis asks what its features expose.</strong>
-      </div>
-    </section>
-
-    <section class="section shell" id="analysis">
-      <div class="section-heading reveal">
-        <div>
-          <p class="section-label">05 / Mechanism analysis</p>
-          <h2>What changes inside the representation?</h2>
         </div>
-        <p>
-          Frozen probes test decodability; factor ablations test which learned
-          interactions most affect the action.
-        </p>
-      </div>
 
-      <div class="mechanism-evidence-grid reveal">
-        <article class="mechanism-chart probe-chart">
-          <div class="mechanism-chart-head">
-            <div>
-              <span class="benchmark-tag">Frozen linear probes</span>
-              <h3>Contact responses become easier to decode.</h3>
-            </div>
-            <span class="direction">MSE reduction &uarr;</span>
-          </div>
-          <p class="mechanism-chart-copy">Relative to the frozen Diffusion embedding on the same held-out windows.</p>
-          <div class="probe-groups" aria-label="Probe MSE reduction relative to Diffusion embedding">
-            <div class="probe-group">
-              <strong>Contact impulse</strong>
-              <div class="probe-row linear">
-                <span>Linear latent</span><i><em style="--value:70.6%"></em></i><b>70.6%</b>
-              </div>
-              <div class="probe-row prism">
-                <span>Polynomial latent</span><i><em style="--value:86.2%"></em></i><b>86.2%</b>
-              </div>
-              <small>Raw MSE: 2.742 &rarr; 0.807 &rarr; 0.378</small>
-            </div>
-            <div class="probe-group">
-              <strong>Contact work</strong>
-              <div class="probe-row linear">
-                <span>Linear latent</span><i><em style="--value:97.6%"></em></i><b>97.6%</b>
-              </div>
-              <div class="probe-row prism">
-                <span>Polynomial latent</span><i><em style="--value:97.8%"></em></i><b>97.8%</b>
-              </div>
-              <small>Raw MSE: 13.373 &rarr; 0.315 &rarr; 0.290</small>
-            </div>
-          </div>
-        </article>
-
-        <article class="mechanism-chart factor-chart">
-          <div class="mechanism-chart-head">
-            <div>
-              <span class="benchmark-tag">Latent factor ablation</span>
-              <h3>Velocity-linked products change actions most.</h3>
-            </div>
-            <span class="direction">action change &uarr;</span>
-          </div>
-          <p class="mechanism-chart-copy">Representative high-impact factors, interpreted after training.</p>
-          <div class="factor-rows" aria-label="Action change after ablating learned factors">
-            <div class="factor-row" style="--impact:100%">
-              <span>Velocity-memory coupling</span><i><em></em></i><b>0.057</b>
-            </div>
-            <div class="factor-row" style="--impact:43.9%">
-              <span>Cross-joint velocity</span><i><em></em></i><b>0.025</b>
-            </div>
-            <div class="factor-row" style="--impact:15.8%">
-              <span>Delayed velocity memory</span><i><em></em></i><b>0.009</b>
-            </div>
-            <div class="factor-row" style="--impact:14%">
-              <span>State-velocity coupling</span><i><em></em></i><b>0.008</b>
-            </div>
-          </div>
-          <p class="factor-caveat">Names describe dominant learned weights post hoc; no factor is hand-coded.</p>
-        </article>
-
-        <div class="mechanism-note">
-          <strong>Interpretation boundary</strong>
-          <span>These diagnostics support representation-level interpretation, not causal identification of hidden physics.</span>
+        <div class="probe-grid reveal" aria-label="Relative probe improvements from Diffusion Policy to PRISM">
+          <article><span>Locomotion</span><strong>&minus;14.0%</strong><p>joint-power probe MSE</p></article>
+          <article><span>Locomotion</span><strong>+9.6%</strong><p>slip-velocity probe PCC</p></article>
+          <article><span>Manipulation</span><strong>&minus;19.9%</strong><p>contact-impulse probe MSE</p></article>
+          <article><span>Manipulation</span><strong>&minus;11.9%</strong><p>contact-work probe MSE</p></article>
         </div>
-      </div>
 
-      <div class="subsection-heading analysis-subheading reveal">
-        <div>
-          <p class="section-label">Secondary qualitative view</p>
-          <h3>Dynamics shifts organize differently in feature space.</h3>
-        </div>
-        <p>Interactive t-SNE complements the quantitative probe and ablation results.</p>
-      </div>
+        <div class="analysis-grid">
+          <article class="factor-card reveal">
+            <span class="card-label">Emergent factors</span>
+            <h3>Velocity-linked products most strongly change locomotion actions.</h3>
+            <div class="factor-list">
+              <div><span>Velocity-memory coupling</span><i><b style="--impact:100%"></b></i><strong>0.057</strong></div>
+              <div><span>Cross-joint velocity</span><i><b style="--impact:43.9%"></b></i><strong>0.025</strong></div>
+              <div><span>Delayed velocity memory</span><i><b style="--impact:15.8%"></b></i><strong>0.009</strong></div>
+              <div><span>State-velocity coupling</span><i><b style="--impact:14%"></b></i><strong>0.008</strong></div>
+            </div>
+            <p>Names are post-hoc interpretations of dominant learned weights, not predefined variables.</p>
+          </article>
 
-      <div class="tsne-layout reveal">
-        <article class="tsne-card">
-          <div class="tsne-toolbar">
-            <div class="method-tabs" role="tablist" aria-label="t-SNE method">
-              <button type="button" role="tab" aria-selected="false" data-tsne-method="BFM-Zero">BFM-Zero</button>
-              <button type="button" role="tab" aria-selected="false" data-tsne-method="Larger BFM-Zero">Larger</button>
-              <button type="button" class="active" role="tab" aria-selected="true" data-tsne-method="PRISM">PRISM</button>
+          <article class="tsne-card reveal">
+            <div class="tsne-head">
+              <div>
+                <span class="card-label">Qualitative feature view</span>
+                <h3>Dynamics shifts organize differently in state space.</h3>
+              </div>
+              <div class="method-tabs" role="tablist" aria-label="t-SNE method">
+                <button type="button" role="tab" aria-selected="false" data-tsne-method="BFM-Zero">Baseline</button>
+                <button type="button" role="tab" aria-selected="false" data-tsne-method="Larger BFM-Zero">Larger</button>
+                <button type="button" class="active" role="tab" aria-selected="true" data-tsne-method="PRISM">PRISM</button>
+              </div>
             </div>
             <div class="tsne-legend">
               <span><i class="circle nominal"></i>Nominal</span>
               <span><i class="triangle friction"></i>Low friction</span>
-              <span><i class="square payload"></i>Payload</span>
+              <span><i class="square payload"></i>Payload mass</span>
             </div>
-          </div>
-          <div class="tsne-canvas-wrap">
-            <canvas id="tsne-chart" aria-label="Animated scenario-colored t-SNE plot"></canvas>
-            <div id="tsne-tooltip" class="tsne-tooltip" hidden></div>
-            <div class="chart-loading" id="tsne-loading">Loading representation...</div>
-          </div>
-        </article>
-
-        <aside class="analysis-note">
-          <span class="analysis-index">01</span>
-          <h3>Low-friction states occupy a more distinct region.</h3>
-          <p>
-            In this projection, blue triangles concentrate away from nominal and
-            payload states, consistent with features that respond to the shift.
-          </p>
-          <div class="analysis-caveat">
-            <strong>How to read this</strong>
-            <span>t-SNE is qualitative analysis, not evidence of identification or performance.</span>
-          </div>
-        </aside>
+            <div class="tsne-canvas-wrap">
+              <canvas id="tsne-chart" aria-label="Interactive scenario-colored t-SNE plot"></canvas>
+              <div id="tsne-tooltip" class="tsne-tooltip" hidden></div>
+              <div class="chart-loading" id="tsne-loading">Loading representation...</div>
+            </div>
+            <p>t-SNE is qualitative support, not evidence of identifying hidden physical parameters.</p>
+          </article>
+        </div>
       </div>
     </section>
 
-    <section class="closing band">
-      <div class="shell closing-grid">
+    <section class="paper-section">
+      <div class="shell paper-inner reveal">
         <div>
-          <p class="section-label">Takeaway</p>
-          <h2>Richer state. Same interface.</h2>
+          <p class="section-index">Paper and code</p>
+          <h2>Polynomial interactions as a standard motor-control representation.</h2>
         </div>
         <p>
-          Controlled MLP and Diffusion Policy experiments isolate the representation
-          effect; BFM-Zero and SmolVLA show that it persists on stronger backbones.
-          Every comparison keeps deployment sensing and action interfaces fixed.
+          Read the full method, controlled evaluations, stronger-backbone
+          validation, ablations, and experimental protocols in the arXiv paper.
         </p>
-        <div class="closing-actions">
-          <a class="button light" href="assets/prism/prism-paper.pdf">Paper PDF</a>
-          <span class="button outline disabled" aria-disabled="true">arXiv pending</span>
+        <div class="paper-actions">
+          <a class="button light" href="https://arxiv.org/abs/2607.23473">arXiv</a>
+          <a class="button outline" href="https://arxiv.org/pdf/2607.23473">PDF</a>
           <a class="button outline" href="https://github.com/lsh3163/prism">Code</a>
         </div>
       </div>
@@ -885,19 +557,21 @@
 
     <section class="section shell bibtex" id="bibtex">
       <div>
-        <p class="section-label">Citation</p>
+        <p class="section-index">Citation</p>
         <h2>BibTeX</h2>
       </div>
       <pre><code>@article{lee2026prism,
-  title  = {PRISM: Polynomial Representations for Interaction-Structured Motor Control},
-  author = {Lee, Seung Hyun and Yu, Stella X.},
-  year   = {2026}
+  title   = {PRISM: Polynomial Representations for Interaction-Structured Motor Control},
+  author  = {Lee, Seung Hyun and Yu, Stella X.},
+  journal = {arXiv preprint arXiv:2607.23473},
+  year    = {2026},
+  doi     = {10.48550/arXiv.2607.23473}
 }</code></pre>
     </section>
   </main>
 
   <footer class="site-footer shell">
-    <span>PRISM &copy; 2026</span>
+    <span>PRISM &copy; 2026 &middot; University of Michigan</span>
     <a href="#top">Back to top &uarr;</a>
   </footer>
 </body>
