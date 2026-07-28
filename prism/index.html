@@ -6,13 +6,26 @@
   <meta name="theme-color" content="#0e2b24">
   <title>PRISM: Polynomial Representations for Interaction-Structured Motor Control</title>
   <meta name="description" content="PRISM makes action-relevant interactions among observable robot signals explicit, learnable, and compact.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="PRISM: Polynomial Representations for Interaction-Structured Motor Control">
+  <meta property="og:description" content="Learnable polynomial interactions improve humanoid locomotion and contact-rich manipulation without adding sensors.">
+  <meta property="og:url" content="https://lsh3163.github.io/prism/">
+  <meta property="og:image" content="https://raw.githubusercontent.com/lsh3163/prism/main/assets/prism-twitter-teaser.png">
+  <meta property="og:image:width" content="1600">
+  <meta property="og:image:height" content="900">
+  <meta property="og:image:alt" content="PRISM motivation, method, and robot-control results">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="PRISM: Polynomial Representations for Interaction-Structured Motor Control">
+  <meta name="twitter:description" content="Polynomial interactions among observable signals improve motor control beyond added capacity.">
+  <meta name="twitter:image" content="https://raw.githubusercontent.com/lsh3163/prism/main/assets/prism-twitter-teaser.png">
+  <meta name="twitter:image:alt" content="PRISM motivation, method, and robot-control results">
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Serif:wght@500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-method">
-  <script defer src="assets/prism/site.js?v=20260728-method"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-teaser">
+  <script defer src="assets/prism/site.js?v=20260728-teaser"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -67,6 +80,9 @@
           <a class="button primary" href="https://arxiv.org/abs/2607.23473">Read on arXiv</a>
           <a class="button secondary" href="https://arxiv.org/pdf/2607.23473">PDF</a>
           <a class="button secondary" href="https://github.com/lsh3163/prism">Code</a>
+          <a class="button secondary"
+            href="https://raw.githubusercontent.com/lsh3163/prism/main/assets/prism-twitter-teaser.png"
+            target="_blank" rel="noopener">Teaser PNG</a>
         </div>
       </div>
 
@@ -122,7 +138,7 @@
     <section class="section shell idea-section" id="idea">
       <div class="section-heading reveal">
         <p class="section-index">01 / Method</p>
-        <h2>Make relationships explicit before the policy must discover them.</h2>
+        <h2>Polynomial interactions make latent physical cues explicit.</h2>
         <p>
           PRISM projects proprioception into learned latent factors and
           multiplies them to expose low-degree interactions. The resulting
@@ -170,7 +186,7 @@
       <div class="shell">
         <div class="section-heading light reveal">
           <p class="section-index">02 / Controlled evidence</p>
-          <h2>Interaction structure improves control where extra width does not.</h2>
+          <h2>Interaction structure cannot be replaced by capacity alone.</h2>
           <p>
             The paper first isolates PRISM against standard and larger-capacity
             controls under matched observations, objectives, and action interfaces.
@@ -249,7 +265,7 @@
     <section class="section shell backbones-section" id="backbones">
       <div class="section-heading reveal">
         <p class="section-index">03 / Stronger policy backbones</p>
-        <h2>The same interaction bias transfers to SOTA RL and VLA policies.</h2>
+        <h2>PRISM transfers across reinforcement and imitation learning.</h2>
         <p>
           PRISM changes the deployable state representation, not the simulator,
           action space, visual-language backbone, or policy objective.
@@ -260,7 +276,7 @@
         <div class="backbone-title reveal">
           <div>
             <span class="backbone-kicker">BFM-Zero / humanoid RL</span>
-            <h3>Polynomial state interactions improve motion tracking under dynamics shifts.</h3>
+            <h3>Robust motion tracking under dynamics shifts.</h3>
           </div>
           <div class="backbone-score">
             <span>Mean Tracking EMD</span>
@@ -354,7 +370,7 @@
         <div class="backbone-title reveal">
           <div>
             <span class="backbone-kicker">SmolVLA / vision-language-action policy</span>
-            <h3>A polynomial state token gives attention richer proprioceptive context.</h3>
+            <h3>Polynomial proprioception for VLA manipulation.</h3>
           </div>
           <div class="backbone-score">
             <span>LIBERO average success</span>
@@ -460,7 +476,7 @@
       <div class="shell">
         <div class="section-heading light reveal">
           <p class="section-index">04 / Representation analysis</p>
-          <h2>The learned representation exposes mechanics-relevant responses.</h2>
+          <h2>Learned polynomial features expose mechanics-relevant structure.</h2>
           <p>
             Frozen probes evaluate what is linearly accessible; factor ablations
             identify which learned products actually change the policy action.
@@ -519,7 +535,7 @@
       <div class="shell paper-inner reveal">
         <div>
           <p class="section-index">Paper and code</p>
-          <h2>Polynomial interactions as a standard motor-control representation.</h2>
+          <h2>A standard representation for embodied motor control.</h2>
         </div>
         <p>
           Read the full method, controlled evaluations, stronger-backbone
