@@ -263,8 +263,8 @@
       <article class="backbone-block bfm-block" id="locomotion">
         <div class="backbone-title reveal">
           <div>
-            <span class="backbone-kicker">03 / BFM-Zero robustness videos</span>
-            <h3>Dynamics-shift rollouts.</h3>
+            <span class="backbone-kicker">03 / BFM-Zero robustness video</span>
+            <h3>Low-friction motion tracking.</h3>
           </div>
         </div>
 
@@ -285,26 +285,11 @@
             <div>
               <span>Low friction</span>
               <strong>Low-friction tracking</strong>
-              <p>Motion 30, selected by aligned per-motion EMD.</p>
-            </div>
-          </article>
-
-          <article class="video-card video-card-wide reveal">
-            <div class="video-frame">
-              <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-lateral-push.jpg"
-                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM recovering from the same fixed lateral push">
-                <source src="assets/prism/bfm-page-samples/bfm-m30-lateral-push.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div>
-              <span>Fixed lateral impulse</span>
-              <strong>Push recovery</strong>
-              <p>PRISM returns to the reference with a smaller corrective step.</p>
+              <p>Motion 30 across a longer rollout, selected by aligned per-motion EMD.</p>
             </div>
           </article>
         </div>
-        <p class="media-note reveal">EMD above averages 40 motions. The fixed 2.0 m/s impulse is a matched qualitative stress test.</p>
+        <p class="media-note reveal">The selected rollout illustrates the condition-level result; EMD above averages all 40 motions.</p>
       </article>
 
       <article class="backbone-block smol-block" id="manipulation">
