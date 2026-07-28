@@ -15,9 +15,9 @@
   --green: #2f8f57;
   --gray: #8b918e;
   --shadow: 0 24px 70px rgba(12, 42, 35, 0.12);
-  --serif: "IBM Plex Serif", "Book Antiqua", Georgia, serif;
-  --sans: "Atkinson Hyperlegible", "Trebuchet MS", sans-serif;
-  --mono: "IBM Plex Mono", Consolas, monospace;
+  --serif: "Roboto", sans-serif;
+  --sans: "Roboto", sans-serif;
+  --mono: Consolas, "Liberation Mono", monospace;
 }
 
 * {
@@ -35,7 +35,7 @@ body {
   background: var(--paper);
   font-family: var(--sans);
   font-size: 16px;
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -226,7 +226,7 @@ p {
 .hero-inner {
   position: relative;
   z-index: 1;
-  min-height: 590px;
+  min-height: 510px;
 }
 
 .eyebrow,
@@ -246,10 +246,10 @@ p {
   max-width: none;
   margin-bottom: 24px;
   font-family: var(--serif);
-  font-size: clamp(2.1rem, 4.8vw, 4.65rem);
-  font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 0.99;
+  font-size: clamp(2.35rem, 3.65vw, 3.55rem);
+  font-weight: 700;
+  letter-spacing: -0.035em;
+  line-height: 1.03;
 }
 
 .hero h1 span {
@@ -281,12 +281,12 @@ p {
 }
 
 .hero-lead {
-  max-width: 680px;
+  max-width: 620px;
   margin-bottom: 30px;
   color: rgba(255, 255, 255, 0.83);
-  font-family: var(--serif);
-  font-size: clamp(1.18rem, 2vw, 1.55rem);
-  line-height: 1.42;
+  font-family: var(--sans);
+  font-size: clamp(1.05rem, 1.55vw, 1.25rem);
+  line-height: 1.52;
 }
 
 .hero-actions,
@@ -328,7 +328,7 @@ p {
 
 .hero-visual {
   position: absolute;
-  top: 240px;
+  top: 195px;
   right: 0;
   width: min(430px, 38%);
   padding: 26px;
@@ -433,7 +433,7 @@ p {
   grid-template-columns: auto 1fr 1fr auto;
   gap: 28px;
   align-items: center;
-  margin-top: 72px;
+  margin-top: 52px;
   padding: 22px 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.16);
 }
@@ -480,30 +480,30 @@ p {
 }
 
 .section {
-  padding: 108px 0;
+  padding: 88px 0;
 }
 
 .section-heading {
   display: grid;
-  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
-  gap: 64px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(300px, 0.9fr);
+  gap: 50px;
   align-items: end;
-  margin-bottom: 54px;
+  margin-bottom: 40px;
 }
 
 .section-heading .section-index {
   grid-column: 1 / -1;
-  margin-bottom: -43px;
+  margin-bottom: -31px;
 }
 
 .section-heading h2 {
-  max-width: 780px;
+  max-width: 720px;
   margin-bottom: 0;
   font-family: var(--serif);
-  font-size: clamp(2.3rem, 4.2vw, 4.1rem);
-  font-weight: 500;
-  letter-spacing: -0.045em;
-  line-height: 1.03;
+  font-size: clamp(1.8rem, 2.8vw, 2.65rem);
+  font-weight: 700;
+  letter-spacing: -0.028em;
+  line-height: 1.1;
 }
 
 .section-heading > p:last-child {
@@ -885,9 +885,9 @@ p {
 .tsne-card h3 {
   margin: 5px 0 0;
   font-family: var(--serif);
-  font-size: 1.7rem;
-  font-weight: 500;
-  line-height: 1.15;
+  font-size: 1.38rem;
+  font-weight: 700;
+  line-height: 1.2;
 }
 
 .headline-metric {
@@ -902,8 +902,8 @@ p {
 .headline-metric strong {
   color: #f2ae80;
   font-family: var(--serif);
-  font-size: 2.2rem;
-  font-weight: 500;
+  font-size: 1.9rem;
+  font-weight: 700;
 }
 
 .headline-metric span {
@@ -988,7 +988,7 @@ p {
   margin: 38px auto 0;
   color: rgba(255, 255, 255, 0.58);
   font-family: var(--serif);
-  font-size: 1.08rem;
+  font-size: 0.96rem;
   text-align: center;
 }
 
@@ -1021,7 +1021,7 @@ p {
 
 .backbone-title h3 {
   margin: 0;
-  font-size: clamp(1.8rem, 3.2vw, 3rem);
+  font-size: clamp(1.55rem, 2.35vw, 2.15rem);
 }
 
 .backbone-score {
@@ -1658,7 +1658,7 @@ i.prism {
 }
 
 .paper-section {
-  padding: 74px 0;
+  padding: 64px 0;
   color: var(--white);
   background: var(--orange);
 }
@@ -1677,9 +1677,9 @@ i.prism {
 .paper-inner h2 {
   margin-bottom: 0;
   font-family: var(--serif);
-  font-size: clamp(1.7rem, 3vw, 2.8rem);
-  font-weight: 500;
-  line-height: 1.08;
+  font-size: clamp(1.55rem, 2.3vw, 2.1rem);
+  font-weight: 700;
+  line-height: 1.14;
 }
 
 .paper-inner > p {
@@ -1973,8 +1973,8 @@ i.prism {
   }
 
   .hero h1 {
-    font-size: clamp(1rem, 4.7vw, 1.9rem);
-    letter-spacing: -0.045em;
+    font-size: clamp(1rem, 4.45vw, 1.8rem);
+    letter-spacing: -0.025em;
     line-height: 1.08;
   }
 
@@ -2020,7 +2020,7 @@ i.prism {
   }
 
   .section-heading h2 {
-    font-size: 2.25rem;
+    font-size: 1.9rem;
   }
 
   .method-figure-frame {
