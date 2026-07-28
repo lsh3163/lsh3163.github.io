@@ -24,8 +24,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-results">
-  <script defer src="assets/prism/site.js?v=20260728-results"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-cases">
+  <script defer src="assets/prism/site.js?v=20260728-cases"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -278,29 +278,18 @@
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
                 poster="assets/prism/posters/bfm-low-friction.jpg"
-                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction walking reference">
-                <source src="assets/prism/bfm-page-samples/bfm-m13-low-friction-walk.mp4" type="video/mp4">
+                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on motion 30 under low friction">
+                <source src="assets/prism/bfm-low-friction.mp4" type="video/mp4">
               </video>
             </div>
             <div>
               <span>Low friction</span>
-              <strong>Low-friction walk</strong>
-              <p>Robustness under reduced ground friction.</p>
+              <strong>Low-friction tracking</strong>
+              <p>Motion 30, selected by aligned per-motion EMD.</p>
             </div>
           </article>
 
-          <article class="video-card reveal">
-            <div class="video-frame">
-              <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-dance.jpg"
-                aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction dance reference">
-                <source src="assets/prism/bfm-page-samples/bfm-m2-low-friction-dance.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div><span>Low friction</span><strong>Low-friction dance</strong></div>
-          </article>
-
-          <article class="video-card reveal">
+          <article class="video-card video-card-wide reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
                 poster="assets/prism/posters/bfm-payload.jpg"
@@ -308,10 +297,14 @@
                 <source src="assets/prism/bfm-page-samples/bfm-m24-payload-run.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Payload mass</span><strong>Payload run</strong></div>
+            <div>
+              <span>Payload mass</span>
+              <strong>Payload running</strong>
+              <p>Motion 24 under an unseen mass perturbation.</p>
+            </div>
           </article>
         </div>
-        <p class="media-note reveal">Only dynamics-shift robustness rollouts are shown.</p>
+        <p class="media-note reveal">Condition-level EMD in Results averages all 40 motions; these clips show aligned per-motion examples.</p>
       </article>
 
       <article class="backbone-block smol-block" id="manipulation">
@@ -322,19 +315,50 @@
           </div>
         </div>
 
-        <article class="video-card libero-video-card smol-video-highlight reveal">
-          <div class="video-frame">
-            <video autoplay muted loop playsinline controls preload="metadata"
-              poster="assets/prism/posters/libero-long1.jpg">
-              <source src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div>
-            <span>SmolVLA | Larger | PRISM</span>
-            <strong>Long-horizon placement</strong>
-            <p>Matched episode from the eval50 protocol.</p>
-          </div>
-        </article>
+        <div class="smol-video-grid">
+          <article class="video-card libero-video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/libero-long1.jpg"
+                aria-label="SmolVLA, Larger SmolVLA, and PRISM on a long-horizon object transfer">
+                <source src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div>
+              <span>LIBERO Long</span>
+              <strong>Object transfer</strong>
+            </div>
+          </article>
+
+          <article class="video-card libero-video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/libero-long6.jpg"
+                aria-label="SmolVLA, Larger SmolVLA, and PRISM on a long-horizon cup interaction">
+                <source src="assets/prism/libero-comparisons/long-task6-ep9-comparison.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div>
+              <span>LIBERO Long</span>
+              <strong>Cup interaction</strong>
+            </div>
+          </article>
+
+          <article class="video-card libero-video-card reveal">
+            <div class="video-frame">
+              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/libero-goal.jpg"
+                aria-label="SmolVLA, Larger SmolVLA, and PRISM on a goal-conditioned placement">
+                <source src="assets/prism/libero-comparisons/goal-task6-ep5-comparison.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div>
+              <span>LIBERO Goal</span>
+              <strong>Goal-conditioned placement</strong>
+            </div>
+          </article>
+        </div>
+        <p class="media-note reveal">Matched control cases: SmolVLA and Larger fail while PRISM succeeds from the same evaluation resets.</p>
 
         <div class="contact-panel reveal">
           <article class="video-card contact-video-card">
