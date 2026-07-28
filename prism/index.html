@@ -24,8 +24,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-teaser">
-  <script defer src="assets/prism/site.js?v=20260728-teaser"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-focus">
+  <script defer src="assets/prism/site.js?v=20260728-focus"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -72,9 +72,8 @@
         <p class="authors">Seung Hyun Lee <span>&middot;</span> Stella X. Yu</p>
         <p class="affiliation">University of Michigan, Ann Arbor</p>
         <p class="hero-lead">
-          Action-relevant physical cues are often not missing from robot
-          observations. They are latent in interactions among the signals the
-          robot already senses.
+          Physical cues are latent in interactions among signals the robot
+          already senses.
         </p>
         <div class="hero-actions">
           <a class="button primary" href="https://arxiv.org/abs/2607.23473">Read on arXiv</a>
@@ -116,7 +115,6 @@
             <strong>state <b>&times;</b> action</strong>
           </div>
         </div>
-        <p>Illustrative physical relationships, not hand-coded features.</p>
       </div>
     </div>
 
@@ -130,21 +128,15 @@
         <span>Task-specific LIBERO success</span>
         <strong>63.8 <i>&rarr;</i> 91.0</strong>
       </div>
-      <p>A larger control does not recover either gain.</p>
     </div>
   </header>
 
   <main id="main">
-    <section class="section shell idea-section" id="idea">
-      <div class="section-heading reveal">
+    <section class="section idea-section" id="idea">
+      <div class="section-heading reveal shell">
         <p class="section-index">01 / Method</p>
-        <h2>Polynomial interactions make latent physical cues explicit.</h2>
-        <p>
-          PRISM projects proprioception into learned latent factors and
-          multiplies them to expose low-degree interactions. The resulting
-          representation enters the original policy while sensing, objectives,
-          and the action interface remain unchanged.
-        </p>
+        <h2>Physical cues emerge from interactions.</h2>
+        <p>PRISM learns compact polynomial products from proprioception before the policy consumes them.</p>
       </div>
 
       <figure class="method-figure reveal">
@@ -158,26 +150,20 @@
             alt="PRISM integration in reinforcement learning and imitation learning. A learned latent polynomial interaction transforms proprioception before the existing policy network.">
         </a>
         <figcaption>
-          <strong>One representation, two policy families.</strong>
-          <span>
-            PRISM modifies only the proprioceptive branch in reinforcement
-            learning (top) and imitation or VLA policies (bottom).
-          </span>
+          <strong>One representation across RL and imitation.</strong>
+          <span>PRISM transforms proprioception while preserving the policy and action interface.</span>
         </figcaption>
       </figure>
 
-      <div class="method-strip reveal">
+      <div class="method-strip reveal shell">
         <div>
-          <span>Learned structure</span>
-          <strong>Factorized polynomial interactions optimized end-to-end.</strong>
+          <strong>Learned end-to-end</strong>
         </div>
         <div>
-          <span>Deployable sensing</span>
-          <strong>The policy uses its existing proprioceptive signals.</strong>
+          <strong>No added sensors</strong>
         </div>
         <div>
-          <span>Backbone-compatible</span>
-          <strong>The downstream policy and action interface stay intact.</strong>
+          <strong>Backbone-compatible</strong>
         </div>
       </div>
     </section>
@@ -186,11 +172,8 @@
       <div class="shell">
         <div class="section-heading light reveal">
           <p class="section-index">02 / Controlled evidence</p>
-          <h2>Interaction structure cannot be replaced by capacity alone.</h2>
-          <p>
-            The paper first isolates PRISM against standard and larger-capacity
-            controls under matched observations, objectives, and action interfaces.
-          </p>
+          <h2>Capacity alone cannot replace structure.</h2>
+          <p>Matched controls isolate the representation rather than parameter count.</p>
         </div>
 
         <div class="controlled-grid">
@@ -204,7 +187,7 @@
                 <strong>92.5%</strong><span>survival</span>
               </div>
             </div>
-            <p>Polynomial interactions stabilize command tracking; a parameter-matched MLP remains near baseline.</p>
+            <p>PRISM nearly doubles survival; the wider MLP stays at baseline.</p>
             <div class="benchmark-bars" aria-label="Humanoid-Gym survival rate comparison">
               <div class="benchmark-bar">
                 <span>MLP</span><i><b style="--value:51%"></b></i><strong>51.0</strong>
@@ -232,7 +215,7 @@
                 <strong>91.0%</strong><span>success</span>
               </div>
             </div>
-            <p>Polynomial proprioceptive conditioning improves contact-rich manipulation without adding force feedback.</p>
+            <p>PRISM reaches 91% success without force as a policy input.</p>
             <div class="benchmark-bars" aria-label="Task-specific LIBERO success comparison">
               <div class="benchmark-bar">
                 <span>Diffusion</span><i><b style="--value:63.8%"></b></i><strong>63.8</strong>
@@ -254,22 +237,14 @@
           </article>
         </div>
 
-        <p class="protocol-line reveal">
-          These controlled experiments establish the main claim. The next section
-          asks whether the same representation transfers to substantially stronger
-          RL and VLA backbones.
-        </p>
       </div>
     </section>
 
     <section class="section shell backbones-section" id="backbones">
       <div class="section-heading reveal">
         <p class="section-index">03 / Stronger policy backbones</p>
-        <h2>PRISM transfers across reinforcement and imitation learning.</h2>
-        <p>
-          PRISM changes the deployable state representation, not the simulator,
-          action space, visual-language backbone, or policy objective.
-        </p>
+        <h2>PRISM transfers across RL and VLA.</h2>
+        <p>The same conditioner improves BFM-Zero and SmolVLA without changing their objectives.</p>
       </div>
 
       <article class="backbone-block bfm-block" id="locomotion">
@@ -304,7 +279,7 @@
         </div>
 
         <div class="video-key reveal">
-          <span>Every synchronized comparison uses the same order:</span>
+          <span>Video order:</span>
           <strong>GT</strong><i>|</i><strong>BFM-Zero</strong><i>|</i><strong>Larger</strong><i>|</i><strong>PRISM</strong>
         </div>
 
@@ -319,7 +294,7 @@
             <div>
               <span>Non-walking reference</span>
               <strong>Fall and recovery</strong>
-              <p>Compare pelvis recovery and return to the reference motion.</p>
+              <p>PRISM recovers the reference motion.</p>
             </div>
           </article>
 
@@ -363,14 +338,14 @@
             <div><span>Dynamics shift</span><strong>Payload run</strong></div>
           </article>
         </div>
-        <p class="media-note reveal">Aggregate Tracking EMD is evaluated over all 40 LAFAN motions; videos are selected synchronized examples with favorable per-motion EMD differences.</p>
+        <p class="media-note reveal">Tracking EMD covers all 40 LAFAN motions; videos show synchronized examples.</p>
       </article>
 
       <article class="backbone-block smol-block" id="manipulation">
         <div class="backbone-title reveal">
           <div>
             <span class="backbone-kicker">SmolVLA / vision-language-action policy</span>
-            <h3>Polynomial proprioception for VLA manipulation.</h3>
+            <h3>Polynomial proprioception improves SmolVLA.</h3>
           </div>
           <div class="backbone-score">
             <span>LIBERO average success</span>
@@ -380,13 +355,13 @@
         </div>
 
         <div class="vla-flow reveal" aria-label="PRISM conditions proprioception before SmolVLA attention">
-          <span><small>robot state</small><strong>proprioception</strong></span>
+          <span>Proprioception</span>
           <i>&rarr;</i>
-          <span class="prism-step"><small>PRISM</small><strong>polynomial state token</strong></span>
+          <span class="prism-step">PRISM polynomial state</span>
           <i>&rarr;</i>
-          <span><small>SmolVLA</small><strong>vision + language attention</strong></span>
+          <span>SmolVLA attention</span>
           <i>&rarr;</i>
-          <span><small>action expert</small><strong>robot action</strong></span>
+          <span>Action</span>
         </div>
 
         <div class="smol-results-grid">
@@ -415,7 +390,7 @@
               <div><span class="baseline" style="--score:45.8%"></span><span class="larger" style="--score:44.4%"></span><span class="prism" style="--score:53.4%"></span></div>
               <b>53.4</b>
             </div>
-            <p>The largest gain appears on long-horizon tasks (+7.6 points).</p>
+            <p>Largest gain: Long, +7.6 points.</p>
           </article>
 
           <article class="video-card libero-video-card reveal">
@@ -428,7 +403,7 @@
             <div>
               <span>SmolVLA | Larger | PRISM</span>
               <strong>Long-horizon placement</strong>
-              <p>Matched episode; aggregate conclusions use 2,000 eval50 rollouts.</p>
+              <p>Matched episode from the eval50 protocol.</p>
             </div>
           </article>
         </div>
@@ -444,7 +419,7 @@
             <div>
               <span>Post-hoc contact diagnostic</span>
               <strong>Motion changes through contact</strong>
-              <p>Simulator force is logged after rollout and is never a policy input.</p>
+              <p>Force is logged only after rollout.</p>
             </div>
           </article>
 
@@ -476,11 +451,8 @@
       <div class="shell">
         <div class="section-heading light reveal">
           <p class="section-index">04 / Representation analysis</p>
-          <h2>Learned polynomial features expose mechanics-relevant structure.</h2>
-          <p>
-            Frozen probes evaluate what is linearly accessible; factor ablations
-            identify which learned products actually change the policy action.
-          </p>
+          <h2>Learned features reveal physical structure.</h2>
+          <p>Probes and ablations show what the learned products encode and use.</p>
         </div>
 
         <div class="probe-grid reveal" aria-label="Relative probe improvements from Diffusion Policy to PRISM">
@@ -493,21 +465,21 @@
         <div class="analysis-grid">
           <article class="factor-card reveal">
             <span class="card-label">Emergent factors</span>
-            <h3>Velocity-linked products most strongly change locomotion actions.</h3>
+            <h3>Velocity products drive locomotion actions.</h3>
             <div class="factor-list">
               <div><span>Velocity-memory coupling</span><i><b style="--impact:100%"></b></i><strong>0.057</strong></div>
               <div><span>Cross-joint velocity</span><i><b style="--impact:43.9%"></b></i><strong>0.025</strong></div>
               <div><span>Delayed velocity memory</span><i><b style="--impact:15.8%"></b></i><strong>0.009</strong></div>
               <div><span>State-velocity coupling</span><i><b style="--impact:14%"></b></i><strong>0.008</strong></div>
             </div>
-            <p>Names are post-hoc interpretations of dominant learned weights, not predefined variables.</p>
+            <p>Post-hoc names, not predefined variables.</p>
           </article>
 
           <article class="tsne-card reveal">
             <div class="tsne-head">
               <div>
                 <span class="card-label">Qualitative feature view</span>
-                <h3>Dynamics shifts organize differently in state space.</h3>
+                <h3>Dynamics shifts separate in learned state space.</h3>
               </div>
               <div class="method-tabs" role="tablist" aria-label="t-SNE method">
                 <button type="button" role="tab" aria-selected="false" data-tsne-method="BFM-Zero">Baseline</button>
@@ -525,7 +497,7 @@
               <div id="tsne-tooltip" class="tsne-tooltip" hidden></div>
               <div class="chart-loading" id="tsne-loading">Loading representation...</div>
             </div>
-            <p>t-SNE is qualitative support, not evidence of identifying hidden physical parameters.</p>
+            <p>Qualitative feature view.</p>
           </article>
         </div>
       </div>
@@ -535,12 +507,8 @@
       <div class="shell paper-inner reveal">
         <div>
           <p class="section-index">Paper and code</p>
-          <h2>A standard representation for embodied motor control.</h2>
+          <h2>Polynomial representations for control.</h2>
         </div>
-        <p>
-          Read the full method, controlled evaluations, stronger-backbone
-          validation, ablations, and experimental protocols in the arXiv paper.
-        </p>
         <div class="paper-actions">
           <a class="button light" href="https://arxiv.org/abs/2607.23473">arXiv</a>
           <a class="button outline" href="https://arxiv.org/pdf/2607.23473">PDF</a>
