@@ -226,7 +226,7 @@ p {
 .hero-inner {
   position: relative;
   z-index: 1;
-  min-height: 510px;
+  min-height: 0;
 }
 
 .eyebrow,
@@ -863,6 +863,8 @@ p {
 }
 
 .benchmark-card {
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   border: 1px solid rgba(255, 255, 255, 0.13);
   border-radius: 20px;
@@ -1936,6 +1938,111 @@ main,
   color: var(--ink);
 }
 
+.results-grid {
+  align-items: stretch;
+}
+
+.results-grid .metric-foot {
+  margin-top: auto;
+}
+
+.comparison-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 0 0 14px;
+  color: var(--ink-soft);
+  font-size: 0.76rem;
+}
+
+.comparison-legend i {
+  display: inline-block;
+  width: 9px;
+  height: 9px;
+  margin-right: 5px;
+  border-radius: 50%;
+}
+
+.comparison-chart {
+  display: grid;
+  margin-bottom: 22px;
+}
+
+.comparison-row {
+  display: grid;
+  grid-template-columns: 84px minmax(100px, 1fr) 174px;
+  gap: 12px;
+  align-items: center;
+  padding: 9px 0;
+  font-size: 0.78rem;
+}
+
+.comparison-row + .comparison-row {
+  border-top: 1px solid rgba(16, 35, 29, 0.08);
+}
+
+.comparison-row > div {
+  display: grid;
+  gap: 4px;
+}
+
+.comparison-row > div span {
+  display: block;
+  width: var(--score);
+  height: 5px;
+  border-radius: 999px;
+}
+
+.comparison-row span.baseline {
+  background: rgba(217, 118, 67, 0.62);
+}
+
+.comparison-row span.larger {
+  background: rgba(139, 145, 142, 0.58);
+}
+
+.comparison-row span.prism {
+  background: var(--forest-bright);
+}
+
+.comparison-row > b {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  font-weight: 650;
+  text-align: right;
+  white-space: nowrap;
+}
+
+.comparison-row.highlight {
+  padding-inline: 10px;
+  border-radius: 8px;
+  background: rgba(47, 143, 87, 0.07);
+}
+
+.section-heading strong {
+  color: var(--ink);
+}
+
+.backbones-section > .backbone-block:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.backbone-block + .backbone-block {
+  margin-top: 88px;
+}
+
+.smol-video-highlight {
+  display: grid;
+  grid-template-columns: minmax(0, 2.1fr) minmax(220px, 0.9fr);
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.smol-video-highlight > div:last-child {
+  padding: 24px;
+}
+
 .backbone-score span {
   font-size: 0.75rem;
 }
@@ -2269,6 +2376,10 @@ main,
     grid-template-columns: 1fr;
   }
 
+  .smol-video-highlight {
+    display: block;
+  }
+
   .bfm-video-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -2423,6 +2534,16 @@ main,
   .benchmark-bar {
     grid-template-columns: 94px 1fr 40px;
     gap: 8px;
+  }
+
+  .comparison-row {
+    grid-template-columns: 72px minmax(0, 1fr);
+    gap: 7px 10px;
+  }
+
+  .comparison-row > b {
+    grid-column: 2;
+    text-align: left;
   }
 
   .backbone-title {
