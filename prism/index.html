@@ -24,8 +24,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-hero">
-  <script defer src="assets/prism/site.js?v=20260728-hero"></script>
+  <link rel="stylesheet" href="assets/prism/site.css?v=20260728-results">
+  <script defer src="assets/prism/site.js?v=20260728-results"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -37,8 +37,8 @@
     </a>
     <div class="nav-links">
       <a href="#idea">Method</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#backbones">Strong backbones</a>
+      <a href="#evidence">Results</a>
+      <a href="#backbones">Videos</a>
       <a href="#analysis">Analysis</a>
     </div>
     <div class="nav-actions">
@@ -51,8 +51,8 @@
     </button>
     <div class="mobile-nav" id="mobile-nav" hidden>
       <a href="#idea">Method</a>
-      <a href="#evidence">Evidence</a>
-      <a href="#backbones">Strong backbones</a>
+      <a href="#evidence">Results</a>
+      <a href="#backbones">Videos</a>
       <a href="#analysis">Analysis</a>
       <a href="https://arxiv.org/abs/2607.23473">arXiv</a>
       <a href="https://github.com/lsh3163/prism">Code</a>
@@ -85,50 +85,6 @@
         </div>
       </div>
 
-      <div class="hero-visual reveal" aria-label="Observable robot signals contain action-relevant physical interactions">
-        <div class="hero-visual-top">
-          <span>Observable signals</span>
-          <strong class="hero-visual-title">Physical context lives in interactions.</strong>
-          <div class="signal-cloud">
-            <i>joint state</i>
-            <i>velocity</i>
-            <i>recent action</i>
-            <i>command</i>
-            <i>history</i>
-          </div>
-        </div>
-        <div class="interaction-ribbon">
-          <span class="ribbon-line" aria-hidden="true"></span>
-          <strong>PRISM learns products</strong>
-          <span class="ribbon-line" aria-hidden="true"></span>
-        </div>
-        <div class="cue-grid">
-          <div>
-            <strong>velocity <b>&times;</b> history</strong>
-            <span>motion coupling</span>
-          </div>
-          <div>
-            <strong>action <b>&times;</b> velocity</strong>
-            <span>load response</span>
-          </div>
-          <div>
-            <strong>state <b>&times;</b> action</strong>
-            <span>contact context</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="shell hero-proof reveal" aria-label="Headline controlled results">
-      <span class="proof-label">Controlled evidence</span>
-      <div class="proof-stat">
-        <span>Humanoid-Gym survival</span>
-        <strong>51.0 <i>&rarr;</i> 92.5</strong>
-      </div>
-      <div class="proof-stat">
-        <span>Task-specific LIBERO success</span>
-        <strong>63.8 <i>&rarr;</i> 91.0</strong>
-      </div>
     </div>
   </header>
 
@@ -136,8 +92,11 @@
     <section class="section idea-section" id="idea">
       <div class="section-heading reveal shell">
         <p class="section-index">01 / Method</p>
-        <h2>Physical cues emerge from interactions.</h2>
-        <p>PRISM learns compact polynomial products from proprioception before the policy consumes them.</p>
+        <h2>PRISM learns polynomial interactions.</h2>
+        <p>
+          PRISM is <strong>learned end-to-end</strong>, uses <strong>no added sensors</strong>,
+          and remains <strong>backbone-compatible</strong> with existing policies.
+        </p>
       </div>
 
       <figure class="method-figure reveal">
@@ -156,36 +115,22 @@
         </figcaption>
       </figure>
 
-      <div class="method-strip reveal shell">
-        <div>
-          <strong>Learned end-to-end</strong>
-        </div>
-        <div>
-          <strong>No added sensors</strong>
-        </div>
-        <div>
-          <strong>Backbone-compatible</strong>
-        </div>
-      </div>
     </section>
 
     <section class="section evidence-section" id="evidence">
       <div class="shell">
         <div class="section-heading light reveal">
-          <p class="section-index">02 / Controlled evidence</p>
-          <h2>Capacity alone cannot replace structure.</h2>
-          <p>Matched controls isolate the representation rather than parameter count.</p>
+          <p class="section-index">02 / Results</p>
+          <h2>Polynomial interactions improve control.</h2>
+          <p>PRISM outperforms standard and larger controls across controlled and stronger policy backbones.</p>
         </div>
 
-        <div class="controlled-grid">
+        <div class="controlled-grid results-grid">
           <article class="benchmark-card reveal">
             <div class="benchmark-head">
               <div>
                 <span>Reinforcement learning</span>
                 <h3>Humanoid-Gym</h3>
-              </div>
-              <div class="headline-metric">
-                <strong>92.5%</strong><span>survival</span>
               </div>
             </div>
             <p>PRISM nearly doubles survival; the wider MLP stays at baseline.</p>
@@ -212,9 +157,6 @@
                 <span>Imitation learning</span>
                 <h3>Task-specific LIBERO</h3>
               </div>
-              <div class="headline-metric">
-                <strong>91.0%</strong><span>success</span>
-              </div>
             </div>
             <p>PRISM reaches 91% success without force as a policy input.</p>
             <div class="benchmark-bars" aria-label="Task-specific LIBERO success comparison">
@@ -236,46 +178,93 @@
               <span>MCC-Oracle alone uses force</span>
             </div>
           </article>
+
+          <article class="benchmark-card comparison-card reveal">
+            <div class="benchmark-head">
+              <div>
+                <span>BFM-Zero / humanoid RL</span>
+                <h3>Tracking EMD &darr;</h3>
+              </div>
+            </div>
+            <p>Polynomial interactions reduce tracking error under nominal and shifted dynamics.</p>
+            <div class="comparison-legend" aria-hidden="true">
+              <span><i class="baseline"></i>BFM-Zero</span>
+              <span><i class="larger"></i>Larger</span>
+              <span><i class="prism"></i>PRISM</span>
+            </div>
+            <div class="comparison-chart" aria-label="BFM-Zero Tracking EMD; lower is better">
+              <div class="comparison-row">
+                <strong>Nominal</strong>
+                <div><span class="baseline" style="--score:69%"></span><span class="larger" style="--score:68%"></span><span class="prism" style="--score:66%"></span></div>
+                <b>1.104 &middot; 1.090 &middot; 1.050</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Low friction</strong>
+                <div><span class="baseline" style="--score:99%"></span><span class="larger" style="--score:100%"></span><span class="prism" style="--score:97%"></span></div>
+                <b>1.582 &middot; 1.589 &middot; 1.548</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Payload</strong>
+                <div><span class="baseline" style="--score:71%"></span><span class="larger" style="--score:70%"></span><span class="prism" style="--score:68%"></span></div>
+                <b>1.121 &middot; 1.114 &middot; 1.073</b>
+              </div>
+            </div>
+            <div class="metric-foot"><span>Shorter bars indicate lower error</span></div>
+          </article>
+
+          <article class="benchmark-card comparison-card reveal">
+            <div class="benchmark-head">
+              <div>
+                <span>SmolVLA / multi-task VLA</span>
+                <h3>LIBERO success &uarr;</h3>
+              </div>
+            </div>
+            <p>PRISM improves average success, with its largest gain on long-horizon tasks.</p>
+            <div class="comparison-legend" aria-hidden="true">
+              <span><i class="baseline"></i>SmolVLA</span>
+              <span><i class="larger"></i>Larger</span>
+              <span><i class="prism"></i>PRISM</span>
+            </div>
+            <div class="comparison-chart" aria-label="SmolVLA LIBERO success; higher is better">
+              <div class="comparison-row highlight">
+                <strong>Average</strong>
+                <div><span class="baseline" style="--score:63.5%"></span><span class="larger" style="--score:64.9%"></span><span class="prism" style="--score:66.55%"></span></div>
+                <b>63.50 &middot; 64.90 &middot; 66.55</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Spatial</strong>
+                <div><span class="baseline" style="--score:69.8%"></span><span class="larger" style="--score:64.6%"></span><span class="prism" style="--score:70%"></span></div>
+                <b>69.8 &middot; 64.6 &middot; 70.0</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Object</strong>
+                <div><span class="baseline" style="--score:57.2%"></span><span class="larger" style="--score:65.6%"></span><span class="prism" style="--score:57.4%"></span></div>
+                <b>57.2 &middot; 65.6 &middot; 57.4</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Goal</strong>
+                <div><span class="baseline" style="--score:81.2%"></span><span class="larger" style="--score:85%"></span><span class="prism" style="--score:85.4%"></span></div>
+                <b>81.2 &middot; 85.0 &middot; 85.4</b>
+              </div>
+              <div class="comparison-row">
+                <strong>Long</strong>
+                <div><span class="baseline" style="--score:45.8%"></span><span class="larger" style="--score:44.4%"></span><span class="prism" style="--score:53.4%"></span></div>
+                <b>45.8 &middot; 44.4 &middot; 53.4</b>
+              </div>
+            </div>
+            <div class="metric-foot"><span>Official multi-task eval50 at 80K</span></div>
+          </article>
         </div>
 
       </div>
     </section>
 
     <section class="section shell backbones-section" id="backbones">
-      <div class="section-heading reveal">
-        <p class="section-index">03 / Stronger policy backbones</p>
-        <h2>PRISM transfers across RL and VLA.</h2>
-        <p>The same conditioner improves BFM-Zero and SmolVLA without changing their objectives.</p>
-      </div>
-
       <article class="backbone-block bfm-block" id="locomotion">
         <div class="backbone-title reveal">
           <div>
-            <span class="backbone-kicker">BFM-Zero / humanoid RL</span>
-            <h3>Robust motion tracking under dynamics shifts.</h3>
-          </div>
-          <div class="backbone-score">
-            <span>Mean Tracking EMD</span>
-            <strong>1.269 <i>&rarr;</i> 1.224</strong>
-            <small>lower is better</small>
-          </div>
-        </div>
-
-        <div class="scenario-metrics reveal" aria-label="BFM-Zero Tracking EMD">
-          <div class="scenario-head">
-            <span>Condition</span><span>BFM-Zero</span><span>Larger</span><span>PRISM</span>
-          </div>
-          <div>
-            <strong><i class="scenario-dot nominal"></i>Nominal</strong>
-            <span>1.104</span><span>1.090</span><span class="best">1.050</span>
-          </div>
-          <div>
-            <strong><i class="scenario-dot friction"></i>Low friction</strong>
-            <span>1.582</span><span>1.589</span><span class="best">1.548</span>
-          </div>
-          <div>
-            <strong><i class="scenario-dot payload"></i>Payload mass</strong>
-            <span>1.121</span><span>1.114</span><span class="best">1.073</span>
+            <span class="backbone-kicker">03 / BFM-Zero robustness videos</span>
+            <h3>Dynamics-shift rollouts.</h3>
           </div>
         </div>
 
@@ -288,126 +277,64 @@
           <article class="video-card video-card-wide reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-fall.jpg">
-                <source src="assets/prism/bfm-diverse-poses/bfm-m33-fall-full.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div>
-              <span>Non-walking reference</span>
-              <strong>Fall and recovery</strong>
-              <p>PRISM recovers the reference motion.</p>
-            </div>
-          </article>
-
-          <article class="video-card reveal">
-            <div class="video-frame">
-              <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/bfm-jump.jpg">
-                <source src="assets/prism/bfm-diverse-poses/bfm-m4-jump.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div><span>Dynamic pose</span><strong>Jump and landing</strong></div>
-          </article>
-
-          <article class="video-card reveal">
-            <div class="video-frame">
-              <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-low-friction.jpg"
                 aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction walking reference">
                 <source src="assets/prism/bfm-page-samples/bfm-m13-low-friction-walk.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Dynamics shift</span><strong>Low-friction walk</strong></div>
+            <div>
+              <span>Low friction</span>
+              <strong>Low-friction walk</strong>
+              <p>Robustness under reduced ground friction.</p>
+            </div>
           </article>
 
           <article class="video-card reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-dance.jpg"
                 aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a low-friction dance reference">
                 <source src="assets/prism/bfm-page-samples/bfm-m2-low-friction-dance.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Cross-body pose</span><strong>Low-friction dance</strong></div>
+            <div><span>Low friction</span><strong>Low-friction dance</strong></div>
           </article>
 
           <article class="video-card reveal">
             <div class="video-frame">
               <video autoplay muted loop playsinline controls preload="metadata"
+                poster="assets/prism/posters/bfm-payload.jpg"
                 aria-label="Ground truth, BFM-Zero, Larger BFM-Zero, and PRISM on a payload-perturbed running reference">
                 <source src="assets/prism/bfm-page-samples/bfm-m24-payload-run.mp4" type="video/mp4">
               </video>
             </div>
-            <div><span>Dynamics shift</span><strong>Payload run</strong></div>
+            <div><span>Payload mass</span><strong>Payload run</strong></div>
           </article>
         </div>
-        <p class="media-note reveal">Tracking EMD covers all 40 LAFAN motions; videos show synchronized examples.</p>
+        <p class="media-note reveal">Only dynamics-shift robustness rollouts are shown.</p>
       </article>
 
       <article class="backbone-block smol-block" id="manipulation">
         <div class="backbone-title reveal">
           <div>
-            <span class="backbone-kicker">SmolVLA / vision-language-action policy</span>
-            <h3>Polynomial proprioception improves SmolVLA.</h3>
-          </div>
-          <div class="backbone-score">
-            <span>LIBERO average success</span>
-            <strong>63.50 <i>&rarr;</i> 66.55</strong>
-            <small>official multi-task eval50</small>
+            <span class="backbone-kicker">SmolVLA / manipulation videos</span>
+            <h3>Contact-rich manipulation rollouts.</h3>
           </div>
         </div>
 
-        <div class="vla-flow reveal" aria-label="PRISM conditions proprioception before SmolVLA attention">
-          <span>Proprioception</span>
-          <i>&rarr;</i>
-          <span class="prism-step">PRISM polynomial state</span>
-          <i>&rarr;</i>
-          <span>SmolVLA attention</span>
-          <i>&rarr;</i>
-          <span>Action</span>
-        </div>
-
-        <div class="smol-results-grid">
-          <article class="suite-card reveal">
-            <div class="suite-card-head">
-              <span>Suite success</span>
-              <div><i class="baseline"></i>SmolVLA <i class="larger"></i>Larger <i class="prism"></i>PRISM</div>
-            </div>
-            <div class="suite-row">
-              <strong>Spatial</strong>
-              <div><span class="baseline" style="--score:69.8%"></span><span class="larger" style="--score:64.6%"></span><span class="prism" style="--score:70%"></span></div>
-              <b>70.0</b>
-            </div>
-            <div class="suite-row">
-              <strong>Object</strong>
-              <div><span class="baseline" style="--score:57.2%"></span><span class="larger" style="--score:65.6%"></span><span class="prism" style="--score:57.4%"></span></div>
-              <b>57.4</b>
-            </div>
-            <div class="suite-row">
-              <strong>Goal</strong>
-              <div><span class="baseline" style="--score:81.2%"></span><span class="larger" style="--score:85%"></span><span class="prism" style="--score:85.4%"></span></div>
-              <b>85.4</b>
-            </div>
-            <div class="suite-row highlight">
-              <strong>Long</strong>
-              <div><span class="baseline" style="--score:45.8%"></span><span class="larger" style="--score:44.4%"></span><span class="prism" style="--score:53.4%"></span></div>
-              <b>53.4</b>
-            </div>
-            <p>Largest gain: Long, +7.6 points.</p>
-          </article>
-
-          <article class="video-card libero-video-card reveal">
-            <div class="video-frame">
-              <video autoplay muted loop playsinline controls preload="metadata"
-                poster="assets/prism/posters/libero-long1.jpg">
-                <source src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4" type="video/mp4">
-              </video>
-            </div>
-            <div>
-              <span>SmolVLA | Larger | PRISM</span>
-              <strong>Long-horizon placement</strong>
-              <p>Matched episode from the eval50 protocol.</p>
-            </div>
-          </article>
-        </div>
+        <article class="video-card libero-video-card smol-video-highlight reveal">
+          <div class="video-frame">
+            <video autoplay muted loop playsinline controls preload="metadata"
+              poster="assets/prism/posters/libero-long1.jpg">
+              <source src="assets/prism/libero-comparisons/long-task1-ep5-comparison.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div>
+            <span>SmolVLA | Larger | PRISM</span>
+            <strong>Long-horizon placement</strong>
+            <p>Matched episode from the eval50 protocol.</p>
+          </div>
+        </article>
 
         <div class="contact-panel reveal">
           <article class="video-card contact-video-card">
