@@ -330,23 +330,30 @@ p {
   position: absolute;
   top: 195px;
   right: 0;
-  width: min(430px, 38%);
+  width: min(460px, 40%);
   padding: 26px;
-  border: 1px solid rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(16, 35, 29, 0.12);
   border-radius: 22px;
-  background: rgba(255, 255, 255, 0.055);
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(8px);
+  color: var(--ink);
+  background: var(--white);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.24);
 }
 
 .hero-visual-top > span,
 .flow-label {
   display: block;
-  color: rgba(255, 255, 255, 0.52);
+  color: var(--orange);
   font-size: 0.65rem;
   font-weight: 800;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+}
+
+.hero-visual-title {
+  display: block;
+  margin-top: 7px;
+  font-size: 1.25rem;
+  line-height: 1.25;
 }
 
 .signal-cloud {
@@ -358,10 +365,10 @@ p {
 
 .signal-cloud i {
   padding: 7px 10px;
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  border: 1px solid var(--line);
   border-radius: 6px;
-  color: rgba(255, 255, 255, 0.82);
-  background: rgba(0, 0, 0, 0.08);
+  color: var(--ink-soft);
+  background: var(--paper-warm);
   font-family: var(--mono);
   font-size: 0.67rem;
   font-style: normal;
@@ -373,7 +380,7 @@ p {
   gap: 12px;
   align-items: center;
   margin: 21px 0;
-  color: #f2ae80;
+  color: var(--orange);
   font-size: 0.68rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -399,25 +406,27 @@ p {
   justify-content: space-between;
   gap: 16px;
   padding: 13px 14px;
+  border: 1px solid rgba(16, 35, 29, 0.08);
   border-radius: 9px;
-  background: rgba(255, 255, 255, 0.08);
+  background: #f3f0e8;
 }
 
 .cue-grid span {
-  color: rgba(255, 255, 255, 0.62);
+  color: var(--ink-soft);
   font-size: 0.74rem;
 }
 
 .cue-grid strong {
+  color: var(--ink);
   font-family: var(--mono);
-  font-size: 0.73rem;
+  font-size: 0.84rem;
   font-weight: 600;
   white-space: nowrap;
 }
 
 .cue-grid b {
   padding-inline: 3px;
-  color: #f2ae80;
+  color: var(--orange);
 }
 
 .hero-visual > p {
@@ -1807,12 +1816,12 @@ main,
 }
 
 .hero-visual-top > span {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
 }
 
 .signal-cloud i,
 .interaction-ribbon {
-  font-size: 0.75rem;
+  font-size: 0.78rem;
 }
 
 .cue-grid span {
@@ -1820,7 +1829,7 @@ main,
 }
 
 .cue-grid strong {
-  font-size: 0.79rem;
+  font-size: 0.9rem;
 }
 
 .hero-proof {
