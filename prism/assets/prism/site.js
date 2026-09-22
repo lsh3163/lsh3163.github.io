@@ -1,99 +1,9 @@
 const ASSET_ROOT = "assets/prism";
 
-const BFM_SCENARIOS = {
-  "low-friction": {
-    title: "Low friction",
-    captionTitle: "Low-friction tracking",
-    captionCopy: "The hardest dynamics shift in the aligned evaluation.",
-    video: `${ASSET_ROOT}/bfm-low-friction.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-low-friction.jpg`,
-    values: [
-      ["BFM-Zero", 1.582, "baseline"],
-      ["Larger", 1.589, "larger"],
-      ["PRISM", 1.548, "prism"],
-    ],
-    delta: "-2.1%",
-  },
-  nominal: {
-    title: "Nominal",
-    captionTitle: "Nominal tracking",
-    captionCopy: "PRISM lowers tracking mismatch without a dynamics shift.",
-    video: `${ASSET_ROOT}/bfm-nominal.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-nominal.jpg`,
-    values: [
-      ["BFM-Zero", 1.104, "baseline"],
-      ["Larger", 1.090, "larger"],
-      ["PRISM", 1.050, "prism"],
-    ],
-    delta: "-4.9%",
-  },
-  payload: {
-    title: "Payload mass",
-    captionTitle: "Payload-mass tracking",
-    captionCopy: "The policy receives no payload or mass measurement.",
-    video: `${ASSET_ROOT}/bfm-payload.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-payload.jpg`,
-    values: [
-      ["BFM-Zero", 1.121, "baseline"],
-      ["Larger", 1.114, "larger"],
-      ["PRISM", 1.073, "prism"],
-    ],
-    delta: "-4.3%",
-  },
-};
-
-const BFM_MOTIONS = {
-  fall: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m33-fall-full.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-fall.jpg`,
-    title: "Fall and recovery",
-    copy: "Compare pelvis height and recovery timing against the GT panel.",
-  },
-  jump: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m4-jump.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-jump.jpg`,
-    title: "Jump",
-    copy: "Compare takeoff timing and landing posture against the GT panel.",
-  },
-  dance: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m1-dance.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-dance.jpg`,
-    title: "Dance",
-    copy: "Rapid cross-body pose changes test whole-body phase alignment.",
-  },
-  fight: {
-    video: `${ASSET_ROOT}/bfm-diverse-poses/bfm-m37-fight.mp4`,
-    poster: `${ASSET_ROOT}/posters/bfm-fight.jpg`,
-    title: "Fight",
-    copy: "Fast upper-body strikes broaden the reference-motion coverage.",
-  },
-};
-
-const LIBERO_EPISODES = {
-  long1: {
-    video: `${ASSET_ROOT}/libero-comparisons/long-task1-ep5-comparison.mp4`,
-    poster: `${ASSET_ROOT}/posters/libero-long1.jpg`,
-    title: "Long-horizon placement",
-    copy: "PRISM completes the object placement while both controls stall.",
-  },
-  long6: {
-    video: `${ASSET_ROOT}/libero-comparisons/long-task6-ep9-comparison.mp4`,
-    poster: `${ASSET_ROOT}/posters/libero-long6.jpg`,
-    title: "Long-horizon cup sequence",
-    copy: "The full episode shows PRISM reaching the final task state.",
-  },
-  goal: {
-    video: `${ASSET_ROOT}/libero-comparisons/goal-task6-ep5-comparison.mp4`,
-    poster: `${ASSET_ROOT}/posters/libero-goal.jpg`,
-    title: "Goal-conditioned manipulation",
-    copy: "PRISM completes the same evaluation episode.",
-  },
-};
-
 const METHOD_COLORS = {
-  SmolVLA: "#d67b43",
-  Larger: "#858b87",
-  PRISM: "#285848",
+  SmolVLA: "#80868b",
+  Larger: "#9aa0a6",
+  PRISM: "#1a73e8",
 };
 
 const SCENARIO_STYLES = {
@@ -108,30 +18,6 @@ function setActiveButton(buttons, activeButton) {
     button.classList.toggle("active", active);
     button.setAttribute("aria-selected", String(active));
   });
-}
-
-function focusComparison(video) {
-  const pan = video?.closest(".comparison-pan");
-  if (!pan || !window.matchMedia("(max-width: 620px)").matches) return;
-  requestAnimationFrame(() => {
-    pan.parentElement.scrollLeft = pan.parentElement.scrollWidth;
-  });
-}
-
-function swapVideo(video, src, autoplay = true, poster = null) {
-  if (!video) return;
-  if (poster) video.setAttribute("poster", poster);
-  if (video.getAttribute("src") === src) {
-    focusComparison(video);
-    return;
-  }
-  video.pause();
-  video.setAttribute("src", src);
-  video.load();
-  focusComparison(video);
-  if (autoplay) {
-    video.play().catch(() => {});
-  }
 }
 
 function initMobileNav() {
@@ -159,43 +45,6 @@ function initMobileNav() {
   });
 }
 
-function initEvidenceTabs() {
-  const buttons = [...document.querySelectorAll("[data-evidence-tab]")];
-  const panels = [...document.querySelectorAll("[data-evidence-panel]")];
-  if (!buttons.length || !panels.length) return;
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const selected = button.dataset.evidenceTab;
-      setActiveButton(buttons, button);
-      panels.forEach((panel) => {
-        const active = panel.dataset.evidencePanel === selected;
-        panel.hidden = !active;
-        if (active) {
-          panel.querySelectorAll(".reveal").forEach((node) => node.classList.add("visible"));
-        }
-      });
-    });
-  });
-}
-
-function initComparisonPans() {
-  const frames = [...document.querySelectorAll(".comparison-frame")];
-  const position = () => {
-    if (!window.matchMedia("(max-width: 620px)").matches) {
-      frames.forEach((frame) => {
-        frame.scrollLeft = 0;
-      });
-      return;
-    }
-    frames.forEach((frame) => {
-      frame.scrollLeft = frame.scrollWidth;
-    });
-  };
-  requestAnimationFrame(position);
-  window.addEventListener("resize", position);
-}
-
 function initReveal() {
   const nodes = [...document.querySelectorAll(".reveal")];
   if (!("IntersectionObserver" in window)) {
@@ -218,93 +67,35 @@ function initReveal() {
   });
 }
 
-function renderBfmBars(scenario) {
-  const root = document.getElementById("bfm-bars");
-  if (!root) return;
-  const maxValue = Math.max(...scenario.values.map((entry) => entry[1])) * 1.04;
-  root.replaceChildren(
-    ...scenario.values.map(([label, value, className]) => {
-      const row = document.createElement("div");
-      row.className = `metric-bar-row ${className}`;
+function initBfmVideos() {
+  const buttons = [...document.querySelectorAll(".bfm-condition-tabs [role='tab']")];
+  if (!buttons.length) return;
 
-      const name = document.createElement("span");
-      name.textContent = label;
-
-      const track = document.createElement("div");
-      track.className = "metric-bar-track";
-      const fill = document.createElement("div");
-      fill.className = "metric-bar-fill";
-      fill.style.width = "0%";
-      track.appendChild(fill);
-
-      const number = document.createElement("b");
-      number.textContent = value.toFixed(3);
-      row.append(name, track, number);
-      requestAnimationFrame(() => {
-        fill.style.width = `${(value / maxValue) * 100}%`;
-      });
-      return row;
-    }),
-  );
-}
-
-function initBfmScenario() {
-  const buttons = [...document.querySelectorAll("[data-bfm-scenario]")];
-  const video = document.getElementById("bfm-video");
-  const title = document.getElementById("bfm-metric-title");
-  const captionTitle = document.getElementById("bfm-caption-title");
-  const captionCopy = document.getElementById("bfm-caption-copy");
-  const delta = document.getElementById("bfm-delta");
-  if (!buttons.length || !video) return;
-
-  const activate = (button) => {
-    const scenario = BFM_SCENARIOS[button.dataset.bfmScenario];
-    if (!scenario) return;
-    setActiveButton(buttons, button);
-    swapVideo(video, scenario.video, true, scenario.poster);
-    title.textContent = scenario.title;
-    captionTitle.textContent = scenario.captionTitle;
-    captionCopy.textContent = scenario.captionCopy;
-    delta.textContent = scenario.delta;
-    renderBfmBars(scenario);
-  };
-
-  buttons.forEach((button) => button.addEventListener("click", () => activate(button)));
-  activate(buttons.find((button) => button.classList.contains("active")) || buttons[0]);
-}
-
-function initBfmMotionSelector() {
-  const buttons = [...document.querySelectorAll("[data-bfm-motion]")];
-  const video = document.getElementById("bfm-motion-video");
-  const title = document.getElementById("bfm-motion-title");
-  const copy = document.getElementById("bfm-motion-copy");
-  if (!buttons.length || !video || !title || !copy) return;
-
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const motion = BFM_MOTIONS[button.dataset.bfmMotion];
-      if (!motion) return;
-      setActiveButton(buttons, button);
-      swapVideo(video, motion.video, true, motion.poster);
-      title.textContent = motion.title;
-      copy.textContent = motion.copy;
+  function activate(activeButton) {
+    setActiveButton(buttons, activeButton);
+    buttons.forEach((button) => {
+      const active = button === activeButton;
+      button.tabIndex = active ? 0 : -1;
+      const panel = document.getElementById(button.getAttribute("aria-controls"));
+      panel.hidden = !active;
+      const video = panel.querySelector("video");
+      if (active) video.play().catch(() => {});
+      else video.pause();
     });
-  });
-}
+  }
 
-function initLiberoSelector() {
-  const buttons = [...document.querySelectorAll("[data-libero-episode]")];
-  const video = document.getElementById("libero-video");
-  const title = document.getElementById("libero-caption-title");
-  const copy = document.getElementById("libero-caption-copy");
-  if (!buttons.length || !video) return;
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const episode = LIBERO_EPISODES[button.dataset.liberoEpisode];
-      setActiveButton(buttons, button);
-      swapVideo(video, episode.video, true, episode.poster);
-      title.textContent = episode.title;
-      copy.textContent = episode.copy;
+  buttons.forEach((button, index) => {
+    button.addEventListener("click", () => activate(button));
+    button.addEventListener("keydown", (event) => {
+      let next;
+      if (event.key === "ArrowRight") next = (index + 1) % buttons.length;
+      else if (event.key === "ArrowLeft") next = (index + buttons.length - 1) % buttons.length;
+      else if (event.key === "Home") next = 0;
+      else if (event.key === "End") next = buttons.length - 1;
+      else return;
+      event.preventDefault();
+      buttons[next].focus();
+      activate(buttons[next]);
     });
   });
 }
@@ -392,10 +183,10 @@ function initContactChart() {
     const allValues = allRows.map((row) => row[signal]);
     const maxValue = quantile(allValues, 0.97) * 1.12 || 1;
 
-    context.strokeStyle = "rgba(17,35,30,0.10)";
+    context.strokeStyle = "rgba(60,64,67,0.12)";
     context.lineWidth = 1;
-    context.fillStyle = "#78817c";
-    context.font = '10px "Avenir Next", sans-serif';
+    context.fillStyle = "#5f6368";
+    context.font = '10px "Roboto", sans-serif';
     for (let index = 0; index <= 4; index += 1) {
       const y = pad.top + (plotHeight * index) / 4;
       context.beginPath();
@@ -414,10 +205,10 @@ function initContactChart() {
     if (contactWindow) {
       const startX = pad.left + (contactWindow.start / maxTime) * plotWidth;
       const endX = pad.left + (contactWindow.end / maxTime) * plotWidth;
-      context.fillStyle = "rgba(214,123,67,0.10)";
+      context.fillStyle = "rgba(60,64,67,0.06)";
       context.fillRect(startX, pad.top, Math.max(4, endX - startX), plotHeight);
-      context.fillStyle = "#9b5a33";
-      context.font = '9px "Avenir Next", sans-serif';
+      context.fillStyle = "#5f6368";
+      context.font = '9px "Roboto", sans-serif';
       context.fillText("initial contact", startX + 5, pad.top + 12);
     }
 
@@ -447,7 +238,7 @@ function initContactChart() {
       context.setLineDash(
         method === "SmolVLA" ? [7, 5] : method === "Larger" ? [2, 4] : [],
       );
-      context.globalAlpha = method === "PRISM" ? 1 : 0.72;
+      context.globalAlpha = 1;
       context.stroke();
       context.globalAlpha = 1;
       context.setLineDash([]);
@@ -457,17 +248,17 @@ function initContactChart() {
     context.beginPath();
     context.moveTo(playheadX, pad.top);
     context.lineTo(playheadX, pad.top + plotHeight);
-    context.strokeStyle = "rgba(17,35,30,0.32)";
+    context.strokeStyle = "rgba(60,64,67,0.32)";
     context.lineWidth = 1.2;
     context.setLineDash([4, 4]);
     context.stroke();
     context.setLineDash([]);
     context.beginPath();
     context.arc(playheadX, pad.top + plotHeight, 3.4, 0, Math.PI * 2);
-    context.fillStyle = "#11231e";
+    context.fillStyle = "#3c4043";
     context.fill();
-    context.fillStyle = "#54615b";
-    context.font = '9px "Avenir Next", sans-serif';
+    context.fillStyle = "#5f6368";
+    context.font = '9px "Roboto", sans-serif';
     context.textAlign = playheadX > width - 62 ? "right" : "left";
     context.fillText(
       `${(progress * maxTime).toFixed(1)}s`,
@@ -608,7 +399,11 @@ function initTsne() {
       const x = previous.x + (target.x - previous.x) * progress;
       const y = previous.y + (target.y - previous.y) * progress;
       point._screen = { x, y };
-      drawMarker(context, point, x, y, hoverPoint === point ? 8.6 : 6.5, hoverPoint === point ? 1 : 0.86);
+      drawMarker(
+        context, point, x, y,
+        hoverPoint === point ? 8.6 : 6.5,
+        hoverPoint === point ? 1 : 0.86,
+      );
     });
 
     if (rawProgress < 1) requestAnimationFrame(draw);
@@ -684,11 +479,7 @@ function initTsne() {
 function init() {
   initMobileNav();
   initReveal();
-  initEvidenceTabs();
-  initComparisonPans();
-  initBfmScenario();
-  initBfmMotionSelector();
-  initLiberoSelector();
+  initBfmVideos();
   initContactChart();
   initTsne();
 }

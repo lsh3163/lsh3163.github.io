@@ -1,0 +1,693 @@
+{
+  "schema_version": 1,
+  "experiment": "Humanoid-Gym random-command robustness comparison for the four capacity-control models",
+  "status": "complete_for_displayed_models",
+  "scope": "One independently trained checkpoint per model; no five-training-seed robustness estimate or training-seed standard deviation.",
+  "training_seeds": [
+    1
+  ],
+  "evaluation_seeds": [
+    101,
+    102,
+    103
+  ],
+  "episodes_per_evaluation_seed": 200,
+  "episodes_per_model_condition": 600,
+  "total_displayed_evaluations": 36,
+  "total_displayed_episodes": 7200,
+  "aggregation": "Survival is total counted environment timeouts divided by 600 counted episodes, equivalent to the mean of three equal-sized 200-episode evaluation runs.",
+  "protocol": {
+    "id": "g1_balanced_timeout_v2",
+    "episode_allocation": "100 environments; the first two counted episodes from each environment per evaluation seed",
+    "success_definition": "environment_timeout",
+    "max_episode_length_steps": 2400,
+    "control_dt_seconds": 0.01,
+    "tracking_error_timing": "before_terminal_reset",
+    "commands": {
+      "curriculum": false,
+      "heading_command": true,
+      "max_curriculum": 1.0,
+      "num_commands": 4,
+      "ranges": {
+        "ang_vel_yaw": [
+          -0.3,
+          0.3
+        ],
+        "heading": [
+          -3.14,
+          3.14
+        ],
+        "lin_vel_x": [
+          -0.3,
+          0.6
+        ],
+        "lin_vel_y": [
+          -0.3,
+          0.3
+        ]
+      },
+      "resampling_time": 8.0
+    },
+    "command_interpretation": "Random velocity and heading commands resampled every 8 seconds; heading feedback determines the executed yaw-rate command.",
+    "evaluation_randomization": {
+      "observation_noise": false,
+      "action_delay": false,
+      "action_noise": 0.0,
+      "random_pushes": false,
+      "random_base_mass": false,
+      "random_friction": false
+    },
+    "conditions": {
+      "nominal": {
+        "schema_version": 1,
+        "condition": "nominal",
+        "ground": {
+          "static_friction": 0.6,
+          "dynamic_friction": 0.6,
+          "source": "configured_terrain_parameters"
+        },
+        "robot_shape_friction": null,
+        "rigid_body_mass_scale": 1.0,
+        "mass_scope": "all_robot_rigid_bodies",
+        "inertia_update": "upstream_recomputeInertia_True",
+        "payload_interpretation": "uniform_link_mass_scaling_at_fixed_geometry_and_COM"
+      },
+      "low_friction": {
+        "schema_version": 1,
+        "condition": "low_friction",
+        "ground": {
+          "static_friction": 0.2,
+          "dynamic_friction": 0.2,
+          "source": "configured_terrain_parameters"
+        },
+        "robot_shape_friction": 0.2,
+        "rigid_body_mass_scale": 1.0,
+        "mass_scope": "all_robot_rigid_bodies",
+        "inertia_update": "upstream_recomputeInertia_True",
+        "payload_interpretation": "uniform_link_mass_scaling_at_fixed_geometry_and_COM"
+      },
+      "payload_mass": {
+        "schema_version": 1,
+        "condition": "payload_mass",
+        "ground": {
+          "static_friction": 0.6,
+          "dynamic_friction": 0.6,
+          "source": "configured_terrain_parameters"
+        },
+        "robot_shape_friction": null,
+        "rigid_body_mass_scale": 1.15,
+        "mass_scope": "all_robot_rigid_bodies",
+        "inertia_update": "upstream_recomputeInertia_True",
+        "payload_interpretation": "uniform_link_mass_scaling_at_fixed_geometry_and_COM"
+      }
+    },
+    "ground_friction_provenance": "Ground values are configured parameters; robot-shape friction is also recorded through simulator readback."
+  },
+  "comparison_with_video": {
+    "same_experiment": false,
+    "video_protocol_asset": "humanoid-video-protocol.json",
+    "difference": "The qualitative video uses a prescribed 24-second velocity/yaw schedule, first-episode screening and timeout-without-physical-failure completion. This robustness table uses randomized velocity/heading commands and balanced two-episode environment quotas. Differences between results are not attributed to commands alone.",
+    "low_friction": "Both protocols set ground static/dynamic friction and robot-shape friction to 0.20; their outcome rates remain separate."
+  },
+  "interpretation": "Among the four displayed models, PRISM has the highest observed survival under nominal conditions, low friction and uniform +15% link mass. These are descriptive results from one training seed.",
+  "sources": [
+    {
+      "source_identifier": "outputs/humanoid_attached_payload/20260917T180407Z/comparison_with_backpack.json",
+      "sha256": "e3944e13ab6b3e025555e5f8ac212955a48aab34ecc88de2bf88efb1fe51f8d1"
+    },
+    {
+      "source_identifier": "outputs/humanoid_attached_payload/20260917T180407Z/comparison_with_backpack.md",
+      "sha256": "c4faff9f3787ba4d070a86dcd77e7ca84b38851936b3b0236d3ce307c18a22d7"
+    },
+    {
+      "source_identifier": "outputs/humanoid_robustness/performance_updates/20260918T132655Z/results.md",
+      "sha256": "d1e6bf54ca82ce3db7090374bb1212afdd69b4a0ecdaea8c0273d7f2bd996ca5"
+    }
+  ],
+  "records": [
+    {
+      "model": "PRISM",
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
+      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
+      "actor_variant": "g1_gated_poly_v2",
+      "parameters": 1320576,
+      "episodes": 600,
+      "successes": 513,
+      "survival_percent": 85.5,
+      "display_survival_percent": "85.50",
+      "metrics": {
+        "avg_episode_length": 2082.7766666666666,
+        "avg_lin_vel_error": 0.2624730373546481,
+        "avg_yaw_vel_error": 0.17699985728909573,
+        "success_rate": 0.855
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 166,
+          "survival_percent": 83.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_101.json",
+          "sha256": "9edaf639d4d5d4a8c9365448353fa31224eeeca8252eebbbb0bfa7248986f4b8"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 178,
+          "survival_percent": 89.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_102.json",
+          "sha256": "467e9d80ef468d9bd3e824c5b047cf3fc8e7cc40ea38a7e3e922ef139e2a852a"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 169,
+          "survival_percent": 84.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_103.json",
+          "sha256": "fb8598798e2713bced16eaa35161cd1b5604dfd8d5325ba53bb0edf27a7d9436"
+        }
+      ]
+    },
+    {
+      "model": "PRISM",
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
+      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
+      "actor_variant": "g1_gated_poly_v2",
+      "parameters": 1320576,
+      "episodes": 600,
+      "successes": 395,
+      "survival_percent": 65.83333333333333,
+      "display_survival_percent": "65.83",
+      "metrics": {
+        "avg_episode_length": 1871.8466666666666,
+        "avg_lin_vel_error": 0.2824689390261968,
+        "avg_yaw_vel_error": 0.3549745223919551,
+        "success_rate": 0.6583333333333333
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 139,
+          "survival_percent": 69.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_101.json",
+          "sha256": "05097c8f6ec5257184234401496681948378b9de3279b5c1432eba665eddc10f"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 124,
+          "survival_percent": 62.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_102.json",
+          "sha256": "0c71769fd686e9f840c273e6ffab14f3b8baea362d6cad77054bf113fffba836"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 132,
+          "survival_percent": 66.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_103.json",
+          "sha256": "c6aed7e4680576a7c20a43294c4bb710b66142506485bae3e90e3af454e86e3e"
+        }
+      ]
+    },
+    {
+      "model": "PRISM",
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
+      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
+      "actor_variant": "g1_gated_poly_v2",
+      "parameters": 1320576,
+      "episodes": 600,
+      "successes": 489,
+      "survival_percent": 81.5,
+      "display_survival_percent": "81.50",
+      "metrics": {
+        "avg_episode_length": 2008.3449999999998,
+        "avg_lin_vel_error": 0.284083706587553,
+        "avg_yaw_vel_error": 0.18261093425874908,
+        "success_rate": 0.815
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 167,
+          "survival_percent": 83.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_101.json",
+          "sha256": "5d573ff20b1375c85e19855619dc323b297e38f76f2cb21dff3be2ba31e222ca"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 159,
+          "survival_percent": 79.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_102.json",
+          "sha256": "e62a65a347d564a3fba4da68c6b7f9181058c705273693d9c43811a45f40b6f5"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 163,
+          "survival_percent": 81.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_103.json",
+          "sha256": "a6693523d6104de4988cc3e3e4b6bb0674f372e37e1d0afbe6e072d217e6a02f"
+        }
+      ]
+    },
+    {
+      "model": "Matched MLP",
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
+      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
+      "actor_variant": null,
+      "parameters": 1320953,
+      "episodes": 600,
+      "successes": 485,
+      "survival_percent": 80.83333333333333,
+      "display_survival_percent": "80.83",
+      "metrics": {
+        "avg_episode_length": 1996.3799999999999,
+        "avg_lin_vel_error": 0.28509530760347845,
+        "avg_yaw_vel_error": 0.1624802209312717,
+        "success_rate": 0.8083333333333333
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 160,
+          "survival_percent": 80.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_101.json",
+          "sha256": "de5152357546ec2909bf0a262dcde4936685f9b25dee97f495198234a95ea9d3"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 162,
+          "survival_percent": 81.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_102.json",
+          "sha256": "a2ab41a8ab54af2a1270a833b3a468539f3939d0ab064c016a6bbc051abbcb89"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 163,
+          "survival_percent": 81.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_103.json",
+          "sha256": "5c96336fac8966214f6875836f55d1cda3da2573970b692f07a671c4edfba042"
+        }
+      ]
+    },
+    {
+      "model": "Matched MLP",
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
+      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
+      "actor_variant": null,
+      "parameters": 1320953,
+      "episodes": 600,
+      "successes": 296,
+      "survival_percent": 49.333333333333336,
+      "display_survival_percent": "49.33",
+      "metrics": {
+        "avg_episode_length": 1584.6983333333333,
+        "avg_lin_vel_error": 0.3335759676868717,
+        "avg_yaw_vel_error": 0.26059251924976706,
+        "success_rate": 0.49333333333333335
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 104,
+          "survival_percent": 52.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_101.json",
+          "sha256": "63b503209a730ca73970b1314b6dacd5f85d560fc80e8d167a2b4f2744d8a7ef"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 93,
+          "survival_percent": 46.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_102.json",
+          "sha256": "0e5d97ee7ca96967d56f5b55ec22164c02c14d0d6780a89f1001759a43af0e0b"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 99,
+          "survival_percent": 49.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_103.json",
+          "sha256": "4c53981b4ef3d59f8fbb2932c48f1eb63668bf9cacb23c7e961942f50a6ba808"
+        }
+      ]
+    },
+    {
+      "model": "Matched MLP",
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
+      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
+      "actor_variant": null,
+      "parameters": 1320953,
+      "episodes": 600,
+      "successes": 403,
+      "survival_percent": 67.16666666666666,
+      "display_survival_percent": "67.17",
+      "metrics": {
+        "avg_episode_length": 1730.6333333333334,
+        "avg_lin_vel_error": 0.35920240435749295,
+        "avg_yaw_vel_error": 0.20234275224308174,
+        "success_rate": 0.6716666666666667
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 130,
+          "survival_percent": 65.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_101.json",
+          "sha256": "3f2de0640a364ce39f4f607f70184884fe3fa5f13766c306198f72d0083ebaab"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 136,
+          "survival_percent": 68.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_102.json",
+          "sha256": "e0d58b984dcae9759a8c614d9bcf430e1655c181685a15e694b6e7076fff4081"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 137,
+          "survival_percent": 68.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_103.json",
+          "sha256": "ac71b61631bc8310fa9930aa938c656747264b1bda2016bf30ac0c594d998fb4"
+        }
+      ]
+    },
+    {
+      "model": "Wider MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
+      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
+      "actor_variant": null,
+      "parameters": 1499705,
+      "episodes": 600,
+      "successes": 422,
+      "survival_percent": 70.33333333333334,
+      "display_survival_percent": "70.33",
+      "metrics": {
+        "avg_episode_length": 1746.7516666666668,
+        "avg_lin_vel_error": 0.3417991265282035,
+        "avg_yaw_vel_error": 0.3076359566114843,
+        "success_rate": 0.7033333333333334
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 136,
+          "survival_percent": 68.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_101.json",
+          "sha256": "143b21ada35df77a6cdb80d2715c4df8dfb7c0b403d10fa6b0ce8e3eff2bdf9f"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 146,
+          "survival_percent": 73.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_102.json",
+          "sha256": "f29a2c06f68afd5bf500d3c7eee29fd0adcc281f90b70da6e59eb72666d42b31"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 140,
+          "survival_percent": 70.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_103.json",
+          "sha256": "c37f3ab4b6894bcf3aa7358c197caa78fda7a93b5bbbd1d9646396d9bab9b5ad"
+        }
+      ]
+    },
+    {
+      "model": "Wider MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
+      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
+      "actor_variant": null,
+      "parameters": 1499705,
+      "episodes": 600,
+      "successes": 316,
+      "survival_percent": 52.666666666666664,
+      "display_survival_percent": "52.67",
+      "metrics": {
+        "avg_episode_length": 1543.9166666666667,
+        "avg_lin_vel_error": 0.33884678336481255,
+        "avg_yaw_vel_error": 0.4305793687266608,
+        "success_rate": 0.5266666666666667
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 111,
+          "survival_percent": 55.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_101.json",
+          "sha256": "4f20b8e5e17e15ab05e0d7ebe5dc595b53154d907f34389e733c55606fcf8cd8"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 107,
+          "survival_percent": 53.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_102.json",
+          "sha256": "f1a3cfa93fcbd59e85bc48913ebbc84eee56f12ab0df4e2fba6d6cf16ae62d2d"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 98,
+          "survival_percent": 49.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_103.json",
+          "sha256": "5ae3ee3bf9d43006aa8eef8dea07d77a39e6ae3ecdfc926ded7ecd382d81dc46"
+        }
+      ]
+    },
+    {
+      "model": "Wider MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
+      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
+      "actor_variant": null,
+      "parameters": 1499705,
+      "episodes": 600,
+      "successes": 357,
+      "survival_percent": 59.5,
+      "display_survival_percent": "59.50",
+      "metrics": {
+        "avg_episode_length": 1515.8216666666667,
+        "avg_lin_vel_error": 0.39920023914426567,
+        "avg_yaw_vel_error": 0.33197338236495855,
+        "success_rate": 0.595
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 115,
+          "survival_percent": 57.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_101.json",
+          "sha256": "d0288a54583656a043860a181d98780c0ade5b642f1d06ff2147157134ff764d"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 127,
+          "survival_percent": 63.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_102.json",
+          "sha256": "fb254197b5cb7d389bdd83ae2583a05bbca9217906dbd6d32abb7a532f538e8a"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 115,
+          "survival_percent": 57.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_103.json",
+          "sha256": "e4b14bb8851d0b84e60d0e1ab059cd00634c9a26c5539993181161b1316f8951"
+        }
+      ]
+    },
+    {
+      "model": "Deeper MLP",
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
+      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
+      "actor_variant": null,
+      "parameters": 1500569,
+      "episodes": 600,
+      "successes": 488,
+      "survival_percent": 81.33333333333333,
+      "display_survival_percent": "81.33",
+      "metrics": {
+        "avg_episode_length": 1983.23,
+        "avg_lin_vel_error": 0.28806661584724985,
+        "avg_yaw_vel_error": 0.22695468090474605,
+        "success_rate": 0.8133333333333334
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 161,
+          "survival_percent": 80.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_101.json",
+          "sha256": "db07f8a58f1f7f420fe414285ba76239a4ab9fff5a763f591ee45374c48889f8"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 159,
+          "survival_percent": 79.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_102.json",
+          "sha256": "b66b1a43b4c7370d05b511ff47666710f107e3e2ae6f920b9c8253be5f3f8473"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 168,
+          "survival_percent": 84.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_103.json",
+          "sha256": "7cd9054696f9554b9b94bfb3b1f8efa94e644e3d0597e01a4988b7c28891045d"
+        }
+      ]
+    },
+    {
+      "model": "Deeper MLP",
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
+      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
+      "actor_variant": null,
+      "parameters": 1500569,
+      "episodes": 600,
+      "successes": 231,
+      "survival_percent": 38.5,
+      "display_survival_percent": "38.50",
+      "metrics": {
+        "avg_episode_length": 1372.2433333333333,
+        "avg_lin_vel_error": 0.3761136996621887,
+        "avg_yaw_vel_error": 0.5209938081912696,
+        "success_rate": 0.385
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 75,
+          "survival_percent": 37.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_101.json",
+          "sha256": "d6d6616b73fd641799cf4234cdd4fff95c654e909f1622536ea6d8dea278f95a"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 82,
+          "survival_percent": 41.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_102.json",
+          "sha256": "86248c583dd4036bf0456828518201ed343c8faa9ee61c91d6ae31d499a7c0ba"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 74,
+          "survival_percent": 37.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_103.json",
+          "sha256": "672765c5ded147cf368e6570f62183da8a83aef8894c7fb3fd854553adf35799"
+        }
+      ]
+    },
+    {
+      "model": "Deeper MLP",
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "training_seed": 1,
+      "checkpoint_iteration": 3001,
+      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
+      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
+      "actor_variant": null,
+      "parameters": 1500569,
+      "episodes": 600,
+      "successes": 425,
+      "survival_percent": 70.83333333333334,
+      "display_survival_percent": "70.83",
+      "metrics": {
+        "avg_episode_length": 1755.9933333333333,
+        "avg_lin_vel_error": 0.3499237797657649,
+        "avg_yaw_vel_error": 0.280925479264309,
+        "success_rate": 0.7083333333333333
+      },
+      "evaluations": [
+        {
+          "evaluation_seed": 101,
+          "episodes": 200,
+          "successes": 138,
+          "survival_percent": 69.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_101.json",
+          "sha256": "724c5b6c0c8280068ae018c8dc82314248553f69a274de28c14cebfb54959690"
+        },
+        {
+          "evaluation_seed": 102,
+          "episodes": 200,
+          "successes": 144,
+          "survival_percent": 72.0,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_102.json",
+          "sha256": "24eb3f9c63f13bf699fea025933585414d69dd9544a981ef6f86ee09e1ac1b60"
+        },
+        {
+          "evaluation_seed": 103,
+          "episodes": 200,
+          "successes": 143,
+          "survival_percent": 71.5,
+          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_103.json",
+          "sha256": "64e0251c1064a1816d2763fe6508b2e8facb5c724ce9939ea9f5fb6dcc9db8eb"
+        }
+      ]
+    }
+  ]
+}

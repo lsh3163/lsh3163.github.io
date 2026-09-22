@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "experiment": "Humanoid-Gym completed nominal capacity comparison",
+  "training_seeds": [
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "evaluation_seeds": [
+    101,
+    102,
+    103
+  ],
+  "episodes_per_evaluation_seed": 200,
+  "episodes_per_trained_checkpoint": 600,
+  "aggregation": "Mean and sample standard deviation across the five training-seed aggregates (ddof=1).",
+  "protocol": "Nominal random-command evaluation; separate from the prescribed command schedule in the 3x3 video.",
+  "source_report_sha256": "d1e6bf54ca82ce3db7090374bb1212afdd69b4a0ecdaea8c0273d7f2bd996ca5",
+  "parameters": "Actor + critic + action standard deviation",
+  "results": [
+    {
+      "model": "PRISM",
+      "parameters": 1320576,
+      "survival_percent_mean": 74.97,
+      "survival_percent_sd": 6.55,
+      "episode_length_mean": 1867.31,
+      "linear_error_mean": 0.3271,
+      "yaw_error_mean": 0.234
+    },
+    {
+      "model": "Matched MLP",
+      "parameters": 1320953,
+      "survival_percent_mean": 71.1,
+      "survival_percent_sd": 8.7,
+      "episode_length_mean": 1786.21,
+      "linear_error_mean": 0.3522,
+      "yaw_error_mean": 0.2315
+    },
+    {
+      "model": "Wider MLP",
+      "parameters": 1499705,
+      "survival_percent_mean": 64.6,
+      "survival_percent_sd": 9.01,
+      "episode_length_mean": 1613.65,
+      "linear_error_mean": 0.4155,
+      "yaw_error_mean": 0.3125
+    },
+    {
+      "model": "Deeper MLP",
+      "parameters": 1500569,
+      "survival_percent_mean": 69.9,
+      "survival_percent_sd": 11.04,
+      "episode_length_mean": 1745.58,
+      "linear_error_mean": 0.3645,
+      "yaw_error_mean": 0.2549
+    }
+  ],
+  "interpretation": "PRISM has the highest observed mean survival. Matched MLP has slightly lower mean yaw error. No statistical-significance claim is implied."
+}

@@ -1,0 +1,1226 @@
+{
+  "schema_version": 1,
+  "experiment": "Humanoid-Gym G1 locomotion demonstration",
+  "source_run": "humanoid_command_grid/20260921T225600Z",
+  "video": {
+    "file": "humanoid-nominal-mass-friction.mp4",
+    "sha256": "d9ff0623ec587ab1dffc374aeb87ab6e455b34eea5385347936b9b7cfcd98cc0",
+    "width": 1920,
+    "height": 2200,
+    "fps": 25,
+    "frames": 600,
+    "duration_s": 24
+  },
+  "source_manifest_sha256": "ea3300124451d92e6410e0402e94e6432d64391ad2d731d2274ab11cb19d7516",
+  "prism_actor": "g1_gated_poly_v2",
+  "training_seed": 1,
+  "evaluation_seed": 101,
+  "row_order": [
+    "PRISM",
+    "Matched MLP",
+    "Deeper MLP"
+  ],
+  "column_order": [
+    "Nominal",
+    "Uniform link mass +15%",
+    "Low friction: ground and robot coefficient 0.20"
+  ],
+  "protocol": {
+    "protocol_id": "g1_command_stress_v1",
+    "schema_version": 1,
+    "seconds": 24,
+    "control_dt_nominal": 0.01,
+    "horizon_steps": 2400,
+    "command_order": [
+      "vx",
+      "vy",
+      "yaw_rate"
+    ],
+    "command_units": [
+      "m/s",
+      "m/s",
+      "rad/s"
+    ],
+    "command_frame": "body-frame linear velocity and yaw angular velocity",
+    "heading_command": false,
+    "phases": [
+      {
+        "phase_index": 0,
+        "name": "Slow forward",
+        "start_s": 0,
+        "stop_s": 4,
+        "first_action": 1,
+        "last_action": 400,
+        "target": [
+          0.2,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "phase_index": 1,
+        "name": "Forward",
+        "start_s": 4,
+        "stop_s": 8,
+        "first_action": 401,
+        "last_action": 800,
+        "target": [
+          0.4,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "phase_index": 2,
+        "name": "Fast forward",
+        "start_s": 8,
+        "stop_s": 12,
+        "first_action": 801,
+        "last_action": 1200,
+        "target": [
+          0.6,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "phase_index": 3,
+        "name": "Forward extrapolation",
+        "start_s": 12,
+        "stop_s": 16,
+        "first_action": 1201,
+        "last_action": 1600,
+        "target": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "phase_index": 4,
+        "name": "Left turn",
+        "start_s": 16,
+        "stop_s": 20,
+        "first_action": 1601,
+        "last_action": 2000,
+        "target": [
+          0.6,
+          0.0,
+          0.6
+        ]
+      },
+      {
+        "phase_index": 5,
+        "name": "Right turn",
+        "start_s": 20,
+        "stop_s": 24,
+        "first_action": 2001,
+        "last_action": 2400,
+        "target": [
+          0.6,
+          0.0,
+          -0.6
+        ]
+      }
+    ],
+    "distribution": {
+      "forward_training_range": [
+        -0.3,
+        0.6
+      ],
+      "forward_extrapolation_phase": 3,
+      "effective_training_heading_feedback_yaw_range": [
+        -1.0,
+        1.0
+      ],
+      "note": "vx=1.0 exceeds the forward training range. Yaw rates +/-0.6 are within the effective heading-feedback range; direct prescribed yaw changes the command distribution. Explicit vx=0.2 is retained without the random sampler's <=0.2 translation deadband."
+    },
+    "accounting": "All first-episode actions, including startup, count. Errors are accumulated at 100 Hz while alive, including the first terminal step; no zero padding or warmup exclusion.",
+    "success_definition": "timeout AND NOT (pelvis_contact OR roll OR pitch); stricter than historical timeout-only accounting when events coincide",
+    "termination": {
+      "pelvis_contact_force_norm_gt_N": 1.0,
+      "absolute_roll_gt_rad": 0.8,
+      "absolute_pitch_gt_rad": 1.0,
+      "timeout": "unchanged environment episode horizon"
+    }
+  },
+  "selection": {
+    "nominal": {
+      "selected_env_id": 0,
+      "qualifying_env_ids": [],
+      "selection_mode": "predeclared_env0_fallback",
+      "selection_disclosure": "Predeclared case 0: no qualifying comparison in 100 paired cases.",
+      "selection_rule": "lowest common env_id: PRISM success, both MLPs fail at or after 8s; else predeclared env 0"
+    },
+    "payload_mass": {
+      "selected_env_id": 40,
+      "qualifying_env_ids": [
+        40
+      ],
+      "selection_mode": "outcome_selected",
+      "selection_disclosure": "Selected from 100 paired cases: PRISM completes; MLPs fail after 8s.",
+      "selection_rule": "lowest common env_id: PRISM success, both MLPs fail at or after 8s; else predeclared env 0"
+    },
+    "low_friction": {
+      "selected_env_id": 5,
+      "qualifying_env_ids": [
+        5,
+        12,
+        13,
+        24,
+        35,
+        41,
+        60,
+        61,
+        64,
+        68,
+        79
+      ],
+      "selection_mode": "outcome_selected",
+      "selection_disclosure": "Selected from 100 paired cases: PRISM completes; MLPs fail after 8s.",
+      "selection_rule": "lowest common env_id: PRISM success, both MLPs fail at or after 8s; else predeclared env 0"
+    }
+  },
+  "case_outcomes": [
+    {
+      "model": "prism-1321k",
+      "condition": "nominal",
+      "initial_case_id": 0,
+      "outcome": {
+        "env_id": 0,
+        "terminal_step": 2400,
+        "time_s": 24.00000113993883,
+        "length": 2400,
+        "timeout": true,
+        "success": true,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": false,
+          "pitch": false,
+          "timeout": true
+        },
+        "linear_error_sum": 529.1880642045289,
+        "yaw_error_sum": 243.62280060433113,
+        "avg_lin_vel_error": 0.22049502675188706,
+        "avg_yaw_vel_error": 0.10150950025180464,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 53.15114280860871,
+            "yaw_error_sum": 18.83278114796849,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.13287785702152177,
+            "avg_yaw_vel_error": 0.04708195286992122
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 46.18436913192272,
+            "yaw_error_sum": 25.65991127066809,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1154609228298068,
+            "avg_yaw_vel_error": 0.06414977817667022
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 72.1138963997364,
+            "yaw_error_sum": 29.986980286659673,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.180284740999341,
+            "avg_yaw_vel_error": 0.07496745071664918
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 158.10372810065746,
+            "yaw_error_sum": 56.69632397161331,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.3952593202516437,
+            "avg_yaw_vel_error": 0.14174080992903326
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 91.95350077655166,
+            "yaw_error_sum": 39.14394798874855,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.22988375194137917,
+            "avg_yaw_vel_error": 0.09785986997187138
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 107.68142698705196,
+            "yaw_error_sum": 73.30285593867302,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2692035674676299,
+            "avg_yaw_vel_error": 0.18325713984668254
+          }
+        ],
+        "episode_steps": 2401,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          },
+          "episode_steps": 2401,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            0.02195959910750389,
+            0.0069277784787118435,
+            -0.386364221572876
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-1321k",
+      "condition": "nominal",
+      "initial_case_id": 0,
+      "outcome": {
+        "env_id": 0,
+        "terminal_step": 2400,
+        "time_s": 24.00000113993883,
+        "length": 2400,
+        "timeout": true,
+        "success": true,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": false,
+          "pitch": false,
+          "timeout": true
+        },
+        "linear_error_sum": 615.7086930489168,
+        "yaw_error_sum": 209.48738385783508,
+        "avg_lin_vel_error": 0.25654528877038196,
+        "avg_yaw_vel_error": 0.08728640994076461,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 56.74691741820425,
+            "yaw_error_sum": 24.156814951566048,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.14186729354551061,
+            "avg_yaw_vel_error": 0.06039203737891512
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 45.10853914171457,
+            "yaw_error_sum": 25.867474139726255,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.11277134785428643,
+            "avg_yaw_vel_error": 0.06466868534931564
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 71.99843284487724,
+            "yaw_error_sum": 30.61237238609465,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.17999608211219312,
+            "avg_yaw_vel_error": 0.07653093096523662
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 189.25197803974152,
+            "yaw_error_sum": 44.44512824015692,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.4731299450993538,
+            "avg_yaw_vel_error": 0.11111282060039229
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 122.08932875841856,
+            "yaw_error_sum": 37.273212134838104,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.3052233218960464,
+            "avg_yaw_vel_error": 0.09318303033709525
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 130.51349684596062,
+            "yaw_error_sum": 47.13238200545311,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.3262837421149015,
+            "avg_yaw_vel_error": 0.11783095501363278
+          }
+        ],
+        "episode_steps": 2401,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          },
+          "episode_steps": 2401,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            -0.06914719194173813,
+            -0.0054622674360871315,
+            -0.8124059438705444
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-deep-1500k",
+      "condition": "nominal",
+      "initial_case_id": 0,
+      "outcome": {
+        "env_id": 0,
+        "terminal_step": 2400,
+        "time_s": 24.00000113993883,
+        "length": 2400,
+        "timeout": true,
+        "success": true,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": false,
+          "pitch": false,
+          "timeout": true
+        },
+        "linear_error_sum": 569.3810829408467,
+        "yaw_error_sum": 130.36137702902488,
+        "avg_lin_vel_error": 0.23724211789201946,
+        "avg_yaw_vel_error": 0.05431724042876036,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 61.92700347304344,
+            "yaw_error_sum": 12.60781873340602,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1548175086826086,
+            "avg_yaw_vel_error": 0.03151954683351505
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 52.864932647906244,
+            "yaw_error_sum": 9.20957521557284,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.13216233161976562,
+            "avg_yaw_vel_error": 0.0230239380389321
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 61.430685225874186,
+            "yaw_error_sum": 11.946655526699033,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.15357671306468546,
+            "avg_yaw_vel_error": 0.02986663881674758
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 152.28629386425018,
+            "yaw_error_sum": 24.426818900421495,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.38071573466062547,
+            "avg_yaw_vel_error": 0.06106704725105374
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 135.26409006956965,
+            "yaw_error_sum": 33.226311296224594,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.33816022517392413,
+            "avg_yaw_vel_error": 0.08306577824056148
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 105.60807766020298,
+            "yaw_error_sum": 38.9441973567009,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2640201941505074,
+            "avg_yaw_vel_error": 0.09736049339175225
+          }
+        ],
+        "episode_steps": 2401,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          },
+          "episode_steps": 2401,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            0.0050733801908791065,
+            -0.008066548965871334,
+            -0.04257923737168312
+          ]
+        }
+      }
+    },
+    {
+      "model": "prism-1321k",
+      "condition": "payload_mass",
+      "initial_case_id": 40,
+      "outcome": {
+        "env_id": 40,
+        "terminal_step": 2400,
+        "time_s": 24.00000113993883,
+        "length": 2400,
+        "timeout": true,
+        "success": true,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": false,
+          "pitch": false,
+          "timeout": true
+        },
+        "linear_error_sum": 535.962535887491,
+        "yaw_error_sum": 357.11383081271197,
+        "avg_lin_vel_error": 0.22331772328645458,
+        "avg_yaw_vel_error": 0.14879742950529665,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 40.83667374285869,
+            "yaw_error_sum": 22.163034219724068,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.10209168435714673,
+            "avg_yaw_vel_error": 0.05540758554931017
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 49.62673004344106,
+            "yaw_error_sum": 28.50354705497739,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.12406682510860265,
+            "avg_yaw_vel_error": 0.07125886763744348
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 84.17677811533213,
+            "yaw_error_sum": 32.160313499371114,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.21044194528833032,
+            "avg_yaw_vel_error": 0.08040078374842778
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 172.12336444854736,
+            "yaw_error_sum": 43.92244237056002,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.4303084111213684,
+            "avg_yaw_vel_error": 0.10980610592640005
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 84.76877756789327,
+            "yaw_error_sum": 152.23116835951805,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.21192194391973318,
+            "avg_yaw_vel_error": 0.3805779208987951
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 104.43021196941845,
+            "yaw_error_sum": 78.13332530856133,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2610755299235461,
+            "avg_yaw_vel_error": 0.19533331327140332
+          }
+        ],
+        "episode_steps": 2401,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          },
+          "episode_steps": 2401,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            0.02007906883955002,
+            0.01650923490524292,
+            -1.0890942811965942
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-1321k",
+      "condition": "payload_mass",
+      "initial_case_id": 40,
+      "outcome": {
+        "env_id": 40,
+        "terminal_step": 2337,
+        "time_s": 23.370001110015437,
+        "length": 2337,
+        "timeout": false,
+        "success": false,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": true,
+          "pitch": false,
+          "timeout": false
+        },
+        "linear_error_sum": 611.2335924976505,
+        "yaw_error_sum": 290.3752141528239,
+        "avg_lin_vel_error": 0.2615462526733635,
+        "avg_yaw_vel_error": 0.12425126835807612,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 36.80033193388954,
+            "yaw_error_sum": 28.040658283804078,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.09200082983472385,
+            "avg_yaw_vel_error": 0.07010164570951019
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 44.7555325217545,
+            "yaw_error_sum": 30.808372548402986,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.11188883130438626,
+            "avg_yaw_vel_error": 0.07702093137100746
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 88.26711004972458,
+            "yaw_error_sum": 30.515636169875506,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.22066777512431146,
+            "avg_yaw_vel_error": 0.07628909042468876
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 206.00111369788647,
+            "yaw_error_sum": 39.40619270957541,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.5150027842447161,
+            "avg_yaw_vel_error": 0.09851548177393851
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 92.53137334063649,
+            "yaw_error_sum": 41.887801826000214,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.23132843335159123,
+            "avg_yaw_vel_error": 0.10471950456500054
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 337,
+            "linear_error_sum": 142.87813095375896,
+            "yaw_error_sum": 119.71655261516571,
+            "survival_at_end": false,
+            "exposure_s": 3.370000160066411,
+            "avg_lin_vel_error": 0.4239707149963174,
+            "avg_yaw_vel_error": 0.35524199589069944
+          }
+        ],
+        "episode_steps": 2338,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": true,
+            "pitch": false,
+            "timeout": false
+          },
+          "episode_steps": 2338,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            -0.8175796270370483,
+            0.618499755859375,
+            0.3382374346256256
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "initial_case_id": 40,
+      "outcome": {
+        "env_id": 40,
+        "terminal_step": 2177,
+        "time_s": 21.770001034019515,
+        "length": 2177,
+        "timeout": false,
+        "success": false,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": true,
+          "pitch": false,
+          "timeout": false
+        },
+        "linear_error_sum": 517.9761095014401,
+        "yaw_error_sum": 245.597050297818,
+        "avg_lin_vel_error": 0.2379311481403032,
+        "avg_yaw_vel_error": 0.11281444662279191,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 47.50346338376403,
+            "yaw_error_sum": 15.508759624415688,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.11875865845941007,
+            "avg_yaw_vel_error": 0.03877189906103922
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 61.15691488981247,
+            "yaw_error_sum": 11.935654694558252,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1528922872245312,
+            "avg_yaw_vel_error": 0.02983913673639563
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 78.41653304547071,
+            "yaw_error_sum": 11.052275080350228,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1960413326136768,
+            "avg_yaw_vel_error": 0.02763068770087557
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 162.5879606306553,
+            "yaw_error_sum": 16.097412226914457,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.4064699015766382,
+            "avg_yaw_vel_error": 0.04024353056728614
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 114.59608877869323,
+            "yaw_error_sum": 32.23845437169075,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.28649022194673307,
+            "avg_yaw_vel_error": 0.08059613592922688
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 177,
+            "linear_error_sum": 53.71514877304435,
+            "yaw_error_sum": 158.7644942998886,
+            "survival_at_end": false,
+            "exposure_s": 1.7700000840704888,
+            "avg_lin_vel_error": 0.30347541679686074,
+            "avg_yaw_vel_error": 0.8969745440671673
+          }
+        ],
+        "episode_steps": 2178,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": true,
+            "pitch": false,
+            "timeout": false
+          },
+          "episode_steps": 2178,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            0.8107553124427795,
+            -0.05447903648018837,
+            2.762882709503174
+          ]
+        }
+      }
+    },
+    {
+      "model": "prism-1321k",
+      "condition": "low_friction",
+      "initial_case_id": 5,
+      "outcome": {
+        "env_id": 5,
+        "terminal_step": 2400,
+        "time_s": 24.00000113993883,
+        "length": 2400,
+        "timeout": true,
+        "success": true,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": false,
+          "pitch": false,
+          "timeout": true
+        },
+        "linear_error_sum": 590.5200124219991,
+        "yaw_error_sum": 1050.9915270921847,
+        "avg_lin_vel_error": 0.24605000517583298,
+        "avg_yaw_vel_error": 0.4379131362884103,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 123.71632615150884,
+            "yaw_error_sum": 61.84445781692193,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.3092908153787721,
+            "avg_yaw_vel_error": 0.15461114454230482
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 48.26763053610921,
+            "yaw_error_sum": 38.25461923459079,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.12066907634027302,
+            "avg_yaw_vel_error": 0.09563654808647698
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 75.6046908646822,
+            "yaw_error_sum": 206.33544154185802,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1890117271617055,
+            "avg_yaw_vel_error": 0.5158386038546451
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 155.68477302789688,
+            "yaw_error_sum": 247.23550634970888,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.3892119325697422,
+            "avg_yaw_vel_error": 0.6180887658742722
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 64.12075660191476,
+            "yaw_error_sum": 280.8542979359627,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1603018915047869,
+            "avg_yaw_vel_error": 0.7021357448399067
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 123.12583523988724,
+            "yaw_error_sum": 216.4672042131424,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.30781458809971807,
+            "avg_yaw_vel_error": 0.541168010532856
+          }
+        ],
+        "episode_steps": 2401,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          },
+          "episode_steps": 2401,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            -0.018710030242800713,
+            -0.020241975784301758,
+            -1.0426216125488281
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-1321k",
+      "condition": "low_friction",
+      "initial_case_id": 5,
+      "outcome": {
+        "env_id": 5,
+        "terminal_step": 1208,
+        "time_s": 12.080000573769212,
+        "length": 1208,
+        "timeout": false,
+        "success": false,
+        "terminal_causes": {
+          "pelvis_contact": true,
+          "roll": false,
+          "pitch": false,
+          "timeout": false
+        },
+        "linear_error_sum": 324.85603963956237,
+        "yaw_error_sum": 217.24099675683465,
+        "avg_lin_vel_error": 0.26892056261553177,
+        "avg_yaw_vel_error": 0.17983526221592272,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 87.25345804914832,
+            "yaw_error_sum": 33.03294050531622,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2181336451228708,
+            "avg_yaw_vel_error": 0.08258235126329055
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 72.42619462311268,
+            "yaw_error_sum": 39.91265666985419,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.1810654865577817,
+            "avg_yaw_vel_error": 0.09978164167463546
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 150.60958643257618,
+            "yaw_error_sum": 127.18303052114788,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.37652396608144045,
+            "avg_yaw_vel_error": 0.3179575763028697
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 8,
+            "linear_error_sum": 14.56680053472519,
+            "yaw_error_sum": 17.112369060516357,
+            "survival_at_end": false,
+            "exposure_s": 0.0800000037997961,
+            "avg_lin_vel_error": 1.8208500668406487,
+            "avg_yaw_vel_error": 2.1390461325645447
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": false,
+            "exposure_steps": 0,
+            "linear_error_sum": 0.0,
+            "yaw_error_sum": 0.0,
+            "survival_at_end": false,
+            "exposure_s": 0.0,
+            "avg_lin_vel_error": null,
+            "avg_yaw_vel_error": null
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": false,
+            "exposure_steps": 0,
+            "linear_error_sum": 0.0,
+            "yaw_error_sum": 0.0,
+            "survival_at_end": false,
+            "exposure_s": 0.0,
+            "avg_lin_vel_error": null,
+            "avg_yaw_vel_error": null
+          }
+        ],
+        "episode_steps": 1209,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": true,
+            "roll": false,
+            "pitch": false,
+            "timeout": false
+          },
+          "episode_steps": 1209,
+          "pelvis_contact_force_norm": 211.28097534179688,
+          "rpy": [
+            0.6747213006019592,
+            0.8003498911857605,
+            -0.3130874037742615
+          ]
+        }
+      }
+    },
+    {
+      "model": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "initial_case_id": 5,
+      "outcome": {
+        "env_id": 5,
+        "terminal_step": 1459,
+        "time_s": 14.590000692987815,
+        "length": 1459,
+        "timeout": false,
+        "success": false,
+        "terminal_causes": {
+          "pelvis_contact": false,
+          "roll": true,
+          "pitch": false,
+          "timeout": false
+        },
+        "linear_error_sum": 559.1794262118638,
+        "yaw_error_sum": 421.6136492655205,
+        "avg_lin_vel_error": 0.3832621152925728,
+        "avg_yaw_vel_error": 0.28897439977074746,
+        "phases": [
+          {
+            "phase_index": 0,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 110.51303379610181,
+            "yaw_error_sum": 58.247013967251405,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2762825844902545,
+            "avg_yaw_vel_error": 0.1456175349181285
+          },
+          {
+            "phase_index": 1,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 82.76927973330021,
+            "yaw_error_sum": 48.689124652097235,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.2069231993332505,
+            "avg_yaw_vel_error": 0.12172281163024308
+          },
+          {
+            "phase_index": 2,
+            "alive_at_start": true,
+            "exposure_steps": 400,
+            "linear_error_sum": 156.31339079141617,
+            "yaw_error_sum": 116.95197297714185,
+            "survival_at_end": true,
+            "exposure_s": 4.000000189989805,
+            "avg_lin_vel_error": 0.39078347697854043,
+            "avg_yaw_vel_error": 0.29237993244285465
+          },
+          {
+            "phase_index": 3,
+            "alive_at_start": true,
+            "exposure_steps": 259,
+            "linear_error_sum": 209.58372189104557,
+            "yaw_error_sum": 197.72553766903002,
+            "survival_at_end": false,
+            "exposure_s": 2.590000123018399,
+            "avg_lin_vel_error": 0.8092035594248864,
+            "avg_yaw_vel_error": 0.7634190643591893
+          },
+          {
+            "phase_index": 4,
+            "alive_at_start": false,
+            "exposure_steps": 0,
+            "linear_error_sum": 0.0,
+            "yaw_error_sum": 0.0,
+            "survival_at_end": false,
+            "exposure_s": 0.0,
+            "avg_lin_vel_error": null,
+            "avg_yaw_vel_error": null
+          },
+          {
+            "phase_index": 5,
+            "alive_at_start": false,
+            "exposure_steps": 0,
+            "linear_error_sum": 0.0,
+            "yaw_error_sum": 0.0,
+            "survival_at_end": false,
+            "exposure_s": 0.0,
+            "avg_lin_vel_error": null,
+            "avg_yaw_vel_error": null
+          }
+        ],
+        "episode_steps": 1460,
+        "terminal_snapshot": {
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": true,
+            "pitch": false,
+            "timeout": false
+          },
+          "episode_steps": 1460,
+          "pelvis_contact_force_norm": 0.0,
+          "rpy": [
+            0.8139035105705261,
+            0.5769721269607544,
+            -0.9122394323348999
+          ]
+        }
+      }
+    }
+  ],
+  "presentation": {
+    "crop_xywh": [
+      160,
+      100,
+      320,
+      320
+    ],
+    "scale_and_clock": "Identical across panels",
+    "terminal_frames": "The recorded terminal image is held until the end of the common 24 s clock.",
+    "scope": "Illustrative selected rollouts, not an estimate of average success. The nominal five-training-seed results use a separate random-command evaluation protocol."
+  },
+  "full_screen_results": [
+    {
+      "condition": "nominal",
+      "variant": "prism-1321k",
+      "completed": 79,
+      "episodes": 100,
+      "screen_sha256": "1eb02c0f4d411f2cb9cff2ae39d1908ea48caa87764a4a976667146e830e9305"
+    },
+    {
+      "condition": "nominal",
+      "variant": "mlp-1321k",
+      "completed": 78,
+      "episodes": 100,
+      "screen_sha256": "63d785562a0de96cda28a3e4e1a6b8f3edfa82329ad0548555ea74781fec52cc"
+    },
+    {
+      "condition": "nominal",
+      "variant": "mlp-deep-1500k",
+      "completed": 76,
+      "episodes": 100,
+      "screen_sha256": "fdc8c2783bb1479e4257dade4794bc1c3006145bc3fb25070bfcfd483fbf1921"
+    },
+    {
+      "condition": "payload_mass",
+      "variant": "prism-1321k",
+      "completed": 38,
+      "episodes": 100,
+      "screen_sha256": "760c71e64cfcd584ffb1968588cce72054b7404ee8ccb47db37e0bfa7ffe78f6"
+    },
+    {
+      "condition": "payload_mass",
+      "variant": "mlp-1321k",
+      "completed": 65,
+      "episodes": 100,
+      "screen_sha256": "79440e91c09cf0ddbb45896c672fd7be6a26da5f2399d101163dee340186c3cd"
+    },
+    {
+      "condition": "payload_mass",
+      "variant": "mlp-deep-1500k",
+      "completed": 8,
+      "episodes": 100,
+      "screen_sha256": "9497fe0fe12bd857378a88273b53b6694b0c673f0d5ffccbe67f94f3eb2ec33f"
+    },
+    {
+      "condition": "low_friction",
+      "variant": "prism-1321k",
+      "completed": 16,
+      "episodes": 100,
+      "screen_sha256": "21a829a08184664aa4b4fffbf8e575676b6f74edfbeee1faa3167c8e326c7a99"
+    },
+    {
+      "condition": "low_friction",
+      "variant": "mlp-1321k",
+      "completed": 0,
+      "episodes": 100,
+      "screen_sha256": "54097b1f2d310fe6079ac817c1e88f26c956f5f000a263c10c5d3bba3f3be767"
+    },
+    {
+      "condition": "low_friction",
+      "variant": "mlp-deep-1500k",
+      "completed": 0,
+      "episodes": 100,
+      "screen_sha256": "2d8c5a133b6e1fcb8b769991d46cbfea7fe3ef46057148848127b2e31619bfdb"
+    }
+  ],
+  "full_screen_scope": "One training seed, 100 first episodes per method and condition. These descriptive counts cover the entire candidate pool for video selection and are separate from the five-training-seed nominal benchmark."
+}

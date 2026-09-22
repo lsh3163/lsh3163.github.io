@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="710" viewBox="0 0 800 710" role="img" aria-labelledby="title desc">
+  <title id="title">PRISM: learned interactions for robot control</title>
+  <desc id="desc">Robot state and history feed a learned gated polynomial representation, which integrates with reinforcement-learning and imitation-learning policies.</desc>
+  <style>text{font-family:Arial,Helvetica,sans-serif;fill:#202124}.muted{fill:#5f6368}.accent{fill:#1967d2}</style>
+  <rect width="800" height="710" rx="25" fill="#f8fafd"/>
+  <text x="40" y="66" font-size="40" font-weight="700">Learn the interactions</text>
+  <text x="40" y="114" font-size="40" font-weight="700">that drive control.</text>
+  <rect x="40" y="163" width="720" height="85" rx="16" fill="#fff"/>
+  <text x="400" y="216" text-anchor="middle" font-size="33">Robot state + observation history</text>
+  <path d="M400 262 V285 M390 275 L400 285 L410 275" fill="none" stroke="#939aa3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="300" width="720" height="154" rx="16" fill="#e8f0fe"/>
+  <text x="74" y="352" font-size="39" font-weight="700" class="accent">PRISM</text>
+  <text x="74" y="414" font-size="33">u ⊙ (1 + α ⊙ v)</text>
+  <text x="719" y="412" text-anchor="end" font-size="28" class="muted">Learned features + gate</text>
+  <path d="M400 468 V491 M390 481 L400 491 L410 481" fill="none" stroke="#939aa3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <rect x="40" y="509" width="348" height="117" rx="16" fill="#fff"/>
+  <text x="65" y="551" font-size="31" font-weight="700">Locomotion</text>
+  <text x="65" y="593" font-size="26" class="muted">Reinforcement learning</text>
+  <rect x="412" y="509" width="348" height="117" rx="16" fill="#fff"/>
+  <text x="437" y="551" font-size="31" font-weight="700">Manipulation</text>
+  <text x="437" y="593" font-size="26" class="muted">Imitation learning</text>
+  <text x="40" y="679" font-size="27" class="muted">No added sensors · End-to-end learning</text>
+</svg>
