@@ -1,10 +1,13 @@
 {
-  "schema_version": 1,
-  "experiment": "Humanoid-Gym random-command robustness comparison for the four capacity-control models",
-  "status": "complete_for_displayed_models",
-  "scope": "One independently trained checkpoint per model; no five-training-seed robustness estimate or training-seed standard deviation.",
+  "schema_version": 2,
+  "experiment": "Humanoid-Gym five-training-seed random-command robustness comparison",
+  "status": "complete",
   "training_seeds": [
-    1
+    1,
+    2,
+    3,
+    4,
+    5
   ],
   "evaluation_seeds": [
     101,
@@ -12,10 +15,11 @@
     103
   ],
   "episodes_per_evaluation_seed": 200,
-  "episodes_per_model_condition": 600,
-  "total_displayed_evaluations": 36,
-  "total_displayed_episodes": 7200,
-  "aggregation": "Survival is total counted environment timeouts divided by 600 counted episodes, equivalent to the mean of three equal-sized 200-episode evaluation runs.",
+  "episodes_per_checkpoint_condition": 600,
+  "episodes_per_model_condition": 3000,
+  "total_displayed_evaluations": 180,
+  "total_displayed_episodes": 36000,
+  "aggregation": "First aggregate 600 episodes per checkpoint and condition, then compute the mean and sample standard deviation across five independent training seeds (ddof=1).",
   "protocol": {
     "id": "g1_balanced_timeout_v2",
     "episode_allocation": "100 environments; the first two counted episodes from each environment per evaluation seed",
@@ -109,585 +113,3636 @@
     "difference": "The qualitative video uses a prescribed 24-second velocity/yaw schedule, first-episode screening and timeout-without-physical-failure completion. This robustness table uses randomized velocity/heading commands and balanced two-episode environment quotas. Differences between results are not attributed to commands alone.",
     "low_friction": "Both protocols set ground static/dynamic friction and robot-shape friction to 0.20; their outcome rates remain separate."
   },
-  "interpretation": "Among the four displayed models, PRISM has the highest observed survival under nominal conditions, low friction and uniform +15% link mass. These are descriptive results from one training seed.",
-  "sources": [
-    {
-      "source_identifier": "outputs/humanoid_attached_payload/20260917T180407Z/comparison_with_backpack.json",
-      "sha256": "e3944e13ab6b3e025555e5f8ac212955a48aab34ecc88de2bf88efb1fe51f8d1"
-    },
-    {
-      "source_identifier": "outputs/humanoid_attached_payload/20260917T180407Z/comparison_with_backpack.md",
-      "sha256": "c4faff9f3787ba4d070a86dcd77e7ca84b38851936b3b0236d3ce307c18a22d7"
-    },
-    {
-      "source_identifier": "outputs/humanoid_robustness/performance_updates/20260918T132655Z/results.md",
-      "sha256": "d1e6bf54ca82ce3db7090374bb1212afdd69b4a0ecdaea8c0273d7f2bd996ca5"
-    }
-  ],
+  "source_report": {
+    "source_identifier": "outputs/humanoid_robustness_five_seeds/20260922_v1/five_seed_robustness_summary.json",
+    "sha256": "bd7e852860b19c0a64ba33abdb3f298f9b91a227378d5ea349cd304dda597246"
+  },
   "records": [
     {
-      "model": "PRISM",
       "variant": "prism-1321k",
       "condition": "nominal",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
-      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
-      "actor_variant": "g1_gated_poly_v2",
-      "parameters": 1320576,
-      "episodes": 600,
-      "successes": 513,
-      "survival_percent": 85.5,
-      "display_survival_percent": "85.50",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/model_3001.pt",
+        "sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/prism_run_manifest.json",
+        "sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 2022.34,
+            "avg_lin_vel_error": 0.2780702573060989,
+            "avg_yaw_vel_error": 0.19209736853837966,
+            "success_rate": 0.83
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/eval_101.json",
+            "sha256": "6f22a8ef4f470366560cd7e6f77761d83f416e7506c6ad568c4386e4ed4cae51"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 2153.7,
+            "avg_lin_vel_error": 0.24665797766298056,
+            "avg_yaw_vel_error": 0.1518143305927515,
+            "success_rate": 0.89
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/eval_102.json",
+            "sha256": "f5b60b1e9042740830c81d8e9a46d2d4155033e6cf5ba08916667cebda99ca16"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2072.29,
+            "avg_lin_vel_error": 0.2626908770948648,
+            "avg_yaw_vel_error": 0.18708787273615599,
+            "success_rate": 0.845
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/eval_103.json",
+            "sha256": "2fde5f41ca382bcdb6bfe6e568bbf3c59950b32f7d64498624e8067083f6a304"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 2082.7766666666666,
         "avg_lin_vel_error": 0.2624730373546481,
         "avg_yaw_vel_error": 0.17699985728909573,
         "success_rate": 0.855
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 166,
-          "survival_percent": 83.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_101.json",
-          "sha256": "9edaf639d4d5d4a8c9365448353fa31224eeeca8252eebbbb0bfa7248986f4b8"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 178,
-          "survival_percent": 89.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_102.json",
-          "sha256": "467e9d80ef468d9bd3e824c5b047cf3fc8e7cc40ea38a7e3e922ef139e2a852a"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 169,
-          "survival_percent": 84.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/nominal/eval_103.json",
-          "sha256": "fb8598798e2713bced16eaa35161cd1b5604dfd8d5325ba53bb0edf27a7d9436"
-        }
-      ]
+      }
     },
     {
-      "model": "PRISM",
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/model_3001.pt",
+        "sha256": "6a8da6d93ee96ff8a7d43fcfd26d6c91aa8af7f7d65240a5fe4e00e4d125ed8a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/prism_run_manifest.json",
+        "sha256": "2a697bf4af3278f1ec70c80e63b58d42dabc01395d2957fb7ea455d3cc0e9382"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1846.325,
+            "avg_lin_vel_error": 0.32261726051568984,
+            "avg_yaw_vel_error": 0.21692095043137669,
+            "success_rate": 0.725
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/eval_101.json",
+            "sha256": "195aebafb99b19088b48ff6c5018adc856f1ba2aab0e0f3bc41321461f739498"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1875.25,
+            "avg_lin_vel_error": 0.31150192365050317,
+            "avg_yaw_vel_error": 0.21023241620510816,
+            "success_rate": 0.745
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/eval_102.json",
+            "sha256": "b4e734b56d2ff1444643e2f9de53f67dea35a30066279da9b58169b5d6b7e48d"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1893.07,
+            "avg_lin_vel_error": 0.3073696279898286,
+            "avg_yaw_vel_error": 0.20151743918657303,
+            "success_rate": 0.745
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/eval_103.json",
+            "sha256": "fc4d2274bf1cb6a62ee1a7a3b00e14a2055a65c33d60a65b0a44f3a482180242"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1871.5483333333334,
+        "avg_lin_vel_error": 0.3138296040520072,
+        "avg_yaw_vel_error": 0.20955693527435262,
+        "success_rate": 0.7383333333333333
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/model_3001.pt",
+        "sha256": "38c76d83fbb69405b5b51da217f6b3c34d00b721e5c5e023dcabbafed4e6e3b0"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/prism_run_manifest.json",
+        "sha256": "9a0ca7aef02222a22a6754a259158fdb36bf1869230e2e6d13a2625c87b2fb54"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1826.385,
+            "avg_lin_vel_error": 0.3345411229133606,
+            "avg_yaw_vel_error": 0.24558395829051732,
+            "success_rate": 0.735
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/eval_101.json",
+            "sha256": "471b32fa5d7a507c575a4e2b6b30eb1ec37523017e275e1d0fadf60f70d9d5b6"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1893.935,
+            "avg_lin_vel_error": 0.3274837252497673,
+            "avg_yaw_vel_error": 0.21044096309691668,
+            "success_rate": 0.77
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/eval_102.json",
+            "sha256": "b0cf48ca845392d2af5786f16b2f59c7176ef95d77cb7e10b42babd054fd599d"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1950.185,
+            "avg_lin_vel_error": 0.28853501718491315,
+            "avg_yaw_vel_error": 0.19862840067595244,
+            "success_rate": 0.78
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/eval_103.json",
+            "sha256": "ad9ba54ae5d01217cc54c5297ec4f3d38f1b0a60c23ffd0a0baad13f9a5a6f71"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1890.1683333333333,
+        "avg_lin_vel_error": 0.316853288449347,
+        "avg_yaw_vel_error": 0.21821777402112882,
+        "success_rate": 0.7616666666666667
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/model_3001.pt",
+        "sha256": "b7f2fcdf5f322cd655a46a66d41d9df0e08e3f51aaaebe71cba17e9796d50db2"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/prism_run_manifest.json",
+        "sha256": "36a26a53f1514db36eee1015f87feb025ded7dc74267e721d6ab75ae8e113d57"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1777.135,
+            "avg_lin_vel_error": 0.3494444205611944,
+            "avg_yaw_vel_error": 0.2662947697378695,
+            "success_rate": 0.715
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/eval_101.json",
+            "sha256": "f9be05bd402bb89f59508c39a3cf983bdacb22fcec1f6f9c470e0b868f570640"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1703.155,
+            "avg_lin_vel_error": 0.38995220836251976,
+            "avg_yaw_vel_error": 0.286151560600847,
+            "success_rate": 0.685
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/eval_102.json",
+            "sha256": "00cbda65b422f520ab44edb2e67183d8594cc1ecaf06877d6e4757c012bbc266"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1786.715,
+            "avg_lin_vel_error": 0.35352850999683144,
+            "avg_yaw_vel_error": 0.2538536377064884,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/eval_103.json",
+            "sha256": "23faab59f2ed66fac933a1111bab4f27cb8aa465cff60ba6a7e81bab3002f81e"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1755.6683333333333,
+        "avg_lin_vel_error": 0.36430837964018187,
+        "avg_yaw_vel_error": 0.2687666560150683,
+        "success_rate": 0.7066666666666667
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/model_3001.pt",
+        "sha256": "d2988ba340fb23468b5799e104f3b33b88bb8b17f3416024c2a125d9206535b3"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/prism_run_manifest.json",
+        "sha256": "2aef72b9a39d7715772a47afd5cd54c7aea758fd1c2919eab8f2f9b6d98a5642"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1704.585,
+            "avg_lin_vel_error": 0.373153689391911,
+            "avg_yaw_vel_error": 0.29699861664325,
+            "success_rate": 0.675
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/eval_101.json",
+            "sha256": "a583c41ff1a0bac4bc21877bab6a14f685ac0d54d9178a7ab2da95c5bad2e2e1"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1732.22,
+            "avg_lin_vel_error": 0.38746402971446514,
+            "avg_yaw_vel_error": 0.2961863517202437,
+            "success_rate": 0.68
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/eval_102.json",
+            "sha256": "632f94d0108036f7ab8feed37103955d2ebfd42295c31de738d656068f62543c"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1772.37,
+            "avg_lin_vel_error": 0.37287891272455453,
+            "avg_yaw_vel_error": 0.2957230342552066,
+            "success_rate": 0.705
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/eval_103.json",
+            "sha256": "6449b24e1ab24a4954d76ad69df89a2770cdb774f427ee757750c135320ded29"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1736.3916666666667,
+        "avg_lin_vel_error": 0.37783221061031025,
+        "avg_yaw_vel_error": 0.29630266753956674,
+        "success_rate": 0.6866666666666666
+      }
+    },
+    {
       "variant": "prism-1321k",
       "condition": "low_friction",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
-      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
-      "actor_variant": "g1_gated_poly_v2",
-      "parameters": 1320576,
-      "episodes": 600,
-      "successes": 395,
-      "survival_percent": 65.83333333333333,
-      "display_survival_percent": "65.83",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/model_3001.pt",
+        "sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/prism_run_manifest.json",
+        "sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1905.08,
+            "avg_lin_vel_error": 0.2816113137826324,
+            "avg_yaw_vel_error": 0.3373484031483531,
+            "success_rate": 0.695
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_101.json",
+            "sha256": "05097c8f6ec5257184234401496681948378b9de3279b5c1432eba665eddc10f"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1798.835,
+            "avg_lin_vel_error": 0.29723469574004413,
+            "avg_yaw_vel_error": 0.39452954215928915,
+            "success_rate": 0.62
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_102.json",
+            "sha256": "0c71769fd686e9f840c273e6ffab14f3b8baea362d6cad77054bf113fffba836"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1911.625,
+            "avg_lin_vel_error": 0.26856080755591394,
+            "avg_yaw_vel_error": 0.33304562186822295,
+            "success_rate": 0.66
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_103.json",
+            "sha256": "c6aed7e4680576a7c20a43294c4bb710b66142506485bae3e90e3af454e86e3e"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1871.8466666666666,
         "avg_lin_vel_error": 0.2824689390261968,
         "avg_yaw_vel_error": 0.3549745223919551,
         "success_rate": 0.6583333333333333
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 139,
-          "survival_percent": 69.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_101.json",
-          "sha256": "05097c8f6ec5257184234401496681948378b9de3279b5c1432eba665eddc10f"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 124,
-          "survival_percent": 62.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_102.json",
-          "sha256": "0c71769fd686e9f840c273e6ffab14f3b8baea362d6cad77054bf113fffba836"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 132,
-          "survival_percent": 66.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/low_friction/eval_103.json",
-          "sha256": "c6aed7e4680576a7c20a43294c4bb710b66142506485bae3e90e3af454e86e3e"
-        }
-      ]
+      }
     },
     {
-      "model": "PRISM",
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/model_3001.pt",
+        "sha256": "6a8da6d93ee96ff8a7d43fcfd26d6c91aa8af7f7d65240a5fe4e00e4d125ed8a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/prism_run_manifest.json",
+        "sha256": "2a697bf4af3278f1ec70c80e63b58d42dabc01395d2957fb7ea455d3cc0e9382"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1861.875,
+            "avg_lin_vel_error": 0.3165536391735077,
+            "avg_yaw_vel_error": 0.25589151081629097,
+            "success_rate": 0.74
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/low_friction/eval_101.json",
+            "sha256": "e9163f87ebe05f6a39aebc18abcf01e9caf24e854452fe9d6cb96cc35b24a4a8"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1985.28,
+            "avg_lin_vel_error": 0.3005807388946414,
+            "avg_yaw_vel_error": 0.23250303495675326,
+            "success_rate": 0.795
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/low_friction/eval_102.json",
+            "sha256": "712525808a274feae6a5f98810aeecda7d225c3da3281dbfe64ebe75eaba6696"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1876.855,
+            "avg_lin_vel_error": 0.30241724841296674,
+            "avg_yaw_vel_error": 0.2694651781767607,
+            "success_rate": 0.745
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/low_friction/eval_103.json",
+            "sha256": "8ee481c23bdb731baa524791da3c94788d288fc54bdf2067d3df2e0c078770f0"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1908.0033333333333,
+        "avg_lin_vel_error": 0.3065172088270386,
+        "avg_yaw_vel_error": 0.2526199079832683,
+        "success_rate": 0.76
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/model_3001.pt",
+        "sha256": "38c76d83fbb69405b5b51da217f6b3c34d00b721e5c5e023dcabbafed4e6e3b0"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/prism_run_manifest.json",
+        "sha256": "9a0ca7aef02222a22a6754a259158fdb36bf1869230e2e6d13a2625c87b2fb54"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1792.915,
+            "avg_lin_vel_error": 0.33726000748574736,
+            "avg_yaw_vel_error": 0.29195488585159185,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/low_friction/eval_101.json",
+            "sha256": "a5e6f3fbc88e56df025aeefdf52bb591e5286d83c872407b1eea89b5e102f31a"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1952.89,
+            "avg_lin_vel_error": 0.3120032277703285,
+            "avg_yaw_vel_error": 0.23558171287178994,
+            "success_rate": 0.8
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/low_friction/eval_102.json",
+            "sha256": "a88186d8f70575292e45a37522b334b9eb212b3bb53df919df19063f93031f16"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2007.705,
+            "avg_lin_vel_error": 0.29379127979278563,
+            "avg_yaw_vel_error": 0.23252891534939407,
+            "success_rate": 0.82
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/low_friction/eval_103.json",
+            "sha256": "804014eb3affb708ddcfacd3586d096a3d22c07b88a29e9130b5922a787d2b90"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1917.8366666666666,
+        "avg_lin_vel_error": 0.31435150501628717,
+        "avg_yaw_vel_error": 0.25335517135759195,
+        "success_rate": 0.78
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/model_3001.pt",
+        "sha256": "b7f2fcdf5f322cd655a46a66d41d9df0e08e3f51aaaebe71cba17e9796d50db2"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/prism_run_manifest.json",
+        "sha256": "36a26a53f1514db36eee1015f87feb025ded7dc74267e721d6ab75ae8e113d57"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1913.02,
+            "avg_lin_vel_error": 0.30969717852771284,
+            "avg_yaw_vel_error": 0.2439688690379262,
+            "success_rate": 0.775
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/low_friction/eval_101.json",
+            "sha256": "1534aedd31fdefff1def1cf9d666395059c5990171635996e38c9312b2e70a5c"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1946.005,
+            "avg_lin_vel_error": 0.3200735667720437,
+            "avg_yaw_vel_error": 0.2285948945209384,
+            "success_rate": 0.79
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/low_friction/eval_102.json",
+            "sha256": "c25350ee7ffd571b1bd2a76f1862dea18bac06e24571f882d41eaea656180eb0"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2001.255,
+            "avg_lin_vel_error": 0.29895228557288644,
+            "avg_yaw_vel_error": 0.21901118168607353,
+            "success_rate": 0.81
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/low_friction/eval_103.json",
+            "sha256": "7b34ef2a29af94649ee8e3d6f0b8fece6db1496806e6763369b52a741926a3de"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1953.4266666666667,
+        "avg_lin_vel_error": 0.3095743436242143,
+        "avg_yaw_vel_error": 0.2305249817483127,
+        "success_rate": 0.7916666666666667
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/model_3001.pt",
+        "sha256": "d2988ba340fb23468b5799e104f3b33b88bb8b17f3416024c2a125d9206535b3"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/prism_run_manifest.json",
+        "sha256": "2aef72b9a39d7715772a47afd5cd54c7aea758fd1c2919eab8f2f9b6d98a5642"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1851.685,
+            "avg_lin_vel_error": 0.3138872729986906,
+            "avg_yaw_vel_error": 0.2813180201500654,
+            "success_rate": 0.715
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/low_friction/eval_101.json",
+            "sha256": "21744486e45a2a6a4ba0c11e55e50b3a7e900ff401a4ac079df9bc6f47a514a5"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1948.35,
+            "avg_lin_vel_error": 0.3183446622267365,
+            "avg_yaw_vel_error": 0.2705721059907228,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/low_friction/eval_102.json",
+            "sha256": "7d9cd667406d244069f4f4c1f91a528b8406a5ba8aea868e3b0a9c7d78168008"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1886.23,
+            "avg_lin_vel_error": 0.30788402143865823,
+            "avg_yaw_vel_error": 0.277069243080914,
+            "success_rate": 0.695
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/low_friction/eval_103.json",
+            "sha256": "ed3117428b6c557995fe105501487a0783ff5c8923dbd1361196bff56cf43a07"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1895.4216666666666,
+        "avg_lin_vel_error": 0.31337198555469514,
+        "avg_yaw_vel_error": 0.2763197897405674,
+        "success_rate": 0.71
+      }
+    },
+    {
       "variant": "prism-1321k",
       "condition": "payload_mass",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5",
-      "training_manifest_sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542",
-      "actor_variant": "g1_gated_poly_v2",
-      "parameters": 1320576,
-      "episodes": 600,
-      "successes": 489,
-      "survival_percent": 81.5,
-      "display_survival_percent": "81.50",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/model_3001.pt",
+        "sha256": "419073191186fc45c8d96391f2efe9dcda4ba64932f524b6ee4345605c2ff9c5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed1/training/Sep14_13-58-49_main_table/prism_run_manifest.json",
+        "sha256": "377f5106865857dcbd86883bb6f8bb0bdefe5a802d4bb7adb180c54786c54542"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 2055.615,
+            "avg_lin_vel_error": 0.2885389094799757,
+            "avg_yaw_vel_error": 0.18577289123088123,
+            "success_rate": 0.835
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_101.json",
+            "sha256": "5d573ff20b1375c85e19855619dc323b297e38f76f2cb21dff3be2ba31e222ca"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1957.995,
+            "avg_lin_vel_error": 0.29222032479941845,
+            "avg_yaw_vel_error": 0.1798857214488089,
+            "success_rate": 0.795
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_102.json",
+            "sha256": "e62a65a347d564a3fba4da68c6b7f9181058c705273693d9c43811a45f40b6f5"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2011.425,
+            "avg_lin_vel_error": 0.2714918854832649,
+            "avg_yaw_vel_error": 0.18217419009655714,
+            "success_rate": 0.815
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_103.json",
+            "sha256": "a6693523d6104de4988cc3e3e4b6bb0674f372e37e1d0afbe6e072d217e6a02f"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 2008.3449999999998,
         "avg_lin_vel_error": 0.284083706587553,
         "avg_yaw_vel_error": 0.18261093425874908,
         "success_rate": 0.815
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 167,
-          "survival_percent": 83.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_101.json",
-          "sha256": "5d573ff20b1375c85e19855619dc323b297e38f76f2cb21dff3be2ba31e222ca"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 159,
-          "survival_percent": 79.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_102.json",
-          "sha256": "e62a65a347d564a3fba4da68c6b7f9181058c705273693d9c43811a45f40b6f5"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 163,
-          "survival_percent": 81.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/prism-1321k/payload_mass/eval_103.json",
-          "sha256": "a6693523d6104de4988cc3e3e4b6bb0674f372e37e1d0afbe6e072d217e6a02f"
-        }
-      ]
+      }
     },
     {
-      "model": "Matched MLP",
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/model_3001.pt",
+        "sha256": "6a8da6d93ee96ff8a7d43fcfd26d6c91aa8af7f7d65240a5fe4e00e4d125ed8a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed2/training/Sep15_05-00-09_main_table/prism_run_manifest.json",
+        "sha256": "2a697bf4af3278f1ec70c80e63b58d42dabc01395d2957fb7ea455d3cc0e9382"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1821.57,
+            "avg_lin_vel_error": 0.32755292564630506,
+            "avg_yaw_vel_error": 0.21388901673257352,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/payload_mass/eval_101.json",
+            "sha256": "9b82bede56dfa5212595b37f984368f1485b5a0154130608fa592f018229fc3e"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1649.04,
+            "avg_lin_vel_error": 0.38518679175525905,
+            "avg_yaw_vel_error": 0.2518864859454334,
+            "success_rate": 0.63
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/payload_mass/eval_102.json",
+            "sha256": "a963e9656a8f11e742b10f8bad94a9b81d7936d8190c1e6a61a72c487fde78d4"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1809.445,
+            "avg_lin_vel_error": 0.34475927766412495,
+            "avg_yaw_vel_error": 0.2411773868650198,
+            "success_rate": 0.7
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed2/payload_mass/eval_103.json",
+            "sha256": "68c840a121a984a541beeba3cc4b8d0bf1855041996a7f7357296e039fcc1170"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1760.0183333333332,
+        "avg_lin_vel_error": 0.35249966502189634,
+        "avg_yaw_vel_error": 0.2356509631810089,
+        "success_rate": 0.6833333333333333
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/model_3001.pt",
+        "sha256": "38c76d83fbb69405b5b51da217f6b3c34d00b721e5c5e023dcabbafed4e6e3b0"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed3/training/Sep15_18-47-09_main_table/prism_run_manifest.json",
+        "sha256": "9a0ca7aef02222a22a6754a259158fdb36bf1869230e2e6d13a2625c87b2fb54"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1639.825,
+            "avg_lin_vel_error": 0.36221908804029224,
+            "avg_yaw_vel_error": 0.3000631864741445,
+            "success_rate": 0.64
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/payload_mass/eval_101.json",
+            "sha256": "1b67d3545217e7814aad22e61953bf5d705d0ad48690d9e9e0dee347f456de3f"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1536.015,
+            "avg_lin_vel_error": 0.4017252178117633,
+            "avg_yaw_vel_error": 0.31144581105560065,
+            "success_rate": 0.59
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/payload_mass/eval_102.json",
+            "sha256": "c97f85a6f1a5ecea3efa333068d71f97668edc52af5a86dbdb9008fdfea24cb7"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1648.295,
+            "avg_lin_vel_error": 0.36423247423022986,
+            "avg_yaw_vel_error": 0.3115142054669559,
+            "success_rate": 0.635
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed3/payload_mass/eval_103.json",
+            "sha256": "4b3550e807961fe94f3482b65d92653a05fd6d5ba49e242602efba4a653f699b"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1608.045,
+        "avg_lin_vel_error": 0.37605892669409513,
+        "avg_yaw_vel_error": 0.30767440099890037,
+        "success_rate": 0.6216666666666667
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/model_3001.pt",
+        "sha256": "b7f2fcdf5f322cd655a46a66d41d9df0e08e3f51aaaebe71cba17e9796d50db2"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed4/training/Sep17_00-02-25_main_table/prism_run_manifest.json",
+        "sha256": "36a26a53f1514db36eee1015f87feb025ded7dc74267e721d6ab75ae8e113d57"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1498.62,
+            "avg_lin_vel_error": 0.3972290788218379,
+            "avg_yaw_vel_error": 0.35174287639558316,
+            "success_rate": 0.59
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/payload_mass/eval_101.json",
+            "sha256": "67012f8754ba4ee135a038345a5b224b236f9c102d5c3642878de670239dd6c8"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1550.39,
+            "avg_lin_vel_error": 0.3941195017844439,
+            "avg_yaw_vel_error": 0.3111167507339269,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/payload_mass/eval_102.json",
+            "sha256": "ad61fc07347da32b4b0d1ba270ab888c6507772f870925c04360d2f1bab6f995"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1657.66,
+            "avg_lin_vel_error": 0.37085918851196764,
+            "avg_yaw_vel_error": 0.2848899659141898,
+            "success_rate": 0.66
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed4/payload_mass/eval_103.json",
+            "sha256": "1d5a6d6a3e86f4b1972b540e805ffc9b086f93d406503a368cb1b9994f76ff67"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1568.89,
+        "avg_lin_vel_error": 0.38740258970608316,
+        "avg_yaw_vel_error": 0.3159165310145666,
+        "success_rate": 0.6183333333333333
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/model_3001.pt",
+        "sha256": "d2988ba340fb23468b5799e104f3b33b88bb8b17f3416024c2a125d9206535b3"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/prism-1321k/seed5/training/Sep17_16-59-19_main_table/prism_run_manifest.json",
+        "sha256": "2aef72b9a39d7715772a47afd5cd54c7aea758fd1c2919eab8f2f9b6d98a5642"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1402.86,
+            "avg_lin_vel_error": 0.43609241023659706,
+            "avg_yaw_vel_error": 0.3216022836789489,
+            "success_rate": 0.505
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/payload_mass/eval_101.json",
+            "sha256": "e531be5b2c2d609e9ede3d7b9f78dd81dbc25190c29c74c9e99b4fe3ceeb3dc7"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1584.97,
+            "avg_lin_vel_error": 0.4114835772663355,
+            "avg_yaw_vel_error": 0.30401281712576744,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/payload_mass/eval_102.json",
+            "sha256": "31cd47584e15e74c63b60510255c7bc4f6e7bef8a4d8c72dbc92876ffc45daf0"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1413.235,
+            "avg_lin_vel_error": 0.4456847986578941,
+            "avg_yaw_vel_error": 0.3810806982219219,
+            "success_rate": 0.515
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/prism-1321k/seed5/payload_mass/eval_103.json",
+            "sha256": "b3d365b375156b4a206248cce7d9926062a212ebd523634dc558e0774b307774"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1467.0216666666665,
+        "avg_lin_vel_error": 0.43108692872027554,
+        "avg_yaw_vel_error": 0.33556526634221273,
+        "success_rate": 0.5416666666666666
+      }
+    },
+    {
       "variant": "mlp-1321k",
       "condition": "nominal",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
-      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
-      "actor_variant": null,
-      "parameters": 1320953,
-      "episodes": 600,
-      "successes": 485,
-      "survival_percent": 80.83333333333333,
-      "display_survival_percent": "80.83",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/model_3001.pt",
+        "sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/prism_run_manifest.json",
+        "sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1985.3,
+            "avg_lin_vel_error": 0.279427583925426,
+            "avg_yaw_vel_error": 0.15842021759599448,
+            "success_rate": 0.8
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/eval_101.json",
+            "sha256": "8ccd30ced8a0f2834d8fb4ed49a517447e5f5c5266d3ac37e5fe7f060a0bf6f9"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 2002.53,
+            "avg_lin_vel_error": 0.2954720902442932,
+            "avg_yaw_vel_error": 0.16885627115145327,
+            "success_rate": 0.81
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/eval_102.json",
+            "sha256": "ccb5e78c7038a369d595d0eb373b2007f2da65167a98997a77f402e5d17acc60"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2001.31,
+            "avg_lin_vel_error": 0.2803862486407161,
+            "avg_yaw_vel_error": 0.1601641740463674,
+            "success_rate": 0.815
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/eval_103.json",
+            "sha256": "e5eb7f752ecf95aa1814fbc13ad4081063bb816e3f595f24dd06ec8e1b79a4e0"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1996.3799999999999,
         "avg_lin_vel_error": 0.28509530760347845,
         "avg_yaw_vel_error": 0.1624802209312717,
         "success_rate": 0.8083333333333333
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 160,
-          "survival_percent": 80.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_101.json",
-          "sha256": "de5152357546ec2909bf0a262dcde4936685f9b25dee97f495198234a95ea9d3"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 162,
-          "survival_percent": 81.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_102.json",
-          "sha256": "a2ab41a8ab54af2a1270a833b3a468539f3939d0ab064c016a6bbc051abbcb89"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 163,
-          "survival_percent": 81.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/nominal/eval_103.json",
-          "sha256": "5c96336fac8966214f6875836f55d1cda3da2573970b692f07a671c4edfba042"
-        }
-      ]
+      }
     },
     {
-      "model": "Matched MLP",
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/model_3001.pt",
+        "sha256": "d3079e161ae86ca3f4479395bac9793f599fad20e71117e735045575e931ef92"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/prism_run_manifest.json",
+        "sha256": "bbcbb2dd137213c0d60a8e60efc2f48a7b76fd1c599aa1edabdbda931ea6c4ac"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1320.91,
+            "avg_lin_vel_error": 0.49739192131906745,
+            "avg_yaw_vel_error": 0.3401795408502221,
+            "success_rate": 0.505
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/eval_101.json",
+            "sha256": "9a46def4b49cfab4902558169cb873483dddd34bd2f7263a2e5be4e90ce1071a"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1563.095,
+            "avg_lin_vel_error": 0.40783872932195664,
+            "avg_yaw_vel_error": 0.26426880141720177,
+            "success_rate": 0.6
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/eval_102.json",
+            "sha256": "e53352e09616da953b34d05f44fe94336edf2c6c545a72d1cf0e36d977f87a72"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1596.295,
+            "avg_lin_vel_error": 0.4284515845030546,
+            "avg_yaw_vel_error": 0.266232435144484,
+            "success_rate": 0.63
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/eval_103.json",
+            "sha256": "a69c575f0d11e602e18272eb1cf72538455ae21a8bdf54a56c74c472c943ae80"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1493.4333333333334,
+        "avg_lin_vel_error": 0.44456074504802623,
+        "avg_yaw_vel_error": 0.2902269258039693,
+        "success_rate": 0.5783333333333334
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/model_3001.pt",
+        "sha256": "64d78b72def5f425f32637c1c94b5f4b4139d72fe8ad3c4b559840d1247e191e"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/prism_run_manifest.json",
+        "sha256": "230abcc90d16030db77f7c736e4696ca40dfedd37b2ec305ff81c24895d587e1"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1930.755,
+            "avg_lin_vel_error": 0.2985740625858307,
+            "avg_yaw_vel_error": 0.18844046536833048,
+            "success_rate": 0.745
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/eval_101.json",
+            "sha256": "bac06d8c50a99f57ea67c57f39efaf87b0db732e5f8a663cdb86074cfa5be907"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1922.11,
+            "avg_lin_vel_error": 0.3027588498964906,
+            "avg_yaw_vel_error": 0.18957008842378856,
+            "success_rate": 0.74
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/eval_102.json",
+            "sha256": "a44d081fae9833b004bc0e8565434dbad46e533ed77f90b9448389648b31da4e"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1873.165,
+            "avg_lin_vel_error": 0.3173019769787788,
+            "avg_yaw_vel_error": 0.21637303225696086,
+            "success_rate": 0.73
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/eval_103.json",
+            "sha256": "28523bc9b2f09b9046a6aeb7828b0f0e89facf6280b8570fbc4dd1a2c8f3bb5f"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1908.6766666666667,
+        "avg_lin_vel_error": 0.3062116298203667,
+        "avg_yaw_vel_error": 0.19812786201635996,
+        "success_rate": 0.7383333333333333
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/model_3001.pt",
+        "sha256": "9a3a4bbc96ff6e1f9b69169f36b23f86da0dbda282023fabffafa9c3fcc4a426"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/prism_run_manifest.json",
+        "sha256": "b1cb3ed549c5d83585c881356f785ea84e7c19975a44bbdb7dc676a19471e86c"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1579.89,
+            "avg_lin_vel_error": 0.40867150627076626,
+            "avg_yaw_vel_error": 0.31983006339520215,
+            "success_rate": 0.63
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/eval_101.json",
+            "sha256": "549525582d969b9f097349ddf2db1904cff8a18b33d5cd5727d9b8560574f8ba"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1712.33,
+            "avg_lin_vel_error": 0.3876420632749796,
+            "avg_yaw_vel_error": 0.27042278088629246,
+            "success_rate": 0.69
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/eval_102.json",
+            "sha256": "8433dcd24fb0c777fd657805f8f0ea08aac099b3b02dbf81310d52337690ee7b"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1773.27,
+            "avg_lin_vel_error": 0.37770942721515893,
+            "avg_yaw_vel_error": 0.26865365917794404,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/eval_103.json",
+            "sha256": "f31d933fa2f1c060935f8e8c70c86056b1f5cc6ebb6ad633ab1db0a8f8a8bac9"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1688.4966666666667,
+        "avg_lin_vel_error": 0.3913409989203016,
+        "avg_yaw_vel_error": 0.2863021678198129,
+        "success_rate": 0.6799999999999999
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/model_3001.pt",
+        "sha256": "1561a7478799be46dc5ffe51eb4015617e1b05909a17bca77e007b48fa7bf4dd"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/prism_run_manifest.json",
+        "sha256": "161ba5ee0956ba76c2d8d2f79da4964c34347e40f2a5d072ed865884afbc8f8a"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1819.615,
+            "avg_lin_vel_error": 0.33673483349382877,
+            "avg_yaw_vel_error": 0.23472413577139378,
+            "success_rate": 0.74
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/eval_101.json",
+            "sha256": "11146803f5fe83f614ce34e2871debed9b0bfb0ee7e2e0549d9b2665c6ac3319"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1878.985,
+            "avg_lin_vel_error": 0.32162633538246155,
+            "avg_yaw_vel_error": 0.1971714043803513,
+            "success_rate": 0.765
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/eval_102.json",
+            "sha256": "e5bd107544e3416bac63047ea58c2be3344ad3ac968388e16ea0de5678c272d8"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1833.535,
+            "avg_lin_vel_error": 0.3424867270514369,
+            "avg_yaw_vel_error": 0.22973044311627747,
+            "success_rate": 0.745
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/eval_103.json",
+            "sha256": "dbc4102d884fdb3c6649abeb1c92e403373f95b7fe3cfdb7e98dfbef6339de47"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1844.045,
+        "avg_lin_vel_error": 0.3336159653092424,
+        "avg_yaw_vel_error": 0.2205419944226742,
+        "success_rate": 0.75
+      }
+    },
+    {
       "variant": "mlp-1321k",
       "condition": "low_friction",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
-      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
-      "actor_variant": null,
-      "parameters": 1320953,
-      "episodes": 600,
-      "successes": 296,
-      "survival_percent": 49.333333333333336,
-      "display_survival_percent": "49.33",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/model_3001.pt",
+        "sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/prism_run_manifest.json",
+        "sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1657.8,
+            "avg_lin_vel_error": 0.3162700482830405,
+            "avg_yaw_vel_error": 0.24510921880602837,
+            "success_rate": 0.52
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_101.json",
+            "sha256": "63b503209a730ca73970b1314b6dacd5f85d560fc80e8d167a2b4f2744d8a7ef"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1567.145,
+            "avg_lin_vel_error": 0.34272130075842144,
+            "avg_yaw_vel_error": 0.2624101987294853,
+            "success_rate": 0.465
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_102.json",
+            "sha256": "0e5d97ee7ca96967d56f5b55ec22164c02c14d0d6780a89f1001759a43af0e0b"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1529.15,
+            "avg_lin_vel_error": 0.3417365540191531,
+            "avg_yaw_vel_error": 0.2742581402137876,
+            "success_rate": 0.495
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_103.json",
+            "sha256": "4c53981b4ef3d59f8fbb2932c48f1eb63668bf9cacb23c7e961942f50a6ba808"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1584.6983333333333,
         "avg_lin_vel_error": 0.3335759676868717,
         "avg_yaw_vel_error": 0.26059251924976706,
         "success_rate": 0.49333333333333335
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 104,
-          "survival_percent": 52.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_101.json",
-          "sha256": "63b503209a730ca73970b1314b6dacd5f85d560fc80e8d167a2b4f2744d8a7ef"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 93,
-          "survival_percent": 46.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_102.json",
-          "sha256": "0e5d97ee7ca96967d56f5b55ec22164c02c14d0d6780a89f1001759a43af0e0b"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 99,
-          "survival_percent": 49.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/low_friction/eval_103.json",
-          "sha256": "4c53981b4ef3d59f8fbb2932c48f1eb63668bf9cacb23c7e961942f50a6ba808"
-        }
-      ]
+      }
     },
     {
-      "model": "Matched MLP",
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/model_3001.pt",
+        "sha256": "d3079e161ae86ca3f4479395bac9793f599fad20e71117e735045575e931ef92"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/prism_run_manifest.json",
+        "sha256": "bbcbb2dd137213c0d60a8e60efc2f48a7b76fd1c599aa1edabdbda931ea6c4ac"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1582.975,
+            "avg_lin_vel_error": 0.40756316903978584,
+            "avg_yaw_vel_error": 0.3356027407757938,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/low_friction/eval_101.json",
+            "sha256": "e20d25667cb922df1b6e73e940332cabf1ff16bf433c70fef0cc416dc160d8b0"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1626.6,
+            "avg_lin_vel_error": 0.38496150240302085,
+            "avg_yaw_vel_error": 0.3218426840007305,
+            "success_rate": 0.59
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/low_friction/eval_102.json",
+            "sha256": "debe3cca3ef2de8a06af346b6683488e500292b21573afb82e10394b2fd6dabc"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1616.605,
+            "avg_lin_vel_error": 0.3946435946971178,
+            "avg_yaw_vel_error": 0.3266854866407812,
+            "success_rate": 0.585
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/low_friction/eval_103.json",
+            "sha256": "2a761ea3b9a58d7e052198aad9eb4decf2d91a3e3de65e04057fdc3b1cfac1cd"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1608.7266666666667,
+        "avg_lin_vel_error": 0.3957227553799748,
+        "avg_yaw_vel_error": 0.32804363713910184,
+        "success_rate": 0.5933333333333333
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/model_3001.pt",
+        "sha256": "64d78b72def5f425f32637c1c94b5f4b4139d72fe8ad3c4b559840d1247e191e"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/prism_run_manifest.json",
+        "sha256": "230abcc90d16030db77f7c736e4696ca40dfedd37b2ec305ff81c24895d587e1"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1772.685,
+            "avg_lin_vel_error": 0.3481173961609602,
+            "avg_yaw_vel_error": 0.262420303132385,
+            "success_rate": 0.705
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/low_friction/eval_101.json",
+            "sha256": "8351f8138af5e147a3ba7d159c72d4203cdc0ecab6429f5c5d79097595b85631"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1984.91,
+            "avg_lin_vel_error": 0.29230755992233753,
+            "avg_yaw_vel_error": 0.19012713650241495,
+            "success_rate": 0.79
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/low_friction/eval_102.json",
+            "sha256": "d970718dc1e5c45b3715480834a4b31ab13d7c19384c38c9e669e830ac42b95b"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1912.755,
+            "avg_lin_vel_error": 0.308438931517303,
+            "avg_yaw_vel_error": 0.21587309278547764,
+            "success_rate": 0.76
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/low_friction/eval_103.json",
+            "sha256": "bb46462b1f93ade6a64539db5ffea06e7e30b8e7255ce0bc42982520769571b4"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1890.1166666666668,
+        "avg_lin_vel_error": 0.3162879625335336,
+        "avg_yaw_vel_error": 0.22280684414009252,
+        "success_rate": 0.7516666666666667
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/model_3001.pt",
+        "sha256": "9a3a4bbc96ff6e1f9b69169f36b23f86da0dbda282023fabffafa9c3fcc4a426"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/prism_run_manifest.json",
+        "sha256": "b1cb3ed549c5d83585c881356f785ea84e7c19975a44bbdb7dc676a19471e86c"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1685.48,
+            "avg_lin_vel_error": 0.32594462342560293,
+            "avg_yaw_vel_error": 0.3048110162653029,
+            "success_rate": 0.645
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/low_friction/eval_101.json",
+            "sha256": "26080b46b30609da516e8dd48e3bd793778af4883c8687de48b586f5fc64b3bc"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1738.19,
+            "avg_lin_vel_error": 0.3398146454244852,
+            "avg_yaw_vel_error": 0.32916539477184414,
+            "success_rate": 0.675
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/low_friction/eval_102.json",
+            "sha256": "278ff151ec3a0671ffc4225e1b4dbaabf16ea56c431b8ea3c600e6ab5b57d086"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1717.515,
+            "avg_lin_vel_error": 0.32521593183279035,
+            "avg_yaw_vel_error": 0.32866827756166456,
+            "success_rate": 0.675
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/low_friction/eval_103.json",
+            "sha256": "63a83eac91fc7bccb9d9f48e66acc61dc18c0143d3867168bddd558d561526ba"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1713.7283333333335,
+        "avg_lin_vel_error": 0.3303250668942928,
+        "avg_yaw_vel_error": 0.3208815628662705,
+        "success_rate": 0.665
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/model_3001.pt",
+        "sha256": "1561a7478799be46dc5ffe51eb4015617e1b05909a17bca77e007b48fa7bf4dd"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/prism_run_manifest.json",
+        "sha256": "161ba5ee0956ba76c2d8d2f79da4964c34347e40f2a5d072ed865884afbc8f8a"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1121.125,
+            "avg_lin_vel_error": 0.34473864536732435,
+            "avg_yaw_vel_error": 0.5038188586570322,
+            "success_rate": 0.205
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/low_friction/eval_101.json",
+            "sha256": "3336951be26fcdcb4a4f66450567eb3779cad28dab3ac5e87fc31ffbfb6a734d"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1117.715,
+            "avg_lin_vel_error": 0.3810461899638176,
+            "avg_yaw_vel_error": 0.49836651207879185,
+            "success_rate": 0.215
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/low_friction/eval_102.json",
+            "sha256": "e8553db304b1b0d7557ca222cdb04dd1b5bd86a63f1f2312d5e751369a439c57"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1195.22,
+            "avg_lin_vel_error": 0.3411513299122453,
+            "avg_yaw_vel_error": 0.48265503369271756,
+            "success_rate": 0.23
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/low_friction/eval_103.json",
+            "sha256": "a37479062bf690a6238593e9c962e4857c0e1c4eeaa0e6ff9042e470916afc77"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1144.6866666666667,
+        "avg_lin_vel_error": 0.3556453884144624,
+        "avg_yaw_vel_error": 0.49494680147618053,
+        "success_rate": 0.21666666666666667
+      }
+    },
+    {
       "variant": "mlp-1321k",
       "condition": "payload_mass",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6",
-      "training_manifest_sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933",
-      "actor_variant": null,
-      "parameters": 1320953,
-      "episodes": 600,
-      "successes": 403,
-      "survival_percent": 67.16666666666666,
-      "display_survival_percent": "67.17",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/model_3001.pt",
+        "sha256": "dc6aaaae39b3777aaf0885015f82fd1e17c0785b6f6efd757072a4ca037051c6"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed1/training/Sep14_17-23-55_main_table/prism_run_manifest.json",
+        "sha256": "b4959c6daffaa777f825de20771f1fc2442f6ede54f273fc2e684a5fd4e81933"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1670.805,
+            "avg_lin_vel_error": 0.3566798423230648,
+            "avg_yaw_vel_error": 0.20164837030693888,
+            "success_rate": 0.65
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_101.json",
+            "sha256": "3f2de0640a364ce39f4f607f70184884fe3fa5f13766c306198f72d0083ebaab"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1746.955,
+            "avg_lin_vel_error": 0.3697712219506502,
+            "avg_yaw_vel_error": 0.21390262380242347,
+            "success_rate": 0.68
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_102.json",
+            "sha256": "e0d58b984dcae9759a8c614d9bcf430e1655c181685a15e694b6e7076fff4081"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1774.14,
+            "avg_lin_vel_error": 0.3511561487987638,
+            "avg_yaw_vel_error": 0.19147726261988282,
+            "success_rate": 0.685
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_103.json",
+            "sha256": "ac71b61631bc8310fa9930aa938c656747264b1bda2016bf30ac0c594d998fb4"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1730.6333333333334,
         "avg_lin_vel_error": 0.35920240435749295,
         "avg_yaw_vel_error": 0.20234275224308174,
         "success_rate": 0.6716666666666667
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 130,
-          "survival_percent": 65.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_101.json",
-          "sha256": "3f2de0640a364ce39f4f607f70184884fe3fa5f13766c306198f72d0083ebaab"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 136,
-          "survival_percent": 68.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_102.json",
-          "sha256": "e0d58b984dcae9759a8c614d9bcf430e1655c181685a15e694b6e7076fff4081"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 137,
-          "survival_percent": 68.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-1321k/payload_mass/eval_103.json",
-          "sha256": "ac71b61631bc8310fa9930aa938c656747264b1bda2016bf30ac0c594d998fb4"
-        }
-      ]
+      }
     },
     {
-      "model": "Wider MLP",
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/model_3001.pt",
+        "sha256": "d3079e161ae86ca3f4479395bac9793f599fad20e71117e735045575e931ef92"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed2/training/Sep15_08-24-28_main_table/prism_run_manifest.json",
+        "sha256": "bbcbb2dd137213c0d60a8e60efc2f48a7b76fd1c599aa1edabdbda931ea6c4ac"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1254.23,
+            "avg_lin_vel_error": 0.48253237061202525,
+            "avg_yaw_vel_error": 0.30526437878608703,
+            "success_rate": 0.435
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/payload_mass/eval_101.json",
+            "sha256": "b5a36828604b31e5e67e42124a4462595fcd27c9c7ee47d50f5111709c1c4375"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1278.095,
+            "avg_lin_vel_error": 0.5030715945363045,
+            "avg_yaw_vel_error": 0.3021971569024026,
+            "success_rate": 0.455
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/payload_mass/eval_102.json",
+            "sha256": "0b891b812971932807788e174ebe36762604c20a2dcaf9a2813cad0c59f9ddc1"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1232.505,
+            "avg_lin_vel_error": 0.5117468977347016,
+            "avg_yaw_vel_error": 0.3013288109004498,
+            "success_rate": 0.44
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed2/payload_mass/eval_103.json",
+            "sha256": "957c22b2a69041ca41e4048311da5ac3f7ecf210e75fc0b09ae27739b6ea8e62"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1254.9433333333334,
+        "avg_lin_vel_error": 0.4991169542943438,
+        "avg_yaw_vel_error": 0.3029301155296465,
+        "success_rate": 0.44333333333333336
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/model_3001.pt",
+        "sha256": "64d78b72def5f425f32637c1c94b5f4b4139d72fe8ad3c4b559840d1247e191e"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed3/training/Sep15_22-11-48_main_table/prism_run_manifest.json",
+        "sha256": "230abcc90d16030db77f7c736e4696ca40dfedd37b2ec305ff81c24895d587e1"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1638.815,
+            "avg_lin_vel_error": 0.3667328655719757,
+            "avg_yaw_vel_error": 0.24752392439171672,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/payload_mass/eval_101.json",
+            "sha256": "8ca052e1ce7f45930508ee81094a90fddcc8dbce636e6f6e79603705eea4caa1"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1668.17,
+            "avg_lin_vel_error": 0.35894208583980797,
+            "avg_yaw_vel_error": 0.23283688751980663,
+            "success_rate": 0.62
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/payload_mass/eval_102.json",
+            "sha256": "e3f0536f04106cfca75739f700c8580863b8fdd7ea2c8e8eb1db209e5341ca02"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1582.1,
+            "avg_lin_vel_error": 0.38462197702378037,
+            "avg_yaw_vel_error": 0.2720724128186703,
+            "success_rate": 0.575
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed3/payload_mass/eval_103.json",
+            "sha256": "776d289889d7fbcb08546899fda11e187ae4465712e157ad64e3d70da2349f84"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1629.695,
+        "avg_lin_vel_error": 0.370098976145188,
+        "avg_yaw_vel_error": 0.25081107491006455,
+        "success_rate": 0.6
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/model_3001.pt",
+        "sha256": "9a3a4bbc96ff6e1f9b69169f36b23f86da0dbda282023fabffafa9c3fcc4a426"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed4/training/Sep17_03-59-55_main_table/prism_run_manifest.json",
+        "sha256": "b1cb3ed549c5d83585c881356f785ea84e7c19975a44bbdb7dc676a19471e86c"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1558.515,
+            "avg_lin_vel_error": 0.43317536905407905,
+            "avg_yaw_vel_error": 0.3074975590594113,
+            "success_rate": 0.625
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/payload_mass/eval_101.json",
+            "sha256": "956072fc9fe1de36eb0915d12f6d290be8a41e63f4b0a64c20ec12d3ada5c2b3"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1510.03,
+            "avg_lin_vel_error": 0.4386987690255046,
+            "avg_yaw_vel_error": 0.32414366273209455,
+            "success_rate": 0.6
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/payload_mass/eval_102.json",
+            "sha256": "854eab568e8ff2c0eed1f04f93cf3c245c1fa48080e323c088986dc71e5daaeb"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1517.23,
+            "avg_lin_vel_error": 0.4340912142768502,
+            "avg_yaw_vel_error": 0.3238849094323814,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed4/payload_mass/eval_103.json",
+            "sha256": "cc25a19d86a83d0ab9308f12bcd2fb97fde43bfe220c73e24ae83aaefaa78d94"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1528.5916666666667,
+        "avg_lin_vel_error": 0.4353217841188113,
+        "avg_yaw_vel_error": 0.3185087104079624,
+        "success_rate": 0.61
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/model_3001.pt",
+        "sha256": "1561a7478799be46dc5ffe51eb4015617e1b05909a17bca77e007b48fa7bf4dd"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-1321k/seed5/training/Sep17_20-59-17_main_table/prism_run_manifest.json",
+        "sha256": "161ba5ee0956ba76c2d8d2f79da4964c34347e40f2a5d072ed865884afbc8f8a"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1486.805,
+            "avg_lin_vel_error": 0.4258545599505305,
+            "avg_yaw_vel_error": 0.32857750199735164,
+            "success_rate": 0.59
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/payload_mass/eval_101.json",
+            "sha256": "93e3535ad465a5ff3052c39f2b89a3e5c53fd5fde97bfb35bac7dc9740e9b7ea"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1717.41,
+            "avg_lin_vel_error": 0.3741041514649987,
+            "avg_yaw_vel_error": 0.228846703004092,
+            "success_rate": 0.695
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/payload_mass/eval_102.json",
+            "sha256": "ac09c027fa7ba252b5a110d3cafec1b5a3f86f863892a3f854e33578732a7b8d"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1638.325,
+            "avg_lin_vel_error": 0.4023608930036426,
+            "avg_yaw_vel_error": 0.2838079538755119,
+            "success_rate": 0.655
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-1321k/seed5/payload_mass/eval_103.json",
+            "sha256": "7086ff812c99e62089bb36fdc7971d8ed51d538b395e462b559dde2943dba6ee"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1614.18,
+        "avg_lin_vel_error": 0.4007732014730573,
+        "avg_yaw_vel_error": 0.28041071962565184,
+        "success_rate": 0.6466666666666666
+      }
+    },
+    {
       "variant": "mlp-wide-1500k",
       "condition": "nominal",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
-      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
-      "actor_variant": null,
-      "parameters": 1499705,
-      "episodes": 600,
-      "successes": 422,
-      "survival_percent": 70.33333333333334,
-      "display_survival_percent": "70.33",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/model_3001.pt",
+        "sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/prism_run_manifest.json",
+        "sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1694.295,
+            "avg_lin_vel_error": 0.3517797639593482,
+            "avg_yaw_vel_error": 0.3258485570922494,
+            "success_rate": 0.68
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/eval_101.json",
+            "sha256": "5853c6e8f5473f5591c770b3f43e35fa38e1891b78ce73a2a63b1550632f9f6b"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1812.925,
+            "avg_lin_vel_error": 0.32506242629140614,
+            "avg_yaw_vel_error": 0.2702446487732232,
+            "success_rate": 0.73
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/eval_102.json",
+            "sha256": "1753cc74a18339c5c242df5704b4dafd9419e55fc1cd389696e654c07176bd66"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1733.035,
+            "avg_lin_vel_error": 0.3485551893338561,
+            "avg_yaw_vel_error": 0.3268146639689803,
+            "success_rate": 0.7
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/eval_103.json",
+            "sha256": "9cd2c949bfad92dc23b12ab9204eb66e8cab446baf62c2e96eb82f0e0d031e86"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1746.7516666666668,
         "avg_lin_vel_error": 0.3417991265282035,
         "avg_yaw_vel_error": 0.3076359566114843,
         "success_rate": 0.7033333333333334
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 136,
-          "survival_percent": 68.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_101.json",
-          "sha256": "143b21ada35df77a6cdb80d2715c4df8dfb7c0b403d10fa6b0ce8e3eff2bdf9f"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 146,
-          "survival_percent": 73.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_102.json",
-          "sha256": "f29a2c06f68afd5bf500d3c7eee29fd0adcc281f90b70da6e59eb72666d42b31"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 140,
-          "survival_percent": 70.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/nominal/eval_103.json",
-          "sha256": "c37f3ab4b6894bcf3aa7358c197caa78fda7a93b5bbbd1d9646396d9bab9b5ad"
-        }
-      ]
+      }
     },
     {
-      "model": "Wider MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/model_3001.pt",
+        "sha256": "f55e01f5cb4de35fadcfd2395c12ccf7636d5b76b761c03cd1e73ac7a2f16f93"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/prism_run_manifest.json",
+        "sha256": "bfa1747293adcaa91f9af9b4053f77a138f5b0be9c6db71aa5900e9d414139f3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1256.56,
+            "avg_lin_vel_error": 0.5373851969093084,
+            "avg_yaw_vel_error": 0.3455872407369316,
+            "success_rate": 0.49
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/eval_101.json",
+            "sha256": "3d2d5f807c913c755dccda620652c8849c7a6f6ef292c75d85f49c9bd6379f55"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1388.6,
+            "avg_lin_vel_error": 0.5090090315416456,
+            "avg_yaw_vel_error": 0.2842188110947609,
+            "success_rate": 0.55
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/eval_102.json",
+            "sha256": "bc29645e2b0dabe0db676d4d9ab99df72d66f2a06222dfd5331a6e78b0010234"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1398.425,
+            "avg_lin_vel_error": 0.49942124608904126,
+            "avg_yaw_vel_error": 0.2929174552485347,
+            "success_rate": 0.555
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/eval_103.json",
+            "sha256": "79e9010eb18d209043bb44f1194942101250e808875bf40565eab40f9d80fe16"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1347.8616666666667,
+        "avg_lin_vel_error": 0.5152718248466651,
+        "avg_yaw_vel_error": 0.3075745023600757,
+        "success_rate": 0.5316666666666667
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/model_3001.pt",
+        "sha256": "4f76af7863122fc6d330cb43438abec926c74263cfe6e7f68527065a180c6bfc"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/prism_run_manifest.json",
+        "sha256": "f53f14b175823f0bb898b775ad6cedf3a1e9c35f1283eff7a5c5f80b8a7a2db3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1461.56,
+            "avg_lin_vel_error": 0.4963334298878908,
+            "avg_yaw_vel_error": 0.40194196967408063,
+            "success_rate": 0.58
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/eval_101.json",
+            "sha256": "ae0deedf3175a5663c12bd660d1e17574ab7deea7df5c125f75801d10863cae6"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1485.92,
+            "avg_lin_vel_error": 0.4822966338694096,
+            "avg_yaw_vel_error": 0.34867802312597634,
+            "success_rate": 0.575
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/eval_102.json",
+            "sha256": "ea239106f9db0a13c7a748a351848aa72cd1837f3513c44f5766360e6fccc196"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1380.405,
+            "avg_lin_vel_error": 0.496545573733747,
+            "avg_yaw_vel_error": 0.3926328279264271,
+            "success_rate": 0.54
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/eval_103.json",
+            "sha256": "909e4f1340f55c312a6899d1ea1b55da52282f5bf04391a16f2c1feda05dfc87"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1442.6283333333333,
+        "avg_lin_vel_error": 0.4917252124970158,
+        "avg_yaw_vel_error": 0.3810842735754947,
+        "success_rate": 0.565
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/model_3001.pt",
+        "sha256": "4abad3609782a18a52c73baae2e7e4a147a7e42dfe32dcdb9a07673a900a1653"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/prism_run_manifest.json",
+        "sha256": "de8189809423d973d1818994dc97033d5986d8d27b7997dd5d79174ab69096b7"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1612.59,
+            "avg_lin_vel_error": 0.42124444618821144,
+            "avg_yaw_vel_error": 0.2904058423638344,
+            "success_rate": 0.65
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/eval_101.json",
+            "sha256": "bb9fd8f861b00cd32258224b9594c418551836df597c6c919826c972f93718cf"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1779.615,
+            "avg_lin_vel_error": 0.3769745644554496,
+            "avg_yaw_vel_error": 0.24418564891442657,
+            "success_rate": 0.725
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/eval_102.json",
+            "sha256": "24166a0e98852e58337230aa60a27812b1789f5ec37702f29c881cee682dbdd4"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1848.265,
+            "avg_lin_vel_error": 0.3411278967186809,
+            "avg_yaw_vel_error": 0.2214660340640694,
+            "success_rate": 0.755
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/eval_103.json",
+            "sha256": "4450938444df72c9d1a1a244ce2e0c542b29de7832bc8695850154f863cabd72"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1746.8233333333333,
+        "avg_lin_vel_error": 0.379782302454114,
+        "avg_yaw_vel_error": 0.2520191751141101,
+        "success_rate": 0.71
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/model_3001.pt",
+        "sha256": "3ec4223452d4f6a341e7348c9820bd1be6fcf4e3459d6890fce8a0ff97bd51a5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/prism_run_manifest.json",
+        "sha256": "052d130a8a41e9312e69c8182842dd00ec29699d1f9871eeefd63b693e0845ba"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1674.08,
+            "avg_lin_vel_error": 0.37859123334288597,
+            "avg_yaw_vel_error": 0.3531128668598831,
+            "success_rate": 0.67
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/eval_101.json",
+            "sha256": "ce17c33541e2a2b8d4a7f8d85f4ce1fdf7302e2afdcff87c68894b66a1fba130"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1873.38,
+            "avg_lin_vel_error": 0.329371218085289,
+            "avg_yaw_vel_error": 0.28016756946220994,
+            "success_rate": 0.76
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/eval_102.json",
+            "sha256": "76717298c51c2976a91cd08e7985af076c88aaeb45a3d2d41cccaa64ad35ca51"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1805.05,
+            "avg_lin_vel_error": 0.3388945424184203,
+            "avg_yaw_vel_error": 0.30901758417487146,
+            "success_rate": 0.73
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/eval_103.json",
+            "sha256": "25ed9afa51de3d2f7dd9ab66a96b6ccbed8c567f24ea91052a6d465d210c906e"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1784.17,
+        "avg_lin_vel_error": 0.34895233128219844,
+        "avg_yaw_vel_error": 0.31409934016565483,
+        "success_rate": 0.72
+      }
+    },
+    {
       "variant": "mlp-wide-1500k",
       "condition": "low_friction",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
-      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
-      "actor_variant": null,
-      "parameters": 1499705,
-      "episodes": 600,
-      "successes": 316,
-      "survival_percent": 52.666666666666664,
-      "display_survival_percent": "52.67",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/model_3001.pt",
+        "sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/prism_run_manifest.json",
+        "sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1563.245,
+            "avg_lin_vel_error": 0.3382770635560155,
+            "avg_yaw_vel_error": 0.4399790904857218,
+            "success_rate": 0.555
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_101.json",
+            "sha256": "4f20b8e5e17e15ab05e0d7ebe5dc595b53154d907f34389e733c55606fcf8cd8"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1573.67,
+            "avg_lin_vel_error": 0.32771075434982777,
+            "avg_yaw_vel_error": 0.3971830067411065,
+            "success_rate": 0.535
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_102.json",
+            "sha256": "f1a3cfa93fcbd59e85bc48913ebbc84eee56f12ab0df4e2fba6d6cf16ae62d2d"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1494.835,
+            "avg_lin_vel_error": 0.35055253218859433,
+            "avg_yaw_vel_error": 0.4545760089531541,
+            "success_rate": 0.49
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_103.json",
+            "sha256": "5ae3ee3bf9d43006aa8eef8dea07d77a39e6ae3ecdfc926ded7ecd382d81dc46"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1543.9166666666667,
         "avg_lin_vel_error": 0.33884678336481255,
         "avg_yaw_vel_error": 0.4305793687266608,
         "success_rate": 0.5266666666666667
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 111,
-          "survival_percent": 55.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_101.json",
-          "sha256": "4f20b8e5e17e15ab05e0d7ebe5dc595b53154d907f34389e733c55606fcf8cd8"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 107,
-          "survival_percent": 53.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_102.json",
-          "sha256": "f1a3cfa93fcbd59e85bc48913ebbc84eee56f12ab0df4e2fba6d6cf16ae62d2d"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 98,
-          "survival_percent": 49.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/low_friction/eval_103.json",
-          "sha256": "5ae3ee3bf9d43006aa8eef8dea07d77a39e6ae3ecdfc926ded7ecd382d81dc46"
-        }
-      ]
+      }
     },
     {
-      "model": "Wider MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/model_3001.pt",
+        "sha256": "f55e01f5cb4de35fadcfd2395c12ccf7636d5b76b761c03cd1e73ac7a2f16f93"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/prism_run_manifest.json",
+        "sha256": "bfa1747293adcaa91f9af9b4053f77a138f5b0be9c6db71aa5900e9d414139f3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1465.86,
+            "avg_lin_vel_error": 0.45407409030944107,
+            "avg_yaw_vel_error": 0.27518760196864606,
+            "success_rate": 0.58
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/low_friction/eval_101.json",
+            "sha256": "b97da250cd37d6a9512fe01b1f06e82e91e894fba280c8f0c97b3f3b1f525fd1"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1470.14,
+            "avg_lin_vel_error": 0.49373356726020573,
+            "avg_yaw_vel_error": 0.2571741912513971,
+            "success_rate": 0.585
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/low_friction/eval_102.json",
+            "sha256": "eec4036626ed56151ae56164597ebca73d9ff5b92967c8a346f108234ed6099b"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1553.865,
+            "avg_lin_vel_error": 0.4545389879122376,
+            "avg_yaw_vel_error": 0.256715937666595,
+            "success_rate": 0.625
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/low_friction/eval_103.json",
+            "sha256": "fbcaf59367c2c0d0e2fbabc0eca41360ec14f08883f64baaa4f18c4367182321"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1496.6216666666667,
+        "avg_lin_vel_error": 0.4674488818272948,
+        "avg_yaw_vel_error": 0.26302591029554606,
+        "success_rate": 0.5966666666666667
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/model_3001.pt",
+        "sha256": "4f76af7863122fc6d330cb43438abec926c74263cfe6e7f68527065a180c6bfc"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/prism_run_manifest.json",
+        "sha256": "f53f14b175823f0bb898b775ad6cedf3a1e9c35f1283eff7a5c5f80b8a7a2db3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1590.54,
+            "avg_lin_vel_error": 0.445233779065311,
+            "avg_yaw_vel_error": 0.3146971413120627,
+            "success_rate": 0.64
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/low_friction/eval_101.json",
+            "sha256": "485b7a8411cd39a13fbc19dddb9bb758cff9c15c44e430fc6ac6c9d8cbd04c89"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1802.385,
+            "avg_lin_vel_error": 0.42247553601861,
+            "avg_yaw_vel_error": 0.28440842652693393,
+            "success_rate": 0.735
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/low_friction/eval_102.json",
+            "sha256": "385dd169bd94122c44d0ad43bbed73eb5b1aa0c1933317a7bc008c4c6057a259"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1724.015,
+            "avg_lin_vel_error": 0.41796295531094074,
+            "avg_yaw_vel_error": 0.30339833287522194,
+            "success_rate": 0.7
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/low_friction/eval_103.json",
+            "sha256": "dfe9d91464ab83e1cc11fc9a4ea5c40a280e867ab22e932a0eebf843c86c7150"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1705.6466666666668,
+        "avg_lin_vel_error": 0.4285574234649539,
+        "avg_yaw_vel_error": 0.3008346335714062,
+        "success_rate": 0.6916666666666667
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/model_3001.pt",
+        "sha256": "4abad3609782a18a52c73baae2e7e4a147a7e42dfe32dcdb9a07673a900a1653"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/prism_run_manifest.json",
+        "sha256": "de8189809423d973d1818994dc97033d5986d8d27b7997dd5d79174ab69096b7"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1192.46,
+            "avg_lin_vel_error": 0.38768970381468537,
+            "avg_yaw_vel_error": 0.40562694054096937,
+            "success_rate": 0.365
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/low_friction/eval_101.json",
+            "sha256": "b6cee2ce8459ead19594ffeb19529527858846c1948f0025929b278003a9dcff"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1364.72,
+            "avg_lin_vel_error": 0.3769762805849314,
+            "avg_yaw_vel_error": 0.3759908482246101,
+            "success_rate": 0.435
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/low_friction/eval_102.json",
+            "sha256": "d048e5ee947709817052aba1fbd306ecfc0b36d20ad545902fdb0b0c127fdcb9"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1285.28,
+            "avg_lin_vel_error": 0.35584457345306875,
+            "avg_yaw_vel_error": 0.38589120760560036,
+            "success_rate": 0.385
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/low_friction/eval_103.json",
+            "sha256": "1b1450379d01922f762a23678701188c0f71af3882d9713417eb83d366389b53"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1280.82,
+        "avg_lin_vel_error": 0.3735035192842285,
+        "avg_yaw_vel_error": 0.38916966545705994,
+        "success_rate": 0.395
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/model_3001.pt",
+        "sha256": "3ec4223452d4f6a341e7348c9820bd1be6fcf4e3459d6890fce8a0ff97bd51a5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/prism_run_manifest.json",
+        "sha256": "052d130a8a41e9312e69c8182842dd00ec29699d1f9871eeefd63b693e0845ba"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1622.725,
+            "avg_lin_vel_error": 0.35960562456399203,
+            "avg_yaw_vel_error": 0.4215069951303303,
+            "success_rate": 0.595
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/low_friction/eval_101.json",
+            "sha256": "1a5ca721ce5258f088a2b08c23f1be183edabff0cc49e77cf70e05096877ca51"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1627.55,
+            "avg_lin_vel_error": 0.37274006877094507,
+            "avg_yaw_vel_error": 0.4056957126781344,
+            "success_rate": 0.615
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/low_friction/eval_102.json",
+            "sha256": "3b8e2714eda6bc7893dab1e4c3b9a1b46d2c6d7e2ad729ffceb0b73727afd8ea"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1620.955,
+            "avg_lin_vel_error": 0.3787139431759715,
+            "avg_yaw_vel_error": 0.4168093784712255,
+            "success_rate": 0.595
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/low_friction/eval_103.json",
+            "sha256": "3174c4663bead0ac08cc797f0ad5d6ae25a7bc1fa795560d32825b2122809d52"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1623.7433333333333,
+        "avg_lin_vel_error": 0.37035321217030287,
+        "avg_yaw_vel_error": 0.41467069542656343,
+        "success_rate": 0.6016666666666667
+      }
+    },
+    {
       "variant": "mlp-wide-1500k",
       "condition": "payload_mass",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae",
-      "training_manifest_sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86",
-      "actor_variant": null,
-      "parameters": 1499705,
-      "episodes": 600,
-      "successes": 357,
-      "survival_percent": 59.5,
-      "display_survival_percent": "59.50",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/model_3001.pt",
+        "sha256": "92d5eb77ebdff893e2d65a896163cb87e7d3cc15e5d8f420e47bb6d3c4780dae"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed1/training/Sep14_20-47-28_main_table/prism_run_manifest.json",
+        "sha256": "d7a42acfe18c2c1e137c7574f2eb56d5c14dc17a7245cfe9cbf5bb94cfe19d86"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1454.975,
+            "avg_lin_vel_error": 0.41220635384321214,
+            "avg_yaw_vel_error": 0.3366219003498554,
+            "success_rate": 0.575
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_101.json",
+            "sha256": "d0288a54583656a043860a181d98780c0ade5b642f1d06ff2147157134ff764d"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1611.86,
+            "avg_lin_vel_error": 0.3807171477749944,
+            "avg_yaw_vel_error": 0.2817034210637212,
+            "success_rate": 0.635
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_102.json",
+            "sha256": "fb254197b5cb7d389bdd83ae2583a05bbca9217906dbd6d32abb7a532f538e8a"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1480.63,
+            "avg_lin_vel_error": 0.40467721581459043,
+            "avg_yaw_vel_error": 0.377594825681299,
+            "success_rate": 0.575
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_103.json",
+            "sha256": "e4b14bb8851d0b84e60d0e1ab059cd00634c9a26c5539993181161b1316f8951"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1515.8216666666667,
         "avg_lin_vel_error": 0.39920023914426567,
         "avg_yaw_vel_error": 0.33197338236495855,
         "success_rate": 0.595
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 115,
-          "survival_percent": 57.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_101.json",
-          "sha256": "d0288a54583656a043860a181d98780c0ade5b642f1d06ff2147157134ff764d"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 127,
-          "survival_percent": 63.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_102.json",
-          "sha256": "fb254197b5cb7d389bdd83ae2583a05bbca9217906dbd6d32abb7a532f538e8a"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 115,
-          "survival_percent": 57.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-wide-1500k/payload_mass/eval_103.json",
-          "sha256": "e4b14bb8851d0b84e60d0e1ab059cd00634c9a26c5539993181161b1316f8951"
-        }
-      ]
+      }
     },
     {
-      "model": "Deeper MLP",
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/model_3001.pt",
+        "sha256": "f55e01f5cb4de35fadcfd2395c12ccf7636d5b76b761c03cd1e73ac7a2f16f93"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed2/training/Sep15_12-07-01_main_table/prism_run_manifest.json",
+        "sha256": "bfa1747293adcaa91f9af9b4053f77a138f5b0be9c6db71aa5900e9d414139f3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1147.76,
+            "avg_lin_vel_error": 0.5564350392296911,
+            "avg_yaw_vel_error": 0.3339682294987142,
+            "success_rate": 0.445
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/payload_mass/eval_101.json",
+            "sha256": "9ebb300a0c7fdcb76352d9bbf4f655768be1ec78c317fbb478e99701682f6429"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1361.81,
+            "avg_lin_vel_error": 0.5233308162540198,
+            "avg_yaw_vel_error": 0.25877166155725717,
+            "success_rate": 0.535
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/payload_mass/eval_102.json",
+            "sha256": "367bdbf345172e45c59880c3cb87bb9b10ec5bcd565f2258cdfef0f7aeabf27b"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1194.345,
+            "avg_lin_vel_error": 0.5568591719865799,
+            "avg_yaw_vel_error": 0.3180097381025553,
+            "success_rate": 0.46
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed2/payload_mass/eval_103.json",
+            "sha256": "e8bf6e7933aed0b2e8449cc342ef1007d0add975a34fd879fd06fdf478b8fe54"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1234.6383333333333,
+        "avg_lin_vel_error": 0.5455416758234303,
+        "avg_yaw_vel_error": 0.30358320971950886,
+        "success_rate": 0.48000000000000004
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/model_3001.pt",
+        "sha256": "4f76af7863122fc6d330cb43438abec926c74263cfe6e7f68527065a180c6bfc"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed3/training/Sep16_16-14-02_main_table/prism_run_manifest.json",
+        "sha256": "f53f14b175823f0bb898b775ad6cedf3a1e9c35f1283eff7a5c5f80b8a7a2db3"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1244.805,
+            "avg_lin_vel_error": 0.5310567028820514,
+            "avg_yaw_vel_error": 0.3776235363446176,
+            "success_rate": 0.475
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/payload_mass/eval_101.json",
+            "sha256": "9d8370ea2d7db93549a0d25965a13cace88d79131c9a1bcd4cbdfdc50626e8f6"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1257.325,
+            "avg_lin_vel_error": 0.550139075666666,
+            "avg_yaw_vel_error": 0.3641316245868802,
+            "success_rate": 0.475
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/payload_mass/eval_102.json",
+            "sha256": "821451317d672cd3227ae86c77da7a64bd0df5cd0e63926ccb6050840ae27add"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1201.185,
+            "avg_lin_vel_error": 0.5463748750835657,
+            "avg_yaw_vel_error": 0.40472942585125565,
+            "success_rate": 0.455
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed3/payload_mass/eval_103.json",
+            "sha256": "6ecdf9712262d4275bc6ef71bdcdb87890ab9ec352af5198ff79724963b5f2a2"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1234.4383333333333,
+        "avg_lin_vel_error": 0.542523551210761,
+        "avg_yaw_vel_error": 0.3821615289275845,
+        "success_rate": 0.4683333333333333
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/model_3001.pt",
+        "sha256": "4abad3609782a18a52c73baae2e7e4a147a7e42dfe32dcdb9a07673a900a1653"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed4/training/Sep17_07-53-17_main_table/prism_run_manifest.json",
+        "sha256": "de8189809423d973d1818994dc97033d5986d8d27b7997dd5d79174ab69096b7"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1361.945,
+            "avg_lin_vel_error": 0.47937082465738057,
+            "avg_yaw_vel_error": 0.36115271765738727,
+            "success_rate": 0.53
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/payload_mass/eval_101.json",
+            "sha256": "270ebabbe3a21fda82731965b5d9ab2722633195287ff632d3473ea9ae847340"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1474.53,
+            "avg_lin_vel_error": 0.468186845369637,
+            "avg_yaw_vel_error": 0.30570288402959706,
+            "success_rate": 0.585
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/payload_mass/eval_102.json",
+            "sha256": "0fcdbdf1cefbf45f8014f29309973cd4b81c9dc92b262b726bd98be994d13f04"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1528.605,
+            "avg_lin_vel_error": 0.44125338524580004,
+            "avg_yaw_vel_error": 0.30197282703593376,
+            "success_rate": 0.61
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed4/payload_mass/eval_103.json",
+            "sha256": "e76c88ff53cb4e8ad6aa9efd5478ef2995043cc842f0bef822794dab5941737d"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1455.0266666666666,
+        "avg_lin_vel_error": 0.46293701842427254,
+        "avg_yaw_vel_error": 0.32294280957430604,
+        "success_rate": 0.575
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/model_3001.pt",
+        "sha256": "3ec4223452d4f6a341e7348c9820bd1be6fcf4e3459d6890fce8a0ff97bd51a5"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-wide-1500k/seed5/training/Sep18_00-52-27_main_table/prism_run_manifest.json",
+        "sha256": "052d130a8a41e9312e69c8182842dd00ec29699d1f9871eeefd63b693e0845ba"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1507.365,
+            "avg_lin_vel_error": 0.4139155715331435,
+            "avg_yaw_vel_error": 0.3273913102596998,
+            "success_rate": 0.595
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/payload_mass/eval_101.json",
+            "sha256": "aeac3dd9846103f91016096b8471e34d6cd05c6ead358db9794ce8d52f106b9e"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1570.125,
+            "avg_lin_vel_error": 0.4189810283482075,
+            "avg_yaw_vel_error": 0.330606271289289,
+            "success_rate": 0.605
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/payload_mass/eval_102.json",
+            "sha256": "5fa97fbfa91ccca2c0cf44b8895dfc312a6c630bdf41d8cac28c8d3378704c72"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1577.075,
+            "avg_lin_vel_error": 0.4029966752231121,
+            "avg_yaw_vel_error": 0.3142799632996321,
+            "success_rate": 0.615
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-wide-1500k/seed5/payload_mass/eval_103.json",
+            "sha256": "e7229bff6e00d72173fb54192977784e22d0de77696332312bca3f4f18010031"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1551.5216666666668,
+        "avg_lin_vel_error": 0.41196442503482106,
+        "avg_yaw_vel_error": 0.3240925149495403,
+        "success_rate": 0.605
+      }
+    },
+    {
       "variant": "mlp-deep-1500k",
       "condition": "nominal",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
-      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
-      "actor_variant": null,
-      "parameters": 1500569,
-      "episodes": 600,
-      "successes": 488,
-      "survival_percent": 81.33333333333333,
-      "display_survival_percent": "81.33",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/model_3001.pt",
+        "sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/prism_run_manifest.json",
+        "sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1965.285,
+            "avg_lin_vel_error": 0.2933026250079274,
+            "avg_yaw_vel_error": 0.24470071285031736,
+            "success_rate": 0.805
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/eval_101.json",
+            "sha256": "e168b593dcef5a269c02260848a8170ac2aae367b51c38e66f6cab0897aec7bd"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1944.615,
+            "avg_lin_vel_error": 0.30091947089880705,
+            "avg_yaw_vel_error": 0.23801725002005697,
+            "success_rate": 0.795
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/eval_102.json",
+            "sha256": "d2a36b58f9bae27452406cdcdf232e0c355beaf8fd74bae4a88adc721616e592"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 2039.79,
+            "avg_lin_vel_error": 0.26997775163501503,
+            "avg_yaw_vel_error": 0.19814607984386384,
+            "success_rate": 0.84
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/eval_103.json",
+            "sha256": "0ceab7148b3f51e6c8bdb035e4115200e07762354d7e892711f7401e3ee848ae"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1983.23,
         "avg_lin_vel_error": 0.28806661584724985,
         "avg_yaw_vel_error": 0.22695468090474605,
         "success_rate": 0.8133333333333334
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 161,
-          "survival_percent": 80.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_101.json",
-          "sha256": "db07f8a58f1f7f420fe414285ba76239a4ab9fff5a763f591ee45374c48889f8"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 159,
-          "survival_percent": 79.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_102.json",
-          "sha256": "b66b1a43b4c7370d05b511ff47666710f107e3e2ae6f920b9c8253be5f3f8473"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 168,
-          "survival_percent": 84.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/nominal/eval_103.json",
-          "sha256": "7cd9054696f9554b9b94bfb3b1f8efa94e644e3d0597e01a4988b7c28891045d"
-        }
-      ]
+      }
     },
     {
-      "model": "Deeper MLP",
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/model_3001.pt",
+        "sha256": "f62e8cc7cf946b3f4bf2c17ef57c1f46971fa20a0b9e6490bda69f53fb0de42b"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/prism_run_manifest.json",
+        "sha256": "a19661b631ca859342f5eaddbf63d4fa16f5c37a37340b4b4d788d46213e519b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1413.405,
+            "avg_lin_vel_error": 0.4929711343348026,
+            "avg_yaw_vel_error": 0.3476923211291432,
+            "success_rate": 0.56
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/eval_101.json",
+            "sha256": "7807369be645bc93e006024fdad54b83f49e5c45a1cebdf6a732bee5691da1c8"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1524.38,
+            "avg_lin_vel_error": 0.4804968871548772,
+            "avg_yaw_vel_error": 0.30913867758587005,
+            "success_rate": 0.6
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/eval_102.json",
+            "sha256": "d441b1348d340e0bc9a69509401afa80b3b7829445255d5a65ecf436da2df7e1"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1459.575,
+            "avg_lin_vel_error": 0.4578610511869192,
+            "avg_yaw_vel_error": 0.33949380630627274,
+            "success_rate": 0.565
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/eval_103.json",
+            "sha256": "546f68823437807bd207950e23ccb998b28740c690a43634894e5747e7c0c7b0"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1465.7866666666666,
+        "avg_lin_vel_error": 0.4771096908921997,
+        "avg_yaw_vel_error": 0.33210826834042867,
+        "success_rate": 0.575
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/model_3001.pt",
+        "sha256": "65cd984c8a97d06afd125c2aa5d7568e51548284186581184278f7807e2c0432"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/prism_run_manifest.json",
+        "sha256": "a7dcd3997d7b90f281d5935ba4e9069fb539a8fd1f8b1cbcb8969794dd39b200"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1606.33,
+            "avg_lin_vel_error": 0.3762317356467247,
+            "avg_yaw_vel_error": 0.33535145414993167,
+            "success_rate": 0.615
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/eval_101.json",
+            "sha256": "ec26be6bd38780606b58009b42fd817bdd66c7da6b86091c170247b3caee271c"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1739.19,
+            "avg_lin_vel_error": 0.36987100876867773,
+            "avg_yaw_vel_error": 0.27856862246990205,
+            "success_rate": 0.67
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/eval_102.json",
+            "sha256": "322980886b8350125250cb5dd19aac2eb0c47c0509c52daac91167e63bc5140e"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1653.41,
+            "avg_lin_vel_error": 0.3890932596474886,
+            "avg_yaw_vel_error": 0.325920955426991,
+            "success_rate": 0.63
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/eval_103.json",
+            "sha256": "5aa3ffa1a15ff00ba2b7d9fd8e98c6f2dc201ab47d438d89118d1445ffdb2358"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1666.31,
+        "avg_lin_vel_error": 0.37839866802096367,
+        "avg_yaw_vel_error": 0.3132803440156082,
+        "success_rate": 0.6383333333333333
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/model_3001.pt",
+        "sha256": "56102a9f70948cd6ea42527ccfba71ff066a33a1ef69fca663f5f7a9385a2dce"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/prism_run_manifest.json",
+        "sha256": "a3af14304c411d359868604ebe8c2e5eafb7da72889b9aa80b9e8bb0d0b754a0"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1579.615,
+            "avg_lin_vel_error": 0.40243030864745377,
+            "avg_yaw_vel_error": 0.2637172188051045,
+            "success_rate": 0.635
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/eval_101.json",
+            "sha256": "93261fbc04922af0d3a919197f9bc3b1b840400da3c87aa8fd239179a3aaea1b"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1591.5,
+            "avg_lin_vel_error": 0.4047276774048805,
+            "avg_yaw_vel_error": 0.28435435373336077,
+            "success_rate": 0.635
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/eval_102.json",
+            "sha256": "e495215a071233fc94d394386af710c2e5dad471839aaccc1d25a5fa094408a1"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1691.455,
+            "avg_lin_vel_error": 0.3721022401377559,
+            "avg_yaw_vel_error": 0.22193154944106935,
+            "success_rate": 0.68
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/eval_103.json",
+            "sha256": "4f4e629d00da13207e4659ee51320ece99dc4f27106f7940ad2e20699aee21f9"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1620.8566666666666,
+        "avg_lin_vel_error": 0.3930867420633634,
+        "avg_yaw_vel_error": 0.25666770732651156,
+        "success_rate": 0.65
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/model_3001.pt",
+        "sha256": "e1fe1731311a9f2629497aecefd376417f8b5bdaf3bafd09966231776855426a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/prism_run_manifest.json",
+        "sha256": "ccbedb20b4fce9b193ae5eecc5b5aed73906fe53d5a6b9eff06b958ecc65580b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 2041.95,
+            "avg_lin_vel_error": 0.26710342794656755,
+            "avg_yaw_vel_error": 0.1306919432617724,
+            "success_rate": 0.84
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/eval_101.json",
+            "sha256": "27cc3ba486eea05746a4ea8dcacb7b02607e7675e3f1abea042055b23a160604"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1971.875,
+            "avg_lin_vel_error": 0.29153225373476743,
+            "avg_yaw_vel_error": 0.14531453697010874,
+            "success_rate": 0.81
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/eval_102.json",
+            "sha256": "3e05db0920da4410be677cada252e537fff606f8b27680816d8585cc41c5cd29"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1961.345,
+            "avg_lin_vel_error": 0.29927456088364124,
+            "avg_yaw_vel_error": 0.15995214608497918,
+            "success_rate": 0.805
+          },
+          "result": {
+            "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/eval_103.json",
+            "sha256": "08f826e61015f3b702ab6e2a742727247cc50e8b7febaa48edd00be5d74a14dd"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1991.7233333333334,
+        "avg_lin_vel_error": 0.2859700808549921,
+        "avg_yaw_vel_error": 0.1453195421056201,
+        "success_rate": 0.8183333333333334
+      }
+    },
+    {
       "variant": "mlp-deep-1500k",
       "condition": "low_friction",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
-      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
-      "actor_variant": null,
-      "parameters": 1500569,
-      "episodes": 600,
-      "successes": 231,
-      "survival_percent": 38.5,
-      "display_survival_percent": "38.50",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/model_3001.pt",
+        "sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/prism_run_manifest.json",
+        "sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1367,
+            "avg_lin_vel_error": 0.3678804170712829,
+            "avg_yaw_vel_error": 0.5103591741807759,
+            "success_rate": 0.375
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_101.json",
+            "sha256": "d6d6616b73fd641799cf4234cdd4fff95c654e909f1622536ea6d8dea278f95a"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1391.32,
+            "avg_lin_vel_error": 0.3764880454912782,
+            "avg_yaw_vel_error": 0.5204031725414098,
+            "success_rate": 0.41
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_102.json",
+            "sha256": "86248c583dd4036bf0456828518201ed343c8faa9ee61c91d6ae31d499a7c0ba"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1358.41,
+            "avg_lin_vel_error": 0.38397263642400503,
+            "avg_yaw_vel_error": 0.5322190778516233,
+            "success_rate": 0.37
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_103.json",
+            "sha256": "672765c5ded147cf368e6570f62183da8a83aef8894c7fb3fd854553adf35799"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1372.2433333333333,
         "avg_lin_vel_error": 0.3761136996621887,
         "avg_yaw_vel_error": 0.5209938081912696,
         "success_rate": 0.385
-      },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 75,
-          "survival_percent": 37.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_101.json",
-          "sha256": "d6d6616b73fd641799cf4234cdd4fff95c654e909f1622536ea6d8dea278f95a"
-        },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 82,
-          "survival_percent": 41.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_102.json",
-          "sha256": "86248c583dd4036bf0456828518201ed343c8faa9ee61c91d6ae31d499a7c0ba"
-        },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 74,
-          "survival_percent": 37.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/low_friction/eval_103.json",
-          "sha256": "672765c5ded147cf368e6570f62183da8a83aef8894c7fb3fd854553adf35799"
-        }
-      ]
+      }
     },
     {
-      "model": "Deeper MLP",
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/model_3001.pt",
+        "sha256": "f62e8cc7cf946b3f4bf2c17ef57c1f46971fa20a0b9e6490bda69f53fb0de42b"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/prism_run_manifest.json",
+        "sha256": "a19661b631ca859342f5eaddbf63d4fa16f5c37a37340b4b4d788d46213e519b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1539.77,
+            "avg_lin_vel_error": 0.42270475786179307,
+            "avg_yaw_vel_error": 0.3189484091848135,
+            "success_rate": 0.55
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/low_friction/eval_101.json",
+            "sha256": "ad455355aebf25cbd33735a7882813e319664d69f9cb6d1fe7ed16b80c8e21e0"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1530.505,
+            "avg_lin_vel_error": 0.42348141077905893,
+            "avg_yaw_vel_error": 0.27789203353226183,
+            "success_rate": 0.56
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/low_friction/eval_102.json",
+            "sha256": "26f9d6a922cbd33f6ce216c4f3c6eb3100eff4434c935ef14ed23cd315b76c80"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1533.445,
+            "avg_lin_vel_error": 0.42123928785324094,
+            "avg_yaw_vel_error": 0.31993297159671785,
+            "success_rate": 0.565
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/low_friction/eval_103.json",
+            "sha256": "86768901bf34ac27fc95a7e9d4cf6ec5857816616804cbf94d53e98875ad2b7e"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1534.5733333333333,
+        "avg_lin_vel_error": 0.42247515216469766,
+        "avg_yaw_vel_error": 0.3055911381045977,
+        "success_rate": 0.5583333333333333
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/model_3001.pt",
+        "sha256": "65cd984c8a97d06afd125c2aa5d7568e51548284186581184278f7807e2c0432"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/prism_run_manifest.json",
+        "sha256": "a7dcd3997d7b90f281d5935ba4e9069fb539a8fd1f8b1cbcb8969794dd39b200"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1649.49,
+            "avg_lin_vel_error": 0.36462633408606054,
+            "avg_yaw_vel_error": 0.3665614592470229,
+            "success_rate": 0.655
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/low_friction/eval_101.json",
+            "sha256": "658e0c974dd05e718511536693b9504150f4af13b405b32f5b3495b5946985bb"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1883.425,
+            "avg_lin_vel_error": 0.32890278086066244,
+            "avg_yaw_vel_error": 0.3096294783242047,
+            "success_rate": 0.76
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/low_friction/eval_102.json",
+            "sha256": "a1f04fb9059deda0fcf24708a73706d26adbd2690cbc93f4b264002aeede3e32"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1885.6,
+            "avg_lin_vel_error": 0.3094431154057384,
+            "avg_yaw_vel_error": 0.3311727991513908,
+            "success_rate": 0.75
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/low_friction/eval_103.json",
+            "sha256": "89bf55a6b3bb3ecad8e8a86a40a7692d8b64c3c8f2af3a968f44d5c141719897"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1806.1716666666666,
+        "avg_lin_vel_error": 0.33432407678415377,
+        "avg_yaw_vel_error": 0.3357879122408728,
+        "success_rate": 0.7216666666666667
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/model_3001.pt",
+        "sha256": "56102a9f70948cd6ea42527ccfba71ff066a33a1ef69fca663f5f7a9385a2dce"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/prism_run_manifest.json",
+        "sha256": "a3af14304c411d359868604ebe8c2e5eafb7da72889b9aa80b9e8bb0d0b754a0"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1756.61,
+            "avg_lin_vel_error": 0.3679500090330839,
+            "avg_yaw_vel_error": 0.2379324752651155,
+            "success_rate": 0.715
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/low_friction/eval_101.json",
+            "sha256": "65dc7f71ba4c94c82750794a44aa4ad2bcdc1ab44ba14836d2f39736365151ec"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1814.815,
+            "avg_lin_vel_error": 0.3600924430787563,
+            "avg_yaw_vel_error": 0.22816602440550923,
+            "success_rate": 0.74
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/low_friction/eval_102.json",
+            "sha256": "6f9d0b456e4a6abbe314e0a1dcdd5b72a90e8ae48bc2746c62383320007a64f0"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1661.605,
+            "avg_lin_vel_error": 0.38978103853762147,
+            "avg_yaw_vel_error": 0.2513343581184745,
+            "success_rate": 0.67
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/low_friction/eval_103.json",
+            "sha256": "3679c564cc11e7e538ed1a194ef5c6d46fb7851a3cae45047c843de1fd235ca2"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1744.3433333333332,
+        "avg_lin_vel_error": 0.37260783021648725,
+        "avg_yaw_vel_error": 0.23914428592969975,
+        "success_rate": 0.7083333333333334
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/model_3001.pt",
+        "sha256": "e1fe1731311a9f2629497aecefd376417f8b5bdaf3bafd09966231776855426a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/prism_run_manifest.json",
+        "sha256": "ccbedb20b4fce9b193ae5eecc5b5aed73906fe53d5a6b9eff06b958ecc65580b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1433.82,
+            "avg_lin_vel_error": 0.3113747300952673,
+            "avg_yaw_vel_error": 0.2976490968838334,
+            "success_rate": 0.445
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/low_friction/eval_101.json",
+            "sha256": "1659100776a03a1c7f5aae6ac88ead5feee34ce009dba84515f8c1cade18a5af"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1492.125,
+            "avg_lin_vel_error": 0.3079351389035583,
+            "avg_yaw_vel_error": 0.28030837813392284,
+            "success_rate": 0.45
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/low_friction/eval_102.json",
+            "sha256": "4e0e8b75d4029e5763d0ff80cdcf4d1e28b7497b998008862a9f3290ae4a91ad"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1469.205,
+            "avg_lin_vel_error": 0.3114895923808217,
+            "avg_yaw_vel_error": 0.29596235100179913,
+            "success_rate": 0.46
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/low_friction/eval_103.json",
+            "sha256": "61ae947c25e066cfb9e65ac3722ec9cce93c43130f29d02056e12e7df26b228e"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1465.05,
+        "avg_lin_vel_error": 0.3102664871265491,
+        "avg_yaw_vel_error": 0.29130660867318514,
+        "success_rate": 0.45166666666666666
+      }
+    },
+    {
       "variant": "mlp-deep-1500k",
       "condition": "payload_mass",
       "training_seed": 1,
-      "checkpoint_iteration": 3001,
-      "checkpoint_sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39",
-      "training_manifest_sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b",
-      "actor_variant": null,
-      "parameters": 1500569,
-      "episodes": 600,
-      "successes": 425,
-      "survival_percent": 70.83333333333334,
-      "display_survival_percent": "70.83",
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/model_3001.pt",
+        "sha256": "0bdcacf2c3a05f2bb1987ce9fd45462a0fd2899f4e903b052c0999c82b0cef39"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed1/training/Sep15_01-18-25_main_table/prism_run_manifest.json",
+        "sha256": "5eaedc9b5b843582d93f70e7f2ae54b06fc9e4b4a31c3e9189d864cd55e13a2b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1718.195,
+            "avg_lin_vel_error": 0.3695356315746903,
+            "avg_yaw_vel_error": 0.2880362840555608,
+            "success_rate": 0.69
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_101.json",
+            "sha256": "724c5b6c0c8280068ae018c8dc82314248553f69a274de28c14cebfb54959690"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1771.875,
+            "avg_lin_vel_error": 0.35418724864721296,
+            "avg_yaw_vel_error": 0.26776488626375794,
+            "success_rate": 0.72
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_102.json",
+            "sha256": "24eb3f9c63f13bf699fea025933585414d69dd9544a981ef6f86ee09e1ac1b60"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1777.91,
+            "avg_lin_vel_error": 0.3260484590753913,
+            "avg_yaw_vel_error": 0.28697526747360824,
+            "success_rate": 0.715
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_103.json",
+            "sha256": "64e0251c1064a1816d2763fe6508b2e8facb5c724ce9939ea9f5fb6dcc9db8eb"
+          }
+        }
+      },
       "metrics": {
         "avg_episode_length": 1755.9933333333333,
         "avg_lin_vel_error": 0.3499237797657649,
         "avg_yaw_vel_error": 0.280925479264309,
         "success_rate": 0.7083333333333333
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "training_seed": 2,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/model_3001.pt",
+        "sha256": "f62e8cc7cf946b3f4bf2c17ef57c1f46971fa20a0b9e6490bda69f53fb0de42b"
       },
-      "evaluations": [
-        {
-          "evaluation_seed": 101,
-          "episodes": 200,
-          "successes": 138,
-          "survival_percent": 69.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_101.json",
-          "sha256": "724c5b6c0c8280068ae018c8dc82314248553f69a274de28c14cebfb54959690"
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed2/training/Sep15_15-27-36_main_table/prism_run_manifest.json",
+        "sha256": "a19661b631ca859342f5eaddbf63d4fa16f5c37a37340b4b4d788d46213e519b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1177.745,
+            "avg_lin_vel_error": 0.528122680708766,
+            "avg_yaw_vel_error": 0.3899251707829535,
+            "success_rate": 0.4
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/payload_mass/eval_101.json",
+            "sha256": "290964c5aabb38671f64d4cd7a41d26235afdfb2e59c120b8ef6cb8c924d9fa3"
+          }
         },
-        {
-          "evaluation_seed": 102,
-          "episodes": 200,
-          "successes": 144,
-          "survival_percent": 72.0,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_102.json",
-          "sha256": "24eb3f9c63f13bf699fea025933585414d69dd9544a981ef6f86ee09e1ac1b60"
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1145.795,
+            "avg_lin_vel_error": 0.5592351458221674,
+            "avg_yaw_vel_error": 0.33210533114150165,
+            "success_rate": 0.4
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/payload_mass/eval_102.json",
+            "sha256": "0dca6b27d94ca8faba44c15cae76105ddb5e11b006c0e9b6a703ad439ae255ea"
+          }
         },
-        {
-          "evaluation_seed": 103,
-          "episodes": 200,
-          "successes": 143,
-          "survival_percent": 71.5,
-          "source_identifier": "outputs/humanoid_robustness/20260915T033200Z/evaluations/mlp-deep-1500k/payload_mass/eval_103.json",
-          "sha256": "64e0251c1064a1816d2763fe6508b2e8facb5c724ce9939ea9f5fb6dcc9db8eb"
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1176.965,
+            "avg_lin_vel_error": 0.542678132839501,
+            "avg_yaw_vel_error": 0.3594646036438644,
+            "success_rate": 0.4
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed2/payload_mass/eval_103.json",
+            "sha256": "e31ad249d9a98201bcbd4a365ee31d8a303e1cf4156edd67ec01bd0397d8efd6"
+          }
         }
-      ]
+      },
+      "metrics": {
+        "avg_episode_length": 1166.835,
+        "avg_lin_vel_error": 0.5433453197901448,
+        "avg_yaw_vel_error": 0.36049836852277317,
+        "success_rate": 0.4
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "training_seed": 3,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/model_3001.pt",
+        "sha256": "65cd984c8a97d06afd125c2aa5d7568e51548284186581184278f7807e2c0432"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed3/training/Sep16_20-07-41_main_table/prism_run_manifest.json",
+        "sha256": "a7dcd3997d7b90f281d5935ba4e9069fb539a8fd1f8b1cbcb8969794dd39b200"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1396.605,
+            "avg_lin_vel_error": 0.44260934606194496,
+            "avg_yaw_vel_error": 0.38984104732051494,
+            "success_rate": 0.515
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/payload_mass/eval_101.json",
+            "sha256": "805617142db1ec3af22b83e66154e7a854a2af3425a03dc3d3a9157dfdda3448"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1515.39,
+            "avg_lin_vel_error": 0.43220441095530987,
+            "avg_yaw_vel_error": 0.3047457621619105,
+            "success_rate": 0.565
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/payload_mass/eval_102.json",
+            "sha256": "40d9f3f662262fe246690f3f2d140dcb2d623848bda214a8ce1d9ca6eaab5f8f"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1429.15,
+            "avg_lin_vel_error": 0.42760190431028605,
+            "avg_yaw_vel_error": 0.3469020178169012,
+            "success_rate": 0.54
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed3/payload_mass/eval_103.json",
+            "sha256": "e16734aed80ad7f47105974b6ddf6d23cca13387d5e404d45bf1b932e2b37b11"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1447.0483333333334,
+        "avg_lin_vel_error": 0.434138553775847,
+        "avg_yaw_vel_error": 0.3471629424331089,
+        "success_rate": 0.54
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "training_seed": 4,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/model_3001.pt",
+        "sha256": "56102a9f70948cd6ea42527ccfba71ff066a33a1ef69fca663f5f7a9385a2dce"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed4/training/Sep17_11-54-26_main_table/prism_run_manifest.json",
+        "sha256": "a3af14304c411d359868604ebe8c2e5eafb7da72889b9aa80b9e8bb0d0b754a0"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1387.95,
+            "avg_lin_vel_error": 0.4316297720000148,
+            "avg_yaw_vel_error": 0.3000613670423627,
+            "success_rate": 0.525
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/payload_mass/eval_101.json",
+            "sha256": "4c6fd644e80eacd28662f06712e16d7673dcb72ab71718e74f48b5bfbee923c9"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1531.245,
+            "avg_lin_vel_error": 0.4132747279107571,
+            "avg_yaw_vel_error": 0.27494678245857357,
+            "success_rate": 0.595
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/payload_mass/eval_102.json",
+            "sha256": "1e0705e7a3cee6e1f8ec86626c37495f3cc9f21e82e9a84045ac1a780950163c"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1419.015,
+            "avg_lin_vel_error": 0.4092609954997897,
+            "avg_yaw_vel_error": 0.28200456174090505,
+            "success_rate": 0.515
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed4/payload_mass/eval_103.json",
+            "sha256": "c1b6174a1a2292902f2b0da4292cf125015f15d2bb43960f4ed4c36645ad070b"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1446.07,
+        "avg_lin_vel_error": 0.41805516513685387,
+        "avg_yaw_vel_error": 0.28567090374728044,
+        "success_rate": 0.545
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "training_seed": 5,
+      "checkpoint": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/model_3001.pt",
+        "sha256": "e1fe1731311a9f2629497aecefd376417f8b5bdaf3bafd09966231776855426a"
+      },
+      "training_manifest": {
+        "path": "outputs/capacity_five_seeds/20260914T160134Z/runs/mlp-deep-1500k/seed5/training/Sep18_04-51-59_main_table/prism_run_manifest.json",
+        "sha256": "ccbedb20b4fce9b193ae5eecc5b5aed73906fe53d5a6b9eff06b958ecc65580b"
+      },
+      "evaluations": {
+        "101": {
+          "metrics": {
+            "avg_episode_length": 1692.43,
+            "avg_lin_vel_error": 0.3621863249316812,
+            "avg_yaw_vel_error": 0.18700138583779335,
+            "success_rate": 0.685
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/payload_mass/eval_101.json",
+            "sha256": "0c0f3912453883d8042d7d53e9ebda624cacd45f23b4c2d89a304943f0f07326"
+          }
+        },
+        "102": {
+          "metrics": {
+            "avg_episode_length": 1735.945,
+            "avg_lin_vel_error": 0.36188732635229826,
+            "avg_yaw_vel_error": 0.1869394121877849,
+            "success_rate": 0.705
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/payload_mass/eval_102.json",
+            "sha256": "105197c3a5f94ee31d9791846c1c87eb246e04071999fc6b5ea19ab534acdc08"
+          }
+        },
+        "103": {
+          "metrics": {
+            "avg_episode_length": 1816.265,
+            "avg_lin_vel_error": 0.34268116153776645,
+            "avg_yaw_vel_error": 0.1827766447607428,
+            "success_rate": 0.735
+          },
+          "result": {
+            "path": "outputs/humanoid_robustness_five_seeds/20260922_v1/evaluations/mlp-deep-1500k/seed5/payload_mass/eval_103.json",
+            "sha256": "061d28b986d56e42a736d97c9612fcf46bc9682af48f251b6bf2faeb60046b31"
+          }
+        }
+      },
+      "metrics": {
+        "avg_episode_length": 1748.2133333333334,
+        "avg_lin_vel_error": 0.35558493760724863,
+        "avg_yaw_vel_error": 0.18557248092877368,
+        "success_rate": 0.7083333333333334
+      }
+    }
+  ],
+  "summary": [
+    {
+      "variant": "prism-1321k",
+      "condition": "nominal",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1867.3106666666667,
+        "avg_lin_vel_error": 0.3270593040212989,
+        "avg_yaw_vel_error": 0.23396877802784244,
+        "success_rate": 0.7496666666666667
+      },
+      "std": {
+        "avg_episode_length": 138.35626391072194,
+        "avg_lin_vel_error": 0.045869257774204995,
+        "avg_yaw_vel_error": 0.04792154061080449,
+        "success_rate": 0.06554684499568907
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "low_friction",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1909.307,
+        "avg_lin_vel_error": 0.3052567964096864,
+        "avg_yaw_vel_error": 0.2735588746443391,
+        "success_rate": 0.74
+      },
+      "std": {
+        "avg_episode_length": 30.071077475799875,
+        "avg_lin_vel_error": 0.013115699724376135,
+        "avg_yaw_vel_error": 0.04830806412870292,
+        "success_rate": 0.05531475591758699
+      }
+    },
+    {
+      "variant": "prism-1321k",
+      "condition": "payload_mass",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1682.464,
+        "avg_lin_vel_error": 0.36622636334598063,
+        "avg_yaw_vel_error": 0.27548361915908753,
+        "success_rate": 0.656
+      },
+      "std": {
+        "avg_episode_length": 210.3959011060391,
+        "avg_lin_vel_error": 0.054055164211515086,
+        "avg_yaw_vel_error": 0.06421224028110688,
+        "success_rate": 0.10210016867980407
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "nominal",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1786.2063333333333,
+        "avg_lin_vel_error": 0.3521649293402831,
+        "avg_yaw_vel_error": 0.2315358341988176,
+        "success_rate": 0.711
+      },
+      "std": {
+        "avg_episode_length": 198.60795084649666,
+        "avg_lin_vel_error": 0.0652415802064675,
+        "avg_yaw_vel_error": 0.05578895583853202,
+        "success_rate": 0.08703926317090083
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "low_friction",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1588.3913333333335,
+        "avg_lin_vel_error": 0.3463114281818271,
+        "avg_yaw_vel_error": 0.3254542729742825,
+        "success_rate": 0.544
+      },
+      "std": {
+        "avg_episode_length": 275.7029813026451,
+        "avg_lin_vel_error": 0.03101518281372542,
+        "avg_yaw_vel_error": 0.10428191770983893,
+        "success_rate": 0.20610339907704364
+      }
+    },
+    {
+      "variant": "mlp-1321k",
+      "condition": "payload_mass",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1551.6086666666667,
+        "avg_lin_vel_error": 0.41290266407777865,
+        "avg_yaw_vel_error": 0.2710006745432814,
+        "success_rate": 0.5943333333333334
+      },
+      "std": {
+        "avg_episode_length": 180.694895316971,
+        "avg_lin_vel_error": 0.05656526813932828,
+        "avg_yaw_vel_error": 0.04606132284738378,
+        "success_rate": 0.08915965704535007
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "nominal",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1613.647,
+        "avg_lin_vel_error": 0.4155061595216394,
+        "avg_yaw_vel_error": 0.3124826495653639,
+        "success_rate": 0.646
+      },
+      "std": {
+        "avg_episode_length": 202.74374795607827,
+        "avg_lin_vel_error": 0.08200741543301086,
+        "avg_yaw_vel_error": 0.045859046516526614,
+        "success_rate": 0.09012799540406717
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "low_friction",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1530.1496666666667,
+        "avg_lin_vel_error": 0.39574196402231854,
+        "avg_yaw_vel_error": 0.3596560546954473,
+        "success_rate": 0.5623333333333334
+      },
+      "std": {
+        "avg_episode_length": 160.497594376226,
+        "avg_lin_vel_error": 0.05146585073265434,
+        "avg_yaw_vel_error": 0.0736972265046817,
+        "success_rate": 0.11036932947557888
+      }
+    },
+    {
+      "variant": "mlp-wide-1500k",
+      "condition": "payload_mass",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1398.2893333333334,
+        "avg_lin_vel_error": 0.4724333819275101,
+        "avg_yaw_vel_error": 0.3329506891071796,
+        "success_rate": 0.5446666666666666
+      },
+      "std": {
+        "avg_episode_length": 153.4127784388685,
+        "avg_lin_vel_error": 0.06958308583253832,
+        "avg_yaw_vel_error": 0.02942675496905317,
+        "success_rate": 0.0653877324546092
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "nominal",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1745.5813333333333,
+        "avg_lin_vel_error": 0.36452635953575374,
+        "avg_yaw_vel_error": 0.25486610853858294,
+        "success_rate": 0.699
+      },
+      "std": {
+        "avg_episode_length": 233.01717489871385,
+        "avg_lin_vel_error": 0.08015660331068913,
+        "avg_yaw_vel_error": 0.07443338955942816,
+        "success_rate": 0.11041965404763776
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "low_friction",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1584.4763333333333,
+        "avg_lin_vel_error": 0.3631574491908153,
+        "avg_yaw_vel_error": 0.338564750627925,
+        "success_rate": 0.5650000000000001
+      },
+      "std": {
+        "avg_episode_length": 184.730941711332,
+        "avg_lin_vel_error": 0.043024938251931155,
+        "avg_yaw_vel_error": 0.10781128394043667,
+        "success_rate": 0.15031448514512646
+      }
+    },
+    {
+      "variant": "mlp-deep-1500k",
+      "condition": "payload_mass",
+      "verified_training_seeds": 5,
+      "mean": {
+        "avg_episode_length": 1512.832,
+        "avg_lin_vel_error": 0.42020955121517184,
+        "avg_yaw_vel_error": 0.29196603497924906,
+        "success_rate": 0.5803333333333334
+      },
+      "std": {
+        "avg_episode_length": 246.490560449753,
+        "avg_lin_vel_error": 0.07822644429230866,
+        "avg_yaw_vel_error": 0.06932620396467096,
+        "success_rate": 0.13054054287206457
+      }
     }
   ]
 }

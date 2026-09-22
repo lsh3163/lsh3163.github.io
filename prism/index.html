@@ -213,13 +213,13 @@
             <div class="benchmark-head">
               <div>
                 <span>Humanoid-Gym · random-command robustness</span>
-                <h3>PRISM leads under low friction and uniform added mass.</h3>
+                <h3>PRISM achieves the highest mean survival across nominal and shifted dynamics.</h3>
               </div>
             </div>
-            <p>One trained checkpoint per model (training seed 1), with 600 episodes per condition: evaluation seeds 101–103 × 200 episodes.</p>
+            <p>Five independently trained checkpoints per model (training seeds 1–5). Each checkpoint has 600 episodes per condition: evaluation seeds 101–103 × 200 episodes, for 3,000 episodes per model and condition.</p>
             <div class="table-scroll" tabindex="0" role="region" aria-label="Humanoid-Gym random-command robustness survival results">
               <table class="robustness-table">
-                <caption>Survival (%) ↑ · 600 random-command episodes per model and condition</caption>
+                <caption>Survival (%) ↑ · Mean ± SD across five training seeds</caption>
                 <thead>
                   <tr>
                     <th scope="col">Model</th>
@@ -229,16 +229,16 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr class="prism-row"><th scope="row">PRISM</th><td><strong>85.50</strong></td><td><strong>65.83</strong></td><td><strong>81.50</strong></td></tr>
-                  <tr><th scope="row">Matched MLP</th><td>80.83</td><td>49.33</td><td>67.17</td></tr>
-                  <tr><th scope="row">Wider MLP</th><td>70.33</td><td>52.67</td><td>59.50</td></tr>
-                  <tr><th scope="row">Deeper MLP</th><td>81.33</td><td>38.50</td><td>70.83</td></tr>
+                  <tr class="prism-row"><th scope="row">PRISM</th><td><strong>74.97 ± 6.55</strong></td><td><strong>74.00 ± 5.53</strong></td><td><strong>65.60 ± 10.21</strong></td></tr>
+                  <tr><th scope="row">Matched MLP</th><td>71.10 ± 8.70</td><td>54.40 ± 20.61</td><td>59.43 ± 8.92</td></tr>
+                  <tr><th scope="row">Wider MLP</th><td>64.60 ± 9.01</td><td>56.23 ± 11.04</td><td>54.47 ± 6.54</td></tr>
+                  <tr><th scope="row">Deeper MLP</th><td>69.90 ± 11.04</td><td>56.50 ± 15.03</td><td>58.03 ± 13.05</td></tr>
                 </tbody>
               </table>
             </div>
             <div class="metric-foot">
               <span>Uniform +15% mass scales every robot link.</span>
-              <span>One training seed; no five-seed robustness estimate or training-seed standard deviation.</span>
+              <span>SD is computed across the five training seeds.</span>
               <a href="assets/prism/humanoid-robustness-results.json">Robustness results and protocol ↗</a>
             </div>
           </article>
