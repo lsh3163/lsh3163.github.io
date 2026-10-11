@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="610" viewBox="0 0 1500 610"><defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#526579" /></marker></defs><rect width="1500" height="610" fill="white" />
+<text x="30" y="38" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="25" font-weight="700" fill="#213247">PRISM in native-mjlab G1: the saved RMSNorm comparison</text>
+<text x="30" y="67" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#657789">Actual new experiment architecture · 286 observations · 29 joint-target actions</text>
+<text x="30" y="117" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="19" font-weight="700" fill="#213247">MLP baseline</text>
+<rect x="30" y="138" width="240" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="150.0" y="178.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Observation (286)</text>
+<text x="150.0" y="201.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Native mean/std normalization</text>
+<rect x="319" y="138" width="480" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="559.0" y="178.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">MLP 286 → 512 → 256 → 128</text>
+<text x="559.0" y="201.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">ELU after each hidden affine layer</text>
+<rect x="850" y="138" width="150" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="925.0" y="178.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">RMSNorm</text>
+<text x="925.0" y="201.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">128 coordinates</text>
+<rect x="1047" y="138" width="185" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="1139.5" y="178.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Linear 128 → 29</text>
+<text x="1139.5" y="201.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Action mean</text>
+<rect x="1280" y="138" width="190" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="1375.0" y="178.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Same PD controller</text>
+<text x="1375.0" y="201.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Same robot / reward</text>
+<path d="M270 184 L319 184" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M799 184 L850 184" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M1000 184 L1047 184" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M1232 184 L1280 184" stroke="#526579" stroke-width="2" fill="none" />
+<text x="30" y="278" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="19" font-weight="700" fill="#bd5600">PRISM</text>
+<rect x="30" y="324" width="210" height="92" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="135.0" y="364.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Same normalized</text>
+<text x="135.0" y="387.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">observation (286)</text>
+<rect x="277" y="308" width="170" height="69" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="362.0" y="337.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Robot / command</text>
+<text x="362.0" y="360.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">x: 99 coordinates</text>
+<rect x="277" y="413" width="170" height="69" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="362.0" y="442.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Terrain height</text>
+<text x="362.0" y="465.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">h: 187 coordinates</text>
+<path d="M240 350 L277 342" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M240 390 L277 447" stroke="#526579" stroke-width="2" fill="none" />
+<rect x="490" y="285" width="170" height="66" rx="9" fill="#fff3e8" stroke="#edb985" />
+<text x="575.0" y="312.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">u = Wᵤ x + bᵤ</text>
+<text x="575.0" y="335.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">99 → 256</text>
+<rect x="490" y="370" width="170" height="66" rx="9" fill="#fff3e8" stroke="#edb985" />
+<text x="575.0" y="397.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">v = Wᵥ x + bᵥ</text>
+<text x="575.0" y="420.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">99 → 256</text>
+<path d="M447 342 L490 318" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M447 342 L490 403" stroke="#526579" stroke-width="2" fill="none" />
+<rect x="703" y="316" width="194" height="88" rx="9" fill="#fff3e8" stroke="#edb985" />
+<text x="800.0" y="343.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">ψ₂ = u + α ⊙ u ⊙ v</text>
+<text x="800.0" y="366.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">α: 256 learned values</text>
+<text x="800.0" y="389.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Product before activation</text>
+<path d="M660 318 L703 341" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M660 403 L703 380" stroke="#526579" stroke-width="2" fill="none" />
+<rect x="936" y="324" width="170" height="72" rx="9" fill="#fff3e8" stroke="#edb985" />
+<text x="1021.0" y="354.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Affine projection</text>
+<text x="1021.0" y="377.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">256 → 99</text>
+<path d="M897 360 L936 360" stroke="#526579" stroke-width="2" fill="none" />
+<rect x="1148" y="324" width="138" height="72" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="1217.0" y="354.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Concatenate</text>
+<text x="1217.0" y="377.5" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">99 + 187</text>
+<path d="M1106 360 L1148 360" stroke="#526579" stroke-width="2" fill="none" />
+<path d="M447 447 L1217 447 L1217 396" stroke="#526579" stroke-width="2" fill="none" />
+<rect x="1323" y="309" width="147" height="105" rx="9" fill="#edf4fa" stroke="#cad8e5" />
+<text x="1396.5" y="333.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Same MLP head</text>
+<text x="1396.5" y="356.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">512 / 256 / 128</text>
+<text x="1396.5" y="379.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">ELU → RMSNorm</text>
+<text x="1396.5" y="402.0" text-anchor="middle" font-family="Arial,DejaVu Sans,sans-serif" font-size="16" font-weight="400" fill="#213247">Linear → 29</text>
+<path d="M1286 360 L1323 360" stroke="#526579" stroke-width="2" fill="none" />
+<text x="30" y="533" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#213247">Control: matched MLP uses 590 / 295 / 148 hidden widths and the same final-hidden RMSNorm rule.</text>
+<text x="30" y="562" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#213247">Mean-network parameters: MLP 315,037 · matched 391,952 · PRISM 391,936. Critic and PPO remain native.</text>
+<text x="30" y="590" text-anchor="start" font-family="Arial,DejaVu Sans,sans-serif" font-size="17" font-weight="400" fill="#657789">The intermediate ψ₂ is polynomial; the complete nonlinear actor is not a degree-two polynomial.</text>
+<polygon points="319.0,184.0 310.0,180.0 310.0,188.0" fill="#526579" /><polygon points="850.0,184.0 841.0,180.0 841.0,188.0" fill="#526579" /><polygon points="1047.0,184.0 1038.0,180.0 1038.0,188.0" fill="#526579" /><polygon points="1280.0,184.0 1271.0,180.0 1271.0,188.0" fill="#526579" /><polygon points="277.0,342.0 267.357941340931,339.9923384709884 269.04860368115135,347.8116517945073" fill="#526579" /><polygon points="277.0,447.0 275.45487957051245,437.2730990105594 268.74464227673803,441.6288670784481" fill="#526579" /><polygon points="490.0,318.0 480.1917560448092,318.89350462531763 484.09068531892234,325.8790862414369" fill="#526579" /><polygon points="490.0,403.0 488.08394293252604,393.33932065979917 481.54523070226526,397.94857682211415" fill="#526579" /><polygon points="703.0,341.0 696.9505472239365,333.2279911792268 693.1773292212391,340.2822683147043" fill="#526579" /><polygon points="703.0,380.0 693.1773292212391,380.7177316852957 696.9505472239365,387.7720088207732" fill="#526579" /><polygon points="936.0,360.0 927.0,356.0 927.0,364.0" fill="#526579" /><polygon points="1148.0,360.0 1139.0,356.0 1139.0,364.0" fill="#526579" /><polygon points="1217.0,396.0 1213.0,405.0 1221.0,405.0" fill="#526579" /><polygon points="1323.0,360.0 1314.0,356.0 1314.0,364.0" fill="#526579" /></svg>

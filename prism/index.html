@@ -25,6 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
   <script>document.documentElement.classList.add("js");</script>
   <link rel="stylesheet" href="assets/prism/site.css?v=20260922-bfm">
+  <link rel="stylesheet" href="assets/prism/mjlab/site-additions.css">
   <script defer src="assets/prism/site.js?v=20260922-bfm"></script>
 </head>
 <body>
@@ -38,6 +39,7 @@
     <div class="nav-links">
       <a href="#idea">Method</a>
       <a href="#evidence">Results</a>
+      <a href="#mjlab">G1 explorer</a>
       <a href="#backbones">Videos</a>
       <a href="#analysis">Analysis</a>
     </div>
@@ -52,6 +54,7 @@
     <div class="mobile-nav" id="mobile-nav" hidden>
       <a href="#idea">Method</a>
       <a href="#evidence">Results</a>
+      <a href="#mjlab">G1 explorer</a>
       <a href="#backbones">Videos</a>
       <a href="#analysis">Analysis</a>
       <a href="https://arxiv.org/abs/2607.23473">arXiv</a>
@@ -318,6 +321,20 @@
           </article>
         </div>
 
+      </div>
+    </section>
+
+    <section class="section mjlab-section" id="mjlab">
+      <div class="shell">
+        <div class="section-heading reveal"><p class="section-index">New experiment / Locomotion</p><h2>G1 · mjlab · RMSNorm</h2><p>A separate 29-joint G1 comparison, trained from scratch with the native rough-terrain PPO recipe and shared actor RMS normalization.</p></div>
+        <div class="mjlab-summary reveal"><div><span>Random rough · original training</span><strong>92<span>/100</span></strong><p>PRISM survived 20 s<br>MLP 83 · Matched 77</p></div><div><span>Random rough · dynamics DR</span><strong>98<span>/100</span></strong><p>PRISM survived 20 s<br>MLP 82 · Matched 61</p></div><div class="mjlab-context"><span>Evaluation scope</span><p>One training seed per policy.<br>Five prescribed layout/reset groups.<br>100 paired attempts per method.</p><p>Fresh layouts from a trained terrain family.</p></div></div>
+        <figure class="mjlab-figure reveal"><a href="assets/prism/mjlab/random_rough_survival.svg" target="_blank" rel="noopener"><img src="assets/prism/mjlab/random_rough_survival.svg" width="1037" height="575" loading="lazy" alt="Native-mjlab random-rough 20-second survival. Original training: MLP 83%, Matched 77%, PRISM 92%. Dynamics-randomized training: MLP 82%, Matched 61%, PRISM 98%."></a><figcaption>Native noise range 0.02–0.10 m. Wilson 95% intervals are conditional episode intervals for these fixed layouts, not independent training-seed intervals.</figcaption></figure>
+        <details class="mjlab-disclosure reveal"><summary>Protocol, tracking metrics, and scope</summary><p>Evaluation uses nominal physics, a 0.5 m/s forward command, and 20 seconds from rest. A native orientation fall or leaving the certified support footprint fails survival. The same random-rough family is present during training; its native roughness is not scaled by the canonical difficulty setting.</p><div class="mjlab-table"><table><thead><tr><th>Training</th><th>Actor</th><th>Survival % [95% CI]</th><th>Linear RMSE<br>m/s</th><th>Yaw RMSE<br>rad/s</th><th>Forward<br>m</th></tr></thead><tbody><tr><td>Original</td><th scope="row">MLP</th><td><strong>83%</strong> <span>[74.5, 89.1]</span></td><td>0.199</td><td>0.771</td><td>4.833</td></tr><tr><td>Original</td><th scope="row">Matched</th><td><strong>77%</strong> <span>[67.8, 84.2]</span></td><td>0.189</td><td>0.695</td><td>4.369</td></tr><tr><td>Original</td><th scope="row">PRISM</th><td><strong>92%</strong> <span>[85.0, 95.9]</span></td><td>0.180</td><td>0.669</td><td>4.769</td></tr><tr><td>Friction / mass / payload DR</td><th scope="row">MLP</th><td><strong>82%</strong> <span>[73.3, 88.3]</span></td><td>0.182</td><td>0.661</td><td>3.543</td></tr><tr><td>Friction / mass / payload DR</td><th scope="row">Matched</th><td><strong>61%</strong> <span>[51.2, 70.0]</span></td><td>0.239</td><td>0.803</td><td>0.133</td></tr><tr><td>Friction / mass / payload DR</td><th scope="row">PRISM</th><td><strong>98%</strong> <span>[93.0, 99.4]</span></td><td>0.161</td><td>0.604</td><td>6.937</td></tr></tbody></table></div><p>All six policies had zero successes under the stricter tracking-and-progress compound criterion. Survival alone does not establish accurate commanded traversal. The random-rough focus was selected after inspecting the seven-terrain sweep; all terrain results and failures remain available.</p><p>This is a new 29-joint, one-training-seed comparison. The historical Humanoid-Gym five-training-seed experiment above has a different robot interface and protocol.</p><p><a href="assets/prism/mjlab/terrain-sweep.html">Complete seven-terrain comparison</a> · <a href="assets/prism/mjlab/random_rough_metrics.csv">Random-rough metrics CSV</a> · <a href="assets/prism/mjlab/random_rough_provenance.json">Source and checkpoint hashes</a> · <a href="assets/prism/mjlab/random_rough_survival.pdf">Figure PDF</a></p></details>
+        <div class="mjlab-explorer-heading reveal"><div><p class="section-index">Dynamics / commands / recordings</p><h3>Click a condition to inspect the policy.</h3><p>Nominal, friction, mass, payload, and speed, with the actual training support shown.</p></div><a class="button primary" href="explorer/" target="_blank" rel="noopener">Open full explorer ↗</a></div>
+        <p class="mjlab-snapshot">Dated snapshot: <time datetime="2026-10-11T19:50:51.821869+00:00">2026-10-11T19:50:51.821869+00:00</time>. 42 of 150 flat condition/method cells are closed; the full paired sweep is still in progress. Pending measurements have no plotted result.</p>
+        <iframe class="mjlab-explorer" src="explorer/" loading="lazy" title="PRISM condition and method explorer with training ranges and actual CPU replays" allow="autoplay" ></iframe>
+        <p class="mjlab-snapshot">All 156 condition/method/cohort contexts are selectable. 3 actual clips are available in this snapshot; the others remain pending. CPU replays illustrate the selected saved policy and condition and are not recordings of the quantitative GPU trajectory.</p>
+        <details class="mjlab-disclosure reveal"><summary>The exact new G1 architecture and training support</summary><p>PRISM forms degree-two interactions from 99 robot/command coordinates through two affine 256-dimensional factors with a learned vector gate. The 187 height-scan coordinates bypass this module. All three actors share RMSNorm after the final hidden activation, before the 29 joint-target outputs. The capacity-matched MLP controls the added parameter count.</p><img src="assets/prism/mjlab/native_g1_prism_architecture.svg" width="1500" height="610" loading="lazy" alt="The saved G1 PRISM architecture: 99 state coordinates enter a factorized degree-two module, 187 height samples bypass it, and all comparison actors use shared final-hidden RMS normalization."><p>Original training randomizes friction over 0.3–1.2, with fixed link density ratio 1 and payload 0 kg. The DR cohort uses a shared 20% nominal mixture and 80% independent friction 0.3–1.2, density ratio 0.8–1.2, and fixed torso payload 0–5 kg. Both retain the native command curriculum, whose final forward range is −2–3 m/s; the speed panel shows its positive projection.</p></details>
       </div>
     </section>
 

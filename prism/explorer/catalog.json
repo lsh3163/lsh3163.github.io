@@ -1,0 +1,718 @@
+{
+  "schema": "prism_robustness_catalog_v1",
+  "axes": [
+    "nominal",
+    "friction",
+    "mass",
+    "payload",
+    "speed"
+  ],
+  "conditions": [
+    {
+      "condition_id": "nominal",
+      "axis": "nominal",
+      "x": "nominal",
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p1",
+      "axis": "friction",
+      "x": 0.1,
+      "physics": {
+        "foot_friction": 0.1,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p2",
+      "axis": "friction",
+      "x": 0.2,
+      "physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p3",
+      "axis": "friction",
+      "x": 0.3,
+      "physics": {
+        "foot_friction": 0.3,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p45",
+      "axis": "friction",
+      "x": 0.45,
+      "physics": {
+        "foot_friction": 0.45,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p6",
+      "axis": "friction",
+      "x": 0.6,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_0p9",
+      "axis": "friction",
+      "x": 0.9,
+      "physics": {
+        "foot_friction": 0.9,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_1p2",
+      "axis": "friction",
+      "x": 1.2,
+      "physics": {
+        "foot_friction": 1.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "friction_1p5",
+      "axis": "friction",
+      "x": 1.5,
+      "physics": {
+        "foot_friction": 1.5,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "mass_0p6",
+      "axis": "mass",
+      "x": 0.6,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.6,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "mass_0p8",
+      "axis": "mass",
+      "x": 0.8,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.8,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "mass_1",
+      "axis": "mass",
+      "x": 1.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "mass_1p2",
+      "axis": "mass",
+      "x": 1.2,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.2,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "mass_1p4",
+      "axis": "mass",
+      "x": 1.4,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.4,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "payload_0",
+      "axis": "payload",
+      "x": 0.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "payload_2",
+      "axis": "payload",
+      "x": 2.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 2.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "payload_4",
+      "axis": "payload",
+      "x": 4.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 4.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "payload_6",
+      "axis": "payload",
+      "x": 6.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 6.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "payload_8",
+      "axis": "payload",
+      "x": 8.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 8.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    },
+    {
+      "condition_id": "speed_0p2",
+      "axis": "speed",
+      "x": 0.2,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.2,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 4.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    },
+    {
+      "condition_id": "speed_0p5",
+      "axis": "speed",
+      "x": 0.5,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    },
+    {
+      "condition_id": "speed_1",
+      "axis": "speed",
+      "x": 1.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        1.0,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 20.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    },
+    {
+      "condition_id": "speed_1p5",
+      "axis": "speed",
+      "x": 1.5,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        1.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 30.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    },
+    {
+      "condition_id": "speed_2",
+      "axis": "speed",
+      "x": 2.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        2.0,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 40.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    },
+    {
+      "condition_id": "speed_3",
+      "axis": "speed",
+      "x": 3.0,
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        3.0,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 60.0,
+      "warmup_seconds": 2.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 22.0
+    }
+  ],
+  "cohorts": {
+    "current": {
+      "training_support": {
+        "evidence_regime": "current_native_shared_rms_training_only",
+        "foot_friction": {
+          "support": [
+            0.3,
+            1.2
+          ],
+          "nominal": 0.6,
+          "effective_contact_verified_by_higher_foot_priority": true
+        },
+        "global_link_density_ratio": {
+          "support": [
+            1.0,
+            1.0
+          ],
+          "nominal": 1.0,
+          "randomized": false
+        },
+        "payload_kg": {
+          "support": [
+            0.0,
+            0.0
+          ],
+          "nominal": 0.0,
+          "randomized": false
+        },
+        "command_vx": {
+          "support": [
+            -2.0,
+            3.0
+          ],
+          "initial_support": [
+            -1.0,
+            1.0
+          ],
+          "positive_panel_projection": [
+            0.0,
+            3.0
+          ],
+          "nominal": 0.5,
+          "randomized": true,
+          "forward_only_subgroup_minimum_speed": 0.3,
+          "general_command_distribution_includes_0p2": true,
+          "evidence": {
+            "sha256": "8a272a8b3c81c4a0321027e404645c99a4143076522ed3521636bf293dd3137b",
+            "mjlab_git_revision": "033ae22a2c7a30a25a6fa77b16c113ed88dd1b55",
+            "velocity_stages": [
+              {
+                "step": 0,
+                "lin_vel_x": [
+                  -1.0,
+                  1.0
+                ],
+                "ang_vel_z": [
+                  -0.5,
+                  0.5
+                ]
+              },
+              {
+                "step": 120000,
+                "lin_vel_x": [
+                  -1.5,
+                  2.0
+                ],
+                "ang_vel_z": [
+                  -0.7,
+                  0.7
+                ]
+              },
+              {
+                "step": 240000,
+                "lin_vel_x": [
+                  -2.0,
+                  3.0
+                ]
+              }
+            ],
+            "final_stage_reached_by_required_720000_control_steps": true
+          },
+          "curriculum_control_steps": [
+            0,
+            120000,
+            240000
+          ]
+        }
+      },
+      "spec_sha256": "d2b462b939ea595ed75524efe4bfca101cad0338597c2470697aef6d4bbcdc66",
+      "training_source_sha256": {
+        "run_mjlab_shared_rms.py": "99b5eaaa9a20152e5b2ff0fb95750878f49dfad1320e114fc2f872ae2d5c983c",
+        "actors_mjlab_shared_rms.py": "7f6e26039430935248bd04c4e86e737e87858ad6d657c077a8cc8ce0ec13c939",
+        "run_mjlab_native.py": "4c6e00abac2a33f0622def2044969ea4f1ac2608fb0e16480c36ae2b6e4122b6",
+        "checkpoint_storage.py": "90d7e8dd7212d79ceef31942b3c2b9145c1222418d9ada65e09ec1b781f37f35",
+        "storage_config.json": "04e07725179f0617c44cec65fb36bbc67671501c74137688ae057b4682ee6454"
+      }
+    },
+    "mass_payload_dr": {
+      "training_support": {
+        "evidence_regime": "joint_startup_friction_global_density_payload_shared_rms_dr_training",
+        "foot_friction": {
+          "support": [
+            0.3,
+            1.2
+          ],
+          "nominal": 0.6,
+          "randomized": true,
+          "effective_contact_verified_by_higher_foot_priority": true
+        },
+        "global_link_density_ratio": {
+          "support": [
+            0.8,
+            1.2
+          ],
+          "nominal": 1.0,
+          "randomized": true
+        },
+        "payload_kg": {
+          "support": [
+            0.0,
+            5.0
+          ],
+          "nominal": 0.0,
+          "randomized": true
+        },
+        "nominal_probability": 0.2,
+        "random_component_probability": 0.8,
+        "joint_nominal_mask": true,
+        "draws_independent_conditional_on_random_component": true,
+        "nominal_component_native_com_encoder_push_dr_retained": true,
+        "density_excludes_payload": true,
+        "command_vx": {
+          "support": [
+            -2.0,
+            3.0
+          ],
+          "initial_support": [
+            -1.0,
+            1.0
+          ],
+          "positive_panel_projection": [
+            0.0,
+            3.0
+          ],
+          "nominal": 0.5,
+          "randomized": true,
+          "forward_only_subgroup_minimum_speed": 0.3,
+          "general_command_distribution_includes_0p2": true,
+          "evidence": {
+            "sha256": "8a272a8b3c81c4a0321027e404645c99a4143076522ed3521636bf293dd3137b",
+            "mjlab_git_revision": "033ae22a2c7a30a25a6fa77b16c113ed88dd1b55",
+            "velocity_stages": [
+              {
+                "step": 0,
+                "lin_vel_x": [
+                  -1.0,
+                  1.0
+                ],
+                "ang_vel_z": [
+                  -0.5,
+                  0.5
+                ]
+              },
+              {
+                "step": 120000,
+                "lin_vel_x": [
+                  -1.5,
+                  2.0
+                ],
+                "ang_vel_z": [
+                  -0.7,
+                  0.7
+                ]
+              },
+              {
+                "step": 240000,
+                "lin_vel_x": [
+                  -2.0,
+                  3.0
+                ]
+              }
+            ],
+            "final_stage_reached_by_required_720000_control_steps": true
+          },
+          "curriculum_control_steps": [
+            0,
+            120000,
+            240000
+          ]
+        }
+      },
+      "spec_sha256": "a6fd2d2f1c39c8822c5b1fc3d304b0d886a7ac59ebd23178a0aab14c6e637929",
+      "training_source_sha256": {
+        "actors_mjlab_shared_rms.py": "7f6e26039430935248bd04c4e86e737e87858ad6d657c077a8cc8ce0ec13c939",
+        "run_mjlab_native.py": "4c6e00abac2a33f0622def2044969ea4f1ac2608fb0e16480c36ae2b6e4122b6",
+        "checkpoint_storage.py": "90d7e8dd7212d79ceef31942b3c2b9145c1222418d9ada65e09ec1b781f37f35",
+        "storage_config.json": "04e07725179f0617c44cec65fb36bbc67671501c74137688ae057b4682ee6454",
+        "run_mjlab_shared_rms_dr.py": "118cdc7ec306d1b74e46cdef09d056fb575a952be3c06e2715852fbd6014e10e",
+        "mjlab_mass_payload_dr.py": "077d067e848502deda054aedc64cbdd8595fad9ce9071f16a9d448a95897ed86",
+        "mjlab_mass_payload_dr_protocol.json": "99293e345af5dcaf85281b8895cf680320c7c814c3482c847ed34ca3c4d87c75"
+      }
+    }
+  },
+  "method_labels": {
+    "prism": "PRISM",
+    "standard": "MLP",
+    "matched": "Matched"
+  },
+  "source_requirements_sha256": "754f668a556a3c3a1b91c0e6535cad84bf251ea3053f57d2fc4193625aec539b",
+  "extra_conditions": [
+    {
+      "condition_id": "random_rough",
+      "axis": "terrain",
+      "x": "random_rough",
+      "native_preset": "random_rough",
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "expected_world_forward_distance_m": 10.0,
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0
+    }
+  ]
+}
