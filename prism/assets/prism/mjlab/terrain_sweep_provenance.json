@@ -1,27 +1,15 @@
 {
-  "status": "all_six_actual_rough_sweeps_paired_validated_and_plotted",
-  "requirements_sha256": "2c1606975d82c967db7f57880ef1bc61312daaa334ba0431ce2efa59c7bc4e82",
+  "status": "selected_common_checkpoint_map_from_verified_seven_terrain_sweep",
+  "selected_checkpoint_map": "mass_payload_dr",
+  "cells": 21,
+  "attempts": 2100,
+  "source_all_sweeps_provenance_sha256": "b0ea5f30d85b11e1e5d94dd1327e486f464aa3b7e1601ebaa5280137d0228651",
+  "source_total_cells": 42,
+  "source_total_attempts": 4200,
+  "source_actual_initial_state_pair_comparisons": 4900,
   "evaluator_sha256": "b49474412d93cf84ad14afe98109125cf4783b81ed20e63b0dc22e52b74cd060",
   "geometry_proof_sha256": "80bf773b1010086821da28added86f12ae02d1be2a89c06dc903c8505f00843c",
   "inputs": [
-    {
-      "cohort": "current",
-      "actor": "prism",
-      "manifest_sha256": "8cc80eca962720a27d072febb160a7804abcda8a045f7cbb9e3ebaa546b36f7c",
-      "checkpoint_sha256": "219ca4e3f29e118556180f00ffe4e666df555d3e305fdda9bffb8b1b645fe131"
-    },
-    {
-      "cohort": "current",
-      "actor": "standard",
-      "manifest_sha256": "17d2c75cb2b9b6080aea04f4ae898c4cead053521ce12117df837f0febf55f6b",
-      "checkpoint_sha256": "908523e3eb4d7afdc610b59470c3d691ea6695057212fbc7569084dfd238c3d9"
-    },
-    {
-      "cohort": "current",
-      "actor": "matched",
-      "manifest_sha256": "77467d76e08f5838e29dc59f4d3af4d914f9de6509da0d9120570e0c74f5857d",
-      "checkpoint_sha256": "fc1a91888b80308a39a91d4997ce1728b8bb45963ae812815b4ac4fdee0d8d0f"
-    },
     {
       "cohort": "mass_payload_dr",
       "actor": "prism",
@@ -41,19 +29,6 @@
       "checkpoint_sha256": "6c7c7109d383b32300736b2f0802b6e3b9f54841b16397334c5b82697b9ea20f"
     }
   ],
-  "cells": 42,
-  "attempts": 4200,
-  "actual_initial_state_pair_comparisons": 4900,
   "synthetic_data_used": false,
-  "missing_attempts_inserted": false,
-  "outputs_sha256": {
-    "current_rough_survival.pdf": "5a9fc0f87a54d4a8b390889de125c6ad8d5cabb0e486417510d5f8f3b096483a",
-    "REPORT.md": "b12f5d299f41951ad5c4204735961b86f4fe71eb985a7fccb55862a23cc29524",
-    "mass_payload_dr_rough_survival.png": "1cea55b110615702130cdb834981a6d53e848abc71ca79acfd1e345801b39c9b",
-    "mass_payload_dr_rough_survival.svg": "143f01ad49f49ddbee81a5532fbba4ac3ff4202b39390260ce95c35244d6b01c",
-    "current_rough_survival.svg": "7e87cabf6151c101038c973d641efe8fa1d5f1bfaedfbaf532463a7dfffcf0fa",
-    "metrics.csv": "bb0977e189a07892ba06e84b8bacf7f2df0d68f67710521a349770d86e49d01b",
-    "mass_payload_dr_rough_survival.pdf": "1ded25f3dbbb3b2d6e4d759e35d6c30c225529e307fd7e840a8e77af40dabe04",
-    "current_rough_survival.png": "2d924922e12f0923f6e2a38fc90c6c11275361409a5b5ae0c3d7534f866f5feb"
-  }
+  "missing_attempts_inserted": false
 }
