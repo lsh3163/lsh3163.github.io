@@ -45,6 +45,30 @@ function initMobileNav() {
   });
 }
 
+function initDynamicsEmbed() {
+  const frame = document.getElementById("dynamics-explorer");
+  if (!frame) return;
+  const sourceOrigin = new URL(frame.src, window.location.href).origin;
+  const fit = (height) => {
+    if (typeof height !== "number" || !Number.isFinite(height) || height <= 0) return;
+    const nextHeight = Math.max(600, Math.min(3000, Math.ceil(height) + 2));
+    frame.style.height = `${nextHeight}px`;
+  };
+  window.addEventListener("message", (event) => {
+    if (event.origin !== sourceOrigin || event.source !== frame.contentWindow) return;
+    if (!event.data || event.data.type !== "prism-explorer-height") return;
+    fit(event.data.height);
+  });
+  frame.addEventListener("load", () => {
+    // The explorer also reports height after chart, video, and viewport changes.
+    try {
+      fit(frame.contentDocument.documentElement.scrollHeight);
+    } catch {
+      // The always-visible full comparison link remains available if embedded elsewhere.
+    }
+  });
+}
+
 function initReveal() {
   const nodes = [...document.querySelectorAll(".reveal")];
   if (!("IntersectionObserver" in window)) {
@@ -478,6 +502,7 @@ function initTsne() {
 
 function init() {
   initMobileNav();
+  initDynamicsEmbed();
   initReveal();
   initBfmVideos();
   initContactChart();

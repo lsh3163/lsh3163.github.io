@@ -1,10 +1,42 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>PRISM · G1 rough dynamics</title><link rel="stylesheet" href="styles.css?v=rough1000-20261012"></head>
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PRISM · Dynamics on random rough terrain</title>
+<script>if(new URLSearchParams(location.search).get('embedded')==='1')document.documentElement.classList.add('embedded');</script>
+<link rel="stylesheet" href="styles.css?v=template-20261012">
+</head>
 <body><main class="shell">
-<header class="page-head"><a href="../#mjlab" class="eyebrow">PRISM / G1 LOCOMOTION ↗</a><h1>Dynamics on random rough terrain</h1><p>Click a measured point, then choose PRISM or MLP to watch that condition.</p><p class="small" id="recording-progress"></p></header>
-<nav class="toolbar" aria-label="Rollout selection"><div><div id="methods" class="methods"><button type="button" data-actor="prism" aria-pressed="true">PRISM</button><button type="button" data-actor="standard" aria-pressed="false">MLP</button></div><p class="small">Compare the same condition and initial state.</p></div><label for="condition">Condition <select id="condition"></select></label></nav>
-<div class="workspace"><section aria-labelledby="chart-title"><h2 id="chart-title">20 s survival rate (%)</h2><div class="legend"><span><i class="mlp"></i>MLP</span><span><i class="prism"></i>PRISM</span><span><i class="training"></i>Training range</span><span><i class="reference"></i>Nominal reference</span></div><div id="charts" class="charts"></div><p class="note" id="scope">1,000 paired attempts per point · five fixed terrain layouts × 200 resets · one training seed per policy. Bands show conditional Wilson 95% episode intervals.</p></section>
-<aside class="recording" aria-labelledby="selection"><div class="record-heading"><span class="eyebrow">SELECTED CONDITION</span><h2 id="selection"></h2><p id="measurement" class="badge" aria-live="polite"></p><p id="interval" class="small"></p></div><div class="video-frame"><video id="video" controls muted autoplay playsinline preload="metadata" hidden></video><div id="unavailable" role="status">Loading the selected recording.</div></div><div class="record-body"><p id="replay-outcome" class="replay-note"></p><p class="small">Illustrative CPU replay; plotted metrics come from separate paired GPU evaluation. The clip uses the first prespecified reset.</p><div id="continuous" class="continuous"></div><details><summary>Recording details</summary><dl id="record-details"></dl></details></div></aside></div>
-<footer><p>All four panels use the same random rough terrain protocol. Physical trials start from rest with a 0.5 m/s forward command. Survival means remaining upright within terrain support for 20 seconds; survival alone does not establish accurate commanded traversal.</p></footer>
-</main><script src="bootstrap.js?v=rough1000-20261012"></script><script src="segmented_videos.js?v=rough1000-20261012"></script><script src="app.js?v=rough1000-20261012"></script></body></html>
+<header class="page-head"><a href="../#mjlab" class="eyebrow">PRISM / LOCOMOTION ↗</a><h1>Dynamics on random rough terrain</h1><p>Compare survival across 1,000 trials, then inspect a recorded rollout.</p><p class="small" id="recording-progress"></p></header>
+<nav class="toolbar" aria-label="Condition selection">
+<div class="quick-cases" aria-label="Example conditions">
+<button type="button" data-case="nominal">Nominal</button>
+<button type="button" data-case="friction_0p2">Low friction · μ = 0.2</button>
+<button type="button" data-case="friction_0p1" data-example-actor="standard" class="fall-case">Recorded falls · μ = 0.1</button>
+</div>
+<label for="condition">Condition <select id="condition"></select></label>
+</nav>
+<div class="workspace">
+<section class="evaluation" aria-labelledby="chart-title">
+<div class="section-head"><span class="eyebrow">ACROSS 1,000 TRIALS</span><h2 id="chart-title">20 s survival rate (%)</h2></div>
+<div id="axis-tabs" class="axis-tabs" role="tablist" aria-label="Physical factor"></div>
+<div class="legend"><span><i class="prism"></i>PRISM</span><span><i class="mlp"></i>MLP</span><span><i class="training"></i>Training range</span><span><i class="reference"></i>Nominal reference</span></div>
+<div id="charts" class="charts"></div>
+<div id="aggregate-pair" class="aggregate-pair" aria-label="Measured survival for the selected condition"></div>
+<p class="note" id="scope">Each method: 5 terrain layouts × 200 resets. Bands show conditional Wilson 95% intervals; one trained checkpoint per method.</p>
+</section>
+<aside class="recording" aria-labelledby="selection">
+<div class="record-heading"><span class="eyebrow">THIS RECORDED ROLLOUT</span>
+<div id="methods" class="methods"><button type="button" data-actor="prism" aria-pressed="true">PRISM</button><button type="button" data-actor="standard" aria-pressed="false">MLP</button></div>
+<h2 id="selection"></h2><p id="replay-outcome" class="clip-outcome" aria-live="polite"></p></div>
+<div class="video-frame"><video id="video" controls muted autoplay playsinline preload="metadata" hidden></video><div id="unavailable" role="status">Loading the selected recording.</div></div>
+<div class="record-body">
+<div id="paired-outcomes" class="paired-outcomes" aria-label="Both recorded outcomes from the same initial state"></div>
+<p id="pair-note" class="small"></p>
+<details><summary>Replay and evaluation details</summary><p class="small">Videos show the same prespecified reset for both models. These illustrative CPU replays are separate from the GPU evaluation summarized by the curves.</p><dl id="record-details"></dl></details>
+</div></aside>
+</div>
+<footer><p>All conditions use random rough terrain and a 0.5 m/s forward command from rest. Survival means remaining upright within terrain support for 20 seconds. The measured rates and the outcome of one recorded rollout are reported separately.</p></footer>
+</main>
+<script src="bootstrap.js?v=rough1000-20261012"></script><script src="segmented_videos.js?v=rough1000-20261012"></script><script src="app.js?v=template-20261012"></script>
+</body></html>

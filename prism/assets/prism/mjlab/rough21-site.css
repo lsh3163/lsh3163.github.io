@@ -1,1 +1,59 @@
-.mjlab-figure img{display:block;width:100%;height:auto}.mjlab-figure figcaption{font-size:13px;line-height:1.65;color:#607186;margin-top:12px}.mjlab-explorer{width:100%;height:1020px;display:block;border:1px solid #dce3eb;border-radius:10px;background:#fff}.mjlab-explorer-heading{margin-top:36px}@media(max-width:850px){.mjlab-explorer{height:1350px}}@media(max-width:520px){.mjlab-explorer{height:2480px}}
+/* Dynamics shares the main page's type, colors, and content width. */
+.mjlab-section { border-top: 1px solid var(--line); background: var(--white); }
+.mjlab-section .section-heading h2 { max-width: 900px; }
+.dynamics-metrics { display: grid; grid-template-columns: 1fr 1fr .9fr; margin-bottom: 26px; overflow: hidden; border: 1px solid var(--line); border-radius: 12px; }
+.dynamics-metrics article { min-width: 0; padding: 20px 24px; }
+.dynamics-metrics article + article { border-left: 1px solid var(--line); }
+.dynamics-metrics h3 { margin: 0 0 12px; color: var(--ink-soft); font-size: .78rem; font-weight: 500; letter-spacing: 0; line-height: 1.4; }
+.dynamics-metric-values { display: flex; gap: 24px; }
+.dynamics-metric-values > span { display: flex; flex-direction: column; color: var(--ink-soft); font-size: .74rem; line-height: 1.5; }
+.dynamics-metric-values > .prism-text { color: var(--accent-dark); }
+.dynamics-metric-values b { font-size: clamp(1.55rem, 2.4vw, 2rem); font-weight: 600; line-height: 1.25; font-variant-numeric: tabular-nums; }
+.dynamics-metric-protocol { background: #f8f9fa; }
+.dynamics-metric-protocol > strong { display: block; margin: 0 0 2px; font-size: 1.16rem; font-weight: 500; line-height: 1.35; }
+.dynamics-metric-protocol > p { margin: 0; color: var(--ink-soft); font-size: .75rem; line-height: 1.55; }
+.mjlab-explorer-heading { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 18px; }
+.mjlab-explorer-heading h3 { margin: 0 0 7px; font-size: 1.18rem; line-height: 1.3; }
+.mjlab-explorer-heading p { max-width: 760px; margin: 0; color: var(--ink-soft); font-size: .84rem; line-height: 1.5; }
+.mjlab-explorer-heading .button { flex: 0 0 auto; }
+.mjlab-explorer { display: block; width: 100%; height: 760px; border: 1px solid var(--line); border-radius: 12px; background: var(--white); }
+.dynamics-video-note { max-width: 940px; margin: 12px 0 20px; color: var(--ink-soft); font-size: .79rem; line-height: 1.6; }
+.mjlab-disclosure { margin: 10px 0 0; padding: 16px 20px; border: 1px solid var(--line); border-radius: 10px; color: var(--ink-soft); background: #fafbfc; font-size: .83rem; line-height: 1.6; }
+.mjlab-disclosure summary { width: fit-content; cursor: pointer; color: var(--ink); font-weight: 500; }
+.mjlab-disclosure summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.mjlab-disclosure[open] summary { margin-bottom: 18px; }
+.mjlab-disclosure p:last-child { margin-bottom: 0; }
+.mjlab-figure { margin: 0; padding: 0; }
+.mjlab-figure a { display: block; }
+.mjlab-figure img { display: block; width: 100%; height: auto; }
+.mjlab-figure figcaption { margin-top: 12px; color: var(--ink-soft); font-size: .78rem; line-height: 1.6; }
+.dynamics-protocol-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; margin-bottom: 16px; }
+.dynamics-protocol-grid h4 { margin: 0 0 8px; color: var(--ink); font-size: .89rem; letter-spacing: 0; }
+.dynamics-protocol-grid p { margin: 0; }
+@media (max-width: 860px) {
+  .dynamics-metrics { grid-template-columns: 1fr 1fr; }
+  .dynamics-metrics article { padding: 18px 20px; }
+  .dynamics-metric-protocol { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr auto; gap: 4px 20px; border-top: 1px solid var(--line); }
+  .dynamics-metrics article.dynamics-metric-protocol { border-left: 0; }
+  .dynamics-metric-protocol h3 { grid-row: 1 / 3; margin: 0; align-self: center; }
+  .dynamics-metric-protocol > p { grid-column: 2; }
+  .mjlab-explorer-heading { align-items: start; gap: 18px; }
+  .mjlab-explorer { height: 1450px; }
+}
+@media (max-width: 560px) {
+  .dynamics-metrics { margin-bottom: 22px; }
+  .dynamics-metrics article { padding: 16px; }
+  .dynamics-metric-values { gap: 14px; }
+  .dynamics-metric-values b { font-size: 1.45rem; }
+  .dynamics-metric-values > span { font-size: .7rem; }
+  .dynamics-metric-protocol > strong { font-size: 1rem; }
+  .dynamics-metric-protocol > p { font-size: .7rem; }
+  .mjlab-explorer-heading { display: block; }
+  .mjlab-explorer-heading .button { margin-top: 12px; }
+  .mjlab-explorer-heading h3 { font-size: 1.09rem; }
+  .mjlab-explorer-heading p { font-size: .8rem; }
+  .mjlab-explorer { height: 1500px; border-radius: 9px; }
+  .dynamics-video-note { font-size: .75rem; }
+  .mjlab-disclosure { padding: 15px; font-size: .78rem; }
+  .dynamics-protocol-grid { grid-template-columns: 1fr; gap: 16px; }
+}
