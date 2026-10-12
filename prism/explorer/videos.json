@@ -1,12 +1,42 @@
 {
-  "schema": "prism_robustness_videos_v1",
+  "schema": "prism_rough21_physical_videos_v1",
   "videos": [
     {
-      "cohort": "mass_payload_dr",
       "actor": "standard",
-      "condition_id": "random_rough",
-      "episode_seed": 401000,
+      "condition_id": "nominal",
       "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-nominal-standard-seed401000.mp4",
+      "video_sha256": "4104958d1afa35cbd3dd48d94fd8d2a9d5ba9a973ff6b977881ef95a4f42b676",
+      "video_bytes": 633633,
+      "video_manifest_sha256": "5f36a8dd0c53f01dcc28e4364a4faea5c4d06170ab55627ac84b4fa4d9fb62bf",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
       "physics": {
         "foot_friction": 0.6,
         "global_link_density_ratio": 1.0,
@@ -21,31 +51,50 @@
       "measurement_seconds": 20.0,
       "total_horizon_seconds": 20.0,
       "backend": "CPU replay",
-      "physics_backend": "MuJoCo-Warp CPU through unchanged native mjlab evaluator",
-      "illustrative_replay": true,
-      "exact_quantitative_trajectory": false,
-      "status": "ready",
-      "path": "videos/g1-random_rough-standard-seed401000.mp4",
-      "video_sha256": "8ea0811ecb489368383c8d3238b6f6b31df32aa00263339fa7fa8a81b15bf4ef",
-      "physical_duration_seconds": 20.0,
+      "device": "cpu",
       "encoded_duration_seconds": 20.04,
       "survived_horizon": true,
       "compound_success": false,
       "fps": 25,
       "width": 640,
-      "height": 360,
-      "video_manifest_sha256": "87c1f55c08a853c39a5f1d2dfff9f1c26288302f957044b8e0092a2b5d27959c",
-      "source_index_sha256": "7e77e27d761686f98e99678d15408291b5ca3e72b0dc0016b067d13aaf9e819d",
-      "termination_reasons": [
-        "time_out"
-      ]
+      "height": 360
     },
     {
-      "cohort": "mass_payload_dr",
-      "actor": "matched",
-      "condition_id": "random_rough",
+      "actor": "prism",
+      "condition_id": "nominal",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
       "episode_seed": 401000,
-      "checkpoint_sha256": "6c7c7109d383b32300736b2f0802b6e3b9f54841b16397334c5b82697b9ea20f",
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-nominal-prism-seed401000.mp4",
+      "video_sha256": "a486e0edba8f8478b35c5fb2ad04a2b7219004a936633a7522241ee50e0dc9d4",
+      "video_bytes": 636235,
+      "video_manifest_sha256": "812610acf106d10c5899c3474c1e82fa53a847c00e522c625bd7c3505a6fe6cb",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
       "physics": {
         "foot_friction": 0.6,
         "global_link_density_ratio": 1.0,
@@ -60,32 +109,516 @@
       "measurement_seconds": 20.0,
       "total_horizon_seconds": 20.0,
       "backend": "CPU replay",
-      "physics_backend": "MuJoCo-Warp CPU through unchanged native mjlab evaluator",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_0p1",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
       "illustrative_replay": true,
       "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 1.68,
+      "termination_reasons": [
+        "fell_over_post_step"
+      ],
       "status": "ready",
-      "path": "videos/g1-random_rough-matched-seed401000.mp4",
-      "video_sha256": "597a71eea6197de968aab7b3d7f272f73014f8bc4005d334152ea9ecbbb1cfba",
-      "physical_duration_seconds": 5.34,
-      "encoded_duration_seconds": 5.4,
+      "path": "videos/rough21-friction_0p1-standard-seed401000.mp4",
+      "video_sha256": "da92de33999360c8b868e8985265c9a69b63324bb3309bb32b15b1cc70a81ca7",
+      "video_bytes": 68945,
+      "video_manifest_sha256": "2b780278e9bec55b45a09ac5797c5ef125f1e52c5b3771b268608632bebaa03c",
+      "requested_physics": {
+        "foot_friction": 0.1,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.1,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 1.72,
       "survived_horizon": false,
       "compound_success": false,
       "fps": 25,
       "width": 640,
-      "height": 360,
-      "video_manifest_sha256": "e91e2ac03beadc92d7a44944e969e49292f9e823d6e2edab9d244c4903e6dec2",
-      "source_index_sha256": "9560de020eed51f7819f5177e70023ab0850374b3d73cfb257cebec813e68ccc",
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p1",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 1.96,
       "termination_reasons": [
         "fell_over",
         "fell_over_post_step"
-      ]
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p1-prism-seed401000.mp4",
+      "video_sha256": "dd0621dfa2265260e6056b4e3957090af80767db2e267b89a8901ef29c2a6c28",
+      "video_bytes": 73258,
+      "video_manifest_sha256": "24ad945a56b1942caeb3d793fa191d5b11bbbf939dc75ee9ed703941836131fb",
+      "requested_physics": {
+        "foot_friction": 0.1,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.1,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 2.0,
+      "survived_horizon": false,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
     },
     {
-      "cohort": "mass_payload_dr",
-      "actor": "prism",
-      "condition_id": "random_rough",
+      "actor": "standard",
+      "condition_id": "friction_0p2",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
       "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p2-standard-seed401000.mp4",
+      "video_sha256": "daf00ce99de806f265ebd5eaf5221a322a4a27a9fa6e218c2f8eb105783a6541",
+      "video_bytes": 664878,
+      "video_manifest_sha256": "c860dcd725f01de12700685c63911e7a631d2e6d5110ef96a44461fca7880945",
+      "requested_physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p2",
       "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p2-prism-seed401000.mp4",
+      "video_sha256": "bd5ebc377718a21298ab0d376d1add143306d278b26d4f5a0dd38553c9088b8f",
+      "video_bytes": 647726,
+      "video_manifest_sha256": "8e5358edc3215b6e434b1b61f8b1a19604b78faad5b6f00a6069d83a08b39790",
+      "requested_physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_0p3",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p3-standard-seed401000.mp4",
+      "video_sha256": "b5befac37a02d2954e5b34842374f7ef8b5fcf184ec8a72c8e5a51a5d077c6f8",
+      "video_bytes": 650966,
+      "video_manifest_sha256": "a4b45b57570d019f4af4cfac929f3d3315db61c5cf81e38a77af3e22f679260c",
+      "requested_physics": {
+        "foot_friction": 0.3,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.3,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p3",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 10.68,
+      "termination_reasons": [
+        "fell_over",
+        "fell_over_post_step"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p3-prism-seed401000.mp4",
+      "video_sha256": "300c65ea608b2fa13b2b740c862750e4a7429b9d196cac673c47b8e15304f169",
+      "video_bytes": 345468,
+      "video_manifest_sha256": "f7b18200f84d07d4c0d2a99377abf837e32d30ecaea8dabb559b615459f2ad25",
+      "requested_physics": {
+        "foot_friction": 0.3,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.3,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 10.72,
+      "survived_horizon": false,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_0p45",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p45-standard-seed401000.mp4",
+      "video_sha256": "b00f0486e24bb98d8e979b3a1adc7a73369aeda388d23b0c7f1b3891b6c203f2",
+      "video_bytes": 637662,
+      "video_manifest_sha256": "8a1110ca098106bec00713be1e77ab7659321c7060c1bbfbf96c3531dd97302c",
+      "requested_physics": {
+        "foot_friction": 0.45,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.45,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p45",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p45-prism-seed401000.mp4",
+      "video_sha256": "d79a39deecbca5b83ad1325d8df38c55ece7abcbf86c907e6a6710cc979b9a78",
+      "video_bytes": 642319,
+      "video_manifest_sha256": "df7dd5b8b4a79653792ec35c2d2470bc9005688df40c00ba7199b0f32e24465f",
+      "requested_physics": {
+        "foot_friction": 0.45,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.45,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_0p6",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p6-standard-seed401000.mp4",
+      "video_sha256": "4104958d1afa35cbd3dd48d94fd8d2a9d5ba9a973ff6b977881ef95a4f42b676",
+      "video_bytes": 633633,
+      "video_manifest_sha256": "ef11eda9d2965448ab511e75c95bfd153b118c122053df63f630f37d4a7147d0",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
       "physics": {
         "foot_friction": 0.6,
         "global_link_density_ratio": 1.0,
@@ -100,26 +633,763 @@
       "measurement_seconds": 20.0,
       "total_horizon_seconds": 20.0,
       "backend": "CPU replay",
-      "physics_backend": "MuJoCo-Warp CPU through unchanged native mjlab evaluator",
-      "illustrative_replay": true,
-      "exact_quantitative_trajectory": false,
-      "status": "ready",
-      "path": "videos/g1-random_rough-prism-seed401000.mp4",
-      "video_sha256": "d5671cf504428d82cc1956e5f42638146cf2cfb51fc92302ae545c13795f022f",
-      "physical_duration_seconds": 20.0,
+      "device": "cpu",
       "encoded_duration_seconds": 20.04,
       "survived_horizon": true,
       "compound_success": false,
       "fps": 25,
       "width": 640,
-      "height": 360,
-      "video_manifest_sha256": "3b0f3ae4bd8ef8fcbd371927dd9a5edc43ca8c8de5c3c37da9a8124bbe858aa5",
-      "source_index_sha256": "bafed394c670535cb96dbd57f3b13148ce7095a80e1fb700a91eac85c7b3cea0",
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p6",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
       "termination_reasons": [
         "time_out"
-      ]
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p6-prism-seed401000.mp4",
+      "video_sha256": "a486e0edba8f8478b35c5fb2ad04a2b7219004a936633a7522241ee50e0dc9d4",
+      "video_bytes": 636235,
+      "video_manifest_sha256": "fc7c2752c6579a1fd83ab039786ac9c72b1f269d5b4164d2349b66e0b1423cc6",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_0p9",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p9-standard-seed401000.mp4",
+      "video_sha256": "5eb393b203aad3b6c91c3bb983fa057c3cd15451262b5f6d7270784827123df0",
+      "video_bytes": 640077,
+      "video_manifest_sha256": "3f2ff049eeb78999a82ce0daf03ee3a35165d3c0265f590036f0ed6fac460404",
+      "requested_physics": {
+        "foot_friction": 0.9,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.9,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p9",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p9-prism-seed401000.mp4",
+      "video_sha256": "1726efe0df570bf56875aa2cfcc8e73b1536cd31549c9b570da201aa5bbaf832",
+      "video_bytes": 630871,
+      "video_manifest_sha256": "f36eea1bd2596af2184e1dc6c26f7f737e1be89c0e50db022be78d66e8ff9a5b",
+      "requested_physics": {
+        "foot_friction": 0.9,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.9,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_1p2",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_1p2-standard-seed401000.mp4",
+      "video_sha256": "36134686d265d4d671bc4bb911dc9ca4bef528a610cd18bb750025beef93775c",
+      "video_bytes": 611149,
+      "video_manifest_sha256": "d5e995fee2fd1f16022c9f2d8e6cb424894414790352066c2ece90514233233b",
+      "requested_physics": {
+        "foot_friction": 1.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 1.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_1p2",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_1p2-prism-seed401000.mp4",
+      "video_sha256": "4bd7f5991ad7b677d6ce0936f3acf8dbb3956807b16c46ea5c8f88f48e799a5d",
+      "video_bytes": 633525,
+      "video_manifest_sha256": "82a7a0086a323b29fbc078508677811276f590a122d6e08c0023fb3519427bbb",
+      "requested_physics": {
+        "foot_friction": 1.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 1.2,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "friction_1p5",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_1p5-standard-seed401000.mp4",
+      "video_sha256": "69f81e8b6d89b74bda20514bbac9d639948a25d7bb3e9fe935e3846951d32dfc",
+      "video_bytes": 632972,
+      "video_manifest_sha256": "5c1a980ef3604a7223ac6ca98aecfb81f307683c7591f4514482765ce83bb36d",
+      "requested_physics": {
+        "foot_friction": 1.5,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 1.5,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "friction_1p5",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_1p5-prism-seed401000.mp4",
+      "video_sha256": "fc5b21794c8b0bb380e3bb871eefd6e8167a0889e5455ce08dee3868bbfa74ae",
+      "video_bytes": 619656,
+      "video_manifest_sha256": "37d514be0cc24048e37df348cd007d620107547354b29335804c409c1f7e1e72",
+      "requested_physics": {
+        "foot_friction": 1.5,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 1.5,
+        "global_link_density_ratio": 1.0,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "mass_0p6",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-mass_0p6-standard-seed401000.mp4",
+      "video_sha256": "eb63584336b298937c10898cf4296be71ff1a7b5bb1d16ee5a2f30969df3d9bd",
+      "video_bytes": 661802,
+      "video_manifest_sha256": "b16e23480ceae04b64f70f3fb823903b159f0d7aeec0f69be276d14b20bd1d85",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.6,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.6,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_0p6",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-mass_0p6-prism-seed401000.mp4",
+      "video_sha256": "66bb4807ea7388cb38e71698b768d4cedf30426bab709500496caee55d5982d4",
+      "video_bytes": 659996,
+      "video_manifest_sha256": "26398714fb1422f46d551000363950f191b8e1427c308ec7bd50e99651404a9c",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.6,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.6,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "mass_0p8",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-mass_0p8-standard-seed401000.mp4",
+      "video_sha256": "5972605722d3c1c078b83970e053680252a253a406bd9830943d73ccd38a7b74",
+      "video_bytes": 655209,
+      "video_manifest_sha256": "694dcc921026e8945cc90a2d3a37fa3aef895c041d0059e3406b169b37f80725",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.8,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.8,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_0p8",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
+      "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
+      "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+      "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "terrain_fingerprint_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+      "initial_state_fingerprint_sha256": "f17754626999b6cf2ce2358fc58a454f049cac2a8cebf7eab2c4ebd3e5272336",
+      "trained_normalizer_unchanged": true,
+      "runtime_physics_verified": true,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-mass_0p8-prism-seed401000.mp4",
+      "video_sha256": "c247da0c2b923be82afae7c18314fe4e822fa78a7413e98ad1697850e99aed8a",
+      "video_bytes": 634449,
+      "video_manifest_sha256": "54763e2ac55247319aa7210009c838f3b8789e0d5bcb3ad178a30d0389605e36",
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.8,
+        "payload_kg": 0.0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 0.8,
+        "payload_kg": 0.0
+      },
+      "command": [
+        0.5,
+        0.0,
+        0.0
+      ],
+      "warmup_seconds": 0.0,
+      "measurement_seconds": 20.0,
+      "total_horizon_seconds": 20.0,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "compound_success": false,
+      "fps": 25,
+      "width": 640,
+      "height": 360
+    },
+    {
+      "actor": "standard",
+      "condition_id": "mass_1",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_1",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "mass_1p2",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_1p2",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "mass_1p4",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_1p4",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "payload_0",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_0",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "payload_2",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_2",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "payload_4",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_4",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "payload_6",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_6",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "standard",
+      "condition_id": "payload_8",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_8",
+      "status": "pending",
+      "episode_seed": 401000,
+      "geometry_seed": 401
     }
-  ],
-  "first_prescribed_episode_seed": 401000,
-  "illustrative_cpu_replays_not_quantitative_gpu_trajectories": true
+  ]
 }

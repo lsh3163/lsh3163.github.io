@@ -1,74 +1,78 @@
 (() => {
   'use strict';
-  const source = window.PRISM_ROUGH;
-  const labels = {standard:'MLP', matched:'Matched', prism:'PRISM'};
-  const colors = {standard:'#0072B2', matched:'#56B4E9', prism:'#D55E00'};
-  const actors = ['standard','matched','prism'];
-  const trainingKey = source.selected_training_identity;
-  const cohortLabel = () => 'Random rough terrain';
+  const data = window.PRISM_ROUGH21;
+  if (!data || data.schema !== 'prism_rough21_physical_viewer_v1') throw new Error('Missing admitted rough data');
   const $ = id => document.getElementById(id);
-  const escape = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-  const number = n => Number.isFinite(n) ? String(Number(n.toFixed(3))) : '—';
-  let selected = {cohort:trainingKey, actor:'prism'};
-
-  function graph(cohort) {
-    const y = percent => 222 - percent * 1.82;
-    let svg = '<svg viewBox="0 0 440 280" aria-label="'+escape(cohortLabel(cohort))+' 20-second survival" role="img">';
-    [0,25,50,75,100].forEach(v => {
-      svg += '<line x1="40" x2="425" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#e2e8f0"/><text x="32" y="'+(y(v)+4)+'" text-anchor="end" fill="#8090a5" font-size="11">'+v+'</text>';
-    });
-    actors.forEach((actor, i) => {
-      const row = source.metrics.find(r=>r.cohort===cohort && r.actor===actor);
-      const x = 110 + i * 128;
-      const chosen = selected.cohort===cohort && selected.actor===actor;
-      svg += '<g class="bar" data-cohort="'+cohort+'" data-actor="'+actor+'" role="button" tabindex="0" aria-label="'+escape(cohortLabel(cohort)+' '+labels[actor]+' '+row.survivors+' of 100 survived')+'">';
-      svg += '<rect x="'+(x-37)+'" y="'+y(row.survival_rate*100)+'" width="74" height="'+(222-y(row.survival_rate*100))+'" rx="4" fill="'+colors[actor]+'" stroke="'+(chosen?'#182d46':'none')+'" stroke-width="2.5"/>';
-      svg += '<line x1="'+x+'" x2="'+x+'" y1="'+y(row.wilson_low*100)+'" y2="'+y(row.wilson_high*100)+'" stroke="#263c55" stroke-width="1.2"/>';
-      [row.wilson_low,row.wilson_high].forEach(p=>{ svg+='<line x1="'+(x-6)+'" x2="'+(x+6)+'" y1="'+y(p*100)+'" y2="'+y(p*100)+'" stroke="#263c55" stroke-width="1.2"/>'; });
-      svg += '<text x="'+x+'" y="208" text-anchor="middle" fill="white" font-size="16" font-weight="700">'+row.survivors+'/100</text>';
-      svg += '<text x="'+x+'" y="247" text-anchor="middle" fill="#263c55" font-size="14">'+labels[actor]+'</text></g>';
-    });
-    return svg + '</svg>';
+  const actors = ['standard','prism'];
+  const labels = {standard:'MLP',prism:'PRISM'};
+  const colors = {standard:'#0072B2',prism:'#D55E00'};
+  const axes = ['nominal','friction','mass','payload'];
+  const titles = {nominal:'Nominal',friction:'Friction',mass:'Mass',payload:'Payload'};
+  const xLabels = {friction:'Foot–ground friction',mass:'Link mass/inertia ratio',payload:'Torso payload (kg)'};
+  const esc = s => String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const num = n => Number.isFinite(n) ? String(Number(n.toFixed(3))) : '—';
+  const percentage = n => Number(n).toFixed(1);
+  const firstReady=data.videos.find(v=>v.actor==='prism' && v.condition_id==='nominal' && v.status==='ready') || data.videos.find(v=>v.actor==='prism' && v.status==='ready');
+  let selected = {condition_id:firstReady?.condition_id || 'nominal',actor:'prism'};
+  const condition = id => data.conditions.find(c=>c.condition_id===id);
+  const metric = (id,actor) => data.metrics.find(r=>r.condition_id===id && r.actor===actor);
+  const conditionLabel = c => c.axis==='nominal' ? 'Nominal' : c.axis==='friction' ? 'Friction μ = '+num(c.x) : c.axis==='mass' ? 'Mass / inertia × '+num(c.x) : 'Payload '+num(c.x)+' kg';
+  function grid(y,left,right) {
+    return [0,25,50,75,100].map(v=>'<line x1="'+left+'" x2="'+right+'" y1="'+y(v)+'" y2="'+y(v)+'" stroke="#e3e8ee"/><text x="'+(left-8)+'" y="'+(y(v)+4)+'" text-anchor="end" fill="#66788c" font-size="11">'+v+'</text>').join('');
   }
-
-  function choose(cohort, actor) {
-    selected = {cohort,actor};
-    render();
+  function point(id,actor,x,y,survival) {
+    const chosen=selected.condition_id===id && selected.actor===actor;
+    return '<g class="point" data-condition="'+id+'" data-actor="'+actor+'" role="button" tabindex="0" aria-label="'+esc(labels[actor]+' '+conditionLabel(condition(id))+' '+percentage(survival)+' percent survival')+'"><title>'+esc(labels[actor]+' · '+conditionLabel(condition(id))+' · '+percentage(survival)+'%')+'</title><circle cx="'+x+'" cy="'+y+'" r="13" fill="transparent"/>'+(chosen?'<circle cx="'+x+'" cy="'+y+'" r="8" fill="white" stroke="#17283b" stroke-width="2"/>':'')+'<circle cx="'+x+'" cy="'+y+'" r="4.5" fill="'+colors[actor]+'"/></g>';
   }
-
+  function nominal() {
+    const y=v=>214-v*1.7;
+    let s='<svg viewBox="0 0 350 280" role="img" aria-label="Nominal rough terrain survival">'+grid(y,40,330);
+    actors.forEach((a,i)=>{const r=metric('nominal',a),x=115+i*130,percent=r.survival_rate*100;
+      s+='<g class="bar" data-condition="nominal" data-actor="'+a+'" role="button" tabindex="0" aria-label="'+esc(labels[a]+' nominal '+percentage(percent)+' percent survival')+'"><rect x="'+(x-29)+'" y="'+y(percent)+'" width="58" height="'+(214-y(percent))+'" fill="'+colors[a]+'"/>'+[r.survival_wilson_low,r.survival_wilson_high].map(v=>'<line x1="'+(x-6)+'" x2="'+(x+6)+'" y1="'+y(v*100)+'" y2="'+y(v*100)+'" stroke="#22354b"/>').join('')+'<line x1="'+x+'" x2="'+x+'" y1="'+y(r.survival_wilson_low*100)+'" y2="'+y(r.survival_wilson_high*100)+'" stroke="#22354b"/><text x="'+x+'" y="'+(y(percent)+25)+'" text-anchor="middle" fill="white" font-size="15">'+percentage(percent)+'%</text><text x="'+x+'" y="242" text-anchor="middle" fill="#253b51" font-size="13">'+labels[a]+'</text></g>';
+    });return s+'</svg>';
+  }
+  function curve(axis) {
+    const cs=data.conditions.filter(c=>c.axis===axis),values=cs.map(c=>c.x),lo=Math.min(...values),hi=Math.max(...values),pad=(hi-lo)*.045;
+    const x=v=>43+(v-lo+pad)/(hi-lo+2*pad)*283,y=v=>214-v*1.7;
+    const support=data.training_ranges[axis];
+    let s='<svg viewBox="0 0 350 290" role="img" aria-label="'+esc(titles[axis]+' survival on rough terrain')+'"><rect x="'+x(Math.max(lo-pad,support[0]))+'" y="44" width="'+(x(Math.min(hi+pad,support[1]))-x(Math.max(lo-pad,support[0])))+'" height="170" fill="#eaedf0"/>'+grid(y,43,326);
+    s+='<line x1="'+x(data.nominal_references[axis])+'" x2="'+x(data.nominal_references[axis])+'" y1="44" y2="214" stroke="#6a737c" stroke-dasharray="5 4"/>';
+    actors.forEach(a=>{const rs=cs.map(c=>metric(c.condition_id,a)),upper=rs.map(r=>x(r.x)+','+y(r.survival_wilson_high*100)),lower=[...rs].reverse().map(r=>x(r.x)+','+y(r.survival_wilson_low*100));s+='<polygon points="'+[...upper,...lower].join(' ')+'" fill="'+colors[a]+'" fill-opacity=".13"/><polyline points="'+rs.map(r=>x(r.x)+','+y(r.survival_rate*100)).join(' ')+'" fill="none" stroke="'+colors[a]+'" stroke-width="2.7"/>';rs.forEach(r=>{s+=point(r.condition_id,a,x(r.x),y(r.survival_rate*100),r.survival_rate*100);});});
+    cs.forEach(c=>{s+='<line x1="'+x(c.x)+'" x2="'+x(c.x)+'" y1="214" y2="220" stroke="#627486"/><text transform="translate('+x(c.x)+',233) rotate('+ (axis==='friction'?-48:0)+')" text-anchor="'+(axis==='friction'?'end':'middle')+'" fill="#627486" font-size="11">'+num(c.x)+'</text>';});
+    return s+'<text x="185" y="282" text-anchor="middle" fill="#52677e" font-size="12">'+xLabels[axis]+'</text></svg>';
+  }
+  function validClip(clip,c) {
+    if (!clip || clip.status!=='ready' || clip.actor!==selected.actor || clip.condition_id!==c.condition_id) return false;
+    const p=clip.requested_physics||clip.physics;
+    return clip.episode_seed===401000 && clip.geometry_seed===401 && clip.illustrative_replay===true && clip.exact_quantitative_trajectory===false && clip.trained_normalizer_unchanged===true && clip.runtime_physics_verified===true && clip.checkpoint_sha256===data.checkpoints[selected.actor] && clip.checkpoint_map_sha256===data.checkpoint_map_sha256 && clip.geometry_proof_sha256===data.geometry_proof_sha256 && clip.evaluator_sha256===data.evaluator_sha256 && clip.protocol_file_sha256===data.protocol_file_sha256 && JSON.stringify(clip.grid_shape)==='[21,21]' && p && p.foot_friction===c.physics.foot_friction && p.global_link_density_ratio===c.physics.global_link_density_ratio && p.payload_kg===c.physics.payload_kg && JSON.stringify(clip.command)===JSON.stringify(c.command) && clip.warmup_seconds===0 && clip.measurement_seconds===20 && clip.total_horizon_seconds===20 && /^[0-9a-f]{64}$/.test(clip.video_sha256||'') && clip.path==='videos/rough21-'+c.condition_id+'-'+selected.actor+'-seed401000.mp4';
+  }
   function render() {
-    $('charts').innerHTML = [trainingKey].map(c=>'<article class="chart-card"><h2>'+cohortLabel(c)+'</h2><p>100 paired attempts per method</p>'+graph(c)+'</article>').join('');
-    $('charts').querySelectorAll('[data-actor]').forEach(el=>{
-      const pick = () => choose(el.dataset.cohort,el.dataset.actor);
-      el.addEventListener('click',pick);
-      el.addEventListener('keydown',event=>{ if(event.key==='Enter'||event.key===' '){event.preventDefault();pick();} });
+    $('charts').innerHTML=axes.map(a=>'<article class="chart-card"><h3>'+titles[a]+'</h3>'+(a==='nominal'?nominal():curve(a))+'</article>').join('');
+    $('charts').querySelectorAll('[data-condition]').forEach(el=>{const choose=()=>pick(el.dataset.condition,el.dataset.actor);el.addEventListener('click',choose);el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();choose();}});});
+    const c=condition(selected.condition_id),r=metric(selected.condition_id,selected.actor),clip=data.videos.find(v=>v.condition_id===c.condition_id && v.actor===selected.actor);
+    $('condition').value=c.condition_id;document.querySelectorAll('#methods button').forEach(b=>{
+      b.setAttribute('aria-pressed',String(b.dataset.actor===selected.actor));
+      const available=data.videos.some(v=>v.condition_id===c.condition_id && v.actor===b.dataset.actor && v.status==='ready');
+      b.textContent=labels[b.dataset.actor]+(available?'':' · pending');
+      b.setAttribute('aria-label',labels[b.dataset.actor]+' '+(available?'recording ready':'recording pending; measured values available'));
     });
-    document.querySelectorAll('#cohorts button').forEach(b=>b.classList.toggle('active',b.dataset.cohort===selected.cohort));
-    document.querySelectorAll('#methods button').forEach(b=>b.classList.toggle('active',b.dataset.actor===selected.actor));
-    const row = source.metrics.find(r=>r.cohort===selected.cohort && r.actor===selected.actor);
-    const clip = source.videos.videos.find(v=>v.cohort===selected.cohort && v.actor===selected.actor && v.condition_id==='random_rough');
-    $('selection').textContent = labels[selected.actor] + ' · ' + cohortLabel(selected.cohort);
-    $('measurement').textContent = row.survivors + '% survived · 100 attempts';
-    $('interval').textContent = 'Conditional Wilson 95% interval: '+number(100*row.wilson_low)+'–'+number(100*row.wilson_high)+'%';
-    const video = $('video');
-    const valid = clip?.status==='ready' && clip.episode_seed===401000 && clip.illustrative_replay===true && clip.exact_quantitative_trajectory===false && clip.physics.foot_friction===.6 && clip.physics.global_link_density_ratio===1 && clip.physics.payload_kg===0 && clip.command.join(',')==='0.5,0,0' && clip.total_horizon_seconds===20 && clip.warmup_seconds===0;
-    const url = valid ? new URL(clip.path,location.href) : null;
-    const usable = url && url.origin===location.origin && /\/videos\/[A-Za-z0-9_-]+\.mp4$/.test(url.pathname);
-    video.hidden = !usable;
-    $('unavailable').hidden = !!usable;
-    if(usable) {
-      if(video.dataset.source!==url.href) {
-        video.pause();video.muted=true;video.src=url.href;video.dataset.source=url.href;video.load();video.play().catch(()=>{});
-      }
-      $('replay-outcome').textContent = clip.survived_horizon ? 'Replay completed the 20 s horizon' : (clip.termination_reasons?.some(r=>r.startsWith('fell_over')) ? 'Replay: fall at ' : 'Replay ended at ')+number(clip.physical_duration_seconds)+' s';
-    } else {
-      video.pause();video.removeAttribute('src');delete video.dataset.source;$('replay-outcome').textContent='Recording unavailable';
-    }
-    $('continuous').innerHTML = [['Linear RMSE',number(row.linear_rmse_m_s)+' m/s'],['Yaw RMSE',number(row.yaw_rmse_rad_s)+' rad/s'],['Forward distance',number(row.forward_distance_m)+' m'],['Compound successes','0 / 100']].map(([label,value])=>'<div><span>'+label+'</span><strong>'+value+'</strong></div>').join('');
-    $('record-details').innerHTML = [['Episode seed',401000],['Backend','CPU replay'],['Command','0.5 m/s forward'],['Friction / mass / payload','0.6 / 1× / 0 kg'],['Checkpoint',clip?.checkpoint_sha256||'Unavailable'],['Video SHA-256',clip?.video_sha256||'Unavailable']].map(([label,value])=>'<dt>'+label+'</dt><dd>'+escape(value)+'</dd>').join('');
+    const count=data.videos.filter(v=>v.status==='ready').length;
+    $('recording-progress').textContent=count+' / '+data.videos.length+' recordings ready'+(count<data.videos.length?' · more conditions are being recorded.':'.');
+    $('selection').textContent=labels[selected.actor]+' · '+conditionLabel(c);
+    $('measurement').textContent=percentage(r.survival_rate*100)+'% survived · '+r.survivors+' / '+r.attempts+' attempts';
+    $('interval').textContent='Wilson 95% interval: '+percentage(r.survival_wilson_low*100)+'–'+percentage(r.survival_wilson_high*100)+'%';
+    const video=$('video');const ok=validClip(clip,c);const url=ok?new URL(clip.path,location.href):null;const usable=url && url.origin===location.origin;
+    video.hidden=!usable;$('unavailable').hidden=!!usable;
+    if(usable){if(video.dataset.source!==url.href){video.pause();video.muted=true;video.src=url.href;video.dataset.source=url.href;video.load();video.play().catch(()=>{});} $('replay-outcome').textContent=clip.survived_horizon?'Recorded rollout completed 20 s':'Recorded rollout ended at '+num(clip.physical_duration_seconds)+' s';}
+    else{video.pause();video.removeAttribute('src');delete video.dataset.source;video.load();$('unavailable').textContent=clip?.status==='recording'?'Recording this condition.':'Preparing the recording for this condition.';$('replay-outcome').textContent='This condition’s recording is not ready yet.';}
+    $('continuous').innerHTML=[['Linear RMSE',num(r.linear_rmse_m_s)+' m/s'],['Yaw RMSE',num(r.yaw_rmse_rad_s)+' rad/s'],['Forward distance',num(r.forward_distance_m)+' m'],['Compound successes',r.compound_successes+' / '+r.attempts]].map(([k,v])=>'<div><span>'+esc(k)+'</span><strong>'+esc(v)+'</strong></div>').join('');
+    $('record-details').innerHTML=[['Episode seed','401000'],['Terrain','Random rough · 21 × 21 grid'],['Command','0.5 m/s forward'],['Friction / mass / payload',num(c.physics.foot_friction)+' / '+num(c.physics.global_link_density_ratio)+'× / '+num(c.physics.payload_kg)+' kg'],['Backend',clip?.backend||'Pending'],['Checkpoint',data.checkpoints[selected.actor]],['Video SHA-256',usable?clip.video_sha256:'Pending']].map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');
   }
-  document.querySelectorAll('#cohorts button').forEach(b=>b.addEventListener('click',()=>choose(b.dataset.cohort,selected.actor)));
-  document.querySelectorAll('#methods button').forEach(b=>b.addEventListener('click',()=>choose(selected.cohort,b.dataset.actor)));
-  $('video').addEventListener('error',()=>{if(!$('video').dataset.source)return;$('video').hidden=true;$('unavailable').hidden=false;});
+  function pick(id,actor){if(!condition(id)||!actors.includes(actor))return;selected={condition_id:id,actor};render();}
+  $('condition').innerHTML=data.conditions.map(c=>'<option value="'+c.condition_id+'">'+esc(conditionLabel(c))+'</option>').join('');
+  $('condition').addEventListener('change',e=>pick(e.target.value,selected.actor));
+  document.querySelectorAll('#methods button').forEach(b=>b.addEventListener('click',()=>pick(selected.condition_id,b.dataset.actor)));
+  $('video').addEventListener('error',()=>{if(!$('video').dataset.source)return;$('video').hidden=true;$('unavailable').hidden=false;$('unavailable').textContent='The recording could not be loaded. Please retry.';});
+  window.PRISM_ROUGH21_SELECT=pick;
   render();
 })();

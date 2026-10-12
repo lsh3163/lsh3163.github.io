@@ -1,0 +1,1145 @@
+{
+  "schema": "prism_combined_physical_dynamics_2x4_v2_uniform_decimals",
+  "status": "complete",
+  "validation": {
+    "status": "passed",
+    "HG_full_export": {
+      "status": "passed",
+      "conditions": 19,
+      "models": 2,
+      "evaluation_seeds": [
+        301,
+        302,
+        303,
+        304,
+        305
+      ],
+      "episodes_per_seed": 200,
+      "seed_rows": 190,
+      "summary_rows": 38,
+      "standard_deviation": "Sample SD across five evaluation-seed rates (ddof=1)",
+      "nominal_reused_in_sweep_panels": true,
+      "input_sha256": {
+        "data/protocol.json": "ff15b840d01d59fa118ef6ac455feab595bb24fc9c36be5f313444b481c2de18",
+        "data/seed_results.csv": "86f572dc2935c2dae44c472d913fa6d1cf77f6b3718958d713dc7bc0bfcfbd8a",
+        "data/results.csv": "9f5b10bd579dd305bd83c4a995d4fd6421c847aa25dc2a53d9ac4b5cdc7170f9"
+      }
+    },
+    "mjlab_full_export": {
+      "status": "passed",
+      "closed_cells": 75,
+      "attempts": 7500,
+      "source_admission_initial_state_pairs": 7400,
+      "raw_episode_admission_repeated_for_style_edit": false,
+      "input_sha256": {
+        "data/figure_payload.json": "06aac49ef80a8868c2481c6c44e891a2c25b0158b1f1cc7989916d5d8ca1bba6",
+        "data/metrics.csv": "316eb35fe22be245cd765047def0c9505f52a4eba4b486a8aa31ca8de606659c",
+        "data/metrics.json": "5a1e56476ee087f4d78cabf4fab98838a00754e0db94dfa4a460b31e83c5406d"
+      },
+      "uncertainty": "pointwise Wilson 95% episode intervals conditional on fixed layouts and checkpoints",
+      "training_seeds_per_actor": 1
+    },
+    "displayed_condition_ids": {
+      "hg": [
+        "bag_120",
+        "bag_240",
+        "bag_360",
+        "bag_480",
+        "friction_020",
+        "friction_040",
+        "friction_090",
+        "friction_120",
+        "friction_150",
+        "friction_180",
+        "mass_080",
+        "mass_090",
+        "mass_110",
+        "mass_120",
+        "nominal"
+      ],
+      "mjlab": [
+        "friction_0p1",
+        "friction_0p2",
+        "friction_0p3",
+        "friction_0p45",
+        "friction_0p6",
+        "friction_0p9",
+        "friction_1p2",
+        "friction_1p5",
+        "mass_0p6",
+        "mass_0p8",
+        "mass_1",
+        "mass_1p2",
+        "mass_1p4",
+        "nominal",
+        "payload_0",
+        "payload_2",
+        "payload_4",
+        "payload_6",
+        "payload_8"
+      ]
+    },
+    "displayed_unique_conditions": {
+      "hg": 15,
+      "mjlab": 19
+    },
+    "displayed_unique_episode_counts": {
+      "hg": 30000,
+      "mjlab": 3800
+    },
+    "displayed_actor_ids": {
+      "hg": [
+        "matched_mlp",
+        "prism"
+      ],
+      "mjlab": [
+        "standard",
+        "prism"
+      ]
+    },
+    "MLP_identity": {
+      "hg": "parameter-matched MLP",
+      "mjlab": "standard MLP"
+    },
+    "HG_nominal_shared_across_sweeps": true,
+    "mjlab_nominal_is_independent_condition": true,
+    "native_simulators_or_training_packages_imported": false
+  },
+  "row_order": [
+    "Humanoid-Gym flat",
+    "mjlab random rough"
+  ],
+  "column_order": [
+    "nominal",
+    "friction",
+    "mass",
+    "payload"
+  ],
+  "panels": [
+    {
+      "simulator": "hg",
+      "panel": "nominal",
+      "file_stem": "a_nominal",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.275,
+        0.185,
+        0.66,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        -0.65,
+        1.65
+      ],
+      "major_xticks": [
+        0.0,
+        1.0
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": null,
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": null,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "sample SD over five evaluation-seed rates",
+      "plotted_values": [
+        {
+          "actor": "matched_mlp",
+          "condition_id": "nominal",
+          "x": null,
+          "survival_percent": 84.3,
+          "error_lower_percentage_points": 1.3038404810405297,
+          "error_upper_percentage_points": 1.3038404810405297
+        },
+        {
+          "actor": "prism",
+          "condition_id": "nominal",
+          "x": null,
+          "survival_percent": 96.6,
+          "error_lower_percentage_points": 0.9617692030835673,
+          "error_upper_percentage_points": 0.9617692030835673
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "hg",
+      "panel": "friction",
+      "file_stem": "b_friction",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        0.0,
+        2.0
+      ],
+      "major_xticks": [
+        0.0,
+        0.4,
+        0.8,
+        1.2,
+        1.6,
+        2.0
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.2,
+        1.2
+      ],
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": true,
+      "uncertainty": "sample SD over five evaluation-seed rates",
+      "plotted_values": [
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_020",
+          "x": 0.2,
+          "survival_percent": 80.2,
+          "error_lower_percentage_points": 4.324349662087931,
+          "error_upper_percentage_points": 4.324349662087931
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_040",
+          "x": 0.4,
+          "survival_percent": 86.3,
+          "error_lower_percentage_points": 1.2549900398011133,
+          "error_upper_percentage_points": 1.2549900398011133
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "nominal",
+          "x": 0.6,
+          "survival_percent": 84.3,
+          "error_lower_percentage_points": 1.3038404810405297,
+          "error_upper_percentage_points": 1.3038404810405297
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_090",
+          "x": 0.9,
+          "survival_percent": 84.4,
+          "error_lower_percentage_points": 4.052776825831889,
+          "error_upper_percentage_points": 4.052776825831889
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_120",
+          "x": 1.2,
+          "survival_percent": 81.1,
+          "error_lower_percentage_points": 2.329162939770423,
+          "error_upper_percentage_points": 2.329162939770423
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_150",
+          "x": 1.5,
+          "survival_percent": 77.2,
+          "error_lower_percentage_points": 3.5812009158939966,
+          "error_upper_percentage_points": 3.5812009158939966
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "friction_180",
+          "x": 1.8,
+          "survival_percent": 74.7,
+          "error_lower_percentage_points": 1.6046806535881213,
+          "error_upper_percentage_points": 1.6046806535881213
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_020",
+          "x": 0.2,
+          "survival_percent": 97.3,
+          "error_lower_percentage_points": 1.1510864433221337,
+          "error_upper_percentage_points": 1.1510864433221337
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_040",
+          "x": 0.4,
+          "survival_percent": 98.3,
+          "error_lower_percentage_points": 0.758287544405155,
+          "error_upper_percentage_points": 0.758287544405155
+        },
+        {
+          "actor": "prism",
+          "condition_id": "nominal",
+          "x": 0.6,
+          "survival_percent": 96.6,
+          "error_lower_percentage_points": 0.9617692030835673,
+          "error_upper_percentage_points": 0.9617692030835673
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_090",
+          "x": 0.9,
+          "survival_percent": 95.0,
+          "error_lower_percentage_points": 2.03100960115899,
+          "error_upper_percentage_points": 2.03100960115899
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_120",
+          "x": 1.2,
+          "survival_percent": 92.7,
+          "error_lower_percentage_points": 2.04939015319192,
+          "error_upper_percentage_points": 2.04939015319192
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_150",
+          "x": 1.5,
+          "survival_percent": 89.2,
+          "error_lower_percentage_points": 2.4392621835300936,
+          "error_upper_percentage_points": 2.4392621835300936
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_180",
+          "x": 1.8,
+          "survival_percent": 86.3,
+          "error_lower_percentage_points": 1.1510864433221337,
+          "error_upper_percentage_points": 1.1510864433221337
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "legend_top_survival_percent": 67.49248120300751,
+      "lowest_errorbar_survival_percent": 73.09531934641188,
+      "legend_data_clearance_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "hg",
+      "panel": "mass",
+      "file_stem": "c_mass",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        0.76,
+        1.24
+      ],
+      "major_xticks": [
+        0.8,
+        0.9,
+        1.0,
+        1.1,
+        1.2
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.9,
+        1.1
+      ],
+      "discrete_training_values": [
+        0.9,
+        0.91,
+        0.92,
+        0.93,
+        0.94,
+        0.95,
+        0.96,
+        0.97,
+        0.98,
+        0.99,
+        1.0,
+        1.01,
+        1.02,
+        1.03,
+        1.04,
+        1.05,
+        1.06,
+        1.07,
+        1.08,
+        1.09,
+        1.1
+      ],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "sample SD over five evaluation-seed rates",
+      "plotted_values": [
+        {
+          "actor": "matched_mlp",
+          "condition_id": "mass_080",
+          "x": 0.8,
+          "survival_percent": 82.7,
+          "error_lower_percentage_points": 5.995831885568507,
+          "error_upper_percentage_points": 5.995831885568507
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "mass_090",
+          "x": 0.9,
+          "survival_percent": 86.5,
+          "error_lower_percentage_points": 2.318404623873926,
+          "error_upper_percentage_points": 2.318404623873926
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "nominal",
+          "x": 1.0,
+          "survival_percent": 84.3,
+          "error_lower_percentage_points": 1.3038404810405297,
+          "error_upper_percentage_points": 1.3038404810405297
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "mass_110",
+          "x": 1.1,
+          "survival_percent": 81.3,
+          "error_lower_percentage_points": 2.6362852652928135,
+          "error_upper_percentage_points": 2.6362852652928135
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "mass_120",
+          "x": 1.2,
+          "survival_percent": 65.4,
+          "error_lower_percentage_points": 2.4083189157584592,
+          "error_upper_percentage_points": 2.4083189157584592
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_080",
+          "x": 0.8,
+          "survival_percent": 98.2,
+          "error_lower_percentage_points": 0.9082951062292475,
+          "error_upper_percentage_points": 0.9082951062292475
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_090",
+          "x": 0.9,
+          "survival_percent": 98.2,
+          "error_lower_percentage_points": 1.1510864433221337,
+          "error_upper_percentage_points": 1.1510864433221337
+        },
+        {
+          "actor": "prism",
+          "condition_id": "nominal",
+          "x": 1.0,
+          "survival_percent": 96.6,
+          "error_lower_percentage_points": 0.9617692030835673,
+          "error_upper_percentage_points": 0.9617692030835673
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_110",
+          "x": 1.1,
+          "survival_percent": 95.0,
+          "error_lower_percentage_points": 1.3228756555322954,
+          "error_upper_percentage_points": 1.3228756555322954
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_120",
+          "x": 1.2,
+          "survival_percent": 89.5,
+          "error_lower_percentage_points": 1.6583123951777,
+          "error_upper_percentage_points": 1.6583123951777
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "hg",
+      "panel": "payload",
+      "file_stem": "d_payload",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        -0.24,
+        5.04
+      ],
+      "major_xticks": [
+        0.0,
+        1.2,
+        2.4,
+        3.6,
+        4.8
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.0,
+        2.4
+      ],
+      "discrete_training_values": [
+        0.0,
+        1.2,
+        2.4
+      ],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "sample SD over five evaluation-seed rates",
+      "plotted_values": [
+        {
+          "actor": "matched_mlp",
+          "condition_id": "nominal",
+          "x": 0.0,
+          "survival_percent": 84.3,
+          "error_lower_percentage_points": 1.3038404810405297,
+          "error_upper_percentage_points": 1.3038404810405297
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "bag_120",
+          "x": 1.2,
+          "survival_percent": 85.6,
+          "error_lower_percentage_points": 2.6315394733881536,
+          "error_upper_percentage_points": 2.6315394733881536
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "bag_240",
+          "x": 2.4,
+          "survival_percent": 86.2,
+          "error_lower_percentage_points": 1.680773631397161,
+          "error_upper_percentage_points": 1.680773631397161
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "bag_360",
+          "x": 3.6,
+          "survival_percent": 85.5,
+          "error_lower_percentage_points": 3.4460121880225554,
+          "error_upper_percentage_points": 3.4460121880225554
+        },
+        {
+          "actor": "matched_mlp",
+          "condition_id": "bag_480",
+          "x": 4.8,
+          "survival_percent": 84.1,
+          "error_lower_percentage_points": 1.746424919657298,
+          "error_upper_percentage_points": 1.746424919657298
+        },
+        {
+          "actor": "prism",
+          "condition_id": "nominal",
+          "x": 0.0,
+          "survival_percent": 96.6,
+          "error_lower_percentage_points": 0.9617692030835673,
+          "error_upper_percentage_points": 0.9617692030835673
+        },
+        {
+          "actor": "prism",
+          "condition_id": "bag_120",
+          "x": 1.2,
+          "survival_percent": 96.8,
+          "error_lower_percentage_points": 0.758287544405155,
+          "error_upper_percentage_points": 0.758287544405155
+        },
+        {
+          "actor": "prism",
+          "condition_id": "bag_240",
+          "x": 2.4,
+          "survival_percent": 97.3,
+          "error_lower_percentage_points": 1.2041594578792296,
+          "error_upper_percentage_points": 1.2041594578792296
+        },
+        {
+          "actor": "prism",
+          "condition_id": "bag_360",
+          "x": 3.6,
+          "survival_percent": 95.7,
+          "error_lower_percentage_points": 1.5652475842498528,
+          "error_upper_percentage_points": 1.5652475842498528
+        },
+        {
+          "actor": "prism",
+          "condition_id": "bag_480",
+          "x": 4.8,
+          "survival_percent": 94.6,
+          "error_lower_percentage_points": 1.08397416943394,
+          "error_upper_percentage_points": 1.08397416943394
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "mjlab",
+      "panel": "nominal",
+      "file_stem": "a_nominal",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.275,
+        0.185,
+        0.66,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        -0.65,
+        1.65
+      ],
+      "major_xticks": [
+        0.0,
+        1.0
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": null,
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": null,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "pointwise Wilson 95% episode intervals",
+      "plotted_values": [
+        {
+          "actor": "standard",
+          "condition_id": "nominal",
+          "x": null,
+          "survival_percent": 91.0,
+          "error_lower_percentage_points": 7.226212852716301,
+          "error_upper_percentage_points": 4.1927459997434795
+        },
+        {
+          "actor": "prism",
+          "condition_id": "nominal",
+          "x": null,
+          "survival_percent": 93.0,
+          "error_lower_percentage_points": 6.74951473907349,
+          "error_upper_percentage_points": 3.568073893272725
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "mjlab",
+      "panel": "friction",
+      "file_stem": "b_friction",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        0.0,
+        1.5
+      ],
+      "major_xticks": [
+        0.0,
+        0.3,
+        0.6,
+        0.9,
+        1.2,
+        1.5
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.3,
+        1.2
+      ],
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "pointwise Wilson 95% episode intervals",
+      "plotted_values": [
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p1",
+          "x": 0.1,
+          "survival_percent": 3.0,
+          "error_lower_percentage_points": 1.9745475975961075,
+          "error_upper_percentage_points": 5.451936429052759
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p2",
+          "x": 0.2,
+          "survival_percent": 51.0,
+          "error_lower_percentage_points": 9.65198806597283,
+          "error_upper_percentage_points": 9.578001069558866
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p3",
+          "x": 0.3,
+          "survival_percent": 79.0,
+          "error_lower_percentage_points": 8.97996883408986,
+          "error_upper_percentage_points": 6.834345938084695
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p45",
+          "x": 0.45,
+          "survival_percent": 87.0,
+          "error_lower_percentage_points": 7.980351440076433,
+          "error_upper_percentage_points": 5.2428325727594824
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p6",
+          "x": 0.6,
+          "survival_percent": 94.0,
+          "error_lower_percentage_points": 6.476815445895923,
+          "error_upper_percentage_points": 3.2213876036811655
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_0p9",
+          "x": 0.9,
+          "survival_percent": 91.0,
+          "error_lower_percentage_points": 7.226212852716301,
+          "error_upper_percentage_points": 4.1927459997434795
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_1p2",
+          "x": 1.2,
+          "survival_percent": 84.0,
+          "error_lower_percentage_points": 8.420269389270246,
+          "error_upper_percentage_points": 5.904711511195217
+        },
+        {
+          "actor": "standard",
+          "condition_id": "friction_1p5",
+          "x": 1.5,
+          "survival_percent": 75.0,
+          "error_lower_percentage_points": 9.304463548061605,
+          "error_upper_percentage_points": 7.454788637712312
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p1",
+          "x": 0.1,
+          "survival_percent": 15.0,
+          "error_lower_percentage_points": 5.694014716343368,
+          "error_upper_percentage_points": 8.283559590832358
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p2",
+          "x": 0.2,
+          "survival_percent": 67.0,
+          "error_lower_percentage_points": 9.694656204909464,
+          "error_upper_percentage_points": 8.436877265871956
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p3",
+          "x": 0.3,
+          "survival_percent": 89.0,
+          "error_lower_percentage_points": 7.631296503080307,
+          "error_upper_percentage_points": 4.745803642935428
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p45",
+          "x": 0.45,
+          "survival_percent": 96.0,
+          "error_lower_percentage_points": 5.837071435887921,
+          "error_upper_percentage_points": 2.433669600845235
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p6",
+          "x": 0.6,
+          "survival_percent": 98.0,
+          "error_lower_percentage_points": 5.0011790728543986,
+          "error_upper_percentage_points": 1.4498032449837552
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_0p9",
+          "x": 0.9,
+          "survival_percent": 97.0,
+          "error_lower_percentage_points": 5.451936429052765,
+          "error_upper_percentage_points": 1.9745475975961142
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_1p2",
+          "x": 1.2,
+          "survival_percent": 96.0,
+          "error_lower_percentage_points": 5.837071435887921,
+          "error_upper_percentage_points": 2.433669600845235
+        },
+        {
+          "actor": "prism",
+          "condition_id": "friction_1p5",
+          "x": 1.5,
+          "survival_percent": 83.0,
+          "error_lower_percentage_points": 8.548004767601128,
+          "error_upper_percentage_points": 6.1064338859400635
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "mjlab",
+      "panel": "mass",
+      "file_stem": "c_mass",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        0.56,
+        1.44
+      ],
+      "major_xticks": [
+        0.6,
+        0.8,
+        1.0,
+        1.2,
+        1.4
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.8,
+        1.2
+      ],
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "pointwise Wilson 95% episode intervals",
+      "plotted_values": [
+        {
+          "actor": "standard",
+          "condition_id": "mass_0p6",
+          "x": 0.6,
+          "survival_percent": 98.0,
+          "error_lower_percentage_points": 5.0011790728543986,
+          "error_upper_percentage_points": 1.4498032449837552
+        },
+        {
+          "actor": "standard",
+          "condition_id": "mass_0p8",
+          "x": 0.8,
+          "survival_percent": 96.0,
+          "error_lower_percentage_points": 5.837071435887921,
+          "error_upper_percentage_points": 2.433669600845235
+        },
+        {
+          "actor": "standard",
+          "condition_id": "mass_1",
+          "x": 1.0,
+          "survival_percent": 92.0,
+          "error_lower_percentage_points": 6.998107700948722,
+          "error_upper_percentage_points": 3.890653851561936
+        },
+        {
+          "actor": "standard",
+          "condition_id": "mass_1p2",
+          "x": 1.2,
+          "survival_percent": 85.0,
+          "error_lower_percentage_points": 8.283559590832354,
+          "error_upper_percentage_points": 5.694014716343361
+        },
+        {
+          "actor": "standard",
+          "condition_id": "mass_1p4",
+          "x": 1.4,
+          "survival_percent": 78.0,
+          "error_lower_percentage_points": 9.070353514985797,
+          "error_upper_percentage_points": 6.998717615394597
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_0p6",
+          "x": 0.6,
+          "survival_percent": 96.0,
+          "error_lower_percentage_points": 5.837071435887921,
+          "error_upper_percentage_points": 2.433669600845235
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_0p8",
+          "x": 0.8,
+          "survival_percent": 99.0,
+          "error_lower_percentage_points": 4.448619617870534,
+          "error_upper_percentage_points": 0.8232567935859265
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_1",
+          "x": 1.0,
+          "survival_percent": 97.0,
+          "error_lower_percentage_points": 5.451936429052765,
+          "error_upper_percentage_points": 1.9745475975961142
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_1p2",
+          "x": 1.2,
+          "survival_percent": 92.0,
+          "error_lower_percentage_points": 6.998107700948722,
+          "error_upper_percentage_points": 3.890653851561936
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_1p4",
+          "x": 1.4,
+          "survival_percent": 83.0,
+          "error_lower_percentage_points": 8.548004767601128,
+          "error_upper_percentage_points": 6.1064338859400635
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    },
+    {
+      "simulator": "mjlab",
+      "panel": "payload",
+      "file_stem": "d_payload",
+      "canvas_inches": [
+        2.2,
+        1.75
+      ],
+      "axes_rectangle": [
+        0.18,
+        0.185,
+        0.755,
+        0.76
+      ],
+      "ylim": [
+        0,
+        100
+      ],
+      "xlim": [
+        -0.4,
+        8.4
+      ],
+      "major_xticks": [
+        0.0,
+        2.0,
+        4.0,
+        6.0,
+        8.0
+      ],
+      "all_four_spines_visible": true,
+      "grid": "x and y",
+      "training_support": [
+        0.0,
+        5.0
+      ],
+      "discrete_training_values": [],
+      "numeric_xtick_decimal_places": 1,
+      "nominal_value_decimal_places": 1,
+      "visible_panel_letters": false,
+      "embedded_legend": false,
+      "uncertainty": "pointwise Wilson 95% episode intervals",
+      "plotted_values": [
+        {
+          "actor": "standard",
+          "condition_id": "payload_0",
+          "x": 0.0,
+          "survival_percent": 89.0,
+          "error_lower_percentage_points": 7.631296503080307,
+          "error_upper_percentage_points": 4.745803642935428
+        },
+        {
+          "actor": "standard",
+          "condition_id": "payload_2",
+          "x": 2.0,
+          "survival_percent": 92.0,
+          "error_lower_percentage_points": 6.998107700948722,
+          "error_upper_percentage_points": 3.890653851561936
+        },
+        {
+          "actor": "standard",
+          "condition_id": "payload_4",
+          "x": 4.0,
+          "survival_percent": 83.0,
+          "error_lower_percentage_points": 8.548004767601128,
+          "error_upper_percentage_points": 6.1064338859400635
+        },
+        {
+          "actor": "standard",
+          "condition_id": "payload_6",
+          "x": 6.0,
+          "survival_percent": 95.0,
+          "error_lower_percentage_points": 6.175046923191928,
+          "error_upper_percentage_points": 2.845632084563192
+        },
+        {
+          "actor": "standard",
+          "condition_id": "payload_8",
+          "x": 8.0,
+          "survival_percent": 88.0,
+          "error_lower_percentage_points": 7.812099426711413,
+          "error_upper_percentage_points": 5.000593562980498
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_0",
+          "x": 0.0,
+          "survival_percent": 98.0,
+          "error_lower_percentage_points": 5.0011790728543986,
+          "error_upper_percentage_points": 1.4498032449837552
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_2",
+          "x": 2.0,
+          "survival_percent": 92.0,
+          "error_lower_percentage_points": 6.998107700948722,
+          "error_upper_percentage_points": 3.890653851561936
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_4",
+          "x": 4.0,
+          "survival_percent": 95.0,
+          "error_lower_percentage_points": 6.175046923191928,
+          "error_upper_percentage_points": 2.845632084563192
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_6",
+          "x": 6.0,
+          "survival_percent": 96.0,
+          "error_lower_percentage_points": 5.837071435887921,
+          "error_upper_percentage_points": 2.433669600845235
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_8",
+          "x": 8.0,
+          "survival_percent": 97.0,
+          "error_lower_percentage_points": 5.451936429052765,
+          "error_upper_percentage_points": 1.9745475975961142
+        }
+      ],
+      "tick_label_overlap_check": "passed",
+      "text_clipping_check": "passed"
+    }
+  ],
+  "individual_pdf_size_points": [
+    158.4,
+    126.0
+  ],
+  "shared_legend_location": "HG friction, lower left",
+  "displayed_methods": [
+    "PRISM",
+    "MLP"
+  ],
+  "mjlab_matched_displayed": false,
+  "push_displayed": false,
+  "speed_displayed": false,
+  "paper_major_tick_fontsize_points_at_5p5inch_width": 7.5,
+  "source_sha256": {
+    "render_combined_dynamics.py": "2dc30b1392bb2be5194e1d62b2c63e2c180cd6593efbe9a39e688c0a4068921f"
+  },
+  "output_sha256": {
+    "hg_panels/a_nominal.pdf": "36cf2af17693cea9456f3d05f52bdd1ac63803aaef8e288b709a5342b67215ab",
+    "hg_panels/a_nominal.png": "5c52859ffc4c2072891b4c6989754955e4eecac5595e690e4e094b71b96e868a",
+    "hg_panels/a_nominal.svg": "843cbe38fba960934cb57fcb4cef7401312f7d758bc02f26830bcc78f38ceecb",
+    "hg_panels/b_friction.pdf": "b7436f37839ec9b163d54792d687c3ccf731a1261e8eb20b4c2a932e2dac8b62",
+    "hg_panels/b_friction.png": "02f26763c9fb24988460c268b85851caf24986a02a80b9272df69dc9a2813896",
+    "hg_panels/b_friction.svg": "2eb0c279f0864db3ae8616f563738623a49cb0a8cf6b6d34f3fd3613188a31e4",
+    "hg_panels/c_mass.pdf": "a8814deb3efb286f26d1dd8f999cdaf06444b840459c2583aa9b1a08ecf89b0b",
+    "hg_panels/c_mass.png": "5f3888ac47c84edda3fc479e415bd900200ced78452cb80e2be471dc1e37f5f2",
+    "hg_panels/c_mass.svg": "d4ce0eb2c58304ab50dc4c1760f360aa38e55f0e1dcecff6a832b9803ec0f812",
+    "hg_panels/d_payload.pdf": "d189fd1290d7d619021ca76ec3e312a37e76f2075b5a11719bff21f7ae681725",
+    "hg_panels/d_payload.png": "85dd91aa596acbb7944292299060ab284b76cd80a81bc867d0f0ddd6aae5203b",
+    "hg_panels/d_payload.svg": "9b52a055a5272e21854ff355b0537ab6730f2f9cd6388328613acf17b136e265",
+    "locomotion_dynamics_2x4.pdf": "6f2d5d54576b42e6e2a0fb08ce95e6f2cc1c2f45886c50f4f0df919f2315f9b6",
+    "locomotion_dynamics_2x4.png": "a498d13a1740b51002e3376cf60321982760e16205f6b7c807b647bd8dc33591",
+    "locomotion_dynamics_2x4.svg": "a558945440c458108bb3dd7c48954839c87a39e2b908ddc02eb996279d749b07",
+    "mjlab_panels/a_nominal.pdf": "911924dc13db7f5a0fa340d1cb84296292dda4cd9b0f1a9f9c1e0b57cbe0d4b6",
+    "mjlab_panels/a_nominal.png": "1f102e995679e0452f9628ea07ae6c2033f7311d3e86d3da431bce383fe71eb2",
+    "mjlab_panels/a_nominal.svg": "8f7fae4e34cf1c040865f625eaca7524c2f922209750edec111671986b392912",
+    "mjlab_panels/b_friction.pdf": "ac570678b241175cf4c76e31b193b9cbc892ed35776f2ace793537b83a5e2a4b",
+    "mjlab_panels/b_friction.png": "3cd3e9b6ea6558c6943bdbf3fdcbc0f6aefa88e947292deabd549fe4af1542da",
+    "mjlab_panels/b_friction.svg": "eabd294b2f0f06e7dead3507ee46c8959c7b8387c96b2aa410f1b7ae591b0148",
+    "mjlab_panels/c_mass.pdf": "409e4e4ca64c816c59acd4a42510ee3d8aee750b42daaf52888cfe0ed137e6f2",
+    "mjlab_panels/c_mass.png": "07a1b3fa2d546e5ca314da59bbb9e89db82dd6afab4675bd2489df7f3b115a87",
+    "mjlab_panels/c_mass.svg": "6ffb1f596ca09ea413c262b3a2f7e887eb2d3a553aa212d81a14c392e96be1da",
+    "mjlab_panels/d_payload.pdf": "e68a566e23dc8ea3a7ac5916a2061ec3ceaa66361092437f58881ac8b5a5d692",
+    "mjlab_panels/d_payload.png": "d6c0263d0600f81b8be0509e0c4d68a67de0c28f7c71e6b67b041036a1d597c9",
+    "mjlab_panels/d_payload.svg": "8d779a3cc8f7bbed45ed6f8b0f391dc19074ecd2b36381c154d88b22cb881aee"
+  },
+  "matplotlib_version": "3.10.8"
+}
