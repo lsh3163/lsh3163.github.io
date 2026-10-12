@@ -5,7 +5,8 @@
   const $ = id => document.getElementById(id);
   const actors = ['standard','prism'];
   const labels = {standard:'MLP',prism:'PRISM'};
-  const colors = {standard:'#0072B2',prism:'#D55E00'};
+  const colors = {standard:'#858B94',prism:'#4285F4'};
+  const segmentCatalog = window.PRISM_VIDEO_SEGMENTS;
   const axes = ['nominal','friction','mass','payload'];
   const titles = {nominal:'Nominal',friction:'Friction',mass:'Mass',payload:'Payload'};
   const xLabels = {friction:'Foot–ground friction',mass:'Link mass/inertia ratio',payload:'Torso payload (kg)'};
@@ -14,6 +15,7 @@
   const percentage = n => Number(n).toFixed(1);
   const firstReady=data.videos.find(v=>v.actor==='prism' && v.condition_id==='nominal' && v.status==='ready') || data.videos.find(v=>v.actor==='prism' && v.status==='ready');
   let selected = {condition_id:firstReady?.condition_id || 'nominal',actor:'prism'};
+  let playbackKey = null, playbackRequest = 0, playbackController = null, playbackBlob = null;
   const condition = id => data.conditions.find(c=>c.condition_id===id);
   const metric = (id,actor) => data.metrics.find(r=>r.condition_id===id && r.actor===actor);
   const conditionLabel = c => c.axis==='nominal' ? 'Nominal' : c.axis==='friction' ? 'Friction μ = '+num(c.x) : c.axis==='mass' ? 'Mass / inertia × '+num(c.x) : 'Payload '+num(c.x)+' kg';
@@ -44,7 +46,87 @@
   function validClip(clip,c) {
     if (!clip || clip.status!=='ready' || clip.actor!==selected.actor || clip.condition_id!==c.condition_id) return false;
     const p=clip.requested_physics||clip.physics;
-    return clip.episode_seed===401000 && clip.geometry_seed===401 && clip.illustrative_replay===true && clip.exact_quantitative_trajectory===false && clip.trained_normalizer_unchanged===true && clip.runtime_physics_verified===true && clip.checkpoint_sha256===data.checkpoints[selected.actor] && clip.checkpoint_map_sha256===data.checkpoint_map_sha256 && clip.geometry_proof_sha256===data.geometry_proof_sha256 && clip.evaluator_sha256===data.evaluator_sha256 && clip.protocol_file_sha256===data.protocol_file_sha256 && JSON.stringify(clip.grid_shape)==='[21,21]' && p && p.foot_friction===c.physics.foot_friction && p.global_link_density_ratio===c.physics.global_link_density_ratio && p.payload_kg===c.physics.payload_kg && JSON.stringify(clip.command)===JSON.stringify(c.command) && clip.warmup_seconds===0 && clip.measurement_seconds===20 && clip.total_horizon_seconds===20 && /^[0-9a-f]{64}$/.test(clip.video_sha256||'') && clip.path==='videos/rough21-'+c.condition_id+'-'+selected.actor+'-seed401000.mp4';
+    return data.dataset==='admitted_rough1000_physical_v1' && clip.compatible_with_dataset===data.dataset && clip.episode_seed===401000 && clip.geometry_seed===401 && clip.illustrative_replay===true && clip.exact_quantitative_trajectory===false && JSON.stringify(clip.grid_shape)==='[21,21]' && p && p.foot_friction===c.physics.foot_friction && p.global_link_density_ratio===c.physics.global_link_density_ratio && p.payload_kg===c.physics.payload_kg && JSON.stringify(clip.command)===JSON.stringify(c.command) && clip.warmup_seconds===0 && clip.measurement_seconds===20 && clip.total_horizon_seconds===20 && /^[0-9a-f]{64}$/.test(clip.video_sha256||'') && clip.path==='videos/rough21-'+c.condition_id+'-'+selected.actor+'-seed401000.mp4';
+  }
+  const isAvailable = clip => clip?.status==='ready' && clip.delivery_status!=='pending';
+  function requireMedia(value,message) { if(!value) throw new Error(message); }
+  async function digest(bytes) {
+    requireMedia(window.crypto?.subtle,'Recording integrity requires a secure connection.');
+    return [...new Uint8Array(await crypto.subtle.digest('SHA-256',bytes))].map(v=>v.toString(16).padStart(2,'0')).join('');
+  }
+  function localURL(path) {
+    const url=new URL(path,location.href);
+    requireMedia(url.origin===location.origin,'Recording must use this website.');
+    return url;
+  }
+  async function fetchBytes(path,signal,maxBytes) {
+    const response=await fetch(localURL(path),{signal,redirect:'error',cache:'force-cache'});
+    requireMedia(response.ok,'Recording is still being added. Please retry shortly.');
+    const bytes=new Uint8Array(await response.arrayBuffer());
+    requireMedia(bytes.byteLength>0 && bytes.byteLength<=maxBytes,'Invalid recording data.');
+    return bytes;
+  }
+  async function assemble(clip,descriptor,signal) {
+    const stem=clip.path.slice('videos/'.length,-4),base='videos/chunks/'+stem+'/';
+    requireMedia(segmentCatalog?.schema==='prism_exact_byte_video_segment_catalog_v1'
+      && descriptor.actor===clip.actor && descriptor.condition_id===clip.condition_id
+      && descriptor.source_path===clip.path && descriptor.source_sha256===clip.video_sha256
+      && descriptor.source_size===clip.video_bytes && Number.isSafeInteger(descriptor.source_size)
+      && descriptor.source_size>0 && descriptor.source_size<=25*1024*1024
+      && descriptor.map_path===base+'segments.json' && /^[0-9a-f]{64}$/.test(descriptor.map_sha256),
+      'Recording source identity differs.');
+    const mapBytes=await fetchBytes(descriptor.map_path,signal,256*1024);
+    requireMedia(await digest(mapBytes)===descriptor.map_sha256,'Recording index integrity check failed.');
+    const map=JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(mapBytes));
+    requireMedia(map.actor===clip.actor && map.condition_id===clip.condition_id && map.source_path===clip.path
+      && map.source_sha256===clip.video_sha256 && map.source_size===clip.video_bytes
+      && Array.isArray(map.segments) && map.segments.length===descriptor.segment_count
+      && map.segments.length===Math.ceil(map.source_size/24576),'Recording segment index differs.');
+    const output=new Uint8Array(map.source_size);let next=0;
+    await Promise.all(Array.from({length:Math.min(6,map.segments.length)},async()=>{
+      while(next<map.segments.length) {
+        const index=next++,segment=map.segments[index],offset=index*24576;
+        requireMedia(segment.path===base+String(index).padStart(3,'0')+'.part'
+          && segment.size===Math.min(24576,map.source_size-offset) && /^[0-9a-f]{64}$/.test(segment.sha256),
+          'Recording segment path or size differs.');
+        const bytes=await fetchBytes(segment.path,signal,24576);
+        requireMedia(bytes.byteLength===segment.size && await digest(bytes)===segment.sha256,'Recording segment integrity check failed.');
+        output.set(bytes,offset);
+      }
+    }));
+    requireMedia(await digest(output)===clip.video_sha256,'Complete recording integrity check failed.');
+    return new Blob([output],{type:'video/mp4'});
+  }
+  function clearPlayback() {
+    playbackRequest++;
+    playbackController?.abort();playbackController=null;playbackKey=null;
+    const video=$('video');video.pause();video.removeAttribute('src');video.load();
+    delete video.dataset.source;delete video.dataset.recordingPath;delete video.dataset.videoSha256;delete video.dataset.delivery;
+    if(playbackBlob)URL.revokeObjectURL(playbackBlob);playbackBlob=null;
+  }
+  async function playRecording(clip) {
+    const key=clip.path+'|'+clip.video_sha256;
+    if(playbackKey===key)return;
+    clearPlayback();playbackKey=key;
+    const request=playbackRequest,controller=new AbortController();playbackController=controller;
+    const video=$('video');video.hidden=true;$('unavailable').hidden=false;$('unavailable').textContent='Loading this recording…';
+    try {
+      const descriptor=segmentCatalog?.videos?.find(v=>v.actor===clip.actor && v.condition_id===clip.condition_id);
+      let source;
+      if(descriptor) {
+        const blob=await assemble(clip,descriptor,controller.signal);
+        if(request!==playbackRequest || playbackKey!==key || controller.signal.aborted)return;
+        playbackBlob=URL.createObjectURL(blob);source=playbackBlob;
+      } else source=localURL(clip.path).href;
+      if(request!==playbackRequest || playbackKey!==key || controller.signal.aborted)return;
+      video.muted=true;video.dataset.source=key;video.dataset.recordingPath=clip.path;
+      video.dataset.videoSha256=clip.video_sha256;video.dataset.delivery=descriptor?'verified-segments':'direct';
+      video.src=source;video.hidden=false;$('unavailable').hidden=true;video.load();video.play().catch(()=>{});
+    } catch(error) {
+      if(request!==playbackRequest || controller.signal.aborted || error.name==='AbortError')return;
+      playbackKey=null;video.hidden=true;$('unavailable').hidden=false;
+      $('unavailable').textContent=error.message||'The recording could not be loaded. Please retry.';
+    }
   }
   function render() {
     $('charts').innerHTML=axes.map(a=>'<article class="chart-card"><h3>'+titles[a]+'</h3>'+(a==='nominal'?nominal():curve(a))+'</article>').join('');
@@ -52,27 +134,27 @@
     const c=condition(selected.condition_id),r=metric(selected.condition_id,selected.actor),clip=data.videos.find(v=>v.condition_id===c.condition_id && v.actor===selected.actor);
     $('condition').value=c.condition_id;document.querySelectorAll('#methods button').forEach(b=>{
       b.setAttribute('aria-pressed',String(b.dataset.actor===selected.actor));
-      const available=data.videos.some(v=>v.condition_id===c.condition_id && v.actor===b.dataset.actor && v.status==='ready');
+      const available=data.videos.some(v=>v.condition_id===c.condition_id && v.actor===b.dataset.actor && isAvailable(v));
       b.textContent=labels[b.dataset.actor]+(available?'':' · pending');
       b.setAttribute('aria-label',labels[b.dataset.actor]+' '+(available?'recording ready':'recording pending; measured values available'));
     });
-    const count=data.videos.filter(v=>v.status==='ready').length;
-    $('recording-progress').textContent=count+' / '+data.videos.length+' recordings ready'+(count<data.videos.length?' · more conditions are being recorded.':'.');
+    const count=data.videos.filter(isAvailable).length;
+    $('recording-progress').textContent=count+' / '+data.videos.length+' recordings available'+(count<data.videos.length?' · the remaining recordings are being added.':'.');
     $('selection').textContent=labels[selected.actor]+' · '+conditionLabel(c);
     $('measurement').textContent=percentage(r.survival_rate*100)+'% survived · '+r.survivors+' / '+r.attempts+' attempts';
     $('interval').textContent='Wilson 95% interval: '+percentage(r.survival_wilson_low*100)+'–'+percentage(r.survival_wilson_high*100)+'%';
-    const video=$('video');const ok=validClip(clip,c);const url=ok?new URL(clip.path,location.href):null;const usable=url && url.origin===location.origin;
-    video.hidden=!usable;$('unavailable').hidden=!!usable;
-    if(usable){if(video.dataset.source!==url.href){video.pause();video.muted=true;video.src=url.href;video.dataset.source=url.href;video.load();video.play().catch(()=>{});} $('replay-outcome').textContent=clip.survived_horizon?'Recorded rollout completed 20 s':'Recorded rollout ended at '+num(clip.physical_duration_seconds)+' s';}
-    else{video.pause();video.removeAttribute('src');delete video.dataset.source;video.load();$('unavailable').textContent=clip?.status==='recording'?'Recording this condition.':'Preparing the recording for this condition.';$('replay-outcome').textContent='This condition’s recording is not ready yet.';}
-    $('continuous').innerHTML=[['Linear RMSE',num(r.linear_rmse_m_s)+' m/s'],['Yaw RMSE',num(r.yaw_rmse_rad_s)+' rad/s'],['Forward distance',num(r.forward_distance_m)+' m'],['Compound successes',r.compound_successes+' / '+r.attempts]].map(([k,v])=>'<div><span>'+esc(k)+'</span><strong>'+esc(v)+'</strong></div>').join('');
-    $('record-details').innerHTML=[['Episode seed','401000'],['Terrain','Random rough · 21 × 21 grid'],['Command','0.5 m/s forward'],['Friction / mass / payload',num(c.physics.foot_friction)+' / '+num(c.physics.global_link_density_ratio)+'× / '+num(c.physics.payload_kg)+' kg'],['Backend',clip?.backend||'Pending'],['Checkpoint',data.checkpoints[selected.actor]],['Video SHA-256',usable?clip.video_sha256:'Pending']].map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');
+    const video=$('video'),usable=validClip(clip,c)&&isAvailable(clip);
+    if(usable){playRecording(clip);$('replay-outcome').textContent=clip.survived_horizon?'Replay completed 20 s':(clip.termination_reasons?.some(reason=>reason.startsWith('fell_over'))?'Replay: fall at ':clip.termination_reasons?.includes('support_exit')?'Replay: left terrain support at ':'Replay ended at ')+num(clip.physical_duration_seconds)+' s';}
+    else{clearPlayback();video.hidden=true;$('unavailable').hidden=false;$('unavailable').textContent='This recording is being added.';$('replay-outcome').textContent='The measured result is available; the recording is being added.';}
+    $('continuous').replaceChildren();
+    $('record-details').innerHTML=[['Episode seed','401000'],['Terrain','Random rough · 21 × 21 grid'],['Command','0.5 m/s forward'],['Friction / mass / payload',num(c.physics.foot_friction)+' / '+num(c.physics.global_link_density_ratio)+'× / '+num(c.physics.payload_kg)+' kg'],['Backend',clip?.backend||'Pending'],['Video SHA-256',usable?clip.video_sha256:'Pending']].map(([k,v])=>'<dt>'+esc(k)+'</dt><dd>'+esc(v)+'</dd>').join('');
   }
   function pick(id,actor){if(!condition(id)||!actors.includes(actor))return;selected={condition_id:id,actor};render();}
   $('condition').innerHTML=data.conditions.map(c=>'<option value="'+c.condition_id+'">'+esc(conditionLabel(c))+'</option>').join('');
   $('condition').addEventListener('change',e=>pick(e.target.value,selected.actor));
   document.querySelectorAll('#methods button').forEach(b=>b.addEventListener('click',()=>pick(selected.condition_id,b.dataset.actor)));
-  $('video').addEventListener('error',()=>{if(!$('video').dataset.source)return;$('video').hidden=true;$('unavailable').hidden=false;$('unavailable').textContent='The recording could not be loaded. Please retry.';});
+  $('video').addEventListener('error',()=>{if(!$('video').dataset.source||!$('video').error)return;$('video').hidden=true;$('unavailable').hidden=false;$('unavailable').textContent='The recording could not be loaded. Please retry.';playbackKey=null;});
+  window.addEventListener('pagehide',clearPlayback);
   window.PRISM_ROUGH21_SELECT=pick;
   render();
 })();

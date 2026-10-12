@@ -1,73 +1,9 @@
 {
-  "status": "admitted_rough21_physical_subset",
-  "displayed_cells": 38,
-  "displayed_attempts": 3800,
-  "attempts_per_condition": 100,
-  "source_total_cells": 75,
-  "source_total_attempts": 7500,
-  "source_initial_state_pair_checks": 7400,
-  "source_admission_sha256": "59ddc305e4aac8d5ab3a2a7f62e845a83303c714275f287cb13535f913f4b16f",
-  "evaluator_sha256": "d5c6edc729ac8fd47a93994c84cd183f02c43e77ae140e0e4e62b60cd04a9b3c",
-  "protocol_file_sha256": "7e3ae45877c34463dd192d20833c343c353adfffda9477c3ee16ccdf1c37e180",
-  "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
-  "geometry_proof_sha256": "e57c1b5cb515fef1e1c2a2e5c5853073c9a4f36a69388bec72679800b0457ef2",
-  "checkpoints": {
-    "standard": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
-    "prism": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab"
-  },
-  "geometry": {
-    "families": [
-      "random_rough"
-    ],
-    "native_patch_size_m": [
-      8.0,
-      8.0
-    ],
-    "grid_shape": [
-      21,
-      21
-    ],
-    "curriculum": false,
-    "difficulty": 0.5,
-    "outer_generator_border_width_m": 0.0,
-    "native_subterrain_borders_and_platforms_preserved": true,
-    "noise_range_m": [
-      0.02,
-      0.1
-    ],
-    "noise_step_m": 0.02,
-    "geometry_seeds": [
-      401,
-      402,
-      403,
-      404,
-      405
-    ],
-    "geometry_seed_equals_evaluation_root_seed": true,
-    "spawn_row": 10,
-    "spawn_col": 10,
-    "grid_bounds_xy_m": [
-      [
-        -84.0,
-        84.0
-      ],
-      [
-        -84.0,
-        84.0
-      ]
-    ],
-    "nominal_spawn_xy_m": [
-      0.0,
-      0.0
-    ],
-    "common_grid_for_all_conditions_and_actors": true,
-    "maximum_prescribed_physical_forward_distance_m": 66.0,
-    "forward_support_from_spawn_m": 84.0,
-    "omnidirectional_horizontal_support_from_spawn_m": 84.0,
-    "maximum_target_course_headroom_m": 18.0,
-    "course_bounds_include_root_and_14_foot_capsule_projections": true,
-    "continuous_nonflat_rough_surface_claim": false
-  },
+  "dataset": "admitted_rough1000_physical_v1",
+  "attempts_per_condition": 1000,
+  "training_seed_count_per_actor": 1,
+  "evaluation_layout_count": 5,
+  "episodes_per_layout": 200,
   "training_ranges": {
     "friction": [
       0.3,
@@ -82,11 +18,14 @@
       5.0
     ]
   },
-  "fixed_layouts_are_training_seeds": false,
-  "primary_metric": "supported_survival_rate",
-  "compound_successes_displayed": 0,
-  "ready_recordings": 22,
+  "grid_shape": [
+    21,
+    21
+  ],
+  "status": "all38_rough1000_cells_admitted",
+  "displayed_cells": 38,
+  "displayed_attempts": 38000,
+  "ready_recordings": 38,
   "planned_recordings": 38,
-  "recorded_episode_seed": 401000,
-  "source_compatible_illustrative_replays_only": true
+  "illustrative_CPU_replays_only": true
 }
