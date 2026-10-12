@@ -1,0 +1,112 @@
+name: Import reviewed PRISM rough21 comparison
+
+on:
+  push:
+    branches: [master]
+    paths: ['.github/workflows/import-reviewed-prism-rough21-assets.yml']
+
+permissions:
+  contents: write
+
+concurrency:
+  group: reviewed-prism-rough21-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    if: github.repository == 'lsh3163/lsh3163.github.io' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      PRISM_MANIFEST_URL: https://resume-mpg-staff-power.trycloudflare.com/manifest.json
+      PRISM_MANIFEST_SHA256: a5ef092db5d77c7c971570ef34bd6f05f1135723fccd5874559c3a7d37825556
+      PRISM_EXPECTED_BASE: a121bae0340e0f53b08b30c8e646a6465a15bac5
+      PRISM_EXPECTED_HEAD: ${{ github.sha }}
+      PRISM_IMPORTER_SHA256: cef6aede8dcc65438207ce59c0824ee91ad2c4f3256ba458702c310a23ae29de
+      GIT_TERMINAL_PROMPT: '0'
+    steps:
+      - name: Check out the exact reviewed installation on master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REPOSITORY" = lsh3163/lsh3163.github.io
+          test "$GITHUB_SERVER_URL" = https://github.com
+          [[ "$PRISM_EXPECTED_HEAD" =~ ^[0-9a-f]{40}$ ]]
+          [[ "$PRISM_IMPORTER_SHA256" =~ ^[0-9a-f]{64}$ ]]
+          test "$PRISM_EXPECTED_BASE" = a121bae0340e0f53b08b30c8e646a6465a15bac5
+          test "$GITHUB_SHA" = "$PRISM_EXPECTED_HEAD"
+          askpass="$RUNNER_TEMP/prism-rough21-git-askpass.sh"
+          cat > "$askpass" <<'ASKPASS'
+          #!/bin/sh
+          case "$1" in
+            *Username*) printf '%s\n' x-access-token ;;
+            *Password*) printf '%s\n' "$GITHUB_TOKEN" ;;
+            *) exit 1 ;;
+          esac
+          ASKPASS
+          chmod 700 "$askpass"
+          export GIT_ASKPASS="$askpass"
+          git -c credential.helper= clone --filter=blob:none --single-branch --branch master \
+            https://github.com/lsh3163/lsh3163.github.io.git "$GITHUB_WORKSPACE/site"
+          test "$(git -C "$GITHUB_WORKSPACE/site" rev-parse HEAD)" = "$PRISM_EXPECTED_HEAD"
+          printf '%s  %s\n' "$PRISM_IMPORTER_SHA256" \
+            "$GITHUB_WORKSPACE/site/.github/scripts/import_reviewed_prism_rough21_assets.py" | sha256sum --check --status
+
+      - name: Stage and validate every reviewed public asset, then copy
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 "$GITHUB_WORKSPACE/site/.github/scripts/import_reviewed_prism_rough21_assets.py" \
+            --repo "$GITHUB_WORKSPACE/site" --scratch-parent "$RUNNER_TEMP" \
+            --allowed-paths-output "$RUNNER_TEMP/prism-rough21-allowed-paths.nul" \
+            --receipt-output "$RUNNER_TEMP/prism-rough21-import-receipt.json"
+
+      - name: Commit only the verified whitelist and push if master is unchanged
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          export GIT_ASKPASS="$RUNNER_TEMP/prism-rough21-git-askpass.sh"
+          site="$GITHUB_WORKSPACE/site"
+          remote_head="$(git -C "$site" -c credential.helper= ls-remote --exit-code origin refs/heads/master | cut -f1)"
+          test "$remote_head" = "$PRISM_EXPECTED_HEAD"
+          test "$(git -C "$site" rev-parse HEAD)" = "$PRISM_EXPECTED_HEAD"
+          git -C "$site" --literal-pathspecs add \
+            --pathspec-from-file="$RUNNER_TEMP/prism-rough21-allowed-paths.nul" --pathspec-file-nul
+          python3 - "$site" "$RUNNER_TEMP/prism-rough21-import-receipt.json" <<'VERIFY'
+          import hashlib, json, pathlib, subprocess, sys
+          repo, receipt_path = pathlib.Path(sys.argv[1]), pathlib.Path(sys.argv[2])
+          receipt = json.loads(receipt_path.read_text())
+          entries = {entry['path']: entry for entry in receipt['files']}
+          changes = subprocess.check_output(['git', '-C', str(repo), 'diff', '--cached', '--name-status', '-z', '--no-renames']).split(b'\0')
+          changed = set()
+          for index in range(0, len(changes) - 1, 2):
+              status, path = changes[index].decode(), changes[index + 1].decode()
+              if status not in ('A', 'M') or path not in entries:
+                  raise SystemExit('Staged change falls outside the reviewed whitelist')
+              changed.add(path)
+          if not changed:
+              raise SystemExit('No reviewed assets were staged')
+          for path, entry in entries.items():
+              mode = subprocess.check_output(['git', '-C', str(repo), 'ls-files', '--stage', '--', path]).decode().split()[0]
+              blob = subprocess.check_output(['git', '-C', str(repo), 'show', ':' + path])
+              if mode != '100644' or len(blob) != entry['size'] or hashlib.sha256(blob).hexdigest() != entry['sha256']:
+                  raise SystemExit('Staged asset mode, size, or SHA256 changed')
+          VERIFY
+          git -C "$site" -c user.name=github-actions\[bot\] \
+            -c user.email=41898282+github-actions\[bot\]@users.noreply.github.com \
+            -c core.hooksPath=/dev/null commit -m "Publish rough21 dynamics comparison and 22 real condition clips"
+          test "$(git -C "$site" rev-parse HEAD^)" = "$PRISM_EXPECTED_HEAD"
+          remote_head="$(git -C "$site" -c credential.helper= ls-remote --exit-code origin refs/heads/master | cut -f1)"
+          test "$remote_head" = "$PRISM_EXPECTED_HEAD"
+          git -C "$site" -c credential.helper= push origin HEAD:refs/heads/master
+          printf 'Imported commit: %s\n' "$(git -C "$site" rev-parse HEAD)"
+          printf 'A GITHUB_TOKEN push does not trigger a GitHub Pages build; request that separately.\n'
+
+      - name: Remove the temporary authentication helper
+        if: always()
+        shell: bash
+        run: rm -f -- "$RUNNER_TEMP/prism-rough21-git-askpass.sh"
