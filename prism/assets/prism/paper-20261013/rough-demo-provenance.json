@@ -1,5 +1,5 @@
 {
-  "schema": "prism_homepage_rough_demo_v1",
+  "schema": "prism_homepage_rough_demo_v2",
   "source_index_url": "https://lsh3163.github.io/prism/explorer/videos.json",
   "videos": [
     {
@@ -99,7 +99,107 @@
       "height": 360,
       "exact_new_quantitative_trajectory": false,
       "compatible_with_dataset": "admitted_rough1000_physical_v1"
+    },
+    {
+      "actor": "prism",
+      "condition_id": "mass_1p4",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-mass_1p4-prism-seed401000.mp4",
+      "video_sha256": "ddee9fa386009dd2fabe6dcdea05607b27c55570918e9c13dd84a908415c35ed",
+      "video_bytes": 649626,
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.4,
+        "payload_kg": 0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1.4,
+        "payload_kg": 0
+      },
+      "command": [
+        0.5,
+        0,
+        0
+      ],
+      "warmup_seconds": 0,
+      "measurement_seconds": 20,
+      "total_horizon_seconds": 20,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "fps": 25,
+      "width": 640,
+      "height": 360,
+      "exact_new_quantitative_trajectory": false,
+      "delivery": "verified_original_bytes",
+      "compatible_with_dataset": "admitted_rough1000_physical_v1"
+    },
+    {
+      "actor": "prism",
+      "condition_id": "payload_8",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-payload_8-prism-seed401000.mp4",
+      "video_sha256": "b0ff2c76a4416faddb6269230ad29341c0ca522f6ebf0360ab4068bf15ee98d9",
+      "video_bytes": 565519,
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1,
+        "payload_kg": 8
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1,
+        "payload_kg": 8
+      },
+      "command": [
+        0.5,
+        0,
+        0
+      ],
+      "warmup_seconds": 0,
+      "measurement_seconds": 20,
+      "total_horizon_seconds": 20,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "fps": 25,
+      "width": 640,
+      "height": 360,
+      "exact_new_quantitative_trajectory": false,
+      "delivery": "verified_original_bytes",
+      "compatible_with_dataset": "admitted_rough1000_physical_v1"
     }
   ],
-  "transformations": "Native public video bytes retained; posters are original frames at 9 seconds. No replay, retiming, or new evaluation."
+  "transformations": "Original public video bytes retained. Payload and mass files reassembled from verified public segments; full SHA256 verified. Posters are native frames at 9 seconds. No replay, retiming, or new evaluation."
 }
