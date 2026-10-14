@@ -1,0 +1,29 @@
+{
+  "file": "rough-lowfriction-mass-payload.mp4",
+  "chapters": [
+    {
+      "id": "friction",
+      "condition_id": "friction_0p2",
+      "start_s": 0,
+      "end_s": 7,
+      "caption": "Low friction (\u03bc = 0.20) \u00b7 MLP falls; PRISM keeps walking.",
+      "full_video": "low-friction-full-paired.mp4"
+    },
+    {
+      "id": "mass",
+      "condition_id": "mass_1p4",
+      "start_s": 7,
+      "end_s": 14,
+      "caption": "Mass +40% \u00b7 MLP falls; PRISM keeps walking.",
+      "full_video": "mass-full-paired.mp4"
+    },
+    {
+      "id": "payload",
+      "condition_id": "payload_8",
+      "start_s": 14,
+      "end_s": 21,
+      "caption": "Payload +8 kg \u00b7 MLP falls; PRISM keeps walking.",
+      "full_video": "payload-full-paired.mp4"
+    }
+  ]
+}

@@ -1,0 +1,139 @@
+{
+  "schema": "prism_rough_sequence_condition_v1",
+  "condition_id": "mass_1p4",
+  "condition_label": "Link mass ×1.4",
+  "scope": "Selected illustrative native replay from saved paired evaluation initial states; separate from aggregate measurements",
+  "physics_backend": "Native MuJoCo-Warp CUDA",
+  "render_backend": "OSMesa llvmpipe software rendering",
+  "exact_quantitative_trajectory": false,
+  "root_seed": 401,
+  "geometry_seed": 401,
+  "episode_index": 88,
+  "episode_seed": 401088,
+  "shared_initial_state_sha256": "5ec96a2a88d121000986746a95e9b42cb8477547ff80d2cdf74a13aba6a09d78",
+  "terrain_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+  "grid_shape": [
+    21,
+    21
+  ],
+  "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+  "physics": {
+    "foot_friction": 0.6,
+    "global_link_density_ratio": 1.4,
+    "payload_kg": 0.0
+  },
+  "command": [
+    0.5,
+    0.0,
+    0.0
+  ],
+  "total_horizon_seconds": 20,
+  "actors": {
+    "standard": {
+      "label": "MLP",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "survived_horizon": false,
+      "compound_success": false,
+      "physical_duration_seconds": 10.9,
+      "termination_reasons": [
+        "fell_over",
+        "fell_over_post_step"
+      ],
+      "actual_world_forward_distance_m": 4.327772714197636,
+      "actual_ground_path_length_m": 5.2762434897394455,
+      "actual_command_frame_directed_distance_m": 5.057325381971897,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "6e3f9d9a8f40f7a2f536edebd7031927f0ddb394cf387be2a9bf4e2ac672d507"
+    },
+    "prism": {
+      "label": "PRISM",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "survived_horizon": true,
+      "compound_success": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "actual_world_forward_distance_m": -4.178386591374874,
+      "actual_ground_path_length_m": 11.206681349344125,
+      "actual_command_frame_directed_distance_m": 11.12330851538108,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "87e4b24a8051b73c67311b668b2bced68c2f92a8a6ec282e62fed79bfdec7149"
+    }
+  },
+  "visual_continuation": {
+    "actor": "standard",
+    "starts_seconds": 10.9,
+    "ends_seconds": 11.9,
+    "extra_native_physics_seconds": 1.0,
+    "original_metric_frozen_before_continuation": true,
+    "continued_policy_and_physics_unchanged": true,
+    "actual_live_terminal_state_used": true,
+    "autoreset": false,
+    "manual_reset_bookkeeping_cleared": true,
+    "state_reset_reconstructed_or_forced": false,
+    "initial_root_height_m": 0.8039078712463379,
+    "final_root_height_m": 0.19909462332725525,
+    "frame_hold_begins_seconds": 11.9,
+    "disclosed_in_video": true
+  },
+  "hero_shared_physical_window_seconds": [
+    7.88,
+    14.88
+  ],
+  "hero_final_outcome_presentation_hold_seconds": 0.0,
+  "presentation": {
+    "fixed_crop_xywh": [
+      140,
+      0,
+      360,
+      360
+    ],
+    "equal_spatial_scale": true,
+    "retimed": false,
+    "generated_motion": false,
+    "native_control_dt_seconds": 0.02
+  },
+  "videos": {
+    "standard": {
+      "file": "mass-mlp-native.mp4",
+      "bytes": 387108,
+      "sha256": "6e3f9d9a8f40f7a2f536edebd7031927f0ddb394cf387be2a9bf4e2ac672d507",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 300,
+      "encoded_duration_seconds": 12.0
+    },
+    "prism": {
+      "file": "mass-prism-native.mp4",
+      "bytes": 666493,
+      "sha256": "87e4b24a8051b73c67311b668b2bced68c2f92a8a6ec282e62fed79bfdec7149",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "full_paired": {
+      "file": "mass-full-paired.mp4",
+      "bytes": 1475481,
+      "sha256": "fc30209b2488b1339836c58c4b36d091f337e6fc681b79e33687102dbaa5fdd4",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "hero_paired": {
+      "file": "mass-hero-paired.mp4",
+      "bytes": 566003,
+      "sha256": "4bd661ce135bd8c2cb5c20931dc9216adf4e4a508b56b1585b66d9281594ed37",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 175,
+      "encoded_duration_seconds": 7.0
+    }
+  }
+}

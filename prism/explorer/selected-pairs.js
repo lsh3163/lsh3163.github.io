@@ -112,6 +112,230 @@ window.PRISM_SELECTED_ROUGH_PAIRS = {
           "outcome_selected": true
         }
       ]
+    },
+    {
+      "condition_id": "mass_1p4",
+      "initial_state_sha256": "5ec96a2a88d121000986746a95e9b42cb8477547ff80d2cdf74a13aba6a09d78",
+      "episode_seed": 401088,
+      "geometry_seed": 401,
+      "selection_rule": "Selected saved shared initial state with a verified native MLP fall and PRISM 20-second survival; illustrative, separate from aggregate results.",
+      "videos": [
+        {
+          "actor": "standard",
+          "condition_id": "mass_1p4",
+          "grid_shape": [
+            21,
+            21
+          ],
+          "root_seed": 401,
+          "geometry_seed": 401,
+          "episode_index": 88,
+          "episode_seed": 401088,
+          "initial_state_sha256": "5ec96a2a88d121000986746a95e9b42cb8477547ff80d2cdf74a13aba6a09d78",
+          "illustrative_replay": true,
+          "exact_quantitative_trajectory": false,
+          "physical_duration_seconds": 10.9,
+          "termination_reasons": [
+            "fell_over",
+            "fell_over_post_step"
+          ],
+          "status": "ready",
+          "path": "videos/selected-mass_1p4-standard-case88.mp4",
+          "video_sha256": "6e3f9d9a8f40f7a2f536edebd7031927f0ddb394cf387be2a9bf4e2ac672d507",
+          "video_bytes": 387108,
+          "requested_physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.4,
+            "payload_kg": 0.0
+          },
+          "physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.4,
+            "payload_kg": 0.0
+          },
+          "command": [
+            0.5,
+            0.0,
+            0.0
+          ],
+          "warmup_seconds": 0,
+          "measurement_seconds": 20,
+          "total_horizon_seconds": 20,
+          "backend": "Native MuJoCo-Warp CUDA",
+          "encoded_duration_seconds": 12.0,
+          "survived_horizon": false,
+          "fps": 25,
+          "width": 640,
+          "height": 360,
+          "compatible_with_dataset": "admitted_rough1000_physical_v1",
+          "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+          "outcome_selected": true,
+          "post_termination_continuation_seconds": 1
+        },
+        {
+          "actor": "prism",
+          "condition_id": "mass_1p4",
+          "grid_shape": [
+            21,
+            21
+          ],
+          "root_seed": 401,
+          "geometry_seed": 401,
+          "episode_index": 88,
+          "episode_seed": 401088,
+          "initial_state_sha256": "5ec96a2a88d121000986746a95e9b42cb8477547ff80d2cdf74a13aba6a09d78",
+          "illustrative_replay": true,
+          "exact_quantitative_trajectory": false,
+          "physical_duration_seconds": 20.0,
+          "termination_reasons": [
+            "time_out"
+          ],
+          "status": "ready",
+          "path": "videos/selected-mass_1p4-prism-case88.mp4",
+          "video_sha256": "87e4b24a8051b73c67311b668b2bced68c2f92a8a6ec282e62fed79bfdec7149",
+          "video_bytes": 666493,
+          "requested_physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.4,
+            "payload_kg": 0.0
+          },
+          "physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.4,
+            "payload_kg": 0.0
+          },
+          "command": [
+            0.5,
+            0.0,
+            0.0
+          ],
+          "warmup_seconds": 0,
+          "measurement_seconds": 20,
+          "total_horizon_seconds": 20,
+          "backend": "Native MuJoCo-Warp CUDA",
+          "encoded_duration_seconds": 20.04,
+          "survived_horizon": true,
+          "fps": 25,
+          "width": 640,
+          "height": 360,
+          "compatible_with_dataset": "admitted_rough1000_physical_v1",
+          "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+          "outcome_selected": true,
+          "post_termination_continuation_seconds": 0
+        }
+      ]
+    },
+    {
+      "condition_id": "payload_8",
+      "initial_state_sha256": "4ed8739ba707bdc24bb1d0b9978317aa945445a1b6358e2233e8771c6d6e86eb",
+      "episode_seed": 401040,
+      "geometry_seed": 401,
+      "selection_rule": "Selected saved shared initial state with a verified native MLP fall and PRISM 20-second survival; illustrative, separate from aggregate results.",
+      "videos": [
+        {
+          "actor": "standard",
+          "condition_id": "payload_8",
+          "grid_shape": [
+            21,
+            21
+          ],
+          "root_seed": 401,
+          "geometry_seed": 401,
+          "episode_index": 40,
+          "episode_seed": 401040,
+          "initial_state_sha256": "4ed8739ba707bdc24bb1d0b9978317aa945445a1b6358e2233e8771c6d6e86eb",
+          "illustrative_replay": true,
+          "exact_quantitative_trajectory": false,
+          "physical_duration_seconds": 18.96,
+          "termination_reasons": [
+            "fell_over",
+            "fell_over_post_step"
+          ],
+          "status": "ready",
+          "path": "videos/selected-payload_8-standard-case40.mp4",
+          "video_sha256": "8174d62938c5796d13c2aa13b1b12116214e48fb86c34a13c09f74ae3d68505e",
+          "video_bytes": 611194,
+          "requested_physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.0,
+            "payload_kg": 8.0
+          },
+          "physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.0,
+            "payload_kg": 8.0
+          },
+          "command": [
+            0.5,
+            0.0,
+            0.0
+          ],
+          "warmup_seconds": 0,
+          "measurement_seconds": 20,
+          "total_horizon_seconds": 20,
+          "backend": "Native MuJoCo-Warp CUDA",
+          "encoded_duration_seconds": 20.0,
+          "survived_horizon": false,
+          "fps": 25,
+          "width": 640,
+          "height": 360,
+          "compatible_with_dataset": "admitted_rough1000_physical_v1",
+          "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+          "outcome_selected": true,
+          "post_termination_continuation_seconds": 1
+        },
+        {
+          "actor": "prism",
+          "condition_id": "payload_8",
+          "grid_shape": [
+            21,
+            21
+          ],
+          "root_seed": 401,
+          "geometry_seed": 401,
+          "episode_index": 40,
+          "episode_seed": 401040,
+          "initial_state_sha256": "4ed8739ba707bdc24bb1d0b9978317aa945445a1b6358e2233e8771c6d6e86eb",
+          "illustrative_replay": true,
+          "exact_quantitative_trajectory": false,
+          "physical_duration_seconds": 20.0,
+          "termination_reasons": [
+            "time_out"
+          ],
+          "status": "ready",
+          "path": "videos/selected-payload_8-prism-case40.mp4",
+          "video_sha256": "72a2b010bd7771a13bb53a1816b420bfbe64388cbf95538222f7422a5eb7a33f",
+          "video_bytes": 584590,
+          "requested_physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.0,
+            "payload_kg": 8.0
+          },
+          "physics": {
+            "foot_friction": 0.6,
+            "global_link_density_ratio": 1.0,
+            "payload_kg": 8.0
+          },
+          "command": [
+            0.5,
+            0.0,
+            0.0
+          ],
+          "warmup_seconds": 0,
+          "measurement_seconds": 20,
+          "total_horizon_seconds": 20,
+          "backend": "Native MuJoCo-Warp CUDA",
+          "encoded_duration_seconds": 20.04,
+          "survived_horizon": true,
+          "fps": 25,
+          "width": 640,
+          "height": 360,
+          "compatible_with_dataset": "admitted_rough1000_physical_v1",
+          "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+          "outcome_selected": true,
+          "post_termination_continuation_seconds": 0
+        }
+      ]
     }
   ]
 };

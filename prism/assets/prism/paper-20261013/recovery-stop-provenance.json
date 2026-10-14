@@ -1,0 +1,21 @@
+{
+  "task": "StackCube (ManiSkill3): regrasp a dropped cube and stack it on the other cube",
+  "case": 2,
+  "source": "Exact saved-action native replay used for the manuscript contact illustration",
+  "first_recovery_s_after_handoff": 0.95,
+  "first_recovery_s_after_contact": 0.85,
+  "prism_success_native_frame_index": 264,
+  "prism_success_frame_rgb_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+  "all_post_success_scene_frames_equal": true,
+  "presentation": "PRISM scene stops at the first successful placement; ACT scene stops at the 5-second horizon. Completed frames are held. No post-success policy motion is displayed.",
+  "source_video_sha256": {
+    "ACT": "72f10436828fccd51df52006b9f2e6d4851a4ef93973fe6c85f6fc87d27b9115",
+    "PRISM": "969ae9dc57e13dbd2c99673d83c27b18e945620ca501f5ca393aaa622da6b0e4"
+  },
+  "video_sha256": "90309cd74e11c9838e3b59671f8eaa5406d5400609ec01e3aa5c8ca8e55da100",
+  "seconds": 6.8,
+  "frames": 136,
+  "fps": 20,
+  "width": 960,
+  "height": 432
+}

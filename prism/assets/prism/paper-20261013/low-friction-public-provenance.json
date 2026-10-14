@@ -1,0 +1,131 @@
+{
+  "schema": "prism_rough_sequence_condition_v1",
+  "condition_id": "friction_0p2",
+  "condition_label": "Low friction μ=0.2",
+  "scope": "Selected illustrative CPU replay from saved paired evaluation initial states; separate from aggregate GPU measurements",
+  "root_seed": 401,
+  "geometry_seed": 401,
+  "episode_index": 10,
+  "episode_seed": 401010,
+  "shared_initial_state_sha256": "66b2523753298f38c25e369a71ad9c34cbae4ba521f39c86bc25ae72ea3314d3",
+  "terrain_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+  "grid_shape": [
+    21,
+    21
+  ],
+  "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+  "physics": {
+    "foot_friction": 0.2,
+    "global_link_density_ratio": 1.0,
+    "payload_kg": 0.0
+  },
+  "command": [
+    0.5,
+    0.0,
+    0.0
+  ],
+  "total_horizon_seconds": 20,
+  "actors": {
+    "standard": {
+      "label": "MLP",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "survived_horizon": false,
+      "compound_success": false,
+      "physical_duration_seconds": 11.18,
+      "termination_reasons": [
+        "fell_over",
+        "fell_over_post_step"
+      ],
+      "actual_world_forward_distance_m": 3.9894333938136697,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "a38f9006cba48056e3afa23185930dc3e7396560b9cbe841cb56eb309b695eaf"
+    },
+    "prism": {
+      "label": "PRISM",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "survived_horizon": true,
+      "compound_success": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "actual_world_forward_distance_m": 8.31829582247883,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "ecdbb3e30b0cd93185907070c507464aba0451f941bc4c7db6f70003345248ef"
+    }
+  },
+  "visual_continuation": {
+    "actor": "standard",
+    "starts_seconds": 11.18,
+    "ends_seconds": 12.18,
+    "extra_native_physics_seconds": 1.0,
+    "original_metric_frozen_before_continuation": true,
+    "continued_policy_and_physics_unchanged": true,
+    "actual_live_terminal_state_used": true,
+    "autoreset": false,
+    "manual_reset_bookkeeping_cleared": true,
+    "state_reset_reconstructed_or_forced": false,
+    "initial_root_height_m": 0.7269955277442932,
+    "final_root_height_m": 0.23821307718753815,
+    "frame_hold_begins_seconds": 12.18,
+    "disclosed_in_video": true
+  },
+  "hero_shared_physical_window_seconds": [
+    8.16,
+    15.16
+  ],
+  "presentation": {
+    "fixed_crop_xywh": [
+      140,
+      0,
+      360,
+      360
+    ],
+    "equal_spatial_scale": true,
+    "retimed": false,
+    "generated_motion": false,
+    "native_control_dt_seconds": 0.02
+  },
+  "videos": {
+    "standard": {
+      "file": "low-friction-mlp-native.mp4",
+      "bytes": 406366,
+      "sha256": "a38f9006cba48056e3afa23185930dc3e7396560b9cbe841cb56eb309b695eaf",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 307,
+      "encoded_duration_seconds": 12.28
+    },
+    "prism": {
+      "file": "low-friction-prism-native.mp4",
+      "bytes": 662041,
+      "sha256": "ecdbb3e30b0cd93185907070c507464aba0451f941bc4c7db6f70003345248ef",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "full_paired": {
+      "file": "low-friction-full-paired.mp4",
+      "bytes": 1502079,
+      "sha256": "3be194b961b35fe212830af2e772caecf2007be1064ad2d244c6328e6121a05d",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "hero_paired": {
+      "file": "low-friction-hero-paired.mp4",
+      "bytes": 589900,
+      "sha256": "4eff2d456404b9e9beccb3ca79380ad7d1e50f4962f4633dc5d1ee30de340fee",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 175,
+      "encoded_duration_seconds": 7.0
+    }
+  }
+}
