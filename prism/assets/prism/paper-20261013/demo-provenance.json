@@ -1,0 +1,104 @@
+{
+  "source_public_url": "https://lsh3163.github.io/prism/assets/prism/humanoid-nominal-mass-friction.mp4",
+  "source_video_sha256": "d9ff0623ec587ab1dffc374aeb87ab6e455b34eea5385347936b9b7cfcd98cc0",
+  "source_run": "humanoid_command_grid/20260921T225600Z",
+  "source_actor": "g1_gated_poly_v2",
+  "training_seed": 1,
+  "evaluation_seed": 101,
+  "selected_model_pair": [
+    "mlp-1321k",
+    "prism-1321k"
+  ],
+  "shared_clock_fps": 25,
+  "full_horizon_seconds": 24,
+  "pairing_evidence": "Original protocol uses the same initial case per condition and identical commands/common clock across actors. Recorded terminal frames are held after failure.",
+  "selection_disclosure": "Outcome-selected illustrative rollouts from 100 paired cases per condition; not average performance.",
+  "benchmark_scope": "Archived command-stress demonstration; separate from manuscript Table1 random-command nominal evaluation trajectories.",
+  "conditions": {
+    "low_friction": {
+      "selection": {
+        "selected_env_id": 5,
+        "qualifying_env_ids": [
+          5,
+          12,
+          13,
+          24,
+          35,
+          41,
+          60,
+          61,
+          64,
+          68,
+          79
+        ],
+        "selection_mode": "outcome_selected",
+        "selection_disclosure": "Selected from 100 paired cases: PRISM completes; MLPs fail after 8s.",
+        "selection_rule": "lowest common env_id: PRISM success, both MLPs fail at or after 8s; else predeclared env 0"
+      },
+      "outcomes": [
+        {
+          "model": "prism-1321k",
+          "initial_case_id": 5,
+          "time_s": 24.00000113993883,
+          "success": true,
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          }
+        },
+        {
+          "model": "mlp-1321k",
+          "initial_case_id": 5,
+          "time_s": 12.080000573769212,
+          "success": false,
+          "terminal_causes": {
+            "pelvis_contact": true,
+            "roll": false,
+            "pitch": false,
+            "timeout": false
+          }
+        }
+      ]
+    },
+    "payload_mass": {
+      "selection": {
+        "selected_env_id": 40,
+        "qualifying_env_ids": [
+          40
+        ],
+        "selection_mode": "outcome_selected",
+        "selection_disclosure": "Selected from 100 paired cases: PRISM completes; MLPs fail after 8s.",
+        "selection_rule": "lowest common env_id: PRISM success, both MLPs fail at or after 8s; else predeclared env 0"
+      },
+      "outcomes": [
+        {
+          "model": "prism-1321k",
+          "initial_case_id": 40,
+          "time_s": 24.00000113993883,
+          "success": true,
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": false,
+            "pitch": false,
+            "timeout": true
+          }
+        },
+        {
+          "model": "mlp-1321k",
+          "initial_case_id": 40,
+          "time_s": 23.370001110015437,
+          "success": false,
+          "terminal_causes": {
+            "pelvis_contact": false,
+            "roll": true,
+            "pitch": false,
+            "timeout": false
+          }
+        }
+      ]
+    }
+  },
+  "transformations": "Pure spatial crops and pairedcomposition plus labels. Fulltrial0\u201324s;lowfrictionhero8\u201324s. Samewindow/native25fpsbothsides. No retiming, outcomealteration, orsyntheticframes."
+}

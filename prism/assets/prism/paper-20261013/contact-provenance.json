@@ -1,0 +1,33 @@
+{
+  "case": 2,
+  "force_definition": "Sum of hand/task-cube per-contact impulse magnitudes divided by physics dt",
+  "time_window_s": [
+    -1,
+    5
+  ],
+  "first_contact_threshold_N": 1,
+  "prism_first_completion_s": 0.85,
+  "methods": {
+    "ACT": {
+      "trace_sha256": "9004bd21c52c6ccb8de007c6ce934c67cc6ff46adecb1f4da58f8066750a34ab",
+      "first_contact_time_s": 0.08999999798834324,
+      "shown_samples": 601
+    },
+    "MCC-Sensorless": {
+      "trace_sha256": "b6c03f94dd29b85ee4282e8e39e1cf9bea7c5c5e2cf413def114c39bfc313628",
+      "first_contact_time_s": 0.08999999798834324,
+      "shown_samples": 601
+    },
+    "MCC-Oracle": {
+      "trace_sha256": "90ad30618bd454ed37b5f36755940c9e0e2a895e423b1afdab75cd2d9d25be2e",
+      "first_contact_time_s": 0.08999999798834324,
+      "shown_samples": 601
+    },
+    "PRISM": {
+      "trace_sha256": "e4736c7da1fbfdc529069756bfad5d1a6a6777a3c4decdb82a76dc388de76523",
+      "first_contact_time_s": 0.09999999776482582,
+      "shown_samples": 601
+    }
+  },
+  "new_simulations": 0
+}

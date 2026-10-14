@@ -1,0 +1,8 @@
+result,metric,baseline,PRISM,source
+Walking,24-second survival (%),51.0,92.5,Table 1 / Figure 2
+Manipulation,Mean task success (%),63.5,67.6,Table 2 / Figure 2
+Multi-task,LIBERO mean success (%),62.0,63.82,Table 4 / Figure 2
+Unseen dynamics: flat,Mean 60-second survival (%) over six out-of-range settings,78.3,92.3,Section 4.2 / Figure 2
+Unseen dynamics: rough,Mean 20-second supported survival (%) over six out-of-range settings,80.0,87.1,Section 4.2 / Figure 2
+Drop recovery,Recovery success (%),40.9,52.3,Table 6 / Figure 2
+Real robot: tape pickup,Hardware task success (%),68.0,94.0,Table 7 / Figure 2

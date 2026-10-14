@@ -1,0 +1,431 @@
+{
+  "method": {
+    "name": "Polynomial Representations for Interaction-Structured Motor Control",
+    "construction": "u = W1 x + b1; v = W2 x + b2; psi2(x) = u + s2 (u elementwise-multiply v)",
+    "default_degree": 2,
+    "integration": "Replaces the first affine state/proprioceptive projection and retains downstream policy interfaces, native learning objectives, sensing, action interface, and low-level controller.",
+    "modalities": "Locomotion: available proprioception, commands, observation/action history. Manipulation: proprioceptive pathway; RGB/language use existing encoders.",
+    "message": "Learn physical interactions from existing observations, rather than prescribing physical equations or adding force inputs.",
+    "scale_note": "Interaction scales are learned jointly by default; setting all scales to zero recovers an affine representation. Specific robustness training recipe uses a scheduled warm-up and fixed scale, so avoid an unconditional learned-scale claim across every experiment."
+  },
+  "figure2_summary": [
+    {
+      "label": "Walking",
+      "metric": "24-second survival (%)",
+      "baseline": 51.0,
+      "prism": 92.5,
+      "gain_percentage_points": 41.5,
+      "source": "Table 1 / Figure 2",
+      "baseline_definition": "MLP baseline in Humanoid-Gym",
+      "protocol": "Five training seeds"
+    },
+    {
+      "label": "Manipulation",
+      "metric": "Mean task success (%)",
+      "baseline": 63.5,
+      "prism": 67.6,
+      "gain_percentage_points": 4.1,
+      "source": "Table 2 / Figure 2",
+      "baseline_definition": "ACT across three ManiSkill3 tasks",
+      "protocol": "One training seed per method/task, final 100K checkpoint, 500 attempts per task/method; five equal-size evaluation groups"
+    },
+    {
+      "label": "Multi-task",
+      "metric": "LIBERO mean success (%)",
+      "baseline": 62.0,
+      "prism": 63.82,
+      "display_prism": 63.8,
+      "gain_percentage_points": 1.82,
+      "source": "Table 4 / Figure 2",
+      "baseline_definition": "SmolVLA",
+      "protocol": "Three training seeds, aligned 80K checkpoints, 40 tasks, 50 rollouts/task (2000 per checkpoint)"
+    },
+    {
+      "label": "Unseen dynamics: flat",
+      "metric": "Mean 60-second survival (%) over six out-of-range settings",
+      "baseline": 78.3,
+      "prism": 92.3,
+      "gain_percentage_points": 14.0,
+      "source": "Section 4.2 / Figure 2",
+      "baseline_definition": "Parameter-matched MLP in Humanoid-Gym",
+      "protocol": "Fixed trained checkpoints without retraining; six settings across friction, robot mass/inertia, and payload outside the respective training support"
+    },
+    {
+      "label": "Unseen dynamics: rough",
+      "metric": "Mean 20-second supported survival (%) over six out-of-range settings",
+      "baseline": 80.0,
+      "prism": 87.1,
+      "gain_percentage_points": 7.1,
+      "source": "Section 4.2 / Figure 2",
+      "baseline_definition": "Standard MLP in mjlab on random rough terrain",
+      "protocol": "Fixed trained checkpoints without retraining; six settings across friction, robot mass/inertia, and payload outside the respective training support"
+    },
+    {
+      "label": "Drop recovery",
+      "metric": "Recovery success (%)",
+      "baseline": 40.9,
+      "prism": 52.3,
+      "gain_percentage_points": 11.4,
+      "baseline_count": 18,
+      "prism_count": 23,
+      "attempts_per_method": 44,
+      "source": "Table 6 / Figure 2",
+      "baseline_definition": "ACT",
+      "protocol": "Same 44 validated induced-drop states; final 100K checkpoints; five-second horizon; failures included"
+    },
+    {
+      "label": "Real robot: tape pickup",
+      "metric": "Hardware task success (%)",
+      "baseline": 68.0,
+      "prism": 94.0,
+      "gain_percentage_points": 26.0,
+      "baseline_count": 34,
+      "prism_count": 47,
+      "attempts_per_method": 50,
+      "source": "Table 7 / Figure 2",
+      "baseline_definition": "ACT on physical SO-101",
+      "protocol": "Same 50 demonstrations; 50 hardware rollouts/method; lift tape roll at least 5cm and maintain that height for 3s"
+    }
+  ],
+  "table1_locomotion": {
+    "source": "Table 1",
+    "uncertainty": "Mean and standard deviation across five training seeds",
+    "survival_horizon_s": 24,
+    "columns": [
+      "method",
+      "reported_params_M",
+      "episode_length_mean",
+      "episode_length_sd",
+      "linear_error_mean",
+      "linear_error_sd",
+      "yaw_error_mean",
+      "yaw_error_sd",
+      "survival_percent_mean",
+      "survival_percent_sd"
+    ],
+    "rows": [
+      [
+        "MLP baseline",
+        0.926,
+        1340.8,
+        39,
+        0.4607,
+        0.011,
+        0.2817,
+        0.008,
+        51.0,
+        3.7
+      ],
+      [
+        "Larger MLP",
+        1.321,
+        1349.9,
+        29,
+        0.4738,
+        0.028,
+        0.3086,
+        0.01,
+        52.25,
+        2.9
+      ],
+      [
+        "PRISM",
+        1.321,
+        2233.4,
+        23,
+        0.2099,
+        0.008,
+        0.1221,
+        0.005,
+        92.5,
+        2.4
+      ]
+    ],
+    "parameter_note": "Main-table counts must not be called actor-only. Appendix Table 12 actor-only counts are 527K, 922K, 922K. Larger MLP and PRISM match at reported precision."
+  },
+  "table2_manipulation": {
+    "source": "Table 2 / Appendix A.2",
+    "uncertainty": "Mean and sample SD across five equal-size evaluation groups of 100 attempts for one trained checkpoint; not training-seed variability",
+    "attempts_per_task_per_method": 500,
+    "horizon_control_steps": 100,
+    "horizon_s": 5,
+    "columns": [
+      "method",
+      "StackCube_mean",
+      "StackCube_sd",
+      "TwoRobotStackCube_mean",
+      "TwoRobotStackCube_sd",
+      "G1TransportBox_mean",
+      "G1TransportBox_sd",
+      "average"
+    ],
+    "rows": [
+      [
+        "ACT",
+        58.8,
+        6.3,
+        47.0,
+        3.2,
+        84.8,
+        4.9,
+        63.5
+      ],
+      [
+        "PRISM",
+        68.8,
+        5.8,
+        48.2,
+        2.8,
+        85.8,
+        5.1,
+        67.6
+      ]
+    ],
+    "success_definition": "Native info.success at any executed tick; all scheduled attempts, including runtime errors, remain in denominator"
+  },
+  "table3_bfm_zero": {
+    "source": "Table 3",
+    "protocol": "Reference-motion tracking, aligned checkpoints after 9.6M environment steps, one training seed",
+    "columns": [
+      "method",
+      "params_M",
+      "nominal_tracking_EMD"
+    ],
+    "rows": [
+      [
+        "Baseline",
+        32.109,
+        1.104
+      ],
+      [
+        "Larger model",
+        49.26,
+        1.09
+      ],
+      [
+        "PRISM",
+        32.665,
+        1.05
+      ]
+    ]
+  },
+  "table4_smolvla": {
+    "source": "Table 4",
+    "protocol": "LIBERO, aligned 80K-update checkpoints, mean and SD over three training seeds",
+    "columns": [
+      "method",
+      "params_M",
+      "success_mean",
+      "success_sd",
+      "gain_percentage_points"
+    ],
+    "rows": [
+      [
+        "Baseline",
+        450.046,
+        62.0,
+        1.67,
+        0.0
+      ],
+      [
+        "Larger model",
+        456.245,
+        62.57,
+        3.14,
+        0.57
+      ],
+      [
+        "PRISM",
+        451.925,
+        63.82,
+        2.59,
+        1.82
+      ]
+    ]
+  },
+  "table5_bfm_dynamics": {
+    "source": "Table 5 / Appendix B.2",
+    "protocol": "Fixed checkpoints; friction set to0.20 or link masses scaled1.15; no retraining",
+    "columns": [
+      "method",
+      "nominal_EMD",
+      "low_friction_EMD",
+      "increased_mass_EMD",
+      "mean_EMD"
+    ],
+    "rows": [
+      [
+        "Baseline",
+        1.104,
+        1.582,
+        1.121,
+        1.269
+      ],
+      [
+        "Larger model",
+        1.09,
+        1.589,
+        1.114,
+        1.264
+      ],
+      [
+        "PRISM",
+        1.05,
+        1.548,
+        1.073,
+        1.224
+      ]
+    ]
+  },
+  "table6_recovery": {
+    "source": "Table 6 / Appendix B.3",
+    "attempts_per_method": 44,
+    "horizon_s": 5,
+    "columns": [
+      "method",
+      "recovered_count",
+      "recovery_percent",
+      "capped_recovery_time_s",
+      "terminal_placement_error_mm"
+    ],
+    "rows": [
+      [
+        "ACT",
+        18,
+        40.9,
+        3.38,
+        141.7
+      ],
+      [
+        "ACT + MCC-Sensorless",
+        6,
+        13.6,
+        4.5,
+        123.5
+      ],
+      [
+        "ACT + MCC-Oracle",
+        15,
+        34.1,
+        3.71,
+        105.4
+      ],
+      [
+        "PRISM",
+        23,
+        52.3,
+        3.11,
+        96.2
+      ]
+    ],
+    "diagnostic_definition": "Descriptive means across all44attempts, including failures; capped time assigns5s to unsuccessful attempts; placement uses common stacking goal",
+    "mcc_definition": "Simulation adaptations: sensorless corrects translation commands using a force proxy; oracle execution wrapper uses simulator contact force",
+    "regrasp_percent": {
+      "ACT": 68.2,
+      "PRISM": 75.0
+    },
+    "scope": "Controlled-drop pilot distinct from ordinary task success and official CroSTAta recovery evaluation; first44valid states from fixed candidate order, not selected by policy outcome",
+    "removed_metrics": [
+      "Peak contact force",
+      "SD across44states",
+      "Smoothness",
+      "Position/orientation tracking errors from nominal experiments"
+    ]
+  },
+  "table7_hardware": {
+    "source": "Table 7",
+    "demonstrations": 50,
+    "attempts_per_method": 50,
+    "columns": [
+      "method",
+      "success_count",
+      "early_joint_path_degrees_mean",
+      "early_joint_path_sd",
+      "command_state_error_degrees_mean",
+      "command_state_error_sd"
+    ],
+    "rows": [
+      [
+        "ACT",
+        34,
+        31.1,
+        2.9,
+        27.4,
+        2.9
+      ],
+      [
+        "PRISM",
+        47,
+        38.5,
+        1.5,
+        24.3,
+        4.2
+      ]
+    ],
+    "path_window_s": 3
+  },
+  "table8_probes": {
+    "source": "Table 8",
+    "protocol": "Frozen representations, linear probes, held-out rollout windows, horizon5; simulator targets for analysis only",
+    "columns": [
+      "target",
+      "baseline_MSE",
+      "PRISM_MSE",
+      "baseline_PCC",
+      "PRISM_PCC"
+    ],
+    "rows": [
+      [
+        "Slip velocity",
+        0.711,
+        0.7,
+        0.501,
+        0.549
+      ],
+      [
+        "Joint power",
+        0.328,
+        0.282,
+        0.82,
+        0.848
+      ],
+      [
+        "Contact impulse",
+        0.301,
+        0.241,
+        0.829,
+        0.861
+      ],
+      [
+        "Contact work proxy",
+        0.362,
+        0.319,
+        0.755,
+        0.78
+      ]
+    ],
+    "interpretation": "Better linear predictability; probes alone do not establish causal use of the response variables"
+  },
+  "figure4_nominal_distinctions": {
+    "flat": {
+      "baseline": 84.3,
+      "prism": 96.6,
+      "horizon_s": 60
+    },
+    "rough": {
+      "baseline": 90.1,
+      "prism": 97.1,
+      "horizon_s": 20
+    },
+    "note": "These nominal values are distinct from six-setting out-of-range averages and24-secondTable1walking. Archived98/82/61roughnumbers are not currentFigure4values."
+  },
+  "source": {
+    "title": "PRISM: Polynomial Representations for Interaction-Structured Motor Control",
+    "authors": [
+      "SeungHyun Lee",
+      "Stella X. Yu"
+    ],
+    "manuscript_date": "2026-10-13",
+    "source_pdf_sha256": "e40ba9ddf644c1b8205efa59581ac2a9bd8b4e9296b071d1b043a2826ac2dd32"
+  }
+}
