@@ -1,0 +1,161 @@
+{
+  "source": "Current manuscript Figure 5; the same validated induced-drop state, case 2, for all four methods",
+  "method_order": [
+    "ACT",
+    "MCC-Sensorless",
+    "MCC-Oracle",
+    "PRISM"
+  ],
+  "controller_scope": "MCC methods are simulation adaptations around the final100KACTpolicy: sensorless uses a force proxy and oracle uses simulator contact forces; PRISM receives RGB and measured joint positions.",
+  "selection": "Previously selected ACT-failure/PRISM-recovery contrast; no additional outcome or force selection",
+  "first_recovery_s_after_handoff": {
+    "ACT": null,
+    "MCC-Sensorless": null,
+    "MCC-Oracle": null,
+    "PRISM": 0.9500000000000001
+  },
+  "prism_first_recovery_s_after_contact": 0.85,
+  "recovery": {
+    "file": "stackcube-drop-recovery-fourway.mp4",
+    "dimensions": [
+      1280,
+      1100
+    ],
+    "fps": 20,
+    "frames": 134,
+    "duration_s": 6.7,
+    "layout": "2x2: ACT, MCC-Sensorless, MCC-Oracle, PRISM in row-major order",
+    "clock": "Same reset, setup prefix and recovery-handoff clock. Native20Hzcontrolendpoints from reset+0.05s throughhandoff+5s.",
+    "termination": "Each successful method stops at its first measured success; its exact terminal image is held and labelled. Failed methods run to the registered5shorizon.",
+    "terminal_native_frame_indices": {
+      "ACT": 669,
+      "MCC-Sensorless": 669,
+      "MCC-Oracle": 669,
+      "PRISM": 264
+    },
+    "held_output_frames": {
+      "ACT": 0,
+      "MCC-Sensorless": 0,
+      "MCC-Oracle": 0,
+      "PRISM": 82
+    },
+    "last_output_frame": {
+      "ACT": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "562b2f9812333e384b77e244bffa633e6784ad0439e9774fe0a17c3c28264ddc",
+        "completion": false
+      },
+      "MCC-Sensorless": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "d3260f8ee68202625942fd4e7c524fed64587fe688ce83a77ac2eb6a83837aca",
+        "completion": false
+      },
+      "MCC-Oracle": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "772dd37c3d1b016f4b0ac0a76377a9012666bbbdcbc9c7546703cee0126e8cb1",
+        "completion": false
+      },
+      "PRISM": {
+        "native_frame_index": 264,
+        "measured_s_after_handoff": 0.9499999787658453,
+        "decoded_native_rgb_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "completion": true
+      }
+    },
+    "held_success_frame_check": {
+      "PRISM": {
+        "first_success_native_frame_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "last_display_native_frame_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "identical_source_frame": true
+      }
+    }
+  },
+  "contact": {
+    "file": "stackcube-contact-force-fourway.mp4",
+    "dimensions": [
+      1280,
+      564
+    ],
+    "fps": 20,
+    "frames": 120,
+    "duration_s": 6.0,
+    "layout": "Four columns: native method footage above the corresponding identical-scale force plot",
+    "clock": "Each native method recording separately aligned to its first100Hzhand-cubeAcontactsample>=1N; -1to+5swindow.",
+    "termination": "Actual recorded policy continues for5saftercontact, including afterfirstcompletion; no frozen scene frames. Measured force trace and native scene stay synchronized.",
+    "force_definition": "Sum of hand/task-cube per-contact impulse magnitudes divided by native physics substepduration; includes opposingfingerforces.",
+    "force_axes": {
+      "time_s": [
+        -1,
+        5
+      ],
+      "force_N": [
+        0,
+        250
+      ]
+    },
+    "font_sizes_px": {
+      "Force": 22,
+      "Time_from_contact": 20,
+      "Contact": 18,
+      "ticks": 16
+    }
+  },
+  "recording_validation": {
+    "physics_rate_hz": 100,
+    "control_rate_hz": 20,
+    "all24physicsfields_checked": true,
+    "allcontrolgeometry_checked": true,
+    "originalhandoff_andRGBhistory_verified": true,
+    "firstcontactRGBexact": true,
+    "physics_samples": {
+      "ACT": 680,
+      "MCC-Sensorless": 680,
+      "MCC-Oracle": 680,
+      "PRISM": 685
+    },
+    "maximum_absolute_physics_difference": {
+      "ACT": 0.0,
+      "MCC-Sensorless": 0.0,
+      "MCC-Oracle": 2.842170943040401e-14,
+      "PRISM": 3.552713678800501e-15
+    }
+  },
+  "force_curve_trace_sha256": {
+    "ACT": "9004bd21c52c6ccb8de007c6ce934c67cc6ff46adecb1f4da58f8066750a34ab",
+    "MCC-Sensorless": "b6c03f94dd29b85ee4282e8e39e1cf9bea7c5c5e2cf413def114c39bfc313628",
+    "MCC-Oracle": "90ad30618bd454ed37b5f36755940c9e0e2a895e423b1afdab75cd2d9d25be2e",
+    "PRISM": "e4736c7da1fbfdc529069756bfad5d1a6a6777a3c4decdb82a76dc388de76523"
+  },
+  "native_recording_sha256": {
+    "ACT": "72f10436828fccd51df52006b9f2e6d4851a4ef93973fe6c85f6fc87d27b9115",
+    "MCC-Sensorless": "4648d4f8240ebe71dfeb8b05d86db9536d08d8da7ae6e1cffb6147d22d3d0781",
+    "MCC-Oracle": "642e174fd5d3ecf04df65d84080040d88a9e9d84b8d2f9721f9d20140c1f50bb",
+    "PRISM": "969ae9dc57e13dbd2c99673d83c27b18e945620ca501f5ca393aaa622da6b0e4"
+  },
+  "interpretation": "Selected illustrative compliance-like contact response. Low-load phase includes objectrelease. Does not establish aggregate lowerforce or measuredmechanicalcompliance.",
+  "transformations": "Identical fixed native workspace crop(x160..480,y140..380), resize, labels and measured-data plot/timecursor;20fpssampling of native100Hzimages. Recovery alone holds each first-success terminalimage; contact has actualcontinuedexecution. No retiming or synthetic executionframes.",
+  "new_training": 0,
+  "new_policy_inference": 0,
+  "new_aggregate_evaluation": 0,
+  "assets": {
+    "stackcube-contact-force-fourway-poster.jpg": {
+      "sha256": "914766f97cdf46448abb1b5834f8d9bbeb812c8260a6a2e0a05972b2c7a39bfc",
+      "bytes": 189276
+    },
+    "stackcube-drop-recovery-fourway.mp4": {
+      "sha256": "6d1c33838ebad9db9415d8869a4f830b6238d6d444b9788ed9722c1ba3b275a7",
+      "bytes": 1145476
+    },
+    "stackcube-contact-force-fourway.mp4": {
+      "sha256": "4d802c874ff70b3b96ff47640f6331d5fa598052cec8bbdf7e0f00be062e3cb7",
+      "bytes": 558780
+    },
+    "stackcube-drop-recovery-fourway-poster.jpg": {
+      "sha256": "1e51f87cbeafe60306243db6a82d1c3c8261f132729d11a2fbc19851db3ca62c",
+      "bytes": 288970
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "file": "rough-lowfriction-mass-payload.mp4",
+  "file": "rough-lowfriction-mass-payload-backpack.mp4",
   "chapters": [
     {
       "id": "friction",
@@ -23,7 +23,7 @@
       "start_s": 14,
       "end_s": 21,
       "caption": "Payload +8 kg \u00b7 MLP falls; PRISM keeps walking.",
-      "full_video": "payload-full-paired.mp4"
+      "full_video": "payload-backpack-full-paired.mp4"
     }
   ]
 }

@@ -246,15 +246,15 @@ window.PRISM_SELECTED_ROUGH_PAIRS = {
           "initial_state_sha256": "4ed8739ba707bdc24bb1d0b9978317aa945445a1b6358e2233e8771c6d6e86eb",
           "illustrative_replay": true,
           "exact_quantitative_trajectory": false,
-          "physical_duration_seconds": 18.96,
+          "physical_duration_seconds": 10.46,
           "termination_reasons": [
             "fell_over",
             "fell_over_post_step"
           ],
           "status": "ready",
-          "path": "videos/selected-payload_8-standard-case40.mp4",
-          "video_sha256": "8174d62938c5796d13c2aa13b1b12116214e48fb86c34a13c09f74ae3d68505e",
-          "video_bytes": 611194,
+          "path": "videos/selected-payload_8-standard-case40-backpack.mp4",
+          "video_sha256": "f9e92ea2c1abd722a1c14a155fedcecb9dde951f2961255d7524be691f407c6d",
+          "video_bytes": 364066,
           "requested_physics": {
             "foot_friction": 0.6,
             "global_link_density_ratio": 1.0,
@@ -274,7 +274,7 @@ window.PRISM_SELECTED_ROUGH_PAIRS = {
           "measurement_seconds": 20,
           "total_horizon_seconds": 20,
           "backend": "Native MuJoCo-Warp CUDA",
-          "encoded_duration_seconds": 20.0,
+          "encoded_duration_seconds": 11.56,
           "survived_horizon": false,
           "fps": 25,
           "width": 640,
@@ -303,9 +303,9 @@ window.PRISM_SELECTED_ROUGH_PAIRS = {
             "time_out"
           ],
           "status": "ready",
-          "path": "videos/selected-payload_8-prism-case40.mp4",
-          "video_sha256": "72a2b010bd7771a13bb53a1816b420bfbe64388cbf95538222f7422a5eb7a33f",
-          "video_bytes": 584590,
+          "path": "videos/selected-payload_8-prism-case40-backpack.mp4",
+          "video_sha256": "591378ff306f72cdee2d0049e3acc8ccf08e74b9db7c8661e3120b085e180486",
+          "video_bytes": 600759,
           "requested_physics": {
             "foot_friction": 0.6,
             "global_link_density_ratio": 1.0,

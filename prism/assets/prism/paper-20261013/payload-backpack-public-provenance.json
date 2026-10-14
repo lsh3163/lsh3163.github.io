@@ -1,0 +1,203 @@
+{
+  "schema": "prism_rough_sequence_condition_v1",
+  "condition_id": "payload_8",
+  "condition_label": "Backpack payload 8 kg",
+  "scope": "Selected illustrative native replay from saved paired evaluation initial states; separate from aggregate measurements",
+  "physics_backend": "Native MuJoCo-Warp CUDA",
+  "render_backend": "OSMesa llvmpipe software rendering",
+  "exact_quantitative_trajectory": false,
+  "root_seed": 401,
+  "geometry_seed": 401,
+  "episode_index": 40,
+  "episode_seed": 401040,
+  "shared_initial_state_sha256": "4ed8739ba707bdc24bb1d0b9978317aa945445a1b6358e2233e8771c6d6e86eb",
+  "terrain_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+  "grid_shape": [
+    21,
+    21
+  ],
+  "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+  "physics": {
+    "foot_friction": 0.6,
+    "global_link_density_ratio": 1.0,
+    "payload_kg": 8.0
+  },
+  "command": [
+    0.5,
+    0.0,
+    0.0
+  ],
+  "total_horizon_seconds": 20,
+  "actors": {
+    "standard": {
+      "label": "MLP",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "survived_horizon": false,
+      "compound_success": false,
+      "physical_duration_seconds": 10.46,
+      "termination_reasons": [
+        "fell_over",
+        "fell_over_post_step"
+      ],
+      "actual_world_forward_distance_m": 2.9081303495913744,
+      "actual_ground_path_length_m": 4.760611083251255,
+      "actual_command_frame_directed_distance_m": 4.269650154216212,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "f9e92ea2c1abd722a1c14a155fedcecb9dde951f2961255d7524be691f407c6d"
+    },
+    "prism": {
+      "label": "PRISM",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "survived_horizon": true,
+      "compound_success": false,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "actual_world_forward_distance_m": 0.6183317918330431,
+      "actual_ground_path_length_m": 7.080035385469227,
+      "actual_command_frame_directed_distance_m": 6.494281133497128,
+      "actual_reference_initial_state_equal_within_1e6": true,
+      "video_sha256": "591378ff306f72cdee2d0049e3acc8ccf08e74b9db7c8661e3120b085e180486"
+    }
+  },
+  "visual_continuation": {
+    "actor": "standard",
+    "starts_seconds": 10.46,
+    "ends_seconds": 11.46,
+    "extra_native_physics_seconds": 1.0,
+    "original_metric_frozen_before_continuation": true,
+    "continued_policy_and_physics_unchanged": true,
+    "actual_live_terminal_state_used": true,
+    "autoreset": false,
+    "manual_reset_bookkeeping_cleared": true,
+    "state_reset_reconstructed_or_forced": false,
+    "initial_root_height_m": 0.5698067545890808,
+    "final_root_height_m": 0.2176196426153183,
+    "frame_hold_begins_seconds": 11.46,
+    "disclosed_in_video": true
+  },
+  "hero_shared_physical_window_seconds": [
+    7.44,
+    14.44
+  ],
+  "hero_final_outcome_presentation_hold_seconds": 0.0,
+  "presentation": {
+    "fixed_crop_xywh": [
+      140,
+      0,
+      360,
+      360
+    ],
+    "equal_spatial_scale": true,
+    "retimed": false,
+    "generated_motion": false,
+    "native_control_dt_seconds": 0.02
+  },
+  "videos": {
+    "standard": {
+      "file": "payload-backpack-mlp-native.mp4",
+      "bytes": 364066,
+      "sha256": "f9e92ea2c1abd722a1c14a155fedcecb9dde951f2961255d7524be691f407c6d",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 289,
+      "encoded_duration_seconds": 11.56
+    },
+    "prism": {
+      "file": "payload-backpack-prism-native.mp4",
+      "bytes": 600759,
+      "sha256": "591378ff306f72cdee2d0049e3acc8ccf08e74b9db7c8661e3120b085e180486",
+      "width": 640,
+      "height": 360,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "full_paired": {
+      "file": "payload-backpack-full-paired.mp4",
+      "bytes": 1427504,
+      "sha256": "891eee820c42896b3023867efa1cf49c7081ca229603d59984ceee16be9f61ee",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04
+    },
+    "hero_paired": {
+      "file": "payload-backpack-hero-paired.mp4",
+      "bytes": 535442,
+      "sha256": "8d08b304ac20280b34d98239d19eebd23bc249e53616ed32728242511556e678",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 175,
+      "encoded_duration_seconds": 7.0
+    }
+  },
+  "visual_backpack": {
+    "display_only": true,
+    "physical_mass_collision_and_inertia_changed": false,
+    "physical_payload_kg": 8,
+    "attachment_body": "robot/torso_link",
+    "physical_payload_body": "robot/prism_payload",
+    "torso_local_center_m": [
+      -0.15,
+      0,
+      0.2
+    ],
+    "orientation_and_position_source": "True torso MjData xmat/xpos synchronized from each native full qpos state",
+    "geometry_backend": "Decorative mjvScene geometry appended after native scene update; no physical-model geometry added",
+    "true_3D_occlusion": true,
+    "shoulder_attachment_straps": true,
+    "navy_bag_with_ochre_zipper_trim": true,
+    "per_frame_qpos_saved": true,
+    "exact_future_saved_state_rerender_supported": true,
+    "saved_state_capture": {
+      "standard": {
+        "recorded_frames": 289,
+        "qpos_qvel_and_actual_torso_pose_saved": true,
+        "saved_render_state_sha256": "fe8c63e7499470f42fd8333b14eb0b9b3acef44b799871db4b4f9653786cfa67",
+        "saved_render_model_sha256": "b16e6b34bdc9ba3f105c580775f37a7c7551bb0d4854ba6cdbe77c6ec994579c",
+        "frame_timestamps_match_native_capture": true,
+        "physical_model_digest_unchanged": true,
+        "native_recording_sha256": "f9e92ea2c1abd722a1c14a155fedcecb9dde951f2961255d7524be691f407c6d"
+      },
+      "prism": {
+        "recorded_frames": 501,
+        "qpos_qvel_and_actual_torso_pose_saved": true,
+        "saved_render_state_sha256": "061db5ac72cbef18758d3d21b7a3d863d49b9cb01505920b1261779b157f3898",
+        "saved_render_model_sha256": "b7415ef54a7507404258f08e5371ef1f4802c1ff0c187e314a2c4cc8b30d2793",
+        "frame_timestamps_match_native_capture": true,
+        "physical_model_digest_unchanged": true,
+        "native_recording_sha256": "591378ff306f72cdee2d0049e3acc8ccf08e74b9db7c8661e3120b085e180486"
+      }
+    },
+    "independent_saved_state_torso_verification": {
+      "status": "PASS",
+      "checks": [
+        {
+          "actor": "standard",
+          "frames_saved": 289,
+          "torso_position_max_error_m": 0,
+          "torso_orientation_max_error": 0,
+          "actual_body": "robot/torso_link",
+          "no_dynamics_step_used": true
+        },
+        {
+          "actor": "prism",
+          "frames_saved": 501,
+          "torso_position_max_error_m": 0,
+          "torso_orientation_max_error": 0,
+          "actual_body": "robot/torso_link",
+          "no_dynamics_step_used": true
+        }
+      ]
+    },
+    "new_illustrative_native_recording": true,
+    "prior_payload_video_reused_or_overpainted": false,
+    "old_18p96_failure_time_reused": false,
+    "original_assets_preserved": true
+  }
+}
