@@ -7,7 +7,7 @@
 <link rel="stylesheet" href="styles.css?v=template-20261012">
 </head>
 <body><main class="shell">
-<header class="page-head"><a href="../#mjlab" class="eyebrow">PRISM / LOCOMOTION ↗</a><h1>Dynamics on random rough terrain</h1><p>Compare survival across 1,000 trials, then inspect a recorded rollout.</p><p class="small" id="recording-progress"></p></header>
+<header class="page-head"><a href="../#dynamics" class="eyebrow">PRISM / LOCOMOTION ↗</a><h1>Dynamics on random rough terrain</h1><p>Compare survival across 1,000 trials, then inspect a recorded rollout.</p><p class="small" id="recording-progress"></p></header>
 <nav class="toolbar" aria-label="Condition selection">
 <div class="quick-cases" aria-label="Example conditions">
 <button type="button" data-case="nominal">Nominal</button>
@@ -33,10 +33,10 @@
 <div class="record-body">
 <div id="paired-outcomes" class="paired-outcomes" aria-label="Both recorded outcomes from the same initial state"></div>
 <p id="pair-note" class="small"></p>
-<details><summary>Replay and evaluation details</summary><p class="small">Videos show the same prespecified reset for both models. These illustrative CPU replays are separate from the GPU evaluation summarized by the curves.</p><dl id="record-details"></dl></details>
+<details><summary>Replay and evaluation details</summary><p class="small">Both models share the initial state. Selected paired examples illustrate a baseline fall and PRISM survival; other conditions use the first prescribed reset. For the selected MLP clip, unchanged-policy physics continues for 1 s after the native fall criterion to show the physical fall. These CPU replays are separate from the aggregate GPU evaluation.</p><dl id="record-details"></dl></details>
 </div></aside>
 </div>
 <footer><p>All conditions use random rough terrain and a 0.5 m/s forward command from rest. Survival means remaining upright within terrain support for 20 seconds. The measured rates and the outcome of one recorded rollout are reported separately.</p></footer>
 </main>
-<script src="bootstrap.js?v=rough1000-20261012"></script><script src="segmented_videos.js?v=rough1000-20261012"></script><script src="app.js?v=template-20261012"></script>
+<script src="bootstrap.js?v=rough1000-20261012"></script><script src="segmented_videos.js?v=rough1000-20261012"></script><script src="selected-pairs.js?v=paired-20261013"></script><script src="app-selected.js?v=paired-20261013"></script>
 </body></html>

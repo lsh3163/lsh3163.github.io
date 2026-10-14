@@ -1,0 +1,82 @@
+{
+  "source": "Current manuscript Figure 5 and the same validated StackCube induced-drop state, case 2",
+  "selection": "Previously selected ACT-failure / PRISM-recovery example; no new outcome or force selection",
+  "methods": "Final 100K ACT and PRISM; the four force curves additionally include MCC-Sensorless and MCC-Oracle simulation adaptations",
+  "recording": "Native single-environment CPU PhysX with allocated Vulkan renderer; exact saved actions replayed without policy inference",
+  "validation": {
+    "native_physics_rate_hz": 100,
+    "video_rate_hz": 20,
+    "native_control_rate_hz": 20,
+    "checked_physics_samples": {
+      "ACT": 680,
+      "PRISM": 685
+    },
+    "maximum_absolute_physics_difference": {
+      "ACT": 0.0,
+      "PRISM": 3.552713678800501e-15
+    },
+    "all_saved_control_geometry_verified": true,
+    "original_handoff_verified": true,
+    "first_contact_rgb_exact": true
+  },
+  "source_trace_sha256": {
+    "ACT": "9004bd21c52c6ccb8de007c6ce934c67cc6ff46adecb1f4da58f8066750a34ab",
+    "PRISM": "e4736c7da1fbfdc529069756bfad5d1a6a6777a3c4decdb82a76dc388de76523"
+  },
+  "force_curve_trace_sha256": {
+    "ACT": "9004bd21c52c6ccb8de007c6ce934c67cc6ff46adecb1f4da58f8066750a34ab",
+    "MCC-Sensorless": "b6c03f94dd29b85ee4282e8e39e1cf9bea7c5c5e2cf413def114c39bfc313628",
+    "MCC-Oracle": "90ad30618bd454ed37b5f36755940c9e0e2a895e423b1afdab75cd2d9d25be2e",
+    "PRISM": "e4736c7da1fbfdc529069756bfad5d1a6a6777a3c4decdb82a76dc388de76523"
+  },
+  "native_recording_sha256": {
+    "ACT": "72f10436828fccd51df52006b9f2e6d4851a4ef93973fe6c85f6fc87d27b9115",
+    "PRISM": "969ae9dc57e13dbd2c99673d83c27b18e945620ca501f5ca393aaa622da6b0e4"
+  },
+  "first_contact_s_after_handoff": {
+    "ACT": 0.08999999798834324,
+    "PRISM": 0.09999999776482582
+  },
+  "first_recovery_s_after_handoff": {
+    "ACT": null,
+    "PRISM": 0.95
+  },
+  "prism_first_recovery_s_after_contact": 0.85,
+  "recovery_video": {
+    "file": "stackcube-drop-recovery-paired.mp4",
+    "seconds": 6.8,
+    "width": 960,
+    "height": 432,
+    "scope": "Shared induced-drop prefix and actual continued recovery execution, including after first completion; quantitative attempts instead stop at completion or the 5-second horizon."
+  },
+  "contact_video": {
+    "file": "stackcube-contact-force-paired.mp4",
+    "seconds": 6.0,
+    "width": 1120,
+    "height": 720,
+    "scope": "ACT and PRISM native images separately aligned to first contact, with measured Figure5 force curves for all four methods and synchronized time cursor; window -1 to +5s."
+  },
+  "transformations": "20fps temporal sampling from actual100Hznative rendered images; identical fixed workspace crop (x160..480,y140..380 in640x480nativeimages), resizing, labels and measured-data graphics only. No retiming, interpolated execution, padding or synthetic scene frames.",
+  "interpretation": "Illustrative compliance-like contact-force relaxation without force input; the low-load phase includes object release. Does not establish aggregate lower force or mechanical compliance.",
+  "new_policy_inference": 0,
+  "new_aggregate_evaluation": 0,
+  "training": 0,
+  "assets": {
+    "stackcube-drop-recovery-poster.jpg": {
+      "sha256": "59c777c9330d13549f92ce34833193522a2543c9978e31fa80ea251f52670aab",
+      "bytes": 104863
+    },
+    "stackcube-contact-force-paired.mp4": {
+      "sha256": "d14e15f65cb14d2b719876abfaba8d863c370e0dc73a60a01008f183246f22cd",
+      "bytes": 565075
+    },
+    "stackcube-drop-recovery-paired.mp4": {
+      "sha256": "8be5d62686020f32c77ce877321dcf07d0e60769434afce0103cf5cb1c2846c3",
+      "bytes": 459018
+    },
+    "stackcube-contact-force-poster.jpg": {
+      "sha256": "f17cd22841385f159fe6c267e0724e24a940dd3062e30a3028df2c3f922be364",
+      "bytes": 181085
+    }
+  }
+}

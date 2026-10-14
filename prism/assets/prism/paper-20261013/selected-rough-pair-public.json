@@ -1,0 +1,141 @@
+{
+  "schema": "prism_selected_rough_pair_with_native_continuation_v1",
+  "scope": "Outcome-selected illustrative CPU replays of saved final policies; separate from aggregate GPU evaluation",
+  "condition_id": "friction_0p2",
+  "terrain": "random rough",
+  "grid_shape": [
+    21,
+    21
+  ],
+  "root_seed": 401,
+  "geometry_seed": 401,
+  "episode_index": 10,
+  "episode_seed": 401010,
+  "shared_initial_state_sha256": "66b2523753298f38c25e369a71ad9c34cbae4ba521f39c86bc25ae72ea3314d3",
+  "terrain_sha256": "59b5824192ad3cf655e79bcbfdefe073bb91ac3fd403b092a337aa53cdecab43",
+  "physics": {
+    "foot_friction": 0.2,
+    "global_link_density_ratio": 1.0,
+    "payload_kg": 0.0
+  },
+  "command": [
+    0.5,
+    0.0,
+    0.0
+  ],
+  "total_horizon_seconds": 20,
+  "checkpoint_map_sha256": "e07deb1f02e96b06a7bb99269dc236e994c8f6e58c25f24712cdffc25e1d9841",
+  "actors": {
+    "standard": {
+      "label": "MLP",
+      "checkpoint_sha256": "5e3960a361847adb048b1acffeb846540d589ff1dc7c36a73fe9dd74e872c343",
+      "initial_state_matches_saved_reference": true,
+      "survived_horizon": false,
+      "physical_duration_seconds": 11.18,
+      "termination_reasons": [
+        "fell_over",
+        "fell_over_post_step"
+      ],
+      "actual_world_forward_distance_m": 3.9894333938136697,
+      "video_sha256": "a38f9006cba48056e3afa23185930dc3e7396560b9cbe841cb56eb309b695eaf",
+      "compound_success": false
+    },
+    "prism": {
+      "label": "PRISM",
+      "checkpoint_sha256": "5449bfb5715a85f233ae16c2459d8ff0ac4d06b58b8775e7ed6385fdd8a537ab",
+      "initial_state_matches_saved_reference": true,
+      "survived_horizon": true,
+      "physical_duration_seconds": 20.0,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "actual_world_forward_distance_m": 8.31829582247883,
+      "video_sha256": "ecdbb3e30b0cd93185907070c507464aba0451f941bc4c7db6f70003345248ef",
+      "compound_success": false
+    }
+  },
+  "videos": {
+    "standard": {
+      "file": "rough-friction_0p2-standard-selected-continued.mp4",
+      "bytes": 406366,
+      "sha256": "a38f9006cba48056e3afa23185930dc3e7396560b9cbe841cb56eb309b695eaf",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 307,
+      "encoded_duration_seconds": 12.28,
+      "published_url": "https://lsh3163.github.io/prism/explorer/videos/selected-friction_0p2-standard-case10.mp4"
+    },
+    "prism": {
+      "file": "rough-friction_0p2-prism-selected.mp4",
+      "bytes": 662041,
+      "sha256": "ecdbb3e30b0cd93185907070c507464aba0451f941bc4c7db6f70003345248ef",
+      "width": 640,
+      "height": 360,
+      "fps": 25.0,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04,
+      "published_url": "https://lsh3163.github.io/prism/explorer/videos/selected-friction_0p2-prism-case10.mp4"
+    },
+    "paired": {
+      "file": "rough-friction_0p2-paired-continued.mp4",
+      "bytes": 1505142,
+      "sha256": "a44fc0cd17a5700437f4e1ca0999c74665091ef049ac2cebe774190aea505a14",
+      "width": 1280,
+      "height": 720,
+      "fps": 25,
+      "frames": 501,
+      "encoded_duration_seconds": 20.04,
+      "published_url": "https://lsh3163.github.io/prism/assets/prism/paper-20261013/rough-friction_0p2-paired.mp4"
+    }
+  },
+  "presentation": {
+    "panel_order": [
+      "MLP",
+      "PRISM"
+    ],
+    "fixed_crop_xywh": [
+      140,
+      0,
+      360,
+      360
+    ],
+    "equal_spatial_scale": true,
+    "native_sampling_fps": 25,
+    "retimed": false,
+    "terminal_frame_held_after_failure": false,
+    "generated_or_altered_motion": false,
+    "final_frame_held_after_one_second_native_continuation": true,
+    "continuation_disclosed_in_video": true
+  },
+  "selection_rule": "Ordered saved shared cases with GPU MLP nativefall<=8s, PRISM survival and positive forward progress; retain first verified CPU fail/survive contrast. Failed candidate replays remain in private provenance.",
+  "backend": "CPU illustrative replay",
+  "exact_quantitative_trajectory": false,
+  "post_termination_visual_continuation": {
+    "actor": "standard",
+    "original_measured_failure_time_seconds": 11.18,
+    "extra_native_physics_seconds": 1.0,
+    "extra_native_control_steps": 50,
+    "visual_continuation_end_seconds": 12.18,
+    "original_evaluation_episode_exactly_reproduced": true,
+    "original_evaluation_outcome_modified": false,
+    "continued_policy_unchanged": true,
+    "continued_physics_unchanged": true,
+    "continued_from_actual_live_terminal_state": true,
+    "state_reset_reconstructed_or_forced": false,
+    "manual_reset_bookkeeping_cleared_each_step": true,
+    "initial_root_height_m": 0.7269955277442932,
+    "final_root_height_m": 0.23821307718753815,
+    "visible_motion": "Robot continues losing balance and falls down on the terrain.",
+    "frame_hold_begins_at_seconds": 12.18
+  },
+  "hero_clip": {
+    "published_url": "https://lsh3163.github.io/prism/assets/prism/paper-20261013/rough-friction_0p2-paired-hero.mp4",
+    "physical_window_seconds": [
+      8,
+      20
+    ],
+    "sha256": "08a56045cd7c5ab58d5414d4af7ca76c599acc4330fa7dd2947586d0a92f7e7d",
+    "retimed": false
+  }
+}
