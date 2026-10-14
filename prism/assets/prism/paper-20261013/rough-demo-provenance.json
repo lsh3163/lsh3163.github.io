@@ -1,0 +1,105 @@
+{
+  "schema": "prism_homepage_rough_demo_v1",
+  "source_index_url": "https://lsh3163.github.io/prism/explorer/videos.json",
+  "videos": [
+    {
+      "actor": "prism",
+      "condition_id": "friction_0p2",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-friction_0p2-prism-seed401000.mp4",
+      "video_sha256": "bd5ebc377718a21298ab0d376d1add143306d278b26d4f5a0dd38553c9088b8f",
+      "video_bytes": 647726,
+      "requested_physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1,
+        "payload_kg": 0
+      },
+      "physics": {
+        "foot_friction": 0.2,
+        "global_link_density_ratio": 1,
+        "payload_kg": 0
+      },
+      "command": [
+        0.5,
+        0,
+        0
+      ],
+      "warmup_seconds": 0,
+      "measurement_seconds": 20,
+      "total_horizon_seconds": 20,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "fps": 25,
+      "width": 640,
+      "height": 360,
+      "exact_new_quantitative_trajectory": false,
+      "compatible_with_dataset": "admitted_rough1000_physical_v1"
+    },
+    {
+      "actor": "prism",
+      "condition_id": "nominal",
+      "grid_shape": [
+        21,
+        21
+      ],
+      "root_seed": 401,
+      "geometry_seed": 401,
+      "episode_index": 0,
+      "episode_seed": 401000,
+      "illustrative_replay": true,
+      "exact_quantitative_trajectory": false,
+      "physical_duration_seconds": 20,
+      "termination_reasons": [
+        "time_out"
+      ],
+      "status": "ready",
+      "path": "videos/rough21-nominal-prism-seed401000.mp4",
+      "video_sha256": "a486e0edba8f8478b35c5fb2ad04a2b7219004a936633a7522241ee50e0dc9d4",
+      "video_bytes": 636235,
+      "requested_physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1,
+        "payload_kg": 0
+      },
+      "physics": {
+        "foot_friction": 0.6,
+        "global_link_density_ratio": 1,
+        "payload_kg": 0
+      },
+      "command": [
+        0.5,
+        0,
+        0
+      ],
+      "warmup_seconds": 0,
+      "measurement_seconds": 20,
+      "total_horizon_seconds": 20,
+      "backend": "CPU replay",
+      "device": "cpu",
+      "encoded_duration_seconds": 20.04,
+      "survived_horizon": true,
+      "fps": 25,
+      "width": 640,
+      "height": 360,
+      "exact_new_quantitative_trajectory": false,
+      "compatible_with_dataset": "admitted_rough1000_physical_v1"
+    }
+  ],
+  "transformations": "Native public video bytes retained; posters are original frames at 9 seconds. No replay, retiming, or new evaluation."
+}
