@@ -1,0 +1,116 @@
+{
+  "source": "Current manuscript Figure 5; the same validated induced-drop state, case 2, for all four methods",
+  "method_order": [
+    "ACT",
+    "MCC-Sensorless",
+    "MCC-Oracle",
+    "PRISM"
+  ],
+  "controller_scope": "MCC methods are simulation adaptations around the final100KACTpolicy: sensorless uses a force proxy and oracle uses simulator contact forces; PRISM receives RGB and measured joint positions.",
+  "selection": "Previously selected ACT-failure/PRISM-recovery contrast; no additional outcome or force selection",
+  "first_recovery_s_after_handoff": {
+    "ACT": null,
+    "MCC-Sensorless": null,
+    "MCC-Oracle": null,
+    "PRISM": 0.9500000000000001
+  },
+  "recording_validation": {
+    "physics_rate_hz": 100,
+    "control_rate_hz": 20,
+    "all24physicsfields_checked": true,
+    "allcontrolgeometry_checked": true,
+    "originalhandoff_andRGBhistory_verified": true,
+    "firstcontactRGBexact": true,
+    "physics_samples": {
+      "ACT": 680,
+      "MCC-Sensorless": 680,
+      "MCC-Oracle": 680,
+      "PRISM": 685
+    },
+    "maximum_absolute_physics_difference": {
+      "ACT": 0.0,
+      "MCC-Sensorless": 0.0,
+      "MCC-Oracle": 2.842170943040401e-14,
+      "PRISM": 3.552713678800501e-15
+    }
+  },
+  "native_recording_sha256": {
+    "ACT": "72f10436828fccd51df52006b9f2e6d4851a4ef93973fe6c85f6fc87d27b9115",
+    "MCC-Sensorless": "4648d4f8240ebe71dfeb8b05d86db9536d08d8da7ae6e1cffb6147d22d3d0781",
+    "MCC-Oracle": "642e174fd5d3ecf04df65d84080040d88a9e9d84b8d2f9721f9d20140c1f50bb",
+    "PRISM": "969ae9dc57e13dbd2c99673d83c27b18e945620ca501f5ca393aaa622da6b0e4"
+  },
+  "recovery": {
+    "file": "stackcube-drop-recovery-row.mp4",
+    "dimensions": [
+      1280,
+      336
+    ],
+    "fps": 20,
+    "frames": 134,
+    "duration_s": 6.7,
+    "layout": "1x4: ACT, MCC-Sensorless, MCC-Oracle, PRISM from left to right",
+    "clock": "Same reset, setup prefix and recovery-handoff clock. Native20Hzcontrolendpoints from reset+0.05s throughhandoff+5s.",
+    "termination": "Each successful method stops at its first measured success; its exact terminal image is held and labelled. Failed methods run to the registered5shorizon.",
+    "terminal_native_frame_indices": {
+      "ACT": 669,
+      "MCC-Sensorless": 669,
+      "MCC-Oracle": 669,
+      "PRISM": 264
+    },
+    "held_output_frames": {
+      "ACT": 0,
+      "MCC-Sensorless": 0,
+      "MCC-Oracle": 0,
+      "PRISM": 82
+    },
+    "last_output_frame": {
+      "ACT": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "562b2f9812333e384b77e244bffa633e6784ad0439e9774fe0a17c3c28264ddc",
+        "completion": false
+      },
+      "MCC-Sensorless": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "d3260f8ee68202625942fd4e7c524fed64587fe688ce83a77ac2eb6a83837aca",
+        "completion": false
+      },
+      "MCC-Oracle": {
+        "native_frame_index": 669,
+        "measured_s_after_handoff": 4.999999888241291,
+        "decoded_native_rgb_sha256": "772dd37c3d1b016f4b0ac0a76377a9012666bbbdcbc9c7546703cee0126e8cb1",
+        "completion": false
+      },
+      "PRISM": {
+        "native_frame_index": 264,
+        "measured_s_after_handoff": 0.9499999787658453,
+        "decoded_native_rgb_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "completion": true
+      }
+    },
+    "held_success_frame_check": {
+      "PRISM": {
+        "first_success_native_frame_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "last_display_native_frame_sha256": "f55971211f56462f316a16ce6618d9e04efeb10162dd94ee911e647411a02aab",
+        "identical_source_frame": true
+      }
+    },
+    "held_source_frame_checks": {
+      "count": 82,
+      "all_passed": true
+    }
+  },
+  "transformations": "Same verified native frames, timing, fixed crop and success stop; four horizontal panels, labels and resize-free 320x240 scene crops. No new physics or policy inference.",
+  "assets": {
+    "stackcube-drop-recovery-row.mp4": {
+      "sha256": "7c3c31f52b4a5bf6cd1ffa437f0034a1d41962fcf18d1245f5c2ad51597f331b",
+      "bytes": 506543
+    },
+    "stackcube-drop-recovery-row-poster.jpg": {
+      "sha256": "9339722bc2b2e899eae44459e60e2be0d1695a88c50cb3e13a18778fa5c2c42a",
+      "bytes": 148062
+    }
+  }
+}
